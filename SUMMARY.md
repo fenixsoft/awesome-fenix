@@ -15,9 +15,9 @@
 
 * [Untitled](chapter-3/untitled.md)
 
-## 第四章 技术架构
+## 第四章 技术架构 <a id="chapter-4"></a>
 
-* [Untitled](di-si-zhang-ji-shu-jia-gou/untitled.md)
+* [Untitled](chapter-4/untitled.md)
 
 ## 第五章 项目发布 <a id="chapter-5"></a>
 
