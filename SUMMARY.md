@@ -4,12 +4,12 @@
 
 ## 第一章 前言 <a id="chapter-1"></a>
 
-* [Untitled](chapter-1/untitled.md)
+* [Untitled](chapte1/untitled.md)
 * [Untitled](chapter-1/untitled-1.md)
 
 ## 第二章 快速部署 <a id="chapter-2"></a>
 
-* [Untitled](chapter-2/untitled.md)
+* [Untitled](di-er-zhang-huan-jing-zhun-bei/untitled.md)
 
 ## 第三章 领域组件 <a id="chapter-3"></a>
 
