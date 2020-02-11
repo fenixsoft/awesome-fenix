@@ -1,8 +1,12 @@
 # Table of contents
 
-* [前言](README.md)
+* [凤凰项目（The Fenix Project）](README.md)
 
-## 第一章 环境与依赖 <a id="chapter-1"></a>
+## 第一章 前言 <a id="chapter-1"></a>
 
 * [Untitled](chapte1/untitled.md)
+
+## 第二章 环境准备
+
+* [Untitled](di-er-zhang-huan-jing-zhun-bei/untitled.md)
 
