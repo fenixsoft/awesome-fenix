@@ -16,7 +16,7 @@
 
 由于Kubernetes并不在主流Debian系统自带的软件源中，所以要手工注册，然后才能使用apt-get安装。
 
-官方的GPG Key地址为：https://packages.cloud.google.com/apt/doc/apt-key.gpg，其中包括的软件源的地址为：https://apt.kubernetes.io/（该地址最终又会被重定向至：https://packages.cloud.google.com/apt/）。如果能访问google.com域名的机器，采用以下方法注册apt软件源是最佳的方式：
+官方的GPG Key地址为：[https://packages.cloud.google.com/apt/doc/apt-key.gpg](https://packages.cloud.google.com/apt/doc/apt-key.gpg)，其中包括的软件源的地址为：https://apt.kubernetes.io/（该地址最终又会被重定向至：[https://packages.cloud.google.com/apt/](https://packages.cloud.google.com/apt/)）。如果能访问google.com域名的机器，采用以下方法注册apt软件源是最佳的方式：
 
 ```bash
 # 添加GPG Key
