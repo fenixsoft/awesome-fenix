@@ -4,12 +4,13 @@
 
 ## 第一章 前言 <a id="chapter-1"></a>
 
-* [Untitled](chapte1/untitled.md)
+* [Untitled](chapter-1/untitled.md)
 * [Untitled](chapter-1/untitled-1.md)
 
 ## 第二章 快速部署 <a id="chapter-2"></a>
 
-* [依赖环境准备](chapter-2/untitled.md)
+* [环境准备及安装](chapter-2/huan-jing-zhun-bei-ji-an-zhuang/README.md)
+  * [安装Docker CE容器环境](chapter-2/huan-jing-zhun-bei-ji-an-zhuang/setup-docker.md)
 
 ## 第三章 领域组件 <a id="chapter-3"></a>
 
