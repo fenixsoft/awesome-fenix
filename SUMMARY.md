@@ -9,7 +9,7 @@
 
 ## 第二章 快速部署 <a id="chapter-2"></a>
 
-* [Untitled](di-er-zhang-huan-jing-zhun-bei/untitled.md)
+* [依赖环境准备](chapter-2/untitled.md)
 
 ## 第三章 领域组件 <a id="chapter-3"></a>
 
