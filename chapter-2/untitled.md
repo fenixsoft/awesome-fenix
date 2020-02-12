@@ -29,13 +29,13 @@
 >
 > ```bash
 > $ sudo yum remove docker \
->                      docker-client \
->                      docker-client-latest \
->                      docker-common \
->                      docker-latest \
->                      docker-latest-logrotate \
->                      docker-logrotate \
->                      docker-engine
+>                   docker-client \
+>                   docker-client-latest \
+>                   docker-common \
+>                   docker-latest \
+>                   docker-latest-logrotate \
+>                   docker-logrotate \
+>                   docker-engine
 > ```
 
 ###### 安装Docker依赖工具链及软件源:
@@ -123,7 +123,7 @@ $ sudo docker run hello-world
 
 ###### [可选]配置国内镜像库
 
-由于Docker官方镜像在国内访问缓慢，官方提供了在国内的镜像库：https://registry.docker-cn.com，以加快访问速度。
+由于Docker官方镜像在国内访问缓慢，官方提供了在国内的镜像库：[https://registry.docker-cn.com](https://registry.docker-cn.com)，以加快访问速度。
 
 ```bash
 # 该配置文件及目录，在Docker安装后并不会自动创建
