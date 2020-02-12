@@ -9,8 +9,8 @@
 
 ## 第二章 快速部署 <a id="chapter-2"></a>
 
-* [环境准备及安装](chapter-2/huan-jing-zhun-bei-ji-an-zhuang/README.md)
-  * [安装Docker CE容器环境](chapter-2/huan-jing-zhun-bei-ji-an-zhuang/setup-docker.md)
+* [环境准备及安装](chapter-2/setup/README.md)
+  * [安装Docker CE容器环境](chapter-2/setup/setup-docker.md)
 
 ## 第三章 领域组件 <a id="chapter-3"></a>
 
