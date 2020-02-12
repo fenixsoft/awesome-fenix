@@ -1,4 +1,4 @@
-# 安装Docker CE容器环境
+# 部署Docker CE容器环境
 
 本文为Linux系统安装Docker容器环境的简要说明，主要包括：
 
@@ -120,7 +120,7 @@
 $ sudo docker run hello-world
 ```
 
-## \[可选\]配置国内镜像库
+## \[可选\] 配置国内镜像库
 
 由于Docker官方镜像在国内访问缓慢，官方提供了在国内的镜像库：[https://registry.docker-cn.com](https://registry.docker-cn.com)，以加快访问速度。
 
@@ -162,9 +162,11 @@ $ sudo systemctl stop docker
 $ sudo rm -rf /etc/systemd/system/docker.service.d
 ```
 
-## \[可选\]启用Docker命令行自动补全功能
+## \[可选\] 启用Docker命令行自动补全功能
 
 在控制台输入docker命令时可以获得自动补全能力，提高效率。
+
+Docker自带了bash的命令行补全，用其他shell，如zsh，则需采用zsh的插件或者自行获取补全信息
 
 > bash：
 >
@@ -175,10 +177,14 @@ $ sudo rm -rf /etc/systemd/system/docker.service.d
 > zsh：
 >
 > ```bash
-> $ echo 'source /usr/share/bash-completion/completions/docker' >> ~/.zshrc
+> $ mkdir -p ~/.zsh/completion
+> $ curl -L https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker > ~/.zsh/completion/_docker
+> 
+> $ echo 'fpath=(~/.zsh/completion $fpath)' >> ~/.zshrc
+> $ echo 'autoload -Uz compinit && compinit -u' >> ~/.zshrc
 > ```
 
-## \[可选\]将Docker设置为开机启动
+## \[可选\] 将Docker设置为开机启动
 
 一般使用systemd来管理启动状态
 
