@@ -65,10 +65,10 @@
 > # 将Docker地址注册到软件源中
 > # 注意$(lsb_release -cs)是返回当前发行版的版本代号，例如Ubuntu 18.04是bionic，19.10是eoan
 > # 但在Ubuntu 19.10发布一段时间后，Docker官方并未在源地址中增加eoan目录，导致此命令安装失败，日后在最新的系统上安装Docker，需要注意排查此问题，手动更改版本代号完成安装
-> $sudo add-apt-repository \
->    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
->    $(lsb_release -cs) \
->    stable"
+> $ sudo add-apt-repository \
+>     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+>     $(lsb_release -cs) \
+>     stable"
 > ```
 >
 > RedHat系：
@@ -131,13 +131,13 @@ $ sudo mkdir -p /etc/docker
 # 配置加速地址
 $ sudo tee /etc/docker/daemon.json <<-'EOF'
 {
-"registry-mirrors": ["https://registry.docker-cn.com"]
+   "registry-mirrors": ["https://registry.docker-cn.com"]
 }
 EOF
 
 # 重启服务
-$sudo systemctl daemon-reload
-$sudo systemctl restart docker
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
 ```
 
 注意：以上操作有两个关注点：
