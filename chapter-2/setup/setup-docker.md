@@ -14,7 +14,7 @@
 
 如用的其他Linux发行版，如Gentoo、Archlinux、OpenSUSE等，建议自行安装二进制包。
 
-## 移除旧版本Docker
+#### 移除旧版本Docker
 
 如果以前已经安装过旧版本的Docker（可能会被称为docker，docker.io 或 docker-engine），需先行卸载。
 
@@ -37,7 +37,7 @@
 >                   docker-engine
 > ```
 
-## 安装Docker依赖工具链及软件源
+#### 安装Docker依赖工具链及软件源
 
 在Debian上主要是为了apt能够正确使用HTTPS协议，并将Docker官方的GPG Key（GNU Privacy Guard，包的签名机制）和软件源地址注册到软件源中。
 
@@ -84,7 +84,7 @@
 >        https://download.docker.com/linux/centos/docker-ce.repo
 > ```
 
-## 更新系统软件仓库
+#### 更新系统软件仓库
 
 > Debian系：
 >
@@ -98,7 +98,7 @@
 > $ sudo yum update
 > ```
 
-## 安装Docker-Engine Community
+#### 安装Docker-Engine Community
 
 > Debian系：
 >
@@ -112,7 +112,7 @@
 > $ sudo yum install docker-ce docker-ce-cli containerd.io
 > ```
 
-## 确认Docker安装是否成功
+#### 确认Docker安装是否成功
 
 直接运行官方的hello-world镜像测试安装是否成功
 
@@ -120,7 +120,7 @@
 $ sudo docker run hello-world
 ```
 
-## \[可选\] 配置国内镜像库
+#### \[可选\] 配置国内镜像库
 
 由于Docker官方镜像在国内访问缓慢，官方提供了在国内的镜像库：[https://registry.docker-cn.com](https://registry.docker-cn.com)，以加快访问速度。
 
@@ -162,7 +162,7 @@ $ sudo systemctl stop docker
 $ sudo rm -rf /etc/systemd/system/docker.service.d
 ```
 
-## \[可选\] 启用Docker命令行自动补全功能
+#### \[可选\] 启用Docker命令行自动补全功能
 
 在控制台输入docker命令时可以获得自动补全能力，提高效率。
 
@@ -179,12 +179,12 @@ Docker自带了bash的命令行补全，用其他shell，如zsh，则需采用zs
 > ```bash
 > $ mkdir -p ~/.zsh/completion
 > $ curl -L https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker > ~/.zsh/completion/_docker
->
+> 
 > $ echo 'fpath=(~/.zsh/completion $fpath)' >> ~/.zshrc
 > $ echo 'autoload -Uz compinit && compinit -u' >> ~/.zshrc
 > ```
 
-## \[可选\] 将Docker设置为开机启动
+#### \[可选\] 将Docker设置为开机启动
 
 一般使用systemd来管理启动状态
 
@@ -196,7 +196,7 @@ $ sudo systemctl enable docker
 $ sudo systemctl start docker
 ```
 
-## 卸载Docker
+#### 卸载Docker
 
 > Debian系：
 >
