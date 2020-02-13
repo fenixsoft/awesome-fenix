@@ -9,12 +9,11 @@
 
 ## 第二章 快速部署 <a id="chapter-2"></a>
 
-* [环境准备及安装](chapter-2/huan-jing-zhun-bei-ji-an-zhuang/README.md)
-  * [部署Docker CE容器环境](chapter-2/setup/setup-docker.md)
-  * [部署Kubernetes](chapter-2/setup/setup-kubernetes/README.md)
-    * [使用Kubeadm部署Kubernetes集群](chapter-2/setup/setup-kubernetes/setup-kubeadm.md)
-    * [通过Minikube部署单节点环境](chapter-2/setup/setup-kubernetes/setup-minikube.md)
-    * [使用Rancher建立Kubernetes集群](chapter-2/setup/setup-kubernetes/setup-rancher.md)
+* [环境准备及安装](chapter-2/env-setup/README.md)
+  * [部署Docker CE容器环境](chapter-2/env-setup/setup-docker.md)
+  * [部署Kubernetes](chapter-2/env-setup/setup-kubernetes/README.md)
+    * [使用Kubeadm部署Kubernetes集群](chapter-2/env-setup/setup-kubernetes/setup-kubeadm.md)
+    * [使用Rancher建立Kubernetes集群](chapter-2/env-setup/setup-kubernetes/setup-rancher.md)
 
 ## 第三章 领域组件 <a id="chapter-3"></a>
 
