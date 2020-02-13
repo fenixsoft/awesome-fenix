@@ -4,16 +4,15 @@
 
 ## 第一章 前言 <a id="chapter-1"></a>
 
-* [Untitled](chapter-1/untitled.md)
-* [Untitled](chapter-1/untitled-1.md)
+* [阅读约定](chapter-1/contract.md)
 
 ## 第二章 快速部署 <a id="chapter-2"></a>
 
-* [环境准备及安装](chapter-2/huan-jing-zhun-bei-ji-an-zhuang/README.md)
-  * [部署Docker CE容器环境](chapter-2/setup/setup-docker.md)
+* [环境准备及安装](chapter-2/env-setup/README.md)
+  * [部署Docker CE容器环境](chapter-2/env-setup/setup-docker.md)
   * [部署Kubernetes集群](chapter-2/env-setup/setup-kubernetes/README.md)
-    * [使用Kubeadm部署Kubernetes集群](chapter-2/setup/setup-kubernetes/setup-kubeadm.md)
-    * [使用Rancher建立Kubernetes集群](chapter-2/setup/setup-kubernetes/setup-rancher.md)
+    * [使用Kubeadm部署Kubernetes集群](chapter-2/env-setup/setup-kubernetes/setup-kubeadm.md)
+    * [使用Rancher建立Kubernetes集群](chapter-2/env-setup/setup-kubernetes/setup-rancher.md)
 
 ## 第三章 领域组件 <a id="chapter-3"></a>
 
