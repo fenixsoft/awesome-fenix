@@ -13,6 +13,7 @@
   * [部署Kubernetes集群](chapter-2/env-setup/setup-kubernetes/README.md)
     * [使用Kubeadm部署Kubernetes集群](chapter-2/env-setup/setup-kubernetes/setup-kubeadm.md)
     * [使用Rancher建立Kubernetes集群](chapter-2/env-setup/setup-kubernetes/setup-rancher.md)
+    * [使用Minikube安装Kubernetes集群](chapter-2/env-setup/setup-kubernetes/setup-minikube.md)
 
 ## 第三章 领域组件 <a id="chapter-3"></a>
 
