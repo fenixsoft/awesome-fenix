@@ -84,7 +84,6 @@ $ yes | cp /etc/fstab /etc/fstab_bak
 $ cat /etc/fstab_bak | grep -v swap > /etc/fstab
 ```
 
-
 > **可选操作**
 >
 > 当然，在服务器上使用的话，关闭Swap影响还是很大的，如果服务器除了Kubernetes还有其他用途的话（除非实在太穷，否则建议不要这样混用；一定要混用的话，宁可把其他服务搬到Kubernetes上）。关闭Swap有可能会对其他服务产生不良的影响，这时需要修改每个节点的kubelet配置，去掉必须关闭Swap的默认限制，具体操作为：
@@ -103,11 +102,10 @@ $ cat /etc/fstab_bak | grep -v swap > /etc/fstab
 > * [rktlet ](https://github.com/kubernetes-incubator/rktlet)：rkt容器运行时
 > * [Frakti ](https://github.com/kubernetes/frakti)：一种基于Hypervisor的容器运行时
 > * [Docker CRI shim ](https://github.com/kubernetes/kubernetes/tree/release-1.5/pkg/kubelet/dockershim)：支持Docker直接充当CRI适配器
->
 
 在这里我们要修改Docker或者Kubernetes其中一个的cgroup驱动，以便两者统一。根据官方文档《[CRI installation](https://kubernetes.io/docs/setup/cri/)》中的建议，对于使用systemd作为引导系统的Linux的发行版，使用systemd作为Docker的cgroup驱动程序可以服务器节点在资源紧张的情况表现得更为稳定。
 
-> **额外知识** 
+> **额外知识**
 >
 > cgroups是Linux内核提供的一种可以限制单个进程或者多个进程所使用资源的机制，可以对cpu，内存等资源实现精细化的控制。
 
@@ -212,7 +210,7 @@ $ kubectl apply -f  kube-flannel.yml
 
 使用Flannel的话，要注意要在创建集群时加入“--pod-network-cidr”参数，指明网段划分。
 
-## [可选\] 移除Master节点上的污点
+## \[可选\] 移除Master节点上的污点
 
 污点（Taint）是Kubernetes Pod调度中的概念，在这里通俗地理解就是Kubernetes决定在集群中的哪一个节点建立新的容器时，要先排除掉带有特定污点的节点，以避免容器在Kubernetes不希望运行的节点中创建、运行。默认情况下，集群的Master节点是会带有污点的，以避免容器分配到Master中创建。但对于许多学习Kubernetes的同学来说，并没有多宽裕的机器数量，往往是建立单节点集群或者最多只有两、三个节点，这样Master节点不能运行容器就显得十分浪费了。需要移除掉Master节点上所有的污点，在Master节点上执行以下命令即可：
 
