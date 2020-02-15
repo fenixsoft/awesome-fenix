@@ -9,9 +9,9 @@
 ## 第二章 快速部署 <a id="chapter-2"></a>
 
 * [开发环境](chapter-2/development-env-setup/README.md)
-  * [安装基础开发依赖](chapter-2/development-env-setup/an-zhuang-ji-chu-kai-fa-yi-lai.md)
+  * [安装基础开发依赖](chapter-2/development-env-setup/base-setup.md)
   * [使用IntelliJ Idea进行开发调试](chapter-2/development-env-setup/idea-setup.md)
-  * [使用Eclipse进行开发调试](chapter-2/development-env-setup/shi-yong-eclipse-jin-hang-kai-fa-tiao-shi.md)
+  * [使用Eclipse进行开发调试](chapter-2/development-env-setup/eclipse-setup.md)
 * [部署环境](chapter-2/deployment-env-setup/README.md)
   * [部署Docker CE容器环境](chapter-2/deployment-env-setup/setup-docker.md)
   * [部署Kubernetes集群](chapter-2/deployment-env-setup/setup-kubernetes/README.md)
