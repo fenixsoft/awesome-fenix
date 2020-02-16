@@ -4,7 +4,7 @@
 
 ## 第一章 前言 <a id="chapter-1"></a>
 
-* [阅读约定](chapter-1/contract.md)
+* [阅读约定](chapter-1/user-contract.md)
 
 ## 第二章 快速部署 <a id="chapter-2"></a>
 
