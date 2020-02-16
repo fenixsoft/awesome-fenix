@@ -28,7 +28,16 @@
 
 ## 第四章 技术架构 <a id="chapter-4"></a>
 
-* [Untitled](chapter-4/untitled.md)
+* [日志](chapter-4/logging.md)
+* [安全及认证](chapter-4/security.md)
+* [服务发现](chapter-4/service-discovery.md)
+* [服务注册与消费](chapter-4/service-register-consumer.md)
+* [服务网关与路由](chapter-4/service-gateway.md)
+* [链路治理](chapter-4/invokechain-manage/README.md)
+  * [流控](chapter-4/invokechain-manage/traffic-control.md)
+  * [异常注入](chapter-4/invokechain-manage/exception-inject.md)
+  * [链路跟踪](chapter-4/invokechain-manage/invokechain-trace.md)
+* [队列与消息总线](chapter-4/message-queue-bus.md)
 
 ## 第五章 项目发布 <a id="chapter-5"></a>
 
