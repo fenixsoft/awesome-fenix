@@ -122,7 +122,7 @@ $ sudo docker run hello-world
 
 ## \[可选\] 配置国内镜像库
 
-由于Docker官方镜像在国内访问缓慢，官方提供了在国内的镜像库：[https://registry.docker-cn.com](https://registry.docker-cn.com)，以加快访问速度。
+由于Docker官方镜像在国内访问缓慢，官方提供了在国内的镜像库：[https://registry.docker-cn.com](https://registry.docker-cn.com)，以加快访问速度（但其实体验也并不快）。
 
 ```bash
 # 该配置文件及目录，在Docker安装后并不会自动创建
@@ -140,12 +140,15 @@ $ sudo systemctl daemon-reload
 $ sudo systemctl restart docker
 ```
 
-注意：以上操作有两个关注点：
+> **注意**
+>
+> 以上操作有两点提醒读者重点关注：
+>
+> 1. 必须保证daemon.json文件中完全符合JSON格式，如果错了，Docker不会给提示，直接起不来。
+> 2. 如果Docker是作为systemd管理的服务的，daemon.json文件会处于锁定状态，应先关闭后再修改配置；
+>
 
-1. 必须保证daemon.json文件中完全符合JSON格式；
-2. 如果Docker是作为systemd管理的服务的，daemon.json文件会处于锁定状态，应先关闭后再修改配置；
-
-这两点出了问题都会导致Docker服务直接无法启动，通过systemd status会得到似如下的错误：
+这两点出了问题都会导致Docker服务直接无法启动，如果出现该情况，可以通过systemd status命令检查，看是否有类似如下的错误提示：
 
 ```bash
  Drop-In: /etc/systemd/system/docker.service.d
@@ -155,11 +158,43 @@ $ sudo systemctl restart docker
  Main PID: 21151 (code=exited, status=1/FAILURE)
 ```
 
-关闭systemd服务的方法是：
+如果是，修改daemon.json后重新启动即可。另，关闭systemd服务的方法是：
 
 ```bash
 $ sudo systemctl stop docker
 $ sudo rm -rf /etc/systemd/system/docker.service.d
+```
+
+最后，Docker的官方国内镜像库的速度只能说比起访问国外好了一丢丢，聊胜于无。国内还有一些公开的镜像库，如微软的、网易的等，但要么是不稳定，要么也是慢。比较靠谱的是阿里云的镜像库，但这个服务并不是公开的，需要使用者先到阿里云去申请开发者账户，再使用加速服务，申请后会得一个类似于“https://yourname.mirror.aliyuncs.com”的私有地址，把它设置到daemon.json中即可使用。
+
+## [可选\] 为Docker设置代理
+
+另外一种解决Docker镜像下载速度慢的方案就是使用代理，Docker的代理可以直接读取系统的全局代理，即系统中的HTTP_PROXY、HTTPS_PROXY两个环境变量。不过，如果设置这两个变量，其他大量Linux下的其他工具也会受到影响，所以建议的方式是给Docker服务设置专有的环境变量，我们使用Systemd来管理Docker服务，那直接给这个服务设置一个额外配置即可，操作如下：
+
+```bash
+sudo mkdir -p /etc/systemd/system/docker.service.d
+
+# 配置代理地址，支持http、https、socks、socks5等协议
+$ sudo tee /etc/systemd/system/docker.service.d/http-proxy.conf <<-'EOF'
+[Service]
+Environment="HTTP_PROXY=socks5://192.168.31.125:2012"
+EOF
+
+#重启docker
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
+```
+
+设置后可以通过systemctl检查一下环境变量，看看是否有设置成功：
+
+```bash
+$ systemctl show --property=Environment docker
+```
+
+输出：
+
+```bash
+Environment=HTTP_PROXY=socks5://192.168.31.125:2012
 ```
 
 ## \[可选\] 启用Docker命令行自动补全功能

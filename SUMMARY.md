@@ -4,7 +4,7 @@
 
 ## 第一章 前言 <a id="chapter-1"></a>
 
-* [阅读约定](chapter-1/user-contract.md)
+* [阅读约定](chapter-1/contract.md)
 
 ## 第二章 快速部署 <a id="chapter-2"></a>
 
@@ -28,8 +28,9 @@
 
 ## 第四章 技术架构 <a id="chapter-4"></a>
 
+* [参数配置管理](chapter-4/configuration.md)
 * [日志](chapter-4/logging.md)
-* [安全及认证](chapter-4/security.md)
+* [安全及认证](chapter-4/untitled.md)
 * [服务发现](chapter-4/service-discovery.md)
 * [服务注册与消费](chapter-4/service-register-consumer.md)
 * [服务网关与路由](chapter-4/service-gateway.md)
@@ -46,4 +47,8 @@
 ## 第六章 测试与性能度量 <a id="chatper-6"></a>
 
 * [Untitled](chatper-6/untitled.md)
+
+## 概念与思想
+
+* [Untitled](gai-nian-yu-si-xiang/untitled.md)
 
