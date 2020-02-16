@@ -197,7 +197,37 @@ $ systemctl show --property=Environment docker
 Environment=HTTP_PROXY=socks5://192.168.31.125:2012
 ```
 
-## \[可选\] 启用Docker命令行自动补全功能
+## [可选] 开放Docker远程服务
+
+如果需要在其他机器上管理Docker——譬如典型的如在IntelliJ IDEA这类IDE环境中给远程Docker部署镜像，那可以开启Docker的远程管理端口，这步没有设置任何安全访问措施，请不要在生产环境中进行。
+
+具体做法是修改Docker的服务配置：
+
+> Debian系：
+>
+> ```bash
+> $ vim /lib/systemd/system/docker.service
+> ```
+>
+> RedHat系：
+>
+> ```bash
+> $ sudo /usr/lib/systemd/system/docker.service
+> ```
+
+在ExexStart后面增加以下参数（2375端口可以自定义）：
+
+```bash
+-H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock
+```
+
+譬如，默认安装完Docker，修改之后完整的ExexStart应当如下所示：
+
+```bash
+ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock
+```
+
+## [可选\] 启用Docker命令行自动补全功能
 
 在控制台输入docker命令时可以获得自动补全能力，提高效率。
 
