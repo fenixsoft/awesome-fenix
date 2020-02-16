@@ -46,6 +46,9 @@
 
 ## 第五章 项目发布 <a id="chapter-5"></a>
 
+* [构建发布脚本](chapter-5/build-script.md)
+* [持续集成](chapter-5/continuous-integration.md)
+* [灰度发布](chapter-5/gated-launch.md)
 * [Untitled](chapter-5/untitled.md)
 
 ## 第六章 测试与性能度量 <a id="chatper-6"></a>
