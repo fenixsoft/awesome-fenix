@@ -1,4 +1,4 @@
-# 目录
+# Table of contents
 
 * [The Fenix Project](README.md)
 
@@ -6,21 +6,21 @@
 
 * [阅读约定](introduction/contract.md)
 
-## 快速部署 <a id="quick-depoly"></a>
+## 快速部署 <a id="depolyment"></a>
 
-* [开发环境](quick-depoly/development-env-setup/README.md)
-  * [安装基础开发依赖](quick-depoly/development-env-setup/base-setup.md)
-  * [使用IntelliJ Idea进行开发调试](quick-depoly/development-env-setup/idea-setup.md)
-  * [使用Eclipse进行开发调试](quick-depoly/development-env-setup/eclipse-setup.md)
-* [部署环境](quick-depoly/deployment-env-setup/README.md)
-  * [部署Docker CE容器环境](quick-depoly/deployment-env-setup/setup-docker.md)
-  * [部署Kubernetes集群](quick-depoly/deployment-env-setup/setup-kubernetes/README.md)
-    * [使用Kubeadm部署Kubernetes集群](quick-depoly/deployment-env-setup/setup-kubernetes/setup-kubeadm.md)
-    * [使用Rancher建立Kubernetes集群](quick-depoly/deployment-env-setup/setup-kubernetes/setup-rancher.md)
-    * [使用Minikube安装Kubernetes集群](quick-depoly/deployment-env-setup/setup-kubernetes/setup-minikube.md)
-* [运维环境](quick-depoly/operation-env-setup/README.md)
-  * [在K8S上部署DevOps](quick-depoly/operation-env-setup/devops-setup.md)
-  * [在K8S上部署ELK/EFK日志监控](quick-depoly/operation-env-setup/elk-setup.md)
+* [开发环境](depolyment/development-env-setup/README.md)
+  * [安装基础开发依赖](depolyment/development-env-setup/base-setup.md)
+  * [使用IntelliJ Idea进行开发调试](depolyment/development-env-setup/idea-setup.md)
+  * [使用Eclipse进行开发调试](depolyment/development-env-setup/eclipse-setup.md)
+* [部署环境](depolyment/deployment-env-setup/README.md)
+  * [部署Docker CE容器环境](depolyment/deployment-env-setup/setup-docker.md)
+  * [部署Kubernetes集群](depolyment/deployment-env-setup/setup-kubernetes/README.md)
+    * [使用Kubeadm部署Kubernetes集群](depolyment/deployment-env-setup/setup-kubernetes/setup-kubeadm.md)
+    * [使用Rancher建立Kubernetes集群](depolyment/deployment-env-setup/setup-kubernetes/setup-rancher.md)
+    * [使用Minikube安装Kubernetes集群](depolyment/deployment-env-setup/setup-kubernetes/setup-minikube.md)
+* [运维环境](depolyment/operation-env-setup/README.md)
+  * [在K8S上部署DevOps](depolyment/operation-env-setup/devops-setup.md)
+  * [在K8S上部署ELK/EFK日志监控](depolyment/operation-env-setup/elk-setup.md)
 
 ## 架构风格 <a id="architecture"></a>
 
@@ -58,8 +58,4 @@
 * [构建发布脚本](release/build-script.md)
 * [持续集成](release/continuous-integration.md)
 * [灰度发布](release/gated-launch.md)
-
-## 测试与性能度量 <a id="quality-assurance"></a>
-
-## 概念与思想 <a id="concepts"></a>
 
