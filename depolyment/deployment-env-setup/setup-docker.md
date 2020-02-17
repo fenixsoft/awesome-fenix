@@ -52,7 +52,7 @@
 >                        software-properties-common
 >                        
 > # 注册Docker官方GPG公钥
-> $ curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
+> $ sudo curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 >
 > # 检查Docker官方GPG公钥指纹是否正确
 > $ sudo apt-key fingerprint 0EBFCD88
@@ -205,13 +205,13 @@ Environment=HTTP_PROXY=socks5://192.168.31.125:2012
 > Debian系：
 >
 > ```bash
-> $ vim /lib/systemd/system/docker.service
+> $ sudo vim /lib/systemd/system/docker.service
 > ```
 >
 > RedHat系：
 >
 > ```bash
-> $ sudo /usr/lib/systemd/system/docker.service
+> $ sudo vim /usr/lib/systemd/system/docker.service
 > ```
 
 在ExexStart后面增加以下参数（2375端口可以自定义）：
@@ -225,6 +225,15 @@ Environment=HTTP_PROXY=socks5://192.168.31.125:2012
 ```bash
 ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock
 ```
+最后重启Docker服务即可：
+
+```bash
+#重启docker
+$ sudo systemctl daemon-reload
+$ sudo systemctl restart docker
+```
+
+
 
 ## \[可选\] 启用Docker命令行自动补全功能
 

@@ -8,7 +8,7 @@
 >
 > 1. 安装Kubernetes集群，需要从谷歌的仓库中拉取镜像，由于国内访问谷歌的网络受阻，需要通过科学上网或者在Docker中预先拉取好所需镜像等方式解决。
 > 2. 集群中每台机器的Hostname不要重复，否则Kubernetes从不同机器收集状态信息时会产生干扰，被认为是同一台机器。
-> 3. 安装Kubernetes最小需要2核CPU、2GB内存，且为x86架构（暂不支持ARM架构）。对于物理机来说，今时今日要找一台不满足以上条件的机器很困难，但对于云主机来说，尤其是购买网站上最低配置的同学，要注意一下是否达到了最低要求，不清楚的话使用lscpu命令确认一下。
+> 3. 安装Kubernetes最小需要2核CPU、2GB内存，且为x86架构（暂不支持ARM架构）。对于物理机来说，今时今日要找一台不满足以上条件的机器很困难，但对于云主机来说，尤其是购买网站上最低配置的同学，要注意一下是否达到了最低要求，不清楚的话请在/proc/cpuinf、/proc/meminfo中确认一下。
 > 4. 确保网络通畅的——这听起来像是废话，但确实有相当一部分的云主机默认不对selinux、iptable、安全组、防火墙进行设置的话，内网各个节点之间、与外网之间会存在访问障碍，导致部署失败。
 
 ## 注册apt软件源
@@ -19,7 +19,7 @@
 
 ```bash
 # 添加GPG Key
-$ curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -
+$ sudo curl -fsSL https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 
 # 添加K8S软件源
 $ sudo add-apt-repository "deb https://apt.kubernetes.io/ kubernetes-xenial main"
@@ -41,7 +41,7 @@ $ sudo add-apt-repository "deb https://apt.kubernetes.io/ kubernetes-xenial main
 
 ```bash
 # 添加GPG Key
-$ curl -s http://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | apt-key add -
+$ curl -fsSL http://mirrors.aliyun.com/kubernetes/apt/doc/apt-key.gpg | sudo apt-key add -
 
 # 添加K8S软件源
 $ sudo add-apt-repository "deb http://mirrors.aliyun.com/kubernetes/apt kubernetes-xenial main"
@@ -50,7 +50,7 @@ $ sudo add-apt-repository "deb http://mirrors.aliyun.com/kubernetes/apt kubernet
 添加源后记得执行一次更新：
 
 ```bash
-$ sudo apt-get update && apt-get upgrade
+$ sudo apt-get update
 ```
 
 ## 安装kubelet、kubectl、kubeadm
@@ -71,7 +71,7 @@ $ sudo apt-get install -y kubelet kubeadm kubectl
 
 在使用kubeadm初始化集群之前，还有一些必须的前置工作要妥善处理：
 
-首先，基于安全性（如在文档中承诺的Secret只会在内存中读写）、利于保证节点同步一致性等原因，Kubernetes在它的文档中明确提到了它**默认不支持Swap分区**，在未关闭Swap分区时，集群将直接无法启动。关闭Swap的命令为：
+首先，基于安全性（如在文档中承诺的Secret只会在内存中读写）、利于保证节点同步一致性等原因，从1.8版开始，Kubernetes就在它的文档中明确声明了它**默认不支持Swap分区**，在未关闭Swap分区时，集群将直接无法启动。关闭Swap的命令为：
 
 ```bash
 $ sudo swapoff -a
@@ -80,8 +80,11 @@ $ sudo swapoff -a
 上面这个命令是一次性的，只在当前这次启动中生效，要彻底关闭Swap分区，需要在文件系统分区表的配置文件中去直接除掉Swap分区。使用vim打开/etc/fstab，注释其中带有swap的行即可，或使用以下命令直接完成修改：
 
 ```bash
-$ yes | cp /etc/fstab /etc/fstab_bak
-$ cat /etc/fstab_bak | grep -v swap > /etc/fstab
+# 还是先备份一下
+$ yes | sudo cp /etc/fstab /etc/fstab_bak
+
+# 进行修改
+$ sudo cat /etc/fstab_bak | grep -v swap > /etc/fstab
 ```
 
 > **可选操作**
@@ -97,7 +100,7 @@ $ cat /etc/fstab_bak | grep -v swap > /etc/fstab
 > **额外知识**
 >
 > Kubernetes是在Docker之上做容器编排的，为什么它的cgroup驱动会被设计成与Docker的不一致？
-> 
+>
 > 尽管可能绝大多数的Kubernetes都是使用Docker作为容器配合使用的，但这两者并没有什么绝对绑定的依赖关系，Kubenetes对其管理的容器发布了一套名为”容器运行时接口“（Container Runtime Interface，CRI）的API，这套API在设计上，刻意兼容了”容器开放联盟“（Open Container Initiative，OCI）所制定的容器运行时标准，其他符合OCI标准的容器，同样也是可以与Kubernetes配合工作的，常见的有以下四种：
 >
 > * [CRI-O ](https://github.com/kubernetes-incubator/cri-o)：由Kubernetes自己发布的ORI参考实现
@@ -122,15 +125,16 @@ $ cat /etc/fstab_bak | grep -v swap > /etc/fstab
 然后重新启动Docker容器：
 
 ```bash
-$ systemctl daemon-reload
 $ systemctl restart docker
 ```
 
 ## \[可选\] 预拉取镜像
 
-预拉取镜像并不是必须的，本来初始化集群的时候系统就会自动拉取Kubernetes中要使用到的Docker镜像组件，而且要手工来进行这项工作，实在非常非常非常的繁琐。
+预拉取镜像并不是必须的，本来初始化集群的时候系统就会自动拉取Kubernetes中要使用到的Docker镜像组件，也提供了一个“kubeadm config images pull”命令来一次性的完成拉取，这都是因为如果要手工来进行这项工作，实在非常非常非常的繁琐。
 
-但对于许多人来说这项工作往往又是无可奈何的，Kubernetes的镜像都存储在k8s.gcr.io上，如果您的机器无法直接访问gcr.io（属于谷歌的地址）的话，初始化集群时自动拉取就无法顺利进行，所以必须得手工预拉取。预拉取的意思是，由于Docker只要查询到本地有相同（名称、版本、tag）的镜像，就不会访问远程仓库，那只要从GitHub上拉取到所需的镜像，再将tag修改成官方的一致，就可以跳过网络访问阶段。
+但对于许多人来说这项工作往往又是无可奈何的，Kubernetes的镜像都存储在k8s.gcr.io上，如果您的机器无法直接或通过代理访问到gcr.io（Google Container Registry，敲黑板：这是属于谷歌的网址）的话，初始化集群时自动拉取就无法顺利进行，所以就不得不手工预拉取。
+
+预拉取的意思是，由于Docker只要查询到本地有相同（名称和tag完全相同、哈希相同）的镜像，就不会访问远程仓库，那只要从GitHub上拉取到所需的镜像，再将tag修改成官方的一致，就可以跳过网络访问阶段。
 
 首先使用以下命令查询当前版本需要哪些镜像：
 
@@ -149,7 +153,7 @@ k8s.gcr.io/coredns:1.6.5
 
 这里必须使用“--kubernetes-version”参数指定具体版本，因为尽管每个版本需要的镜像信息在本地是有存储的，但如果不加的话，Kubernetes会向远程查询最新的版本号，又会因网络无法访问而导致问题。
 
-得到这些镜像名称和tag后，可以从[DockerHub](https://hub.docker.com)上找存有相同镜像的仓库来拉取，具体哪些公开仓库有，需要自行到网站上查询一下，笔者比较常用的是一个名为“anjia0532”的仓库，有机器人自动跟官方同步，相对比较及时。
+得到这些镜像名称和tag后，可以从[DockerHub](https://hub.docker.com)上找存有相同镜像的仓库来拉取，至于具体哪些公开仓库有，考虑到以后阅读本文时Kubernetes的版本应该会有所差别，所以需要自行到网站上查询一下。笔者比较常用的是一个名为“anjia0532”的仓库，有机器人自动跟官方同步，相对比较及时。
 
 ```bash
 #以k8s.gcr.io/coredns:1.6.5为例，每个镜像都要这样处理一次
@@ -162,9 +166,9 @@ $ docker tag anjia0532/google-containers.coredns:1.6.5 k8s.gcr.io/coredns:1.6.5
 $ docker rmi anjia0532/google-containers.coredns:1.6.5
 ```
 
-## 初始化集群控制节点
+## 初始化集群控制平面
 
-到了这里，终于可以开始Master节点的部署了，使用以下命令完成：
+到了这里，终于可以开始Master节点的部署了，先通过su直接切换到root用户（而不是使用sudo），然后使用以下命令开始部署：
 
 ```bash
 $ kubeadm init --kubernetes-version v1.17.3 --pod-network-cidr=10.244.0.0/16
@@ -174,23 +178,21 @@ $ kubeadm init --kubernetes-version v1.17.3 --pod-network-cidr=10.244.0.0/16
 
 当看到下面信息之后，说明集群主节点已经安装完毕了。
 
-```text
-Your Kubernetes master has initialized successfully!
-```
+![](D:\develop\awesome-fenix\depolyment\deployment-env-setup\setup-kubernetes\images\kubernetes-initialized.png)
 
-不过这行字后面，还会有三行“you need……”、“you should……”、“you can……”开头的内容，这是三项“可选”的工作，下面继续介绍。
+这信息先恭喜你已经把控制平面安装成功了，但还有三行“you need……”、“you should……”、“you can……”开头的内容，这是三项后续的“可选”工作，下面继续介绍。
 
 ## \[可选\] 让非Root用户可以使用Kubernetes
 
-Kubernetes通常是以root用户安装的，如果需要非root的其他用户也可以使用Kubernetes集群，那需要为该用户先配置好admin.conf文件。操作如下：
+Kubernetes最初是以root用户安装的，如果需要非root的其他用户也可以使用Kubernetes集群，那需要为该用户先配置好admin.conf文件。切换至该用户后，进行如下操作：
 
 ```bash
-$ sudo cp /etc/kubernetes/admin.conf $HOME/
-$ sudo chown $(id -u):$(id -g) $HOME/admin.conf
-$ export KUBECONFIG=$HOME/admin.conf
+$ mkdir -p $HOME/.kube
+$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-如果后续都准备使用root运行，那这个步骤可以略过。
+当然，如果只是在测试环境，准备后续都准备使用root运行，那这个步骤可以略过。
 
 ## \[可选\] 安装CNI插件
 
@@ -220,24 +222,36 @@ $ kubectl apply -f  kube-flannel.yml
 $ kubectl taint nodes --all node-role.kubernetes.io/master-
 ```
 
+做到这步，如果你只有一台机器的话，那Kubernetes的安装已经宣告结束了，可以使用此环境来完成后续所有的部署。你还可以通过cluster-info和get nodes子命令来查看一下集群的状态，类似如下所示：
+
+![](D:\develop\awesome-fenix\depolyment\deployment-env-setup\setup-kubernetes\images\kubernetes-setup-completed.png)
+
 ## \[可选\] 启用kubectl命令自动补全功能
 
-由于kubectl命令在后面十分常用，而且Kubernetes许多资源名称都带有随机字符，要手工照着敲很容易出错，强烈推荐启用命令自动补全的功能，这里仅以bash为例，如果您使用zsh等其他shell，需自行调整：
+由于kubectl命令在后面十分常用，而且Kubernetes许多资源名称都带有随机字符，要手工照着敲很容易出错，强烈推荐启用命令自动补全的功能，这里仅以bash和笔者常用的zsh为例，如果您使用其他shell，需自行调整：
 
-```bash
-$ echo 'source <(kubectl completion bash)' >> ~/.bashrc
-$ echo 'source /usr/share/bash-completion/bash_completion' >> ~/.bashrc
-```
+> bash：
+>
+> ```bash
+> $ echo 'source <(kubectl completion bash)' >> ~/.bashrc
+> $ echo 'source /usr/share/bash-completion/bash_completion' >> ~/.bashrc
+> ```
+>
+> zsh：
+>
+> ```bash
+> $ echo 'source <(kubectl completion zsh)' >> !/.zshrc
+> ```
 
 ## 将其他Node节点加入到Kubernetes集群中
 
 在安装Master节点时候，输出的最后一部分内容会类似如下所示：
 
 ```text
-You can now join any number of machines by running the following on each node
-as root:
+Then you can join any number of worker nodes by running the following on each as root:
 
-  kubeadm join 172.16.143.171:6443 --token 7ywghw.pbq0fkwpz3c5jozk --discovery-token-ca-cert-hash sha256:b30445a8098e1e025ce703e7c1bae82567e0f892039489630d39608e77a41b89
+  kubeadm join 10.3.7.5:6443 --token ejg4tt.y08moym055dn9i32 \
+    --discovery-token-ca-cert-hash sha256:9d2079d2844fa2953d33cc0da57ab15f571e974aa40ccb50edde12c5e906d513
 ```
 
 这部分内容是告诉用户，集群的Master节点已经建立完毕，其他节点的机器可以使用“kubeadm join”命令加入集群。这些机器只要完成kubeadm、kubelet、kubectl的安装即可、其他的所有步骤，如拉取镜像、初始化集群等等都不需要去做，就是可以使用该命令加入集群了。需要注意的是，该Token的有效时间为24小时，如果超时，使用以下命令重新获取：
