@@ -222,7 +222,7 @@ $ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 ## \[可选\] 启用kubectl命令自动补全功能
 
-由于kubectl命令在后面十分常用，而且Kubernetes许多资源名称都带有随机字符，要手工照着敲很容易出错，强烈推荐启用命令自动补全的功能：
+由于kubectl命令在后面十分常用，而且Kubernetes许多资源名称都带有随机字符，要手工照着敲很容易出错，强烈推荐启用命令自动补全的功能，这里仅以bash为例，如果您使用zsh等其他shell，需自行调整：
 
 ```bash
 $ echo 'source <(kubectl completion bash)' >> ~/.bashrc
@@ -240,7 +240,7 @@ as root:
   kubeadm join 172.16.143.171:6443 --token 7ywghw.pbq0fkwpz3c5jozk --discovery-token-ca-cert-hash sha256:b30445a8098e1e025ce703e7c1bae82567e0f892039489630d39608e77a41b89
 ```
 
-这部分内容是告诉用户，集群的Master节点已经建立，其他节点的机器可以使用“kubeadm join”命令加入集群。这些机器只要完成kubeadm、kubelet、kubectl的安装即可、其他的所有步骤，如拉取镜像、初始化集群等等都不需要去做，就是可以使用该命令加入集群了。需要注意的是，该Token的有效时间为24小时，如果超时，使用以下命令重新获取：
+这部分内容是告诉用户，集群的Master节点已经建立完毕，其他节点的机器可以使用“kubeadm join”命令加入集群。这些机器只要完成kubeadm、kubelet、kubectl的安装即可、其他的所有步骤，如拉取镜像、初始化集群等等都不需要去做，就是可以使用该命令加入集群了。需要注意的是，该Token的有效时间为24小时，如果超时，使用以下命令重新获取：
 
 ```bash
 $ kubeadm token create --print-join-command
