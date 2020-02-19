@@ -180,7 +180,6 @@ Environment="HTTP_PROXY=socks5://192.168.31.125:2012"
 EOF
 
 #重启docker
-$ sudo systemctl daemon-reload
 $ sudo systemctl restart docker
 ```
 
