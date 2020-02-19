@@ -20,7 +20,7 @@ $ sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/ranche
 
 前置条件：已经[安装好了Kubernetes集群](setup-kubeadm.md)。使用Rancher的导入功能将其纳入管理。登陆Rancher主界面（首次登陆会要求设置admin密码）之后，点击右上角的Add Cluster，然后有下面几个添加集群的选择：
 
-![](images\rancher-add-cluster.png)
+![](images/rancher-add-cluster.png)
 
 - 要从某台机器中新安装Kubernetes集群选择“From existing nodes (Custom)”
 - 要导入某个已经安装好的Kubernetes集群选择“Import an existing cluster”
@@ -28,7 +28,7 @@ $ sudo docker run -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/ranche
 
 这里选择“Import an existing cluster”，然后给集群起个名字以便区分（由于Rancher支持多集群管理，所以要起个名字），之后就看见这个界面：
 
-![](images\rancher-import-cluster.png)
+![](images/rancher-import-cluster.png)
 
 Rancher自动生成了加入集群的命令，这其实是一个运行在Kubernetes中的proxy，在Kubernetes的命令行中执行以上生成的命令。上面那条是怕由于部署的Rancher服务没有申请SSL证书，导致HTTPS域名验证过不去，kubectl下载不下来。如果你的Rancher部署在已经申请了证书的HTTPS地址上那可以用前面的，否则还是直接用curl --insecure命令来绕过HTTPS证书查验吧，就是最下面那条命令：
 
@@ -40,11 +40,11 @@ $ curl --insecure -sfL https://localhost:8443/v3/import/vgkj5tzphj9vzg6l57krdc9g
 
 执行结果类似如下所示，一堆secret、deployment、daementset创建成功，就代表顺利完成了：
 
-![](images\rancher-import-command.png)
+![](images/rancher-import-command.png)
 
 然后回到Rancher网页，点击界面上的“Done”按钮。可以看到集群正处于Pending状态：
 
-![](images\rancher-import-pendding.png)
+![](images/rancher-import-pendding.png)
 
 很快状态就变成了Waiting，然后再变为Active，导入工作顺利完成。
 
