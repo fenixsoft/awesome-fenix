@@ -224,6 +224,7 @@ Environment=HTTP_PROXY=socks5://192.168.31.125:2012
 ```bash
 ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock -H tcp://0.0.0.0:2375 -H unix://var/run/docker.sock
 ```
+
 最后重启Docker服务即可：
 
 ```bash
@@ -231,8 +232,6 @@ ExecStart=/usr/bin/dockerd -H fd:// --containerd=/run/containerd/containerd.sock
 $ sudo systemctl daemon-reload
 $ sudo systemctl restart docker
 ```
-
-
 
 ## \[可选\] 启用Docker命令行自动补全功能
 
