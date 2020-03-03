@@ -178,7 +178,7 @@ $ kubeadm init --kubernetes-version v1.17.3 --pod-network-cidr=10.244.0.0/16
 
 当看到下面信息之后，说明集群主节点已经安装完毕了。
 
-![](../../../.gitbook/assets/kubernetes-initialized.png)
+![](https://github.com/fenixsoft/awesome-fenix/tree/4241058170b06d2a52580769751c6e4fa9babd60/.gitbook/assets/kubernetes-initialized.png)
 
 这信息先恭喜你已经把控制平面安装成功了，但还有三行“you need……”、“you should……”、“you can……”开头的内容，这是三项后续的“可选”工作，下面继续介绍。
 
@@ -223,7 +223,7 @@ $ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 做到这步，如果你只有一台机器的话，那Kubernetes的安装已经宣告结束了，可以使用此环境来完成后续所有的部署。你还可以通过cluster-info和get nodes子命令来查看一下集群的状态，类似如下所示：
 
-![](../../../.gitbook/assets/kubernetes-setup-completed.png)
+![](https://github.com/fenixsoft/awesome-fenix/tree/4241058170b06d2a52580769751c6e4fa9babd60/.gitbook/assets/kubernetes-setup-completed.png)
 
 ## \[可选\] 启用kubectl命令自动补全功能
 
