@@ -4,6 +4,8 @@
 
 ## 前言 <a id="introduction"></a>
 
+* [关于作者](introduction/about-me.md)
+* [什么是“The Fenix Project”？](introduction/about-the-fenix-project.md)
 * [阅读约定](introduction/contract.md)
 
 ## 快速部署 <a id="depolyment"></a>
@@ -46,7 +48,7 @@
 * [队列与消息总线](technology/message-queue-bus.md)
 * [分布式事务](technology/distributed-transaction.md)
 
-## 虚拟硬件基础设施 <a id="infrastructure"></a>
+## 不可变的基础设施 <a id="infrastructure"></a>
 
 * [网络](infrastructure/network/README.md)
   * [K8S的CNI网络](infrastructure/network/kubernetes-cni.md)
