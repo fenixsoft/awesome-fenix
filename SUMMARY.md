@@ -6,7 +6,6 @@
 
 * [关于作者](introduction/about-me.md)
 * [什么是“The Fenix Project”？](introduction/about-the-fenix-project.md)
-* [阅读约定](introduction/contract.md)
 
 ## 快速部署 <a id="depolyment"></a>
 
@@ -33,16 +32,17 @@
 * [基于GraalVM的微服务化](architecture/graalvm-improvement.md)
 * [Serverless无服务架构](architecture/serverless-base-arch.md)
 
-## 技术实现细节 <a id="technology"></a>
+## 微服务核心技术 <a id="technology"></a>
 
-* [参数配置管理](technology/configuration.md)
-* [日志与监控](technology/logging.md)
-* [安全及认证](technology/untitled.md)
-* [服务发现](technology/service-discovery.md)
-* [服务注册与消费](technology/service-register-consumer.md)
+* [配置中心](technology/configuration.md)
+* [日志、监控与预警](technology/logging.md)
+* [安全、认证及授权](technology/security.md)
+* [负载均衡](technology/load-balancing.md)
+* [服务发现与消费](technology/service-register-consumer.md)
 * [网关与路由](technology/service-gateway.md)
 * [链路治理](technology/invokechain-manage/README.md)
   * [流控](technology/invokechain-manage/traffic-control.md)
+  * [升降级](technology/invokechain-manage/sheng-jiang-ji.md)
   * [异常注入](technology/invokechain-manage/exception-inject.md)
   * [链路跟踪](technology/invokechain-manage/invokechain-trace.md)
 * [队列与消息总线](technology/message-queue-bus.md)
