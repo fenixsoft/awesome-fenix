@@ -29,8 +29,8 @@
 * [基于SpringBoot的单体架构](architecture/springboot-base-arch.md)
 * [基于SpringCloud的微服务架构](architecture/springcloud-base-arch.md)
 * [基于Kubernetes的微服务架构](architecture/kubernetes-base-arch.md)
-* [基于GraalVM的微服务化](architecture/graalvm-improvement.md)
-* [Serverless无服务架构](architecture/serverless-base-arch.md)
+* [基于Lstio的服务网格架构](architecture/servicemesh-arch-lstio.md)
+* [基于Knative的无服务架构](architecture/serverless-arch-knative.md)
 
 ## 微服务核心技术 <a id="technology"></a>
 
@@ -42,11 +42,10 @@
 * [网关与路由](technology/service-gateway.md)
 * [链路治理](technology/invokechain-manage/README.md)
   * [流控](technology/invokechain-manage/traffic-control.md)
-  * [升降级](technology/invokechain-manage/sheng-jiang-ji.md)
+  * [降级](technology/invokechain-manage/service-downgrade.md)
   * [异常注入](technology/invokechain-manage/exception-inject.md)
   * [链路跟踪](technology/invokechain-manage/invokechain-trace.md)
 * [队列与消息总线](technology/message-queue-bus.md)
-* [分布式事务](technology/distributed-transaction.md)
 
 ## 不可变的基础设施 <a id="infrastructure"></a>
 
@@ -62,4 +61,9 @@
 * [构建发布脚本](release/build-script.md)
 * [持续集成](release/continuous-integration.md)
 * [灰度发布](release/gated-launch.md)
+
+## 专项话题
+
+* [基于GraalVM的原生Java](zhuan-xiang-hua-ti/graalvm-improvement.md)
+* [分布式与一致性](zhuan-xiang-hua-ti/distributed-transaction.md)
 
