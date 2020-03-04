@@ -120,7 +120,7 @@
 $ sudo docker run hello-world
 ```
 
-## \[可选\] 配置国内镜像库
+## （可选） 配置国内镜像库
 
 由于Docker官方镜像在国内访问缓慢，官方提供了在国内的镜像库：[https://registry.docker-cn.com](https://registry.docker-cn.com)，以加快访问速度（但其实体验也并不快）。
 
@@ -166,7 +166,7 @@ $ sudo rm -rf /etc/systemd/system/docker.service.d
 
 最后，Docker的官方国内镜像库的速度只能说比起访问国外好了一丢丢，聊胜于无。国内还有一些公开的镜像库，如微软的、网易的等，但要么是不稳定，要么也是慢。比较靠谱的是阿里云的镜像库，但这个服务并不是公开的，需要使用者先到阿里云去申请开发者账户，再使用加速服务，申请后会得一个类似于“[https://yourname.mirror.aliyuncs.com”的私有地址，把它设置到daemon.json中即可使用。](https://yourname.mirror.aliyuncs.com”的私有地址，把它设置到daemon.json中即可使用。)
 
-## \[可选\] 为Docker设置代理
+## （可选）为Docker设置代理
 
 另外一种解决Docker镜像下载速度慢的方案就是使用代理，Docker的代理可以直接读取系统的全局代理，即系统中的HTTP\_PROXY、HTTPS\_PROXY两个环境变量。不过，如果设置这两个变量，其他大量Linux下的其他工具也会受到影响，所以建议的方式是给Docker服务设置专有的环境变量，我们使用Systemd来管理Docker服务，那直接给这个服务设置一个额外配置即可，操作如下：
 
@@ -195,7 +195,7 @@ $ systemctl show --property=Environment docker
 Environment=HTTP_PROXY=socks5://192.168.31.125:2012
 ```
 
-## \[可选\] 开放Docker远程服务
+## （可选）开放Docker远程服务
 
 如果需要在其他机器上管理Docker——譬如典型的如在IntelliJ IDEA这类IDE环境中给远程Docker部署镜像，那可以开启Docker的远程管理端口，这步没有设置任何安全访问措施，请不要在生产环境中进行。
 
@@ -233,7 +233,7 @@ $ sudo systemctl daemon-reload
 $ sudo systemctl restart docker
 ```
 
-## \[可选\] 启用Docker命令行自动补全功能
+## （可选）启用Docker命令行自动补全功能
 
 在控制台输入docker命令时可以获得自动补全能力，提高效率。
 
@@ -255,7 +255,7 @@ Docker自带了bash的命令行补全，用其他shell，如zsh，则需采用zs
 > $ echo 'autoload -Uz compinit && compinit -u' >> ~/.zshrc
 > ```
 
-## \[可选\] 将Docker设置为开机启动
+## （可选）将Docker设置为开机启动
 
 一般使用systemd来管理启动状态
 
