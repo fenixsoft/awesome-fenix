@@ -4,12 +4,12 @@
 
 随着Kubernetes不断成熟，kuberadm无论是部署单控制平面（Single Control-Plane，单Master节点）集群还是高可用（High-Availability，多Master节点）集群，都已经有了更优秀的易用性，现在手工部署Kubernetes集群已经不是什么太复杂、困难的事情了。本文以Debian系的Linux为例，介绍通过kuberadm部署集群的全过程。
 
-> **注意事项**
->
-> 1. 安装Kubernetes集群，需要从谷歌的仓库中拉取镜像，由于国内访问谷歌的网络受阻，需要通过科学上网或者在Docker中预先拉取好所需镜像等方式解决。
-> 2. 集群中每台机器的Hostname不要重复，否则Kubernetes从不同机器收集状态信息时会产生干扰，被认为是同一台机器。
-> 3. 安装Kubernetes最小需要2核CPU、2GB内存，且为x86架构（暂不支持ARM架构）。对于物理机来说，今时今日要找一台不满足以上条件的机器很困难，但对于云主机来说，尤其是购买网站上最低配置的同学，要注意一下是否达到了最低要求，不清楚的话请在/proc/cpuinf、/proc/meminfo中确认一下。
-> 4. 确保网络通畅的——这听起来像是废话，但确实有相当一部分的云主机默认不对selinux、iptable、安全组、防火墙进行设置的话，内网各个节点之间、与外网之间会存在访问障碍，导致部署失败。
+::: tip 注意事项
+ 1. 安装Kubernetes集群，需要从谷歌的仓库中拉取镜像，由于国内访问谷歌的网络受阻，需要通过科学上网或者在Docker中预先拉取好所需镜像等方式解决。
+ 2. 集群中每台机器的Hostname不要重复，否则Kubernetes从不同机器收集状态信息时会产生干扰，被认为是同一台机器。
+ 3. 安装Kubernetes最小需要2核CPU、2GB内存，且为x86架构（暂不支持ARM架构）。对于物理机来说，今时今日要找一台不满足以上条件的机器很困难，但对于云主机来说，尤其是购买网站上最低配置的同学，要注意一下是否达到了最低要求，不清楚的话请在/proc/cpuinf、/proc/meminfo中确认一下。
+ 4. 确保网络通畅的——这听起来像是废话，但确实有相当一部分的云主机默认不对selinux、iptable、安全组、防火墙进行设置的话，内网各个节点之间、与外网之间会存在访问障碍，导致部署失败。
+:::
 
 ## 注册apt软件源
 
@@ -128,7 +128,7 @@ $ sudo cat /etc/fstab_bak | grep -v swap > /etc/fstab
 $ systemctl restart docker
 ```
 
-## \[可选\] 预拉取镜像
+## （可选）预拉取镜像
 
 预拉取镜像并不是必须的，本来初始化集群的时候系统就会自动拉取Kubernetes中要使用到的Docker镜像组件，也提供了一个“kubeadm config images pull”命令来一次性的完成拉取，这都是因为如果要手工来进行这项工作，实在非常非常非常的繁琐。
 
@@ -178,11 +178,11 @@ $ kubeadm init --kubernetes-version v1.17.3 --pod-network-cidr=10.244.0.0/16
 
 当看到下面信息之后，说明集群主节点已经安装完毕了。
 
-![](https://github.com/fenixsoft/awesome-fenix/tree/4241058170b06d2a52580769751c6e4fa9babd60/.gitbook/assets/kubernetes-initialized.png)
+![](./images/kubernetes-initialized.png)
 
 这信息先恭喜你已经把控制平面安装成功了，但还有三行“you need……”、“you should……”、“you can……”开头的内容，这是三项后续的“可选”工作，下面继续介绍。
 
-## \[可选\] 让非Root用户可以使用Kubernetes
+## （可选）让非Root用户可以使用Kubernetes
 
 Kubernetes最初是以root用户安装的，如果需要非root的其他用户也可以使用Kubernetes集群，那需要为该用户先配置好admin.conf文件。切换至该用户后，进行如下操作：
 
@@ -194,7 +194,7 @@ $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 当然，如果只是在测试环境，准备后续都准备使用root运行，那这个步骤可以略过。
 
-## \[可选\] 安装CNI插件
+## （可选）安装CNI插件
 
 CNI即“容器网络接口”，在2016 年，CoreOS发布了CNI规范。2017年5月，CNI被CNCF技术监督委员会投票决定接受为托管项目，从此成为不同容器编排工具（Kubernetes、Mesos、OpenShift）可以共同使用的、解决容器之间网络通讯的统一接口规范。
 
@@ -213,7 +213,7 @@ $ curl --insecure -sfL https://raw.githubusercontent.com/coreos/flannel/master/D
 
 使用Flannel的话，要注意要在创建集群时加入“--pod-network-cidr”参数，指明网段划分。
 
-## \[可选\] 移除Master节点上的污点
+## （可选）移除Master节点上的污点
 
 污点（Taint）是Kubernetes Pod调度中的概念，在这里通俗地理解就是Kubernetes决定在集群中的哪一个节点建立新的容器时，要先排除掉带有特定污点的节点，以避免容器在Kubernetes不希望运行的节点中创建、运行。默认情况下，集群的Master节点是会带有污点的，以避免容器分配到Master中创建。但对于许多学习Kubernetes的同学来说，并没有多宽裕的机器数量，往往是建立单节点集群或者最多只有两、三个节点，这样Master节点不能运行容器就显得十分浪费了。需要移除掉Master节点上所有的污点，在Master节点上执行以下命令即可：
 
@@ -223,9 +223,9 @@ $ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 做到这步，如果你只有一台机器的话，那Kubernetes的安装已经宣告结束了，可以使用此环境来完成后续所有的部署。你还可以通过cluster-info和get nodes子命令来查看一下集群的状态，类似如下所示：
 
-![](https://github.com/fenixsoft/awesome-fenix/tree/4241058170b06d2a52580769751c6e4fa9babd60/.gitbook/assets/kubernetes-setup-completed.png)
+![](./images/kubernetes-setup-completed.png)
 
-## \[可选\] 启用kubectl命令自动补全功能
+## （可选）启用kubectl命令自动补全功能
 
 由于kubectl命令在后面十分常用，而且Kubernetes许多资源名称都带有随机字符，要手工照着敲很容易出错，强烈推荐启用命令自动补全的功能，这里仅以bash和笔者常用的zsh为例，如果您使用其他shell，需自行调整：
 

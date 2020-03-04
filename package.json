@@ -1,0 +1,24 @@
+{
+  "name": "awesome-fenix",
+  "version": "1.0.0",
+  "description": "explore architecture",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "vuepress dev .",
+    "build": "vuepress build ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fenixsoft/awesome-fenix.git"
+  },
+  "author": "icyfenix@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/fenixsoft/awesome-fenix/issues"
+  },
+  "homepage": "https://github.com/fenixsoft/awesome-fenix#readme",
+  "devDependencies": {
+    "vuepress": "^1.3.1"
+  }
+}

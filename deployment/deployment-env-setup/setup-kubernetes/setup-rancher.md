@@ -24,7 +24,7 @@ $ sudo docker run -d --restart=unless-stopped -p 8080:80 -p 8443:443 rancher/ran
 
 使用Rancher的导入功能将已部署的Kubernetes集群纳入其管理。登陆Rancher主界面（首次登陆会要求设置admin密码和Rancher在集群中可访问的路径，后者尤其不能乱设，否则Kubernetes无法访问到Rancher会一直处于Pending等待状态）之后，点击右上角的Add Cluster，然后有下面几个添加集群的选择：
 
-![](../../../.gitbook/assets/rancher-add-cluster.png)
+![](./images/rancher-add-cluster.png)
 
 * 要从某台机器中新安装Kubernetes集群选择“From existing nodes \(Custom\)”
 * 要导入某个已经安装好的Kubernetes集群选择“Import an existing cluster”
@@ -32,7 +32,7 @@ $ sudo docker run -d --restart=unless-stopped -p 8080:80 -p 8443:443 rancher/ran
 
 这里选择“Import an existing cluster”，然后给集群起个名字以便区分（由于Rancher支持多集群管理，所以集群得有个名字以示区别），之后就看见这个界面：
 
-![](../../../.gitbook/assets/rancher-import-cluster.png)
+![](./images/rancher-import-cluster.png)
 
 Rancher自动生成了加入集群的命令，这行命令其实就是部署一个运行在Kubernetes中的代理（Agent），在Kubernetes的命令行中执行以上自动生成的命令。
 
@@ -46,11 +46,11 @@ $ curl --insecure -sfL https://localhost:8443/v3/import/vgkj5tzphj9vzg6l57krdc9g
 
 执行结果类似如下所示，一堆secret、deployment、daementset创建成功，就代表顺利完成了：
 
-![](../../../.gitbook/assets/rancher-import-command.png)
+![](./images/rancher-import-command.png)
 
 然后回到Rancher网页，点击界面上的“Done”按钮。可以看到集群正处于Pending状态：
 
-![](../../../.gitbook/assets/rancher-import-pendding.png)
+![](./images/rancher-import-pendding.png)
 
 如果Agent成功到达Running状态的话，这里也会很快就变成Waiting状态，然后再变为Active状态，导入工作即宣告胜利结束。
 
