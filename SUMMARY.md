@@ -28,11 +28,14 @@
 * [业务逻辑](architecture/requirement.md)
 * [单体架构](architecture/monolithic-architecture/README.md)
   * [基于SpringBoot的单体架构](architecture/monolithic-architecture/springboot-base-arch.md)
+  * [基于J2EE的单体架构](architecture/monolithic-architecture/j2ee-base-arch.md)
 * [微服务架构](architecture/microservices-architecture/README.md)
   * [SpringCloud时代的微服务](architecture/microservices-architecture/springcloud-base-arch.md)
   * [Kubernetes时代的微服务](architecture/microservices-architecture/kubernetes-base-arch.md)
   * [后Kubernetes时代的微服务](architecture/microservices-architecture/servicemesh-lstio-arch.md)
-* [基于Knative的无服务架构](architecture/serverless-arch-knative.md)
+* [无服务架构](architecture/serverless-architecture/README.md)
+  * [基于Knative的无服务](architecture/serverless-architecture/serverless-arch-knative.md)
+  * [基于Kubeless的无服务](architecture/serverless-architecture/serverless-arch-kubeless.md)
 
 ## 微服务核心技术 <a id="technology"></a>
 
@@ -54,13 +57,13 @@
 * [网络](infrastructure/network/README.md)
   * [K8S的CNI网络](infrastructure/network/kubernetes-cni.md)
   * [K8S的负载均衡](infrastructure/network/kubernetes-lb.md)
-* [存储](infrastructure/storage.md)
+* [共享存储](infrastructure/storage.md)
 * [GPU虚拟化](infrastructure/gpu-support.md)
 * [硬件资源调度](infrastructure/hardware-schedule.md)
 
 ## 独立专题 <a id="monographic"></a>
 
-* [基于GraalVM的原生Java](monographic/graalvm-improvement.md)
+* [GraalVM：微服务时代的Java](monographic/graalvm-improvement.md)
 * [分布式与一致性](monographic/distributed-transaction.md)
 
 ## 项目发布 <a id="release"></a>
