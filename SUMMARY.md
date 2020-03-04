@@ -52,14 +52,14 @@
 * [配置中心](technology/configuration.md)
 * [队列与消息总线](technology/message-queue-bus.md)
 
-## 不可变的基础设施 <a id="infrastructure"></a>
+## 不可变的基础设施 <a id="immutable-infrastructure"></a>
 
-* [网络](infrastructure/network/README.md)
-  * [K8S的CNI网络](infrastructure/network/kubernetes-cni.md)
-  * [K8S的负载均衡](infrastructure/network/kubernetes-lb.md)
-* [共享存储](infrastructure/storage.md)
-* [GPU虚拟化](infrastructure/gpu-support.md)
-* [硬件资源调度](infrastructure/hardware-schedule.md)
+* [网络](immutable-infrastructure/network/README.md)
+  * [K8S的CNI网络](immutable-infrastructure/network/kubernetes-cni.md)
+  * [K8S的负载均衡](immutable-infrastructure/network/kubernetes-lb.md)
+* [共享存储](immutable-infrastructure/storage.md)
+* [GPU虚拟化](immutable-infrastructure/gpu-support.md)
+* [硬件资源调度](immutable-infrastructure/hardware-schedule.md)
 
 ## 独立专题 <a id="monographic"></a>
 
