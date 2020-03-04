@@ -1,6 +1,9 @@
 module.exports = {
     title: 'The Fenix Project',
     description: '现代软件架构探索',
+    head: [
+        ['link', {rel: 'shortcut icon', type: "image/x-icon", href: `./favicon.ico`}]
+    ],
     host: '0.0.0.0',
     port: 8080,
     dest: '.vuepress/dist',
