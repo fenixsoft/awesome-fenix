@@ -10,10 +10,10 @@
   博士，现任[远光软件](http://www.ygsoft.com/)研究院院长。博士期间的研究方向为机器学习、特征选择自动化。
 
 - 信息技术作家<br/>
-  已经出版过七本技术书籍，口碑和销量均有幸得到读者的认可。有四本书在[豆瓣](https://www.douban.com/)上获得了9分以上的评价，深入理解Java虚拟机系列总销量超过30万册。
-  《[深入理解Java虚拟机：JVM高级特性与最佳实践](https://book.douban.com/subject/34907497/)》（[2011年第1版](https://book.douban.com/subject/6522893/)、[2013年第2版](https://book.douban.com/subject/24722612/)、[2019年第3版](https://book.douban.com/subject/34907497/)）作者
-  《[智慧的疆界：从图灵机到人工智能](https://book.douban.com/subject/30379536/)》作者
-  《[深入理解OSGi：Equinox原理、应用与最佳实践](https://book.douban.com/subject/21324330/)》作者
+  已经出版过七本技术书籍，口碑和销量均有幸得到读者的认可。有四本书在[豆瓣](https://www.douban.com/)上获得了9分以上的评价，深入理解Java虚拟机系列总销量超过30万册。<br/>
+  《[深入理解Java虚拟机：JVM高级特性与最佳实践](https://book.douban.com/subject/34907497/)》（[2011年第1版](https://book.douban.com/subject/6522893/)、[2013年第2版](https://book.douban.com/subject/24722612/)、[2019年第3版](https://book.douban.com/subject/34907497/)）作者<br/>
+  《[智慧的疆界：从图灵机到人工智能](https://book.douban.com/subject/30379536/)》作者<br/>
+  《[深入理解OSGi：Equinox原理、应用与最佳实践](https://book.douban.com/subject/21324330/)》作者<br/>
   《[Java虚拟机规范](https://book.douban.com/subject/25792515/)》（[OpenDocument](https://www.iteye.com/topic/1117824)、[Java SE 7](https://book.douban.com/subject/25792515/)、[Java SE 8](https://book.douban.com/subject/26418340/)）官方授权译者
 
 - 技术布道师<br/>
