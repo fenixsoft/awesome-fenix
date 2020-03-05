@@ -44,7 +44,7 @@ module.exports = {
                 title: '迈向微服务',
                 path: '/deployment',
                 collapsable: false,
-                children: ['how-to-start', {
+                children: ['/deployment/how-to-start', {
                     title: '开发环境',
                     path: '/deployment/development-env-setup',
                     collapsable: false,
