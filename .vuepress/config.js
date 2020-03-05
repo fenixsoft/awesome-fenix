@@ -31,7 +31,7 @@ module.exports = {
                 ]
             },
             {text: '示例', link: 'http://icyfenix.net'},
-            {text: '讨论区', link: '/board'}
+            {text: '讨论区', link: '/board/index.html'}
         ],
         sidebar: [
             {
