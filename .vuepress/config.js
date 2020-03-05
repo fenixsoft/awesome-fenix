@@ -10,7 +10,10 @@ module.exports = {
     themeConfig: {
         lastUpdated: '最后更新',
         smoothScroll: true,
+        repo: 'fenixsoft/awesome-fenix',
+        repoLabel: 'Contribute!',
         editLinks: true,
+        editLinkText: '在GitHub中编辑',
         // 添加导航栏
         nav: [
             {text: '首页', link: '/'}, {
