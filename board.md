@@ -1,0 +1,1 @@
+<iframe src="/board/index.html" frameborder="0" style="width: 100%; height: 1000px;"></iframe>

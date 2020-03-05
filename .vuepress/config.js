@@ -10,6 +10,7 @@ module.exports = {
     themeConfig: {
         lastUpdated: '最后更新',
         smoothScroll: true,
+        editLinks: true,
         // 添加导航栏
         nav: [
             {text: '首页', link: '/'}, {
@@ -31,7 +32,7 @@ module.exports = {
                 ]
             },
             {text: '示例', link: 'http://icyfenix.net'},
-            {text: '讨论区', link: '/board'}
+            {text: '讨论区', link: '/board', target: "_self"}
         ],
         sidebar: [
             {
@@ -40,10 +41,10 @@ module.exports = {
                 collapsable: false,
                 children: ['/introduction/about-me', '/introduction/about-the-fenix-project']
             }, {
-                title: '依赖与部署',
+                title: '迈向微服务',
                 path: '/deployment',
                 collapsable: false,
-                children: [{
+                children: ['how-to-start', {
                     title: '开发环境',
                     path: '/deployment/development-env-setup',
                     collapsable: false,
