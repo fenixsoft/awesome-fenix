@@ -16,19 +16,15 @@ module.exports = {
         // 添加导航栏
         nav: [
             {text: '首页', link: '/'}, {
-                text: 'GitHub',
+                text: '代码',
                 // 这里是下拉列表展现形式。
                 items: [
                     {
-                        text: 'Awesome Fenix',
-                        link: 'https://github.com/fenixsoft/awesome-fenix'
-                    },
-                    {
-                        text: 'Fenix\'s BookStore Frontend',
+                        text: '前端工程',
                         link: 'https://github.com/fenixsoft/fenix-bookstore-frontend'
                     },
                     {
-                        text: 'Fenix\'s BookStore Backend',
+                        text: '后端工程',
                         link: 'https://github.com/fenixsoft/fenix-bookstore-backend'
                     }
                 ]
