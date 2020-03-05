@@ -1,4 +1,4 @@
-# 关于作者
+# :white_check_mark:关于作者
 
 **周志明**
 
@@ -17,7 +17,7 @@
   《[Java虚拟机规范](https://book.douban.com/subject/25792515/)》（[OpenDocument](https://www.iteye.com/topic/1117824)、[Java SE 7](https://book.douban.com/subject/25792515/)、[Java SE 8](https://book.douban.com/subject/26418340/)）官方授权译者
 
 - 技术布道师<br/>
-  开源技术的积极倡导者和推动者，对计算机科学相关的多个领域都有持续跟进。[腾讯云最有价值技术专家（TVP）](https://cloud.tencent.com/tvp/132)、[InfoQ.CN专栏撰稿人](https://www.infoq.cn/profile/1278833/publish?menu=)
+  开源技术的积极倡导者和推动者，对计算机科学相关的多个领域都有持续跟进。<br/>[腾讯云最有价值技术专家（TVP）](https://cloud.tencent.com/tvp/132)、[InfoQ.CN专栏撰稿人](https://www.infoq.cn/profile/1278833/publish?menu=)。
 
 <center>
 <img src="./images/icyfenix.jpg"></img>
