@@ -27,8 +27,8 @@
 
 - 关于“程序”部分，其中包括前、后端工程与运行示例三部分内容。后端工程是其中重点，它已包含了前端工程编译后的输出结果，如果你并不关心前端（一个典型的vue.js 2.0工程）的实现，直接选择你希望了解的架构模式相关的后端运行即可。如果你对开发、运行构建运行环境有所疑问，在[知识](http://icyfenix.cn/deployment/deployment-env-setup/)部分也包括了详细的启动文档，能够解决环境依赖的问题。另外，这些工程也通过Travis CI提供的持续集成服务输出到Docker镜像库，如果你只想了解运维方面的知识，可以直接运行镜像而无需关心代码部分。
 > - 前端工程地址：[https://github.com/fenixsoft/fenix-bookstore-frontend](https://github.com/fenixsoft/fenix-bookstore-frontend)
-> - 前端工程演示：[http://bookstore.icyfenix.cn](https://bookstore.icyfenix.cn)（国内浏览 <-> 腾讯云CDN <-> GitHub Pages）
 > - 后端工程地址：[https://github.com/fenixsoft/fenix-bookstore-backend](https://github.com/fenixsoft/fenix-bookstore-backend)
+> - 前端工程演示：[http://bookstore.icyfenix.cn](https://bookstore.icyfenix.cn)（国内浏览 <-> 腾讯云CDN <-> GitHub Pages）
 
 
 

@@ -9,11 +9,17 @@ script:
   - npm run build
   - echo "icyfenix.cn" >> .vuepress/dist/CNAME
 deploy:
-  provider: pages
-  skip_cleanup: true
-  local_dir: .vuepress/dist
-  github_token: $gh_token
-  keep_history: true
-  target-branch: gh-pages
-  on:
-    branch: master
+  - provider: pages
+    skip_cleanup: true
+    local_dir: .vuepress/dist
+    github_token: $gh_token
+    keep_history: true
+    target-branch: gh-pages
+    on:
+      branch: master
+  - provider: script
+    keep_history: true
+    skip_cleanup: true
+    script: npm run deoply:refresh-cdn
+    on:
+      branch: master
