@@ -15,7 +15,7 @@
 
 简单地说，这是针对软件开发中不同架构、技术方案（如单体架构、微服务、服务网格、无服务架构、云原生等等）的演示程序。包含可以作为实际项目开发参考的样例代码（[PetStore-Like-Project](https://www.oracle.com/technetwork/cn/java/javaee/overview/index-136650.html)），以及作者对这些架构的使用方法、优劣理解。
 
-这篇文章《[什么是“The Fenix Project”](http://icyfenix.pub/introduction/about-the-fenix-project.html)》详细解释了此项目的意义和目标，如感兴趣，建议先行阅读。
+这篇文章《[什么是“The Fenix Project”](http://icyfenix.cn/introduction/about-the-fenix-project.html)》详细解释了此项目的意义和目标，如感兴趣，建议先行阅读。
 
 
 
@@ -27,7 +27,7 @@
 
 - 关于“程序”部分，其中包括前、后端工程与运行示例三部分内容。后端工程是其中重点，它已包含了前端工程编译后的输出结果，如果你并不关心前端（一个典型的vue.js 2.0工程）的实现，直接选择你希望了解的架构模式相关的后端运行即可。如果你对开发、运行构建运行环境有所疑问，在[知识](https://icyfenix.pub/deployment/deployment-env-setup/)部分也包括了详细的启动文档，能够解决环境依赖的问题。另外，这些工程也通过Travis CI提供的持续集成服务输出到Docker镜像库，如果你只想了解运维方面的知识，可以直接运行镜像而无需关心代码部分。
 > - 前端工程地址：[https://github.com/fenixsoft/fenix-bookstore-frontend](https://github.com/fenixsoft/fenix-bookstore-frontend)
-> - 前端工程演示：[https://icyfenix.net](https://icyfenix.net)
+> - 前端工程演示：[http://bookstore.icyfenix.cn](http://bookstore.icyfenix.cn)
 > - 后端工程地址：[https://github.com/fenixsoft/fenix-bookstore-backend](https://github.com/fenixsoft/fenix-bookstore-backend)
 
 
