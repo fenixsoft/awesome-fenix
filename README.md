@@ -1,13 +1,13 @@
 # 现代软件架构探索
 
 <p align="center">
-  <a href="https://icyfenix.pub/" target="_blank">
-    <img width="180" src="https://icyfenix.pub/images/logo-color.png" alt="logo">
+  <a href="http://icyfenix.cn" target="_blank">
+    <img width="180" src="http://icyfenix.cn/images/logo-color.png" alt="logo">
   </a>
 </p>
 <p align="center">
   <a href="" style="display:inline-block"><img src="https://api.travis-ci.com/fenixsoft/awesome-fenix.svg?branch=master" alt="Travis-CI"></a>
-  <a href="https://creativecommons.org/licenses/by/4.0/"  target="_blank" style="display:inline-block"><img src="https://icyfenix.pub/images/license-cc.png" alt="License" height="20"></a>
+  <a href="https://creativecommons.org/licenses/by/4.0/"  target="_blank" style="display:inline-block"><img src="http://icyfenix.cn/images/license-cc.png" alt="License" height="20"></a>
 </p>
 
 
