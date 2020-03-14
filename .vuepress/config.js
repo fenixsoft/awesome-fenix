@@ -29,7 +29,7 @@ module.exports = {
                     }
                 ]
             },
-            {text: '示例', link: 'http://icyfenix.net'},
+            {text: '示例', link: 'http://bookstore.icyfenix.cn'},
             {text: '讨论区', link: '/board', target: "_self"}
         ],
         sidebar: [
