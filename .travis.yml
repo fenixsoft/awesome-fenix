@@ -7,7 +7,7 @@ install:
   - npm install
 script:
   - npm run build
-  - echo "icyfenix.pub" >> .vuepress/dist/CNAME
+  - echo "icyfenix.cn" >> .vuepress/dist/CNAME
 deploy:
   provider: pages
   skip_cleanup: true
