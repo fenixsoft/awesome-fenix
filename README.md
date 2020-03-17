@@ -7,7 +7,7 @@
 </p>
 <p align="center">
     <a href="https://iycfenix.cn"  style="display:inline-block"><img src="http://icyfenix.cn/images/Release-v1.png"></a>
-  <a href="" style="display:inline-block"><img src="https://api.travis-ci.com/fenixsoft/awesome-fenix.svg?branch=master" alt="Travis-CI"></a>
+  <a href="https://travis-ci.com/fenixsoft/awesome-fenix" target="_blank"  style="display:inline-block"><img src="https://api.travis-ci.com/fenixsoft/awesome-fenix.svg?branch=master" alt="Travis-CI"></a>
   <a href="https://creativecommons.org/licenses/by/4.0/"  target="_blank" style="display:inline-block"><img src="http://icyfenix.cn/images/DocLicense-CC-red.png" alt="Document License"></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0"  target="_blank" style="display:inline-block"><img src="http://icyfenix.cn/images/License-Apache.png" alt="License"></a>
     <a href="mailto:icyfenix@gmail.com" target="_blank" style="display:inline-block"><img src="http://icyfenix.cn/images/Author-IcyFenix-blue.png" alt="Mail to Author"></a>
@@ -17,7 +17,7 @@
 
 ## 这是什么？
 
-简单地说，这是针对软件开发中不同架构、技术方案（如单体架构、微服务、服务网格、无服务架构、云原生等等）的演示程序。包含可以作为实际项目开发参考的样例代码（[PetStore-Like-Project](https://www.oracle.com/technetwork/cn/java/javaee/overview/index-136650.html)），以及作者对这些架构的使用方法、优劣理解。
+简单地说，这是针对软件开发中不同架构、技术方案（如单体架构、微服务、服务网格、无服务架构、云原生等等）的演示程序。包含可以作为实际项目开发参考的样例代码（[PetStore-Like-Project](https://www.oracle.com/technetwork/cn/java/javaee/overview/index-136650.html)），以及作者对这些架构的使用方法、优劣等的个人理解。
 
 这篇文章《[什么是“The Fenix Project”](http://icyfenix.cn/introduction/about-the-fenix-project.html)》详细解释了此项目的意义和目标，如感兴趣，建议先行阅读。
 
