@@ -1,4 +1,4 @@
-# 现代软件架构探索
+# 软件架构探索：The Fenix Project
 
 <p align="center">
   <a href="http://icyfenix.cn" target="_blank">
