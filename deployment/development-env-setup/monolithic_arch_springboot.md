@@ -1,4 +1,4 @@
-# :white_check_mark:Fenix's BookStore后端：以单体架构实现
+# √ 后端工程：SpringBoot
 
 <p align="center">
   <a href="http://icyfenix.cn" target="_blank">
@@ -97,6 +97,7 @@ Fenix's BookStore单体架构后端尽可能采用标准的技术组件进行构
 
 - JSR 375：Java EE Security API specification 1.0<br/>
 认证/授权方面，在2017年才发布的JSR 375中仍然没有直接包含OAuth2和JWT的直接支持，因后续实现微服务架构时对比的需要，单体架构中选择了Spring Security 5作为认证服务，Spring Security OAuth 2.3作为授权服务，Spring Security JWT作为JWT令牌支持，并未采用标准的JSR 375实现，如Soteria。
+
 - JSR 353/367：Java API for JSON Processing/Binding<br/>在JSON序列化/反序列化方面，由于Spring Security OAuth的限制（使用JSON-B作为反序列化器时的结果与Jackson等有差异），采用了Spring Security OAuth默认的Jackson，并未采用标准的JSR 353/367实现，如Apache Johnzon、Eclipse Yasson等。
 
 ## 工程结构
