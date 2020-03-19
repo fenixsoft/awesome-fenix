@@ -2,7 +2,7 @@ module.exports = {
     title: '软件架构探索：The Fenix Project',
     description: '现代软件架构探索',
     head: [
-        ['link', { rel: 'shortcut icon', type: "image/x-icon", href: `./favicon.ico` }]
+        ['link', {rel: 'shortcut icon', type: "image/x-icon", href: `./favicon.ico`}]
     ],
     host: '0.0.0.0',
     port: 8080,
@@ -15,7 +15,7 @@ module.exports = {
         editLinkText: '在GitHub中编辑',
         // 添加导航栏
         nav: [
-            { text: '首页', link: '/' }, {
+            {text: '首页', link: '/'}, {
                 text: '代码',
                 // 这里是下拉列表展现形式。
                 items: [
@@ -41,8 +41,8 @@ module.exports = {
                     }
                 ]
             },
-            { text: '示例', link: 'http://bookstore.icyfenix.cn' },
-            { text: '讨论区', link: '/board', target: "_self" }
+            {text: '示例', link: 'http://bookstore.icyfenix.cn'},
+            {text: '讨论区', link: '/board', target: "_self"}
         ],
         sidebar: [
             {
@@ -55,12 +55,11 @@ module.exports = {
                 children: [
                     {
                         title: '如何开始',
-                        path: '/deployment/development-env-setup',
+                        path: '/deployment/development-env-setup/',
                         collapsable: false,
                         children: ['/deployment/development-env-setup/fenix-bookstore-frontend', '/deployment/development-env-setup/monolithic_arch_springboot', '/deployment/development-env-setup/idea-setup']
                     }, {
                         title: '环境依赖',
-                        path: '/deployment/deployment-env-setup',
                         collapsable: false,
                         children: ['/deployment/deployment-env-setup/setup-docker', {
                             title: '部署Kubernetes集群',
@@ -80,14 +79,12 @@ module.exports = {
                 children: [
                     {
                         title: '单体架构',
-                        path: '/architect-perspective/monolithic-architecture',
                         collapsable: false,
-                        children: ['/deployment/monolithic-architecture/system-security', '/deployment/development-env-setup/transaction', '/deployment/development-env-setup/constraint']
+                        children: ['/architect-perspective/monolithic-architecture/system-security.md', '/architect-perspective/monolithic-architecture/transaction', '/architect-perspective/monolithic-architecture/constraint']
                     }, {
                         title: '微服务架构',
-                        path: '/deployment/microservices-architecture',
                         collapsable: false,
-                        children: ['/deployment/microservices-architecture/system-security']
+                        children: ['/architect-perspective/microservices-architecture/system-security']
                     }]
             }, {
                 title: '演进中的架构',
@@ -98,16 +95,16 @@ module.exports = {
                     collapsable: false,
                     children: ['/architecture/monolithic-architecture/j2ee-base-arch', '/architecture/monolithic-architecture/springboot-base-arch']
                 }, {
-                        title: '微服务架构',
-                        path: '/architecture/microservices-architecture',
-                        collapsable: false,
-                        children: ['/architecture/microservices-architecture/springcloud-base-arch', '/architecture/microservices-architecture/kubernetes-base-arch', '/architecture/microservices-architecture/servicemesh-lstio-arch']
-                    }, {
-                        title: '无服务架构',
-                        path: '/architecture/serverless-architecture',
-                        collapsable: false,
-                        children: ['/architecture/serverless-architecture/serverless-arch-knative', '/architecture/serverless-architecture/serverless-arch-kubeless']
-                    }]
+                    title: '微服务架构',
+                    path: '/architecture/microservices-architecture',
+                    collapsable: false,
+                    children: ['/architecture/microservices-architecture/springcloud-base-arch', '/architecture/microservices-architecture/kubernetes-base-arch', '/architecture/microservices-architecture/servicemesh-lstio-arch']
+                }, {
+                    title: '无服务架构',
+                    path: '/architecture/serverless-architecture',
+                    collapsable: false,
+                    children: ['/architecture/serverless-architecture/serverless-arch-knative', '/architecture/serverless-architecture/serverless-arch-kubeless']
+                }]
             }, {
                 title: '核心技术支撑点',
                 collapsable: false,
