@@ -53,12 +53,7 @@ module.exports = {
                 title: '迈向微服务',
                 collapsable: false,
                 children: [
-                    {
-                        title: '如何开始',
-                        path: '/deployment/development-env-setup/',
-                        collapsable: false,
-                        children: ['/deployment/development-env-setup/fenix-bookstore-frontend', '/deployment/development-env-setup/monolithic_arch_springboot', '/deployment/development-env-setup/idea-setup']
-                    }, {
+                    '/deployment/development-env-setup/', {
                         title: '环境依赖',
                         collapsable: false,
                         children: ['/deployment/deployment-env-setup/setup-docker', {
