@@ -1,4 +1,4 @@
-# :white_check_mark:部署Kubernetes集群
+# √ 部署Kubernetes集群
 
 Kubernetes是一个由Google发起的开源自动化部署，缩放，以及容器化管理应用程序的容器编排系统。
 

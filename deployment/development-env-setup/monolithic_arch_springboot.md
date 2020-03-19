@@ -1,4 +1,4 @@
-# :white_check_mark:Fenix's BookStore后端：以单体架构实现
+# √ 后端工程：SpringBoot
 
 <p align="center">
   <a href="http://icyfenix.cn" target="_blank">

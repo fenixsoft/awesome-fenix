@@ -8,6 +8,7 @@ module.exports = {
     port: 8080,
     dest: '.vuepress/dist',
     themeConfig: {
+        logo: '/images/logo-color.png',
         lastUpdated: '最后更新',
         smoothScroll: true,
         repo: 'fenixsoft/awesome-fenix',
@@ -53,19 +54,23 @@ module.exports = {
                 title: '迈向微服务',
                 collapsable: false,
                 children: [
-                    '/deployment/development-env-setup/', {
-                        title: '环境依赖',
+                    {
+                        title: '√ 如何开始',
+                        path: '/deployment/development-env-setup/',
+                        collapsable: false,
+                        children: ['/deployment/development-env-setup/fenix-bookstore-frontend', '/deployment/development-env-setup/monolithic_arch_springboot']
+                    }, {
+                        title: '√ 环境依赖',
+                        path: '/deployment/deployment-env-setup/',
                         collapsable: false,
                         children: ['/deployment/deployment-env-setup/setup-docker', {
-                            title: '部署Kubernetes集群',
+                            title: '√ 部署Kubernetes集群',
                             path: '/deployment/deployment-env-setup/setup-kubernetes',
-                            collapsable: false,
                             children: ['/deployment/deployment-env-setup/setup-kubernetes/setup-kubeadm', '/deployment/deployment-env-setup/setup-kubernetes/setup-rancher', '/deployment/deployment-env-setup/setup-kubernetes/setup-minikube']
                         }]
                     }, {
                         title: '运维环境',
                         path: '/deployment/operation-env-setup',
-                        collapsable: false,
                         children: ['/deployment/operation-env-setup/elk-setup', '/deployment/operation-env-setup/devops-setup']
                     }]
             }, {
@@ -74,11 +79,9 @@ module.exports = {
                 children: [
                     {
                         title: '单体架构',
-                        collapsable: false,
                         children: ['/architect-perspective/monolithic-architecture/system-security.md', '/architect-perspective/monolithic-architecture/transaction', '/architect-perspective/monolithic-architecture/constraint']
                     }, {
                         title: '微服务架构',
-                        collapsable: false,
                         children: ['/architect-perspective/microservices-architecture/system-security']
                     }]
             }, {
