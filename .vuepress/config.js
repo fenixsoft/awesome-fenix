@@ -10,6 +10,16 @@ module.exports = {
     plugins: [
         'flowchart'
     ],
+    markdown: {
+        // markdown-it-anchor 的选项
+        anchor: {permalink: false},
+        // markdown-it-toc 的选项
+        toc: {includeLevel: [1, 2]},
+        extendMarkdown: md => {
+            // 使用更多的 markdown-it 插件!
+            md.use(require('markdown-it-mermaid').default)
+        }
+    },
     themeConfig: {
         logo: '/images/logo-color.png',
         lastUpdated: '最后更新',
