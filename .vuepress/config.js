@@ -7,6 +7,9 @@ module.exports = {
     host: '0.0.0.0',
     port: 8080,
     dest: '.vuepress/dist',
+    plugins: [
+        'flowchart'
+    ],
     themeConfig: {
         logo: '/images/logo-color.png',
         lastUpdated: '最后更新',
@@ -79,6 +82,7 @@ module.exports = {
                 children: [
                     {
                         title: '单体架构',
+                        path: '/architect-perspective/monolithic-architecture',
                         children: ['/architect-perspective/monolithic-architecture/system-security.md', '/architect-perspective/monolithic-architecture/transaction', '/architect-perspective/monolithic-architecture/constraint']
                     }, {
                         title: '微服务架构',
