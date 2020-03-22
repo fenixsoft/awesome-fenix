@@ -91,9 +91,9 @@ module.exports = {
                 collapsable: false,
                 children: [
                     {
-                        title: '单体架构',
-                        path: '/architect-perspective/monolithic-architecture',
-                        children: ['/architect-perspective/monolithic-architecture/system-security.md', '/architect-perspective/monolithic-architecture/transaction', '/architect-perspective/monolithic-architecture/constraint']
+                        title: '架构的普适问题',
+                        path: '/architect-perspective/general-architecture',
+                        children: ['/architect-perspective/general-architecture/system-security.md', '/architect-perspective/general-architecture/transaction', '/architect-perspective/general-architecture/constraint']
                     }, {
                         title: '微服务架构',
                         children: ['/architect-perspective/microservices-architecture/system-security']
