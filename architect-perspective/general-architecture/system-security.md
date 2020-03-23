@@ -289,9 +289,8 @@ sequenceDiagram
 
 不想看英文，或者看了觉得概念不好的话，我简单告诉你，Fragment就是地址中"#"号后面的部分，譬如这个地址：
 
-```
-http://bookstore.icyfenix.cn/#/detail/1
-```
+> http://bookstore.icyfenix.cn/#/detail/1
+
 后面的“/detail/1”便是Fragment，这个语法是在[RFC 3986](https://tools.ietf.org/html/rfc3986)中定义的标准，规范中解释了这是用于客户端定位的URI从属资源，譬如HTML中就可以使用Fragment来做文档内的跳转（你现在可以点击一下这篇文章左边菜单中的几个子标题，看看浏览器地址的变化）而不会发起服务端请求。此外，如果浏览器对一个带有Fragment的地址发出Ajax请求，那Fragment是不会跟随请求被发送到服务端的，只能在客户端通过Script脚本来读取。所以隐式授权巧妙地利用这个特性，尽最大努力地避免了令牌从操作代理到第三方服务之间的链路存在HTTP中间人攻击，被泄漏出去。而认证服务器到到操作代理之间的这一段链路的安全，则可以通过TLS（即HTTPS）来保证没有中间人攻击，我们可以要求认证服务器都是基于HTTPS的，但无法要求第三方应用都是基于HTTPS。
 
 #### 密码模式
@@ -375,15 +374,13 @@ Session-Cookie在单节点单体服务环境中是非常合适的方案，但当
 
 ### JWT
 
-JSON Web Token，即JWT，定义与[RFC 7519](https://tools.ietf.org/html/rfc7519)，是目前广泛使用的一种令牌结构，尤其是与OAuth2配合应用于分布式的、多方的系统之中。
-
 前面介绍的Cookie-Session机制在分布式环境下遇到一些问题，在多方系统中，就更不可能谈什么Session层面的数据共享了，而且Cookie也没法跨域。看来，服务器多了，确实不好解决，那就换个思路吧，客户端是唯一的，把数据存储在客户端，每次随着请求发回服务器——JWT就是这种思路的典型代表。
 
-介绍JWT的结构之前，我们先来看一样它是什么样子的，一个JWT的例子如下图所示：
+JSON Web Token（JWT），定义于[RFC 7519](https://tools.ietf.org/html/rfc7519)的令牌格式，是目前广泛使用的一种令牌，尤其是与OAuth2配合应用于分布式的、涉及多方的应用系统之中。介绍JWT的具体构成之前，我们先来看一样它是什么样子的，一个JWT的例子如下图所示：
 
 ![](./images/jwt.png)
 
-以上截图来自于网站[https://jwt.io/](https://jwt.io/)，当然数据是我自己编的。左边的是JWT的本体，它通过名为Authorization的Header发送给服务端，前缀是在[RFC 6750](https://tools.ietf.org/html/rfc6750)中定义的bearer，这点在之前关于“认证”的小节中提到过，一个完整的HTTP请求实例如下所示：
+以上截图来自于网站[https://jwt.io/](https://jwt.io/)，当然，数据是我自己编的。左边的是JWT的本体，它通过名为Authorization的Header发送给服务端，前缀是在[RFC 6750](https://tools.ietf.org/html/rfc6750)中定义的bearer，这点在之前关于“认证”的小节中提到过，一个完整的HTTP请求实例如下所示：
 
 ```http
 GET /restful/products/1 HTTP/1.1
@@ -392,9 +389,9 @@ Connection: keep-alive
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJpY3lmZW5peCIsInNjb3BlIjpbIkFMTCJdLCJleHAiOjE1ODQ5NDg5NDcsImF1dGhvcml0aWVzIjpbIlJPTEVfVVNFUiIsIlJPTEVfQURNSU4iXSwianRpIjoiOWQ3NzU4NmEtM2Y0Zi00Y2JiLTk5MjQtZmUyZjc3ZGZhMzNkIiwiY2xpZW50X2lkIjoiYm9va3N0b3JlX2Zyb250ZW5kIiwidXNlcm5hbWUiOiJpY3lmZW5peCJ9.539WMzbjv63wBtx4ytYYw_Fo1ECG_9vsgAn8bheflL8
 ```
 
-图中右边的内容是经过Base64URL转码之后的令牌明文，是的，明文，JWT令牌默认是不加密的（你自己要加密也行就，接收时自己解密即可）。从明文中可以看到JWT令牌是以JSON结构（废话，JSON！ Web Token）存储的，结构上分为三部分。
+图中右边的内容是经过Base64URL转码之后的令牌明文，是的，明文，JWT令牌默认是不加密的（你自己要加密也行就，接收时自己解密即可）。从明文中可以看到JWT令牌是以JSON结构（毕竟叫JSON Web Token）存储的，结构上可划分为三个部分，每个部分间用点号“.”分隔开。
 
-第一部是令牌头（Header），内容如下所示：
+第一部是**令牌头**（Header），内容如下所示：
 
 ```json
 {
@@ -403,9 +400,9 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJpY
 }
 ```
 
-它描述了令牌的类型（统一为typ:JWT）和令牌签名的算法，示例中为HMAC SHA256的缩写，其他各种系统所支持的签名算法可以参考[https://jwt.io/](https://jwt.io/)网站所列。
+它描述了令牌的类型（统一为typ:JWT）和令牌签名的算法，示例中HS256为HMAC SHA256算法的缩写，其他各种系统所支持的签名算法可以参考[https://jwt.io/](https://jwt.io/)网站所列。
 
-第二部分是负载（Payload），是令牌真正需要向服务端传递的信息，在认证问题中，至少应该包括告诉服务端“我是谁”的信息，在授权问题中，应该包括告诉服务端“我属于什么角色/权限，有哪些许可”，反正就是根据具体要解决的问题不同，可以加入自己所需要的信息（但不能太多，毕竟受HTTP Header大小的限制）。一个JWT负载的示例如下所示：
+第二部分是**负载**（Payload），是令牌真正需要向服务端传递的信息，在认证问题中，至少应该包括告诉服务端“我是谁”的信息，在授权问题中，至少应该包括告诉服务端“我属于什么角色/权限，有哪些许可”。负载部分是可以完全自定义的，根据具体要解决的问题不同，设计自己所需要的信息（但不能太多，毕竟受HTTP Header大小的限制）。一个JWT负载的示例如下所示：
 
 ```json
 {
@@ -423,14 +420,35 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJpY
 }
 ```
 
-而JWT在规范中推荐（无强制约束）了7个字段，如有需要，建议字段名与官方的保持一致：
+而JWT在规范中推荐（无强制约束）了7个字段，如有需要用到这些内容，建议字段名与官方的保持一致：
 
-- iss (Issuer)：签发人
-- exp (Expiration Time)：令牌过期时间
-- sub (Subject)：主题
-- aud (Audience)：令牌受众
-- nbf (Not Before)：令牌生效时间
-- iat (Issued At)：令牌签发时间
-- jti (JWT ID)：令牌编号
+- iss（Issuer）：签发人
+- exp（Expiration Time）：令牌过期时间
+- sub（Subject）：主题
+- aud （Audience）：令牌受众
+- nbf （Not Before）：令牌生效时间
+- iat （Issued At）：令牌签发时间
+- jti （JWT ID）：令牌编号
 
-第三部分是签名（
+第三部分是**签名**（Signature），签名的意思是，使用特定的签名算法（在对象头中公开），使用特定的密钥（Secret，由服务器进行保密，不能公开）对前面两部分内容进行哈希计算，这里密钥实际上承担了加盐（Salt）的作用。以例子中JWT默认的HMAC SHA256算法为例，将通过以下公式产生签名值：
+
+```java
+HMACSHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload) , secret)
+```
+
+签名的意义在于确保负载中的信息是可信的、没有被篡改的，也没有在传输过程中丢失。因为被签名的内容修改了哪怕一个字节，也会导致整个签名发生变化，同时，这件事情只能由服务端完成（只有它知道Secret），任何人都无法在篡改后重新计算出合法的签名值，所以服务端才能够信任客户端传上来的JWT中的负载信息。
+
+在多方系统的应用中，往往会用非对称算法来进行签名，这时候除了授权服务端持有的可以用于签名的私钥外，还会对其他服务器公开一个公钥，公钥不能用来签名，但是能验证签名是否由私钥所签发的。这样其他服务器也能判断JWT令牌中的信息的真伪。
+
+JWT令牌作在多方系统中是一种优秀的凭证，它不需要任何一个服务节点保留任何一点状态信息，就能够保障认证服务与用户之间的承诺是双方当时真实意图的体现，是准确、完整、不可篡改、且不可抵赖的。同时，由于JWT本身可以携带少量信息，这十分有利于RESTFul API的设计，能够较容易地做成无状态服务，在做水平扩展时就不需要像前面Cookie-Session方案那样考虑如何部署的问题，所以也确实有一些项目（譬如Fenix's Bookstore）直接采用JWT来承载上下文来实现无状态的服务端。譬如，在你调试Fenix's Bookstore的程序时，随时都可以停止、重启服务端程序，客户端仍然是可以毫无感知地继续操作；而服务端有状态的系统，往往就必须通过再次登录、进行前置业务操作来给服务端重建状态。
+
+但是，在大型系统中完全使用JWT来保存上下文状态仍是难以实现的，不过将最热点的服务接口单独抽离出来，做成无状态的、幂等的服务，是一种很有效的提升系统吞吐能力的架构设计。这部分内容将在微服务架构的部分如何划分微服务的章节中进一步探讨。
+
+JWT也不是没有缺点的完美方案，它存在着以下几个明显的缺点：
+
+- **难以主动失效**：JWT令牌一旦签发，理论上就和认证服务器再没有什么瓜葛了，在到期之前就会始终有效，除非服务器部署额外的逻辑。譬如一种颇为典型的功能：要求一个用户只能在一台设备上登录
+- 重放攻击
+- 令牌在客户端丢失的风险
+
+任何技术都是一种工具而不是银弹，无论是迷信还是[使劲黑它](https://dzone.com/articles/stop-using-jwts-as-session-tokens)，都并无必要。
+
