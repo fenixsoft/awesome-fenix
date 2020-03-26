@@ -128,7 +128,7 @@ $ sudo cat /etc/fstab_bak | grep -v swap > /etc/fstab
 $ systemctl restart docker
 ```
 
-## （可选）预拉取镜像
+## 预拉取镜像 <Badge text="可选" type="warning"/>
 
 预拉取镜像并不是必须的，本来初始化集群的时候系统就会自动拉取Kubernetes中要使用到的Docker镜像组件，也提供了一个“kubeadm config images pull”命令来一次性的完成拉取，这都是因为如果要手工来进行这项工作，实在非常非常非常的繁琐。
 
@@ -182,7 +182,7 @@ $ kubeadm init --kubernetes-version v1.17.3 --pod-network-cidr=10.244.0.0/16
 
 这信息先恭喜你已经把控制平面安装成功了，但还有三行“you need……”、“you should……”、“you can……”开头的内容，这是三项后续的“可选”工作，下面继续介绍。
 
-## （可选）让非Root用户可以使用Kubernetes
+## 让非Root用户可以使用Kubernetes <Badge text="可选" type="warning"/>
 
 Kubernetes最初是以root用户安装的，如果需要非root的其他用户也可以使用Kubernetes集群，那需要为该用户先配置好admin.conf文件。切换至该用户后，进行如下操作：
 
@@ -194,7 +194,7 @@ $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 当然，如果只是在测试环境，准备后续都准备使用root运行，那这个步骤可以略过。
 
-## （可选）安装CNI插件
+## 安装CNI插件 <Badge text="可选" type="warning"/>
 
 CNI即“容器网络接口”，在2016 年，CoreOS发布了CNI规范。2017年5月，CNI被CNCF技术监督委员会投票决定接受为托管项目，从此成为不同容器编排工具（Kubernetes、Mesos、OpenShift）可以共同使用的、解决容器之间网络通讯的统一接口规范。
 
@@ -213,7 +213,7 @@ $ curl --insecure -sfL https://raw.githubusercontent.com/coreos/flannel/master/D
 
 使用Flannel的话，要注意要在创建集群时加入“--pod-network-cidr”参数，指明网段划分。
 
-## （可选）移除Master节点上的污点
+## 移除Master节点上的污点 <Badge text="可选" type="warning"/>
 
 污点（Taint）是Kubernetes Pod调度中的概念，在这里通俗地理解就是Kubernetes决定在集群中的哪一个节点建立新的容器时，要先排除掉带有特定污点的节点，以避免容器在Kubernetes不希望运行的节点中创建、运行。默认情况下，集群的Master节点是会带有污点的，以避免容器分配到Master中创建。但对于许多学习Kubernetes的同学来说，并没有多宽裕的机器数量，往往是建立单节点集群或者最多只有两、三个节点，这样Master节点不能运行容器就显得十分浪费了。需要移除掉Master节点上所有的污点，在Master节点上执行以下命令即可：
 
@@ -225,7 +225,7 @@ $ kubectl taint nodes --all node-role.kubernetes.io/master-
 
 ![](./images/kubernetes-setup-completed.png)
 
-## （可选）启用kubectl命令自动补全功能
+## 启用kubectl命令自动补全功能 <Badge text="可选" type="warning"/>
 
 由于kubectl命令在后面十分常用，而且Kubernetes许多资源名称都带有随机字符，要手工照着敲很容易出错，强烈推荐启用命令自动补全的功能，这里仅以bash和笔者常用的zsh为例，如果您使用其他shell，需自行调整：
 

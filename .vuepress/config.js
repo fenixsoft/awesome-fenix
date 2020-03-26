@@ -8,7 +8,6 @@ module.exports = {
     port: 8080,
     dest: '.vuepress/dist',
     plugins: [
-        'flowchart'
     ],
     markdown: {
         // markdown-it-anchor 的选项
