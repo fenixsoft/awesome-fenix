@@ -8,14 +8,14 @@
 - **保密**（Confidentiality）：系统如何保证敏感数据无法被包括系统管理员在内的内外部人员所窃取、滥用？
 - **传输**（Transport Security）：系统如何保证通过网络传输的信息无法被第三方窃听、篡改和冒充？
 - **验证**（Verification）：系统如何确保提交到每项服务中的数据是合乎规则的，不会对系统稳定性、数据一致性、正确性产生风险？
-- **漏洞利用**（Exploit）：系统如何避免在基础设施和应用程序中出现弱点，被攻击者利用？
+- **漏洞利用**<Badge text="编写中" type="warning"/>（Exploit）：系统如何避免在基础设施和应用程序中出现弱点，被攻击者利用？
 - ……
 
 上面这些安全相关的问题，解决起来确实是既繁琐复杂，又难以或缺。值得庆幸的是这一部分内容基本上都是与具体系统、具体业务无关的通用性问题、这意味着它们会存在着业界通行的，已被验证过是行之有效的解决方案，乃至已经形成某一些行业标准，不需要我们自己从头去构思如何解决。后面我们将会通过标准的方案，逐一探讨以上问题的主流处理方法。
 
 还有其他一些安全相关的内容，主要由管理、运维、审计方面负责，尽管软件架构也需要配合参与，但不列入本文的讨论范围之中，譬如：安全审计、系统备份与恢复、防治病毒、信息系统安全法规与制度、计算机防病毒制度、保护私有信息规则，等等。
 
-## 认证
+## 认证 <Badge text="已完成"/>
 
 ::: tip 认证（Authentication）
 
@@ -130,7 +130,7 @@ Spring Security的权限控制措施在两个层面进行，一种Web级别的�
 
 以上流程是大多数系统，尤其是单体系统中主流的认证方式，哪怕不基于Apache Shiro或Spring Security来实现，其思路很可能也是与上面描述的差不多的。但我们的Bookstore却并未直接应用这种认证方式，而是借用了OAuth2授权协议中的密码授权模式，在此过程中完成认证。为何会选择这种方式，以及具体实现部分的内容，将在下一部分“授权”中继续介绍。
 
-## 授权
+## 授权 <Badge text="已完成"/>
 
 ::: tip 授权（ Authorization）
 
@@ -323,7 +323,7 @@ sequenceDiagram
 
 进行验证时，设备需要从授权服务器获取一个URI地址和一个用户码，然后需要用户手动或设备自动地到验证URI中输入用户码。在这个过程中，设备会一直循环，尝试去获取令牌，直到拿到令牌或者用户码过期为止。
 
-## 凭证
+## 凭证 <Badge text="已完成"/>
 
 ::: tip 凭证（Credentials）
 
@@ -449,7 +449,7 @@ JWT并不是没有缺点的完美方案，它存在着以下几个明显或者�
 
 我在写这篇文章的时候，在网上搜索资料，发现JWT的争议和吹捧都不少。技术只是工具而已，无论是迷信还是[使劲黑它](https://dzone.com/articles/stop-using-jwts-as-session-tokens)，都并无必要。
 
-## 保密 
+## 保密 <Badge text="已完成"/>
 
 ::: tip 保密（Confidentiality）
 
@@ -558,7 +558,7 @@ JWT并不是没有缺点的完美方案，它存在着以下几个明显或者�
 
 
 
-## 传输 
+## 传输 <Badge text="已完成"/> 
 
 ::: tip 传输（Transport Security）
 
@@ -707,15 +707,15 @@ sequenceDiagram
 
 从上面握手协商的过程中我们还可以得知，HTTPS同样并非是离散的二元选项，不是只有“启用了HTTPS”和“未启用HTTPS”的差别，采用不同的协议版本、不同的密码学套件、证书是否有效、服务端/客户端对面对无效证书时的处理策略如何都导致了不同HTTPS站点的安全强度的不同。你可以使用[亚洲诚信](https://myssl.com)的诊断服务查看以下几个网站的安全评分，以对安全强度有更加量化直观的理解：
 
-- [https://myssl.com/myssl.com](https://myssl.com/myssl.com)
-- [https://myssl.com/www.qq.com](https://myssl.com/www.qq.com)
-- [https://myssl.com/www.newsmth.net](https://myssl.com/www.newsmth.net)
-- [https://myssl.com/www.quqianbao.com](https://myssl.com/www.quqianbao.com)
+- 亚洲诚信：[https://myssl.com/myssl.com](https://myssl.com/myssl.com)
+- 腾讯网：[https://myssl.com/www.qq.com](https://myssl.com/www.qq.com)
+- 本站：https://myssl.com/icyfenix.cn
+- 趣店：[https://myssl.com/www.quqianbao.com](https://myssl.com/www.quqianbao.com)
 
 
 
 
-## 验证 
+## 验证 <Badge text="已完成"/>
 
 ::: tip 验证（Verification）
 
@@ -870,7 +870,7 @@ public class Account extends BaseEntity {
 
 如果真的遇到一些非典型情况，譬如“新增”操作需要执行全部校验规则，“修改”操作中希望不校验某个字段，“删除”操作C中希望改变某一条校验规则，这时候要就要启用分组校验来处理，设计一套“新增”、“修改”、“删除”这样的标识类，置入到校验注解的groups参数中。
 
-## 漏洞利用 <Badge text="进行中" type="warning"/>
+## 漏洞利用 <Badge text="编写中" type="warning"/>
 
 ::: tip 漏洞利用（Exploit）
 
