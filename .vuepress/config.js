@@ -7,8 +7,7 @@ module.exports = {
     host: '0.0.0.0',
     port: 8080,
     dest: '.vuepress/dist',
-    plugins: [
-    ],
+    plugins: [],
     markdown: {
         // markdown-it-anchor 的选项
         anchor: {permalink: false},
@@ -63,7 +62,7 @@ module.exports = {
                 collapsable: false,
                 children: ['/introduction/about-me', '/introduction/about-the-fenix-project']
             }, {
-                title: '迈向微服务',
+                title: '迈向软件架构',
                 collapsable: false,
                 children: [
                     {
@@ -92,7 +91,7 @@ module.exports = {
                     {
                         title: '架构的普适问题',
                         path: '/architect-perspective/general-architecture',
-                        children: ['/architect-perspective/general-architecture/system-security.md', '/architect-perspective/general-architecture/transaction', '/architect-perspective/general-architecture/constraint']
+                        children: ['/architect-perspective/general-architecture/api-style.md', '/architect-perspective/general-architecture/system-security.md', '/architect-perspective/general-architecture/transaction', '/architect-perspective/general-architecture/constraint']
                     }, {
                         title: '微服务架构',
                         children: ['/architect-perspective/microservices-architecture/system-security']
