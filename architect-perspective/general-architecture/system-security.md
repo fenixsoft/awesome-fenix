@@ -65,7 +65,9 @@
 
 介绍了一大段关于Java中安全标准的历史，我们最终还是要切入到如何处理认证的话题上，这可是随着网络出现就有的一个东西，所以，IETF的最初想法是基于Web的验证就应该在HTTP协议层面来解决。
 
-> **互联网工程任务组**（Internet Engineering Task Force，IETF）：管理和发布互联网标准的组织，其标准以RFC即"请求意见稿"Request for Comments的形式发出。不仅是HTTP，几乎目前所有的主要网络协议，如IP、TCP、UDP、FTP、CMIP、SOCKS，等等都是以RFC形式定义的。
+:::quote 互联网工程任务组（Internet Engineering Task Force，IETF）
+管理和发布互联网标准的组织，其标准以RFC即"请求意见稿"Request for Comments的形式发出。不仅是HTTP，几乎目前所有的主要网络协议，如IP、TCP、UDP、FTP、CMIP、SOCKS，等等都是以RFC形式定义的。
+:::
 
 IETF给HTTP 1.1协议定义了401（Unauthorized，未授权）状态码，当服务端向客户端返回此状态码时，应在Header中附带一个WWW-Authenticate项，此项目通过跟随的一个可扩展的Scheme，告诉客户端应该采取怎样的方式来开始验证，例如：
 
@@ -162,7 +164,7 @@ graph LR
 
 > **Backlog**：
 >
-> **小周**（User）是某SCI杂志的**审稿人**（Role），职责之一是在系统中**审核论文**（Authority）。在**审稿过程**（Session）中，当他认为某篇**论文**（Resource）达到了可以公开发表标准时，就会在后台**点击通过按钮**（Operation）来完成审核。
+> **周同学**（User）是某SCI杂志的**审稿人**（Role），职责之一是在系统中**审核论文**（Authority）。在**审稿过程**（Session）中，当他认为某篇**论文**（Resource）达到了可以公开发表标准时，就会在后台**点击通过按钮**（Operation）来完成审核。
 
 以上，“给论文点击通过按钮”就是一种许可（Permission），它是“审核论文”这项权限（Authority）的具象化体现。
 
@@ -276,9 +278,9 @@ sequenceDiagram
 
 还有一点，在RFC 6749对隐式授权的描述中，特别强调了令牌是“通过Fragment带回”的。部分对超文本协议没有了解的读者，可能不知道[Fragment](https://en.wikipedia.org/wiki/Fragment_identifier)是个什么东西？
 
-> **额外知识**
->
-> In computer [hypertext](https://en.wikipedia.org/wiki/Hypertext), a **fragment identifier** is a [string](https://en.wikipedia.org/wiki/Character_string_(computer_science)) of [characters](https://en.wikipedia.org/wiki/Character_(computing)) that refers to a [resource](https://en.wikipedia.org/wiki/Resource_(computer_science)) that is subordinate to another, primary resource. The primary resource is identified by a [Uniform Resource Identifier](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) (URI), and the fragment identifier points to the subordinate resource.
+:::quote 额外知识
+In computer [hypertext](https://en.wikipedia.org/wiki/Hypertext), a **fragment identifier** is a [string](https://en.wikipedia.org/wiki/Character_string_(computer_science)) of [characters](https://en.wikipedia.org/wiki/Character_(computing)) that refers to a [resource](https://en.wikipedia.org/wiki/Resource_(computer_science)) that is subordinate to another, primary resource. The primary resource is identified by a [Uniform Resource Identifier](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) (URI), and the fragment identifier points to the subordinate resource.
+:::
 
 不想看英文，或者看了觉得概念不好的话，我简单告诉你，Fragment就是地址中"#"号后面的部分，譬如这个地址：
 
@@ -371,7 +373,10 @@ Session-Cookie在单节点单体服务环境中是非常合适的方案，但当
 
 JSON Web Token（JWT），定义于[RFC 7519](https://tools.ietf.org/html/rfc7519)的令牌格式，是目前广泛使用的一种令牌，尤其是与OAuth2配合应用于分布式的、涉及多方的应用系统之中。介绍JWT的具体构成之前，我们先来看一样它是什么样子的，一个JWT的例子如下图所示：
 
+:::center
 ![](./images/jwt.png)
+JWT令牌结构
+:::
 
 以上截图来自于网站[https://jwt.io/](https://jwt.io/)，当然，数据是我自己编的。左边的是JWT的本体，它通过名为Authorization的Header发送给服务端，前缀是在[RFC 6750](https://tools.ietf.org/html/rfc6750)中定义的bearer，这点在之前关于“认证”的小节中提到过，一个完整的HTTP请求实例如下所示：
 
@@ -482,9 +487,9 @@ JWT并不是没有缺点的完美方案，它存在着以下几个明显或者�
 
 关于第一个“没有太多意义”，有人不理解为什么为什么客户端加密对防御黑客会没有意义，我举个例子，在极端情况下，客户端可能被整个架空掉，这样上面无论做了什么防御措施都成“马其诺防线”了。典型的就是之前已经提到的中间人攻击，它可以通过劫持掉了客户端到服务端之间的某个节点，包括但不限于代理（通过HTTP代理返回赝品）、路由器（通过路由导向赝品）、DNS服务（直接将你机器的DNS查询结果替换为赝品地址）等等，把你要访问的登陆页面整个给替换掉（全替换掉工作量太大，一般不会去做，都是注入一段恶意的JavaScript代码到正版的页面里）。最简单的劫持路由器，在局域网内其他机器释放ARP病毒便有可能做到这一点。这部分内容属于链路安全，我们将在下一节来讲如何防御，这里附带[Mozilla](https://developer.mozilla.org/zh-CN/docs/Glossary/MitM)对中间人攻击的一段介绍以供参考。
 
-> **中间人攻击**（Man-in-the-Middle Attack，MitM）
->
-> 在消息发出方和接收方之间拦截双方通讯。用日常生活中的写信来类比的话：你给朋友写了一封信，邮递员可以把每一份你寄出去的信都拆开看，甚至把信的内容改掉，然后重新封起来，再寄出去给你的朋友。朋友收到信之后给你回信，邮递员又可以拆开看，看完随便改，改完封好再送到你手上。你全程都不知道自己寄出去的信和收到的信都经过邮递员这个“中间人”转手和处理——换句话说，对于你和你朋友来讲，邮递员这个“中间人”角色是不可见的。
+:::quote 中间人攻击（Man-in-the-Middle Attack，MitM）
+在消息发出方和接收方之间拦截双方通讯。用日常生活中的写信来类比的话：你给朋友写了一封信，邮递员可以把每一份你寄出去的信都拆开看，甚至把信的内容改掉，然后重新封起来，再寄出去给你的朋友。朋友收到信之后给你回信，邮递员又可以拆开看，看完随便改，改完封好再送到你手上。你全程都不知道自己寄出去的信和收到的信都经过邮递员这个“中间人”转手和处理——换句话说，对于你和你朋友来讲，邮递员这个“中间人”角色是不可见的。
+:::
 
 关于第二个“很有意义”，居然也有人会抬杠。一种是说涉及到密码等敏感信息的都会由靠谱的人完成，或者就是他本人做的，所以不会出问题，我觉得这个就没什么必要反驳了，开心就好。另一种的观点是保存明文密码（把不含盐的哈希结果也作明文看待）的目的是为了便于客户端做动态盐值，因为这需要服务端存储了明文才能每次用新的盐值重新加密来与客户端传上来的加密结果进行比较。我的观点是每次从服务端请求盐值在客户端动态加盐往往会得不偿失，应在真正防御性的密码加密存储应该在服务端进行，因为客户端无轮是否动态加盐，都不能代替HTTPS。
 
@@ -621,17 +626,18 @@ signature = SHA256(base64UrlEncode(header) + "." + base64UrlEncode(payload) , se
 
 回到网络世界中，我们并不能假设授权服务器和资源服务器是互相认识的，所以通常不太会采用第一种方式，而第二种就是目前标准的保证公钥可信分发的标准，这个标准一个名字：[公开密钥基础设施](https://zh.wikipedia.org/wiki/%E5%85%AC%E9%96%8B%E9%87%91%E9%91%B0%E5%9F%BA%E7%A4%8E%E5%BB%BA%E8%A8%AD)（Public Key Infrastructure，PKI）。
 
-> **公开密钥基础设施**（Public Key Infrastructure，PKI）
->
-> 又称公开密钥基础架构、公钥基础建设、公钥基础设施、公开密码匙基础建设或公钥基础架构，是一组由硬件、软件、参与者、管理政策与流程组成的基础架构，其目的在于创造、管理、分配、使用、存储以及撤销数字证书。
->
-> 密码学上，公开密钥基础建设借着数字证书认证中心（Certificate Authority，CA）将用户的个人身份跟公开密钥链接在一起。对每个证书中心用户的身份必须是唯一的。链接关系通过注册和发布过程创建，取决于担保级别，链接关系可能由CA的各种软件或在人为监督下完成。PKI的确定链接关系的这一角色称为注册管理中心（Registration Authority，RA）。RA确保公开密钥和个人身份链接，可以防抵赖。
+:::quote 公开密钥基础设施（Public Key Infrastructure，PKI）
+又称公开密钥基础架构、公钥基础建设、公钥基础设施、公开密码匙基础建设或公钥基础架构，是一组由硬件、软件、参与者、管理政策与流程组成的基础架构，其目的在于创造、管理、分配、使用、存储以及撤销数字证书。
+
+密码学上，公开密钥基础建设借着数字证书认证中心（Certificate Authority，CA）将用户的个人身份跟公开密钥链接在一起。对每个证书中心用户的身份必须是唯一的。链接关系通过注册和发布过程创建，取决于担保级别，链接关系可能由CA的各种软件或在人为监督下完成。PKI的确定链接关系的这一角色称为注册管理中心（Registration Authority，RA）。RA确保公开密钥和个人身份链接，可以防抵赖。
+:::
 
 我们不纠缠于PKI概念上的内容，只要知道里面定义了数字证书认证中心便相当于前面例子中“权威公证人”的角色，负责发放和管理数字证书的权威机构（你也可以签发证书，不权威罢了），它作为受信任的第三方，承担公钥体系中公钥的合法性检验的责任。可是，这里和现实世界仍然有一些区别，现实世界你去找的公安局，那大楼不大可能是剧场布景冒认的；而网络世界，在假设所有网络传输都有可能被截获、冒认的前提下，“去CA中心进行认证”本身也是一种网络操作，这与之前的“去获取去公钥”本质上不是没什么差别吗？其实还是有差别的，公钥成千上万不可数，而权威的CA中心则应是可数的，“可数的”意味着可以不通过网络，而在浏览器、操作系统出厂时预置好，或者在专门安装（如银行的证书），下图为我机器上的现存的根证书。
 
-<p align="center">
-	<img src="./images/sshot-ca.png"></img>
-</p>
+:::center
+![](./images/sshot-ca.png)
+Windows系统的CA证书
+:::
 
 到这里终于出现了一个这节的关键词之一：证书（Certificate），证书是权威CA中心对特定公钥信息的一层公证载体，由于客户的机器上已经预置了这些权威CA中心本身的证书（称为根证书），使得我们能够在不依靠网络的前提下，使用里面的公钥信息对其所签发的证书中的签名进行确认。到此终于打破了鸡生蛋、蛋生鸡的循环，使得整套数字签名体系有了逻辑基础。
 
