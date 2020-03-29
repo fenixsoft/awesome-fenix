@@ -121,7 +121,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     {
-                        title: '架构的普适问题',
+                        title: '√ 架构的普适问题',
                         collapsable: false,
                         path: '/architect-perspective/general-architecture',
                         children: [

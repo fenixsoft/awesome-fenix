@@ -108,25 +108,194 @@ Fielding认为，一套理想的、完全满足REST的系统应该满足以下�
 
 REST的基本思想是面向资源来抽象问题，基本手段是尽可能复用HTTP协议中已经定义的语义和相关基础支持来解决问题，以上六个原则都是在这个指导思路下设计的。因为HTTP本来就是面向资源而设计的网络协议，只要面向资源的软件架构确实行得通的话，本文开篇中所列的“远程服务调用需要考虑的问题”便几乎不再需要独立考虑了，HTTP协议已经有效运作了30年，其相关的技术基础设施已是千锤百炼，无比成熟，这些问题早已解决过无数遍。唯一需要权衡的是你的软件系统、设计和开发人员是否能够适应面向资源的思想来设计软件，来编写代码。
 
-
-
-
-
 ### RMM成熟度
 
+前面我们花费大量篇幅讨论了REST的思想、内容和若干指导原则等理论方面的内容，在这个小节里，我们把重心放在实践上，同时把目光从整个软件架构设计聚焦到REST服务接口，以切合本节的题目“服务设计风格”，也顺带填了前面埋下的“如何评价服务是否RESTful”的坑。
 
+《[RESTful Web APIs](https://book.douban.com/subject/22139962/)》、《[RESTful Web Services](https://book.douban.com/subject/2054201/)》作者Leonard Richardson曾提出过一个衡量“服务有多么REST”的Richardson成熟度模型（[Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html)），便于那些原本不使用REST的服务，能够逐步地导入REST。Richardson将服务接口“REST的程度”从低到高，分为0至4级：
 
-https://martinfowler.com/articles/richardsonMaturityModel.html
+0. The Swamp of [Plain Old XML](https://en.wikipedia.org/wiki/Plain_Old_XML)：完全不REST。关于POX，SOAP表示[感觉有被冒犯到](https://baike.baidu.com/item/%E6%84%9F%E8%A7%89%E6%9C%89%E8%A2%AB%E5%86%92%E7%8A%AF%E5%88%B0)。
+1. Resources：开始引入资源的概念。
+2. HTTP Verbs：引入统一接口，映射到HTTP协议的方法上。
+3. Hypermedia Controls：在本文里面的说法是“超文本驱动”，在Fielding论文里的说法是“Hypertext As The Engine Of Application State，HATEOAS”，都是指同一件事情。
 
-CN： https://blog.csdn.net/dm_vincent/article/details/51341037
+我们借用Martin Fowler撰写的关于RMM成熟度模型的[文章](https://martinfowler.com/articles/richardsonMaturityModel.html)中的实际例子（原文是XML写的，我简化了一下），来实际看一下四种不同程度的REST反应到实际API是怎样的。假设你是以为软件工程师，接到需求（也被我尽量简化了）的UserStory是这样的：
 
+:::quote 医生预约系统
 
+作为一名病人，我想要从系统中得知指定日期内我熟悉的医生是否具有空闲时间，以便于我向该医生预约就诊。
 
+:::
 
+#### 第0级
 
-### GraphQL
+医院开放了一个/appointmentService的Web API，传入日期、医生姓名作为参数，可以得到该时间段该名医生的空闲时间，该API的一次HTTP调用如下所示：
 
-REST只提供了增删改查的基本语义，其他的语义基本上不管。比如批量添加，批量删除
+```http
+POST /appointmentService?action=query HTTP/1.1
 
-不能说 GraphQL 是要完全取代 REST，因为前者只是一个工具，而 REST 是一种架构模式
+{date: "2020-03-04", doctor: "mjones"}
+```
+
+然后服务器会传回一个包含了所需信息的回应：
+
+```http
+HTTP/1.1 200 OK
+
+[
+	{start:"14:00", end: "14:50", doctor: "mjones"},
+	{start:"16:00", end: "16:50", doctor: "mjones"}
+]
+```
+
+得到了医生空闲的结果后，我觉得14:00的时间比较合适，于是进行预约确认，并提交了我的基本信息：
+
+``` http
+POST /appointmentService?action=comfirm HTTP/1.1
+
+{
+	appointment: {date: "2020-03-04", start:"14:00", doctor: "mjones"},
+	patient: {name: xx, age: 30, ……}
+}
+```
+
+如果预约成功，那我能够收到一个预约成功的响应：
+
+```http
+HTTP/1.1 200 OK
+
+{
+	code: 0,
+	message: "Successful confirmation of appointment"
+}
+```
+
+如果发生了问题，譬如有人在我前面抢先预约了，那么我会在响应中收到某种错误信息：
+
+```http
+HTTP/1.1 200 OK
+
+{
+	code: 1
+	message: "doctor not available"
+}
+```
+
+到此，整个预约服务宣告完成，直接明了，我们采用的是非常直观的基于RPC风格的服务设计。
+
+#### 第1级
+
+通往REST的第一步是引入资源的概念，在API中基本的体现是围绕着资源而不是过程来设计服务，说的直白一点，可以理解为服务应该是一个名词而不是动词。此外，每次请求中都应包含资源的ID，所有操作均通过资源ID来进行。
+
+```http
+POST /doctors/mjones HTTP/1.1
+
+{date: "2020-03-04"}
+```
+
+然后服务器传回一个包含了ID信息，注意，ID是资源的唯一编号，有ID即代表“医生的档期”被视为某种资源：
+
+```http
+HTTP/1.1 200 OK
+
+[
+	{id: 1234, start:"14:00", end: "14:50", doctor: "mjones"},
+	{id: 5678, start:"16:00", end: "16:50", doctor: "mjones"}
+]
+```
+
+我还是觉得14:00的时间比较合适，于是又进行预约确认，并提交了我的基本信息：
+
+``` http
+POST /schedules/1234 HTTP/1.1
+
+{name: xx, age: 30, ……}
+```
+
+后面预约成功或者失败的响应消息在这个级别里面与之前一致，就不重复了。比起第0级，第1级的服务抽象程度有所提高，但至少还有三个问题并没有解决，一是只处理了查询和预约，如果我临时想换个时间，要调整预约，或者我忽然好了，想删除预约，这都需要提供新的服务接口。二是处理结果响应时，只能靠着结果中的code、message这些字段做分支判断，每一套服务都要设计可能发生错误的code；三是并没有考虑认证授权等安全方面的内容，譬如要求只有登陆用户才允许查询医生时间，某些医生可能只对VIP开放，需要特定级别的病人才能预约。
+
+#### 第2级
+
+第1级遗留3个问题可以靠引入统一接口来解决。HTTP协议的7个标准方法是经过精心设计的，几乎能涵盖资源可能遇到的所有操作场景（这其实更取决于架构师的抽象能力），将不同业务需求抽象为对资源的增加、修改、删除等操作来解决第一个问题；使用HTTP协议的Status Code，可以涵盖大多数资源操作可能出现的异常（而且也是可以自定义的），以此解决第二个问题；依靠HTTP Header中携带的额外认证、授权信息来解决第三个问题（这个在演示中没有体现，请参考安全架构中的“[凭证](system-security.html#凭证)”相关内容）。
+
+获取医生档期，采用具有查询语义的GET操作进行：
+
+```http
+GET /doctors/mjones/schedule?date=2020-03-04&status=open HTTP/1.1
+```
+
+然后服务器会传回一个包含了所需信息的回应：
+
+```http
+HTTP/1.1 200 OK
+
+[
+	{id: 1234, start:"14:00", end: "14:50", doctor: "mjones"},
+	{id: 5678, start:"16:00", end: "16:50", doctor: "mjones"}
+]
+```
+
+我仍然觉得14:00的时间比较合适，于是双进行预约确认，并提交了我的基本信息，用以创建预约，这是符合POST的语义的：
+
+``` http
+POST /schedules/1234 HTTP/1.1
+
+{name: xx, age: 30, ……}
+```
+
+如果预约成功，那我能够收到一个预约成功的响应：
+
+```http
+HTTP/1.1 201 Created
+
+Successful confirmation of appointment
+```
+
+如果发生了问题，譬如有人在我前面抢先预约了，那么我会在响应中收到某种错误信息：
+
+```http
+HTTP/1.1 409 Conflict
+
+doctor not available
+```
+
+#### 第3级
+
+第2级是目前绝大多数系统所到达的REST级别，但仍不是不够完美的，至少还存在一个问题：你是如何知道预约mjones医生的档期是需要访问“/schedules/1234”这个服务的？也许你甚至第一时间无法理解为何我会有这样的疑问，这当然是程序代码写的呀！但REST并不这样认为。RMM中的Hypermedia Controls、Fielding论文中的HATEOAS和现在提的比较多的“超文本驱动”，所希望的是除了第一个请求是有你在浏览器地址栏输入所驱动之外，其他的请求都应该能够自描述清楚后续可能发生的状态转移。所以，当你输入了查询的指令之后：
+
+```http
+GET /doctors/mjones/schedule?date=2020-03-04&status=open HTTP/1.1
+```
+
+服务器传回的响应信息应该包括诸如如何预约档期、如何了解医生信息等可能的后续操作：
+
+```http
+HTTP/1.1 200 OK
+
+{
+	schedules：[
+		{
+			id: 1234, start:"14:00", end: "14:50", doctor: "mjones",
+			links: [
+				{rel: "comfirm schedule", href: "/schedules/1234"}
+			]
+		},
+		{
+			id: 5678, start:"16:00", end: "16:50", doctor: "mjones",
+			links: [
+				{rel: "comfirm schedule", href: "/schedules/5678"}
+			]
+		}
+	],
+	links: [
+		{rel: "doctor info", href: "/doctors/mjones/info"}
+	]
+}
+```
+
+如果做到了第3级REST，那服务端的API和客户端也是完全解耦的，你要调整服务数量，或者同一个服务做API升级将会变得非常简单。
+
+### 弱点与争议点
+
+TBD
 
