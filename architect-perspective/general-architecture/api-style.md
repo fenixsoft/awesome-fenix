@@ -114,12 +114,12 @@ REST的基本思想是面向资源来抽象问题，基本手段是尽可能复�
 
 《[RESTful Web APIs](https://book.douban.com/subject/22139962/)》、《[RESTful Web Services](https://book.douban.com/subject/2054201/)》作者Leonard Richardson曾提出过一个衡量“服务有多么REST”的Richardson成熟度模型（[Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html)），便于那些原本不使用REST的服务，能够逐步地导入REST。Richardson将服务接口“REST的程度”从低到高，分为0至4级：
 
-0. The Swamp of [Plain Old XML](https://en.wikipedia.org/wiki/Plain_Old_XML)：完全不REST。关于POX，SOAP表示[感觉有被冒犯到](https://baike.baidu.com/item/%E6%84%9F%E8%A7%89%E6%9C%89%E8%A2%AB%E5%86%92%E7%8A%AF%E5%88%B0)。
+0. The Swamp of [Plain Old XML](https://en.wikipedia.org/wiki/Plain_Old_XML)：完全不REST。另外，关于POX这说法，SOAP表示[感觉有被冒犯到](https://baike.baidu.com/item/%E6%84%9F%E8%A7%89%E6%9C%89%E8%A2%AB%E5%86%92%E7%8A%AF%E5%88%B0)。
 1. Resources：开始引入资源的概念。
 2. HTTP Verbs：引入统一接口，映射到HTTP协议的方法上。
 3. Hypermedia Controls：在本文里面的说法是“超文本驱动”，在Fielding论文里的说法是“Hypertext As The Engine Of Application State，HATEOAS”，都是指同一件事情。
 
-我们借用Martin Fowler撰写的关于RMM成熟度模型的[文章](https://martinfowler.com/articles/richardsonMaturityModel.html)中的实际例子（原文是XML写的，我简化了一下），来实际看一下四种不同程度的REST反应到实际API是怎样的。假设你是以为软件工程师，接到需求（也被我尽量简化了）的UserStory是这样的：
+我们借用Martin Fowler撰写的关于RMM成熟度模型的[文章](https://martinfowler.com/articles/richardsonMaturityModel.html)中的实际例子（原文是XML写的，我简化了一下），来实际看一下四种不同程度的REST反应到实际API是怎样的。假设你是一名软件工程师，接到需求（也被我尽量简化了）的UserStory是这样的：
 
 :::quote 医生预约系统
 
@@ -181,11 +181,11 @@ HTTP/1.1 200 OK
 }
 ```
 
-到此，整个预约服务宣告完成，直接明了，我们采用的是非常直观的基于RPC风格的服务设计。
+到此，整个预约服务宣告完成，直接明了，我们采用的是非常直观的基于RPC风格的服务设计似乎很容易就解决了所有问题……吗？
 
 #### 第1级
 
-通往REST的第一步是引入资源的概念，在API中基本的体现是围绕着资源而不是过程来设计服务，说的直白一点，可以理解为服务应该是一个名词而不是动词。此外，每次请求中都应包含资源的ID，所有操作均通过资源ID来进行。
+通往REST的第一步是引入资源的概念，在API中基本的体现是围绕着资源而不是过程来设计服务，说的直白一点，可以理解为服务的Endpoint应该是一个名词而不是动词。此外，每次请求中都应包含资源的ID，所有操作均通过资源ID来进行。
 
 ```http
 POST /doctors/mjones HTTP/1.1
@@ -193,7 +193,7 @@ POST /doctors/mjones HTTP/1.1
 {date: "2020-03-04"}
 ```
 
-然后服务器传回一个包含了ID信息，注意，ID是资源的唯一编号，有ID即代表“医生的档期”被视为某种资源：
+然后服务器传回一个包含了ID信息，注意，ID是资源的唯一编号，有ID即代表“医生的档期”被视为一种资源：
 
 ```http
 HTTP/1.1 200 OK
@@ -212,13 +212,13 @@ POST /schedules/1234 HTTP/1.1
 {name: xx, age: 30, ……}
 ```
 
-后面预约成功或者失败的响应消息在这个级别里面与之前一致，就不重复了。比起第0级，第1级的服务抽象程度有所提高，但至少还有三个问题并没有解决，一是只处理了查询和预约，如果我临时想换个时间，要调整预约，或者我忽然好了，想删除预约，这都需要提供新的服务接口。二是处理结果响应时，只能靠着结果中的code、message这些字段做分支判断，每一套服务都要设计可能发生错误的code；三是并没有考虑认证授权等安全方面的内容，譬如要求只有登陆用户才允许查询医生时间，某些医生可能只对VIP开放，需要特定级别的病人才能预约。
+后面预约成功或者失败的响应消息在这个级别里面与之前一致，就不重复了。比起第0级，第1级的服务抽象程度有所提高，但至少还有三个问题并没有解决，一是只处理了查询和预约，如果我临时想换个时间，要调整预约，或者我的病忽然好了，想删除预约，这都需要提供新的服务接口。二是处理结果响应时，只能靠着结果中的code、message这些字段做分支判断，每一套服务都要设计可能发生错误的code，这很难考虑全面，而且也不利于对某些通用的错误做统一处理；三是并没有考虑认证授权等安全方面的内容，譬如要求只有登陆用户才允许查询医生档期时间，某些医生可能只对VIP开放，需要特定级别的病人才能预约等等。
 
 #### 第2级
 
-第1级遗留3个问题可以靠引入统一接口来解决。HTTP协议的7个标准方法是经过精心设计的，几乎能涵盖资源可能遇到的所有操作场景（这其实更取决于架构师的抽象能力），将不同业务需求抽象为对资源的增加、修改、删除等操作来解决第一个问题；使用HTTP协议的Status Code，可以涵盖大多数资源操作可能出现的异常（而且也是可以自定义的），以此解决第二个问题；依靠HTTP Header中携带的额外认证、授权信息来解决第三个问题（这个在演示中没有体现，请参考安全架构中的“[凭证](system-security.html#凭证)”相关内容）。
+第1级遗留三个问题都可以靠引入统一接口来解决。HTTP协议的七个标准方法是经过精心设计的，几乎能涵盖资源可能遇到的所有操作场景（这其实更取决于架构师的抽象能力）。REST的做法是把不同业务需求抽象为对资源的增加、修改、删除等操作来解决第一个问题；使用HTTP协议的Status Code，可以涵盖大多数资源操作可能出现的异常（而且也是可以自定义扩展的），以此解决第二个问题；依靠HTTP Header中携带的额外认证、授权信息来解决第三个问题（这个在实战中并没有体现，请参考安全架构中的“[凭证](system-security.html#凭证)”相关内容）。
 
-获取医生档期，采用具有查询语义的GET操作进行：
+按这个思路，获取医生档期，应采用具有查询语义的GET操作进行：
 
 ```http
 GET /doctors/mjones/schedule?date=2020-03-04&status=open HTTP/1.1
@@ -261,7 +261,7 @@ doctor not available
 
 #### 第3级
 
-第2级是目前绝大多数系统所到达的REST级别，但仍不是不够完美的，至少还存在一个问题：你是如何知道预约mjones医生的档期是需要访问“/schedules/1234”这个服务的？也许你甚至第一时间无法理解为何我会有这样的疑问，这当然是程序代码写的呀！但REST并不这样认为。RMM中的Hypermedia Controls、Fielding论文中的HATEOAS和现在提的比较多的“超文本驱动”，所希望的是除了第一个请求是有你在浏览器地址栏输入所驱动之外，其他的请求都应该能够自描述清楚后续可能发生的状态转移。所以，当你输入了查询的指令之后：
+第2级是目前绝大多数系统所到达的REST级别，但仍不是不够完美的，至少还存在一个问题：你是如何知道预约mjones医生的档期是需要访问“/schedules/1234”这个服务Endpoint的？也许你甚至第一时间无法理解为何我会有这样的疑问，这当然是程序代码写的呀！但REST并不认同这种已烙在程序员脑海中许久的想法。RMM中的Hypermedia Controls、Fielding论文中的HATEOAS和现在提的比较多的“超文本驱动”，所希望的是除了第一个请求是有你在浏览器地址栏输入所驱动之外，其他的请求都应该能够自描述清楚后续可能发生的状态转移，由超文本自身来驱动。所以，当你输入了查询的指令之后：
 
 ```http
 GET /doctors/mjones/schedule?date=2020-03-04&status=open HTTP/1.1

@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/fenixsoft/awesome-fenix#readme",
   "devDependencies": {
+    "@vuepress/plugin-google-analytics": "^1.4.0",
     "markdown-it-mermaid": "^0.2.5",
     "markdown-it-plantuml": "^1.4.1",
     "qcloud-cdn-node-sdk": "^1.0.0",

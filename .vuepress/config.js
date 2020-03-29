@@ -27,6 +27,12 @@ module.exports = {
                 after: '</div>'
             },
         ],
+        [
+            '@vuepress/google-analytics',
+            {
+                'ga': 'UA-162170924-1'
+            }
+        ]
     ],
     markdown: {
         // markdown-it-anchor 的选项
