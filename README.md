@@ -1,5 +1,6 @@
 ---
 comment: false
+pageClass: index-page-class
 ---
 
 # 软件架构探索：The Fenix Project
