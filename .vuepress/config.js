@@ -55,7 +55,7 @@ module.exports = {
                     owner: 'fenixsoft',
                     admin: ['fenixsoft'],
                     labels: ["Gitalk", "Comment"],
-                    id: '<%- (window.location.origin + (frontmatter.to.path || window.location.pathname)).slice(-50) %>',
+                    id: '<%- ("icyfenix.cn" + (frontmatter.to.path || window.location.pathname)).slice(-50) %>',
                     title: '「Comment」<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>',
                     body: '<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>',
                     distractionFreeMode: false
