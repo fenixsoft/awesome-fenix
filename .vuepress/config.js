@@ -56,8 +56,8 @@ module.exports = {
                     admin: ['fenixsoft'],
                     labels: ["Gitalk", "Comment"],
                     id: '<%- (window.location.origin + (frontmatter.to.path || window.location.pathname)).slice(-50) %>',
-                    title: '「页面评论」<%- document.title.replace("√","").split("|")[0].trim() %>',
-                    body: '<%- document.title.replace("√","").split("|")[0].trim() %>：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>',
+                    title: '「Comment」<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>',
+                    body: '<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>',
                     distractionFreeMode: false
                 }
             }
