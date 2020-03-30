@@ -54,9 +54,10 @@ module.exports = {
                     repo: 'awesome-fenix',
                     owner: 'fenixsoft',
                     admin: ['fenixsoft'],
-                    id: '<%- frontmatter.commentid || frontmatter.permalink %>',
-                    title: '「Comment」<%- frontmatter.title %>',
-                    body: '<%- frontmatter.title %>：<%-window.location.origin %><%- frontmatter.to.path || window.location.pathname %>',
+                    labels: ["Gitalk", "Comment"],
+                    id: '<%- (window.location.origin + (frontmatter.to.path || window.location.pathname)).slice(-50) %>',
+                    title: '「页面评论」<%- document.title.replace("√","").split("|")[0].trim() %>',
+                    body: '<%- document.title.replace("√","").split("|")[0].trim() %>：<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>',
                     distractionFreeMode: false
                 }
             }
