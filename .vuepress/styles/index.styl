@@ -1,6 +1,7 @@
 .theme-default-content:not(.custom)
   @media screen and (max-width: 960px)
     max-width: 100%;
+    padding: 1rem;
   @media screen and (min-width: 961px)
     max-width: 80%;
 
@@ -28,9 +29,13 @@ p, ul, ol
     display none;
 
 .gt-container
-  width 80%;
   padding-top 20px;
-  margin-left: 10%;
+  @media screen and (max-width: 960px)
+    width 90%;
+    margin-left 5%;
+  @media screen and (min-width: 961px)
+    width 80%;
+    margin-left 10%;
 
 .badge {
   font-size: 10px !important;
