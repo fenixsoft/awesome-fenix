@@ -110,9 +110,9 @@ REST的基本思想是面向资源来抽象问题，基本手段是尽可能复�
 
 ### RMM成熟度
 
-前面我们花费大量篇幅讨论了REST的思想、内容和若干指导原则等理论方面的内容，在这个小节里，我们把重心放在实践上，同时把目光从整个软件架构设计聚焦到REST服务接口，以切合本节的题目“服务设计风格”，也顺带填了前面埋下的“如何评价服务是否RESTful”的坑。
+前面我们花费大量篇幅讨论了REST的思想、概念和指导原则等理论方面的内容，在这个小节里，我们把重心放在实践上，同时把目光从整个软件架构设计聚焦到REST服务接口，以切合本节的题目“服务设计风格”，也顺带填了前面埋下的“如何评价服务是否RESTful”的坑。
 
-《[RESTful Web APIs](https://book.douban.com/subject/22139962/)》、《[RESTful Web Services](https://book.douban.com/subject/2054201/)》作者Leonard Richardson曾提出过一个衡量“服务有多么REST”的Richardson成熟度模型（[Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html)），便于那些原本不使用REST的服务，能够逐步地导入REST。Richardson将服务接口“REST的程度”从低到高，分为0至4级：
+《[RESTful Web APIs](https://book.douban.com/subject/22139962/)》和《[RESTful Web Services](https://book.douban.com/subject/2054201/)》作者Leonard Richardson曾提出过一个衡量“服务有多么REST”的Richardson成熟度模型（[Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html)），便于那些原本不使用REST的服务，能够逐步地导入REST。Richardson将服务接口“REST的程度”从低到高，分为0至4级：
 
 0. The Swamp of [Plain Old XML](https://en.wikipedia.org/wiki/Plain_Old_XML)：完全不REST。另外，关于POX这说法，SOAP表示[感觉有被冒犯到](https://baike.baidu.com/item/%E6%84%9F%E8%A7%89%E6%9C%89%E8%A2%AB%E5%86%92%E7%8A%AF%E5%88%B0)。
 1. Resources：开始引入资源的概念。
@@ -295,7 +295,15 @@ HTTP/1.1 200 OK
 
 如果做到了第3级REST，那服务端的API和客户端也是完全解耦的，你要调整服务数量，或者同一个服务做API升级将会变得非常简单。
 
-### 弱点与争议点
+### 不足与争议
 
-TBD
+以下是笔者说见过的怀疑REST能否在实践中真正良好应用的争议问题，笔者将自己的观点总结如下：
+
+- **面向资源的编程思想只适合做CRUD，不适合用来处理真正复杂的业务逻辑**<br/>这是遇到最多的一个问题。HTTP的四个最基础的命令POST、GET、PUT和DELETE很容易让人直接联想到CRUD操作，以至于在脑海中自然产生了直接的对应。REST所能涵盖的范围当然远不止于此，不过要说POST、GET、PUT和DELETE对应于CRUD其实也没什么不对，但这个CRUD必须泛化去理解，它们涵盖了信息在客户端与服务端之间如何流动的几种主要方式，所有基于网络的操作逻辑，都可以对应到信息在服务端与客户单之间如何流动来理解，只是有的场景里比较直观，而另一些场景中可能比较抽象。面向资源的编程思想与另外两种主流编程思想只是抽象问题时所处的立场不同，只有选择问题，没有高下之分：
+  - 面向过程编程时，为什么要以算法和处理过程为中心，输入数据，输出结果？当然是为了符合计算机世界中主流的交互方式。
+  - 面向对象编程时，为什么要将数据和行为统一起来、封装成对象？当然是为了符合现实世界的主流的交互方式。
+  - 面向资源编程时，为什么要将数据（资源）作为抽象的主体，把行为看作是统一的接口？当然是为了符合网络世界的主流的交互方式。
+- **REST与HTTP完全绑定，不适合应用于要求高性能传输的场景中**<br/>我个人很大程度上赞同此观点。面向资源编程与协议无关，但是REST（特指Fielding论文中所定义的REST，而不是泛指面向资源的思想）确实依赖着HTTP协议的标准方法、状态码、协议头等各个方面。HTTP并不是传输层协议，它是应用层协议，如果仅将HTTP当作传输是不恰当的（SOAP：再次感觉有被冒犯到）。对于需要直接控制传输（如二进制细节/编码形式/报文格式/连接方式等）细节的场景中，REST确实不合适，这些场景往往存在于服务集群的内部节点之前，这也是之前我曾提及的，REST和RPC尽管应用有所重合，但重合的范围其实并不大。
+- **REST不利于事务支持**<br/>这个问题首先要看你怎么看待“事务（Transaction）”这个概念。如果“事务”指的是数据库那种的狭义ACID事务，那分布式系统本身与此就是有矛盾的（CAP不可兼得），这是分布式的问题而不是REST的问题。如果“事务”是指通过服务协议或架构，获得对多个分布式服务中数据提交进行统一协调的支持（2PC/3PC）能力，譬如[WS-AtomicTransaction](http://docs.oasis-open.org/ws-tx/wstx-wsat-1.1-spec-errata-os/wstx-wsat-1.1-spec-errata-os.html)、[WS-Coordination](http://docs.oasis-open.org/ws-tx/wstx-wscoor-1.1-spec-errata-os/wstx-wscoor-1.1-spec-errata-os.html)这样的功能性协议，这REST确实不支持，假如你已经理解了这样做的代价，仍决定要这样做的话，SOAP是比较好的选择。如果“事务”是指希望保障数据的最终一致性，说明你已经放弃ACID事务了，这是分布式系统中的主流，使用REST肯定不会有什么阻碍，谈不上“不利于”（也没有什么帮助，这完全取决于你系统的事务设计，在[事务处理](transaction.md)中再详细讨论）
+- **REST没有传输可靠性支持**<br/>是的，并没有。在HTTP中你发送出去一个请求，通常会收到一个与之相对的响应，譬如HTTP/1.1 200 OK或者HTTP/1.1 404 Not Found诸如此类的。但如果你没有收到任何响应，那就无法确定消息到底是没有发送出去，抑或是没有从服务端返回回来，这其中的关键差别是服务端到底是否被触发了某些处理？应对传输可靠性最简单粗暴的做法是把消息再重发一遍。这种简单处理能够成立的前提是服务应具有[幂等性](https://zh.wikipedia.org/wiki/%E5%86%AA%E7%AD%89)（Idempotency），即服务被重复执行多次的效果与执行一次是相等的。HTTP协议要求GET、PUT和DELETE应具有幂等性，我们把REST服务映射到这些方法时，也应当保证幂等性。对于POST方法，曾经有过一些专门的提案（如[POE](https://tools.ietf.org/html/draft-nottingham-http-poe-00)，POST Once Exactly），但并未得到IETF的通过。对于POST的重复提交，浏览器会出现相应警告，如Chrome中“确认重新提交表单”的提示，对于服务端，就应该做预校验，如果发现可能重复，返回HTTP/1.1 425 Too Early。另，SOAP中有[WS-ReliableMessaging](https://en.wikipedia.org/wiki/WS-ReliableMessaging)功能协议用于支持消息可靠投递。
 

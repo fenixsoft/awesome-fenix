@@ -1,19 +1,19 @@
 # √ 前端工程
 
 <p align="center">
-  <a href="http://icyfenix.cn" target="_blank">
-    <img width="180" src="http://icyfenix.cn/images/logo-color.png" alt="logo">
+  <a href="https://icyfenix.cn" target="_blank">
+    <img width="180" src="https://icyfenix.cn/images/logo-color.png" alt="logo">
   </a>
 </p>
 <p align="center">
-    <a href="https://iycfenix.cn"  style="display:inline-block"><img src="http://icyfenix.cn/images/Release-v1.png"></a>
+    <a href="https://iycfenix.cn"  style="display:inline-block"><img src="https://icyfenix.cn/images/Release-v1.png"></a>
   <a href="https://travis-ci.com/fenixsoft/fenix-bookstore-frontend" target="_blank"  style="display:inline-block"><img src="https://api.travis-ci.com/fenixsoft/fenix-bookstore-frontend.svg?branch=master" alt="Travis-CI"></a>
-  <a href="https://creativecommons.org/licenses/by/4.0/"  target="_blank" style="display:inline-block"><img src="http://icyfenix.cn/images/DocLicense-CC-red.png" alt="Document License"></a>
-    <a href="https://www.apache.org/licenses/LICENSE-2.0"  target="_blank" style="display:inline-block"><img src="http://icyfenix.cn/images/License-Apache.png" alt="License"></a>
-    <a href="mailto:icyfenix@gmail.com" target="_blank" style="display:inline-block"><img src="http://icyfenix.cn/images/Author-IcyFenix-blue.png" alt="Mail to Author"></a>
+  <a href="https://creativecommons.org/licenses/by/4.0/"  target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/DocLicense-CC-red.png" alt="Document License"></a>
+    <a href="https://www.apache.org/licenses/LICENSE-2.0"  target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/License-Apache.png" alt="License"></a>
+    <a href="mailto:icyfenix@gmail.com" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/Author-IcyFenix-blue.png" alt="Mail to Author"></a>
 </p>
 
-如果你此时并不曾了解过什么是“The Fenix Project”，建议先阅读[这部分内容](http://icyfenix.cn/introduction/about-the-fenix-project.html)。
+如果你此时并不曾了解过什么是“The Fenix Project”，建议先阅读[这部分内容](https://icyfenix.cn/introduction/about-the-fenix-project.html)。
 
 Fenix Project的主要目的是展示不同的后端技术架构，相对而言，前端并非其重点。不过，前端的页面是比起后端各种服务来要直观得多，能让使用者更容易理解我们将要做的是一件什么事情。假设你是一名驾驶初学者，合理的学习路径肯定应该是把汽车发动，然后慢慢行驶起来，而不是马上从“引擎动力原理”、“变速箱构造”入手去设法深刻地了解一台汽车。所以，先来运行程序，看看最终的效果是什么样子吧。
 
@@ -23,7 +23,7 @@ Fenix Project的主要目的是展示不同的后端技术架构，相对而言�
 
 - 从互联网已部署（由提供Travis-CI支持）的网站（由GitHub Pages提供主机，由腾讯云CDN提供国内加速）访问：
 
-> 直接在浏览器访问：http://bookstore.icyfenix.cn/
+> 直接在浏览器访问：[http://bookstore.icyfenix.cn/](http://bookstore.icyfenix.cn/)
 
 - 通过Docker容器方式运行：
 
@@ -31,7 +31,7 @@ Fenix Project的主要目的是展示不同的后端技术架构，相对而言�
 > $ docker run -d -p 80:80 --name bookstore icyfenix/bookstore:frontend 
 > ```
 >
-> 然后在浏览器访问：http://localhost
+> 然后在浏览器访问：[http://localhost](http://localhost)
 
 - 通过Git上的源码，以开发模式运行：
 >```bash
@@ -48,10 +48,12 @@ Fenix Project的主要目的是展示不同的后端技术架构，相对而言�
 > $ npm run dev
 > ```
 > 
-> 然后在浏览器访问：http://localhost:8080
+> 然后在浏览器访问：[http://localhost:8080](http://localhost:8080)
 >
 
-![](markdown/sshot.jpg)
+<p align="center">
+    <img  src="https://raw.githubusercontent.com/fenixsoft/fenix-bookstore-frontend/master/markdown/sshot.jpg" >
+</p>
 
 也许你已注意到，以上这些运行方式，均没有涉及到任何的服务端、数据库的部署。现代软件工程里，基于MVVM的工程结构使得前、后端的开发可以完全分离，只要互相约定好服务的位置及模型即可。Fenix's BookStore以开发模式运行时，会自动使用Mock.js拦截住所有的远程服务请求，并以事项准备好的数据来完成对这些请求的响应。
 

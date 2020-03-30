@@ -32,6 +32,34 @@ module.exports = {
             {
                 'ga': 'UA-162170924-1'
             }
+        ],
+        // [
+        //     'vuepress-plugin-comment',
+        //     {
+        //         choosen: 'valine',
+        //         options: {
+        //             el: '#valine-vuepress-comment',
+        //             appId: 'iSlnRQq5SXXoUj0KV5CuwhI5-gzGzoHsz',
+        //             appKey: 'MCU7710qnrIkdVxz3rpAVDfG'
+        //         }
+        //     }
+        // ],
+        [
+            'vuepress-plugin-comment',
+            {
+                choosen: 'gitalk',
+                options: {
+                    clientID: 'acf59fc06b2cf691903d',
+                    clientSecret: '4cbf25bbf327f1164627d2ab43263b07b14c54fe',
+                    repo: 'awesome-fenix',
+                    owner: 'fenixsoft',
+                    admin: ['fenixsoft'],
+                    id: '<%- frontmatter.commentid || frontmatter.permalink %>',
+                    title: '「Comment」<%- frontmatter.title %>',
+                    body: '<%- frontmatter.title %>：<%-window.location.origin %><%- frontmatter.to.path || window.location.pathname %>',
+                    distractionFreeMode: false
+                }
+            }
         ]
     ],
     markdown: {

@@ -1,20 +1,20 @@
 # √ 后端工程：SpringBoot
 
 <p align="center">
-  <a href="http://icyfenix.cn" target="_blank">
-    <img width="180" src="http://icyfenix.cn/images/logo-color.png" alt="logo">
+  <a href="https://icyfenix.cn" target="_blank">
+    <img width="180" src="https://icyfenix.cn/images/logo-color.png" alt="logo">
   </a>
 </p>
 <p align="center">
-    <a href="https://iycfenix.cn"  style="display:inline-block"><img src="http://icyfenix.cn/images/Release-v1.png"></a>
+    <a href="https://iycfenix.cn"  style="display:inline-block"><img src="https://icyfenix.cn/images/Release-v1.png"></a>
   <a href="https://travis-ci.com/fenixsoft/monolithic_arch_springboot" target="_blank"  style="display:inline-block"><img src="https://travis-ci.com/fenixsoft/monolithic_arch_springboot.svg?branch=master" alt="Travis-CI"></a>
-  <a href="https://creativecommons.org/licenses/by/4.0/"  target="_blank" style="display:inline-block"><img src="http://icyfenix.cn/images/DocLicense-CC-red.png" alt="Document License"></a>
-    <a href="https://www.apache.org/licenses/LICENSE-2.0"  target="_blank" style="display:inline-block"><img src="http://icyfenix.cn/images/License-Apache.png" alt="License"></a>
-    <a href="mailto:icyfenix@gmail.com" target="_blank" style="display:inline-block"><img src="http://icyfenix.cn/images/Author-IcyFenix-blue.png" alt="Mail to Author"></a>
+  <a href="https://creativecommons.org/licenses/by/4.0/"  target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/DocLicense-CC-red.png" alt="Document License"></a>
+    <a href="https://www.apache.org/licenses/LICENSE-2.0"  target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/License-Apache.png" alt="License"></a>
+    <a href="mailto:icyfenix@gmail.com" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/Author-IcyFenix-blue.png" alt="Mail to Author"></a>
 </p>
 
 
-如果你此时并不曾了解过什么是“The Fenix Project”，建议先阅读[这部分内容](http://icyfenix.cn/introduction/about-the-fenix-project.html)。
+如果你此时并不曾了解过什么是“The Fenix Project”，建议先阅读[这部分内容](https://icyfenix.cn/introduction/about-the-fenix-project.html)。
 
 单体架构是Fenix's Bookstore'第一个版本的服务端实现，它与此后基于微服务（Spring Cloud、Kubernetes）、无服务（Knative）架构风格实现的其他版本，在功能需求上的表现是完全一致的。如果你不是针对性地带着解决某个具体问题、了解某项具体工具、技术的目的而来，而是时间充裕，希望了解软件架构的全貌与发展的话，笔者推荐以此工程入手来了解现代软件架构，因为单体架构的结构是相对直观的，易于理解的架构，对后面接触的其他架构风格也起良好的铺垫作用。此外，笔者在对应的文档中详细分析了作为一个架构设计者，会考虑哪些的通用问题，希望把抽象的“架构”一词具象化出来。
 
@@ -28,7 +28,7 @@
 > $ docker run -d -p 8080:8080 --name bookstore icyfenix/bookstore:monolithic 
 > ```
 >
-> 然后在浏览器访问：http://localhost:8080
+> 然后在浏览器访问：[http://localhost:8080](http://localhost:8080)
 >
 > 默认会使用HSQLDB的内存模式作为数据库，并在系统启动时自动初始化好了Schema，完全开箱即用。但这同时也意味着当程序运行结束时，所有的数据都将不会被保留。
 >
@@ -63,7 +63,7 @@
 >$ java -jar target/bookstore-1.0.0-Monolithic-SNAPSHOT.jar
 >```
 >
->然后在浏览器访问：http://localhost:8080
+>然后在浏览器访问：[http://localhost:8080](http://localhost:8080)
 
 - 通过Git上的源码，在IDE环境中运行：
 
@@ -81,24 +81,24 @@
 
 Fenix's BookStore单体架构后端尽可能采用标准的技术组件进行构建，不依赖与具体的实现，包括：
 
-- JSR 370：Java API for RESTful Web Services 2.1（JAX-RS 2.1）<br/>RESTFul服务方面，采用的实现为Jersey 2，亦可替换为Apache CXF、RESTeasy、WebSphere、WebLogic等
+- [JSR 370：Java API for RESTful Web Services 2.1](https://jcp.org/en/jsr/detail?id=370)（JAX-RS 2.1）<br/>RESTFul服务方面，采用的实现为Jersey 2，亦可替换为Apache CXF、RESTeasy、WebSphere、WebLogic等
 
-- JSR 330：Dependency Injection for Java 1.0<br/>依赖注入方面，采用的的实现为SpringBoot 2中内置的Spring Framework 5。虽然在多数场合中尽可能地使用了JSR 330的标准注解，但仍有少量地方由于Spring在对@Named、@Inject等注解的支持表现上与本身提供的注解差异，使用了Spring的私有注解。如替换成其他的CDI实现，如HK2，需要较大的改动
+- [JSR 330：Dependency Injection for Java 1.0](https://jcp.org/en/jsr/detail?id=330)<br/>依赖注入方面，采用的的实现为SpringBoot 2中内置的Spring Framework 5。虽然在多数场合中尽可能地使用了JSR 330的标准注解，但仍有少量地方由于Spring在对@Named、@Inject等注解的支持表现上与本身提供的注解差异，使用了Spring的私有注解。如替换成其他的CDI实现，如HK2，需要较大的改动
 
-- JSR 338：Java Persistence 2.2<br/>持久化方面，采用的实现为Spring Data JPA。可替换为Batoo JPA、EclipseLink、OpenJPA等实现，只需将使用CrudRepository所省略的代码手动补全回来即可，无需其他改动。
+- [JSR 338：Java Persistence 2.2<](https://jcp.org/en/jsr/detail?id=338)br/>持久化方面，采用的实现为Spring Data JPA。可替换为Batoo JPA、EclipseLink、OpenJPA等实现，只需将使用CrudRepository所省略的代码手动补全回来即可，无需其他改动。
 
-- JSR 380：Bean Validation 2.0<br/>
+- [JSR 380：Bean Validation 2.0](https://jcp.org/en/jsr/detail?id=380)<br/>
   数据验证方面，采用的实现为Hibernate Validator 6，可替换为Apache BVal等其他验证框架
 
-- JSR 315：Java Servlet 3.0<br/>
+- [JSR 315：Java Servlet 3.0](https://jcp.org/en/jsr/detail?id=315)<br/>
   Web访问方面，采用的实现为SpringBoot 2中默认的Tomcat 9 Embed，可替换为Jetty、Undertow等其他Web服务器
 
 有以下组件仍然依赖了非标准化的技术实现，包括：
 
-- JSR 375：Java EE Security API specification 1.0<br/>
+- [JSR 375：Java EE Security API specification 1.0](https://jcp.org/en/jsr/detail?id=375)<br/>
 认证/授权方面，在2017年才发布的JSR 375中仍然没有直接包含OAuth2和JWT的直接支持，因后续实现微服务架构时对比的需要，单体架构中选择了Spring Security 5作为认证服务，Spring Security OAuth 2.3作为授权服务，Spring Security JWT作为JWT令牌支持，并未采用标准的JSR 375实现，如Soteria。
 
-- JSR 353/367：Java API for JSON Processing/Binding<br/>在JSON序列化/反序列化方面，由于Spring Security OAuth的限制（使用JSON-B作为反序列化器时的结果与Jackson等有差异），采用了Spring Security OAuth默认的Jackson，并未采用标准的JSR 353/367实现，如Apache Johnzon、Eclipse Yasson等。
+- [JSR 353/367：Java API for JSON Processing/Binding](https://jcp.org/en/jsr/detail?id=353)<br/>在JSON序列化/反序列化方面，由于Spring Security OAuth的限制（使用JSON-B作为反序列化器时的结果与Jackson等有差异），采用了Spring Security OAuth默认的Jackson，并未采用标准的JSR 353/367实现，如Apache Johnzon、Eclipse Yasson等。
 
 ## 工程结构
 
