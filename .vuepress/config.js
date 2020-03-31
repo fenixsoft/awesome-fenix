@@ -33,17 +33,6 @@ module.exports = {
                 'ga': 'UA-162170924-1'
             }
         ],
-        // [
-        //     'vuepress-plugin-comment',
-        //     {
-        //         choosen: 'valine',
-        //         options: {
-        //             el: '#valine-vuepress-comment',
-        //             appId: 'iSlnRQq5SXXoUj0KV5CuwhI5-gzGzoHsz',
-        //             appKey: 'MCU7710qnrIkdVxz3rpAVDfG'
-        //         }
-        //     }
-        // ],
         [
             'vuepress-plugin-comment',
             {
@@ -163,13 +152,13 @@ module.exports = {
                             '/architect-perspective/general-architecture/api-style.md',
                             '/architect-perspective/general-architecture/system-security.md',
                             '/architect-perspective/general-architecture/transaction',
+                            '/architect-perspective/general-architecture/layered-system.md',
                             '/architect-perspective/general-architecture/constraint'
                         ]
                     }, {
                         title: '技巧与专题',
                         collapsable: false,
                         children: [
-                            '/architect-perspective/tricks/distributed-transaction',
                             '/architect-perspective/tricks/graalvm-improvement'
                         ]
                     }]
