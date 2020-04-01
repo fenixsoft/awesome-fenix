@@ -51,7 +51,7 @@ module.exports = {
                 }
             }
         ],
-        ['vuepress-plugin-reading-time'],
+        [require('./plugins/read-time')],
         ['@vuepress/back-to-top']
     ],
     markdown: {
