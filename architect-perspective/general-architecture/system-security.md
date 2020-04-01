@@ -190,7 +190,7 @@ graph LR
 
 OAuth2是在[RFC 6749](https://tools.ietf.org/html/rfc6749)中定义授权协议，在RFC 6749正文的第一句就明确了OAuth2是解决第三方应用（Third-Party  Application）的授权协议。前面也说到，如果只是单方系统，授权过程是比较容易解决的，至于多方系统授权过程会有什么问题，这里举个现实的例子来说明。
 
-譬如你现在正在阅读的这个网站（[http://icyfenix.cn](http://icyfenix.cn)），它的建设和更新大致流程是：笔者以Markdown形式写好了某篇文章，上传到由[GitHub](https://github.com)提供的[代码仓库](https://github.com/fenixsoft/awesome-fenix)，接着由[Travis-CI](https://travis-ci.com)提供的持续集成服务会检测到该仓库发生了变化，触发一次Vuepress编译活动，生成目录和静态的HTML页面，然后推送回GitHub Pages，再触发腾讯云CDN的缓存刷新。这个过程要能顺利进行，就存在一些必须解决的授权问题，Travis-CI只有得到了我的明确授权，GitHub才能同意它读取我代码仓库中的内容，问题是它该如何获得我的授权呢？一种简单粗暴的方案是我把我的用户账号和密码都告诉Travis-CI，但这显然导致了以下这些问题：
+譬如你现在正在阅读的这个网站（[https://icyfenix.cn](https://icyfenix.cn)），它的建设和更新大致流程是：笔者以Markdown形式写好了某篇文章，上传到由[GitHub](https://github.com)提供的[代码仓库](https://github.com/fenixsoft/awesome-fenix)，接着由[Travis-CI](https://travis-ci.com)提供的持续集成服务会检测到该仓库发生了变化，触发一次Vuepress编译活动，生成目录和静态的HTML页面，然后推送回GitHub Pages，再触发腾讯云CDN的缓存刷新。这个过程要能顺利进行，就存在一些必须解决的授权问题，Travis-CI只有得到了我的明确授权，GitHub才能同意它读取我代码仓库中的内容，问题是它该如何获得我的授权呢？一种简单粗暴的方案是我把我的用户账号和密码都告诉Travis-CI，但这显然导致了以下这些问题：
 
 - **密码泄漏**：如果Travis-CI被黑客攻破，将导致我GitHub的密码也同时被泄漏
 - **访问范围**：Travis-CI将有能力读取、修改、删除、更新我放在GitHub上的所有代码仓库
