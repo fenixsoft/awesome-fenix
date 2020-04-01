@@ -1,4 +1,3 @@
-const readingTime = require('reading-time')
 
 module.exports = (options = {}) => ({
     extendPageData($page) {
