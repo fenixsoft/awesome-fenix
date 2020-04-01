@@ -50,7 +50,9 @@ module.exports = {
                     distractionFreeMode: false
                 }
             }
-        ]
+        ],
+        ['vuepress-plugin-reading-time'],
+        ['@vuepress/back-to-top']
     ],
     markdown: {
         // markdown-it-anchor 的选项
