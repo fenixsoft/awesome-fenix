@@ -59,16 +59,16 @@ module.exports = {
         // markdown-it-anchor 的选项
         anchor: {permalink: false},
         // markdown-it-toc 的选项
-        toc: {includeLevel: [1, 2]},
+        toc: {includeLevel: [2, 3]},
         extendMarkdown: md => {
             // 使用更多的 markdown-it 插件!
             md.use(require('markdown-it-mermaid').default);
             md.use(require('markdown-it-sub'));
             md.use(require('markdown-it-sup'));
-            md.use(require('markdown-it-footnote'));
             md.use(require('markdown-it-abbr'));
-            md.use(require('markdown-it-mark'));
             md.use(require('markdown-it-ins'));
+            md.use(require('markdown-it-figure'));
+            md.use(require('markdown-it-smartarrows'));
         }
     },
     themeConfig: {

@@ -4,15 +4,6 @@ H~2~0
 
 29^th^
 
-Here is a footnote reference,[^1] and another.[^longnote]
-
-[^1]: Here is the footnote.
-
-[^longnote]: Here's one with multiple blocks.
-
-    Subsequent paragraphs are indented to show that they
-
-belong to the previous footnote.
 
 *[HTML]: Hyper Text Markup Language
 *[W3C]:  World Wide Web Consortium
@@ -24,3 +15,13 @@ is maintained by the W3C.
 ++inserted++
 
 paragraph *style me*{.red} more text
+
+#[eeee](./images/Roy_Thomas_Fielding.jpg)
+
+--> 
+<-- 
+<-->
+==> 
+<==
+<==> 
+
