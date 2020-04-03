@@ -1,4 +1,4 @@
-# √ 前端工程
+# 前端工程
 
 <p align="center">
   <a href="https://icyfenix.cn" target="_blank">

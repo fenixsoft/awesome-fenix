@@ -1,4 +1,4 @@
-# √ 使用Minikube部署
+# 使用Minikube部署
 
 Minikube是Kubernetes官方提供的专门针对本地单节点集群的Kubernetes集群管理工具。针对本地环境对Kubernetes使用有一定的简化和针对性的补强。这里简要介绍其安装过程
 

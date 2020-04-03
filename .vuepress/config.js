@@ -118,7 +118,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     {
-                        title: '√ 如何开始',
+                        title: '✅ 如何开始',
                         path: '/deployment/development-env-setup/',
                         collapsable: true,
                         children: [
@@ -129,11 +129,11 @@ module.exports = {
                             '/deployment/development-env-setup/serverless_arch_knative'
                         ]
                     }, {
-                        title: '√ 环境依赖',
+                        title: '✅ 环境依赖',
                         path: '/deployment/deployment-env-setup/',
                         collapsable: false,
                         children: ['/deployment/deployment-env-setup/setup-docker', {
-                            title: '√ 部署Kubernetes集群',
+                            title: '✅ 部署Kubernetes集群',
                             path: '/deployment/deployment-env-setup/setup-kubernetes',
                             children: [
                                 '/deployment/deployment-env-setup/setup-kubernetes/setup-kubeadm',
@@ -154,7 +154,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     {
-                        title: '√ 架构的普适问题',
+                        title: '✅ 架构的普适问题',
                         collapsable: false,
                         path: '/architect-perspective/general-architecture',
                         children: [

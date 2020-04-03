@@ -32,14 +32,14 @@ pageClass: index-page-class
 
 项目中主要包括了程序与知识两部分。
 
-- 关于"知识"部分，以OpenDocument的形式发行，可以直接通过浏览器访问此<a href="https://icyfenix.cn">链接</a>以获得最新的内容。目前项目刚刚开始，暂时将已完成的内容在目录中标记为“√ ”，以示区分，后期完成后会统一移除。
+- 关于"知识"部分，以OpenDocument的形式发行，可以直接通过浏览器访问此<a href="https://icyfenix.cn">链接</a>以获得最新的内容。目前项目刚刚开始，暂时将已完成的内容在目录中标记为“✅”，以示区分，后期完成后会统一移除。
 
 - 关于“程序”部分，其中包括前、后端工程与运行示例三部分内容。后端工程是其中重点，它已包含了前端工程编译后的输出结果，如果你并不关心前端（一个典型的Vue.js 2.0工程）的实现，直接选择你希望了解的架构模式相关的后端运行即可。如果你对开发、运行构建运行环境有所疑问，在<a href="https://icyfenix.cn/deployment/deployment-env-setup/">"如何建立部署环境"</a>部分已包括了详细的操作步骤，应能够解决环境依赖的问题。另外，这些工程也通过Travis CI提供的持续集成服务输出到Docker镜像库，如果你只想了解运维方面的知识，可以直接运行镜像而无需关心代码部分。
   - 前端工程：
-    - √  Vue.js 2实现前端工程：[https://github.com/fenixsoft/fenix-bookstore-frontend](https://github.com/fenixsoft/fenix-bookstore-frontend)
-    - √  Mock.js支持的纯前端演示：[https://bookstore.icyfenix.cn](https://bookstore.icyfenix.cn)（由GitHub Pages与腾讯云CDN提供访问）
+    - ✅  Vue.js 2实现前端工程：[https://github.com/fenixsoft/fenix-bookstore-frontend](https://github.com/fenixsoft/fenix-bookstore-frontend)
+    - ✅  Mock.js支持的纯前端演示：[https://bookstore.icyfenix.cn](https://bookstore.icyfenix.cn)（由GitHub Pages与腾讯云CDN提供访问）
   - 后端工程：
-    - √  SpringBoot实现单体架构：[https://github.com/fenixsoft/monolithic_arch_springboot](https://github.com/fenixsoft/monolithic_arch_springboot) 
+    - ✅  SpringBoot实现单体架构：[https://github.com/fenixsoft/monolithic_arch_springboot](https://github.com/fenixsoft/monolithic_arch_springboot) 
     - SpringCloud实现微服务架构：https://github.com/fenixsoft/microservice_arch_springcloud
     - 以Kubernetes为基础设施的微服务架构：https://github.com/fenixsoft/microservice_arch_kubernetes
     - Knative实现的无服务架构：https://github.com/fenixsoft/serverless_arch_knative
