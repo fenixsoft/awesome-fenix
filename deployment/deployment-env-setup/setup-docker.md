@@ -164,7 +164,7 @@ $ sudo systemctl stop docker
 $ sudo rm -rf /etc/systemd/system/docker.service.d
 ```
 
-最后，Docker的官方国内镜像库的速度只能说比起访问国外好了一丢丢，聊胜于无。国内还有一些公开的镜像库，如微软的、网易的等，但要么是不稳定，要么也是慢。比较靠谱的是阿里云的镜像库，但这个服务并不是公开的，需要使用者先到阿里云去申请开发者账户，再使用加速服务，申请后会得一个类似于“[https://yourname.mirror.aliyuncs.com”的私有地址，把它设置到daemon.json中即可使用。](https://yourname.mirror.aliyuncs.com”的私有地址，把它设置到daemon.json中即可使用。)
+最后，Docker的官方国内镜像库的速度只能说比起访问国外好了一丢丢，聊胜于无。国内还有一些公开的镜像库，如微软的、网易的等，但要么是不稳定，要么也是慢。比较靠谱的是阿里云的镜像库，但这个服务并不是公开的，需要使用者先到阿里云去申请开发者账户，再使用加速服务，申请后会得一个类似于“https://yourname.mirror.aliyuncs.com”的私有地址，把它设置到daemon.json中即可使用。
 
 ## 为Docker设置代理 <Badge text="可选" type="warning"/>
 

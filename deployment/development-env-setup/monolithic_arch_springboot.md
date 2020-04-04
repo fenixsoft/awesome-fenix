@@ -14,7 +14,7 @@
 </p>
 
 
-如果你此时并不曾了解过什么是“The Fenix Project”，建议先阅读[这部分内容](https://icyfenix.cn/introduction/about-the-fenix-project.html)。
+如果你此时并不曾了解过什么是“The Fenix Project”，建议先阅读<a href="https://icyfenix.cn/introduction/about-the-fenix-project.html">这部分内容</a>。
 
 单体架构是Fenix's Bookstore'第一个版本的服务端实现，它与此后基于微服务（Spring Cloud、Kubernetes）、无服务（Knative）架构风格实现的其他版本，在功能需求上的表现是完全一致的。如果你不是针对性地带着解决某个具体问题、了解某项具体工具、技术的目的而来，而是时间充裕，希望了解软件架构的全貌与发展的话，笔者推荐以此工程入手来了解现代软件架构，因为单体架构的结构是相对直观的，易于理解的架构，对后面接触的其他架构风格也起良好的铺垫作用。此外，笔者在对应的文档中详细分析了作为一个架构设计者，会考虑哪些的通用问题，希望把抽象的“架构”一词具象化出来。
 
@@ -85,7 +85,7 @@ Fenix's BookStore单体架构后端尽可能采用标准的技术组件进行构
 
 - [JSR 330：Dependency Injection for Java 1.0](https://jcp.org/en/jsr/detail?id=330)<br/>依赖注入方面，采用的的实现为SpringBoot 2中内置的Spring Framework 5。虽然在多数场合中尽可能地使用了JSR 330的标准注解，但仍有少量地方由于Spring在对@Named、@Inject等注解的支持表现上与本身提供的注解差异，使用了Spring的私有注解。如替换成其他的CDI实现，如HK2，需要较大的改动
 
-- [JSR 338：Java Persistence 2.2<](https://jcp.org/en/jsr/detail?id=338)br/>持久化方面，采用的实现为Spring Data JPA。可替换为Batoo JPA、EclipseLink、OpenJPA等实现，只需将使用CrudRepository所省略的代码手动补全回来即可，无需其他改动。
+- [JSR 338：Java Persistence 2.2](https://jcp.org/en/jsr/detail?id=338)<br/>持久化方面，采用的实现为Spring Data JPA。可替换为Batoo JPA、EclipseLink、OpenJPA等实现，只需将使用CrudRepository所省略的代码手动补全回来即可，无需其他改动。
 
 - [JSR 380：Bean Validation 2.0](https://jcp.org/en/jsr/detail?id=380)<br/>
   数据验证方面，采用的实现为Hibernate Validator 6，可替换为Apache BVal等其他验证框架
@@ -128,4 +128,4 @@ Fenix's BookStore单体架构后端参考（并未完全遵循）了DDD的分层
 - 共享 — 在任何媒介上以任何形式复制、发行本作品
 - 演绎 — 修改、转换或以本作品为基础进行二次创作
 
-只要您遵守许可协议条款中署名、非商业性使用、相同方式共享的条件，许可人就无法收回您的这些权利。
+只要您遵守许可协议条款中署名、非商业性使用、相同方式共享的条件，许可人就无法收回您的这些权利。化方面，采用的实现为Spring Dat

@@ -4,25 +4,25 @@
       <span v-if="prev" class="prev">
         ←
         <a v-if="prev.type === 'external'" class="prev" :href="prev.path" target="_blank" rel="noopener noreferrer">
-          {{ prev.title || prev.path }}
+          {{ prev.title.replace("✅",'') || prev.path }}
 
           <OutboundLink/>
         </a>
 
         <RouterLink v-else class="prev" :to="prev.path">
-          {{ prev.title || prev.path }}
+          {{ prev.title.replace("✅",'') || prev.path }}
         </RouterLink>
       </span>
 
             <span v-if="next" class="next">
         <a v-if="next.type === 'external'" :href="next.path" target="_blank" rel="noopener noreferrer">
-          {{ next.title || next.path }}
+          {{ next.title.replace("✅",'') || next.path }}
 
           <OutboundLink/>
         </a>
 
         <RouterLink v-else :to="next.path">
-          {{ next.title || next.path }}
+          {{ next.title.replace("✅",'') || next.path }}
         </RouterLink>
         →
       </span>
