@@ -120,7 +120,7 @@ module.exports = {
                     {
                         title: '✅ 如何开始',
                         path: '/deployment/development-env-setup/',
-                        collapsable: true,
+                        collapsable: false,
                         children: [
                             '/deployment/development-env-setup/fenix-bookstore-frontend',
                             '/deployment/development-env-setup/monolithic_arch_springboot',
@@ -162,13 +162,15 @@ module.exports = {
                             '/architect-perspective/general-architecture/system-security.md',
                             '/architect-perspective/general-architecture/transaction',
                             '/architect-perspective/general-architecture/layered-system.md',
-                            '/architect-perspective/general-architecture/constraint'
+                            '/architect-perspective/general-architecture/constraint',
+                            '/architect-perspective/general-architecture/testability'
                         ]
                     }, {
                         title: '技巧与专题',
                         collapsable: false,
                         children: [
-                            '/architect-perspective/tricks/graalvm-improvement'
+                            '/architect-perspective/tricks/graalvm-improvement',
+                            '/architect-perspective/tricks/cqrs'
                         ]
                     }]
             }, {

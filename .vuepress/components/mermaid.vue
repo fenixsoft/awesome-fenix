@@ -24,7 +24,7 @@
     .mermaid {
         text-align: center;
         font-size: 14px;
-        padding-top: 15px;
+        margin-bottom: -25px;
     }
 
     .edgeLabel {
