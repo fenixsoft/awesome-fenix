@@ -30,7 +30,7 @@ pageClass: index-page-class
 
 ## 如何使用？
 
-项目中主要包括了程序与知识两部分。
+项目中主要包括了程序与知识两部分，在“<a href="https://icyfenix.cn/deployment/development-env-setup/">如何开始</a>”这篇文章里面介绍了每一章讨论的主题和面向的读者对象。
 
 - 关于"知识"部分，以OpenDocument的形式发行，可以直接通过浏览器访问此<a href="https://icyfenix.cn">链接</a>以获得最新的内容。目前项目刚刚开始，暂时将已完成的内容在目录中标记为“✅”，以示区分，后期完成后会统一移除。
 
