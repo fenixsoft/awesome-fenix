@@ -3,7 +3,7 @@ comment: false
 pageClass: index-page-class
 ---
 
-# 软件架构探索：The Fenix Project
+# 软件架构探索：The Fenix Project <words chapter='/'/>
 
 <p align="center">
   <a href="https://icyfenix.cn" target="_blank">
@@ -50,9 +50,11 @@ pageClass: index-page-class
 
 本作品代码部分采用[Apache 2.0协议](https://www.apache.org/licenses/LICENSE-2.0)进行许可。
 
-您同样自由地对代码进行修改，再发布，可以用作商业用途。
+- 您同样自由地对代码进行修改，再发布，可以用作商业用途。
 
 只要您遵守许可协议中保留作者署名、保留Apache License即可。
+
+<br/>
 
 本作品文档部分采用[知识共享署名 4.0 国际许可协议](http://creativecommons.org/licenses/by/4.0/)进行许可。 
 

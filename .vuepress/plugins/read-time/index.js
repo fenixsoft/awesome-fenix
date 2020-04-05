@@ -1,3 +1,4 @@
+const globalWords = {};
 
 module.exports = (options = {}) => ({
     extendPageData($page) {
@@ -46,10 +47,12 @@ module.exports = (options = {}) => ({
         }
 
         var words = fnGetCpmisWords(_strippedContent);
+        globalWords[regularPath] = words
 
         $page.readingTime = {
             words,
-            minutes: words / 500
+            minutes: words / 500,
+            globalWords
         }
 
         return $page

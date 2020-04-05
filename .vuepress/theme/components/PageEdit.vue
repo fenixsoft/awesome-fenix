@@ -6,7 +6,7 @@
         </div>
         <div v-if="lastUpdated" class="last-updated">
             <span class="prefix" v-if="pageWords > 0">总字数:</span>
-            <span class="words" v-if="pageWords > 0">{{ pageWords }}</span>
+            <span class="words" v-if="pageWords > 0">{{ pageWords.toLocaleString() }}</span>
             <span class="prefix" v-if="pageWords > 0">字　</span>
             <span class="prefix">{{ lastUpdatedText }}:</span>
             <span class="time">{{ lastUpdated }}</span>

@@ -114,7 +114,7 @@ module.exports = {
                     '/introduction/about-the-fenix-project'
                 ]
             }, {
-                title: '迈向软件架构',
+                title: '探索起步',
                 collapsable: false,
                 children: [
                     {
@@ -150,7 +150,7 @@ module.exports = {
                         ]
                     }]
             }, {
-                title: '架构的视角',
+                title: '设计者的视角',
                 collapsable: false,
                 children: [
                     {
