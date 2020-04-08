@@ -159,9 +159,10 @@ module.exports = {
                         path: '/architect-perspective/general-architecture',
                         children: [
                             '/architect-perspective/general-architecture/api-style.md',
-                            '/architect-perspective/general-architecture/system-security.md',
+                            '/architect-perspective/general-architecture/system-security',
                             '/architect-perspective/general-architecture/transaction',
-                            '/architect-perspective/general-architecture/layered-system.md',
+                            '/architect-perspective/general-architecture/diversion-system',
+                            '/architect-perspective/general-architecture/layered-system',
                             '/architect-perspective/general-architecture/constraint',
                             '/architect-perspective/general-architecture/testability'
                         ]
