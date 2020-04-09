@@ -29,13 +29,13 @@
 
   ```http
   HTTP/1.1 200 OK
-  Expires: Wed, 21 Oct 2015 07:28:00 GMT
+  Expires: Wed, 8 Apr 2020 07:28:00 GMT
   ```
   Expires的设计非常直观易懂，但设计考虑得并不周全，它至少存在以下显而易见的问题：
   
   - 受限于客户端的本地时间。譬如，客户端修改了本地时间，可能会造成缓存提前失效或超期持有。
   - 无法处理涉及到用户身份的私有资源，譬如，某些资源被登录用户缓存在自己的浏览器上是合理的，但如果被CDN服务器缓存起来，则可能被其他未认证的用户所获取。
-  - 无法描述“**不**缓存”的语义。譬如，浏览器为了提高性能，往往会自动在当次请求中缓存某些MINE类型的资源，在HTTP/1.0的服务器中就缺乏手段强制浏览器不允许缓存某个资源。以前为了实现这类功能，通常不得不通过脚本在资源后面增加时间戳（如“xx.js?t=1586359920”）来保证每次资源都会重新获取。
+  - 无法描述“**不**缓存”的语义。譬如，浏览器为了提高性能，往往会自动在当次请求中缓存某些MINE类型的资源，在HTTP/1.0的服务器中就缺乏手段强制浏览器不允许缓存某个资源。以前为了实现这类功能，通常不得不通过脚本在资源后面增加时间戳（如“xx.js?t=1586359920”）来保证每次资源都会重新获取。<br/>关于“不缓存”的语义，在HTTP/1.0中其实设计了“Pragma: no-cache”来实现，但Pragma在HTTP响应中的行为没有确切规范，随后HTTP/1.1中出现过了Cache-Control，现在Pragma尽管浏览器通常都会支持，但实际并没有什么使用价值了。
   
 - **Cache-Control**：Cache-Control是HTTP/1.1协议中定义的强制缓存Header，它的语义比起Expires来说就丰富了很多，如果Cache-Control和Expires同时存在，并且语义存在冲突（与max-age和s-maxage冲突）的话，将会以Cache-Control为准。Cache-Control的示例如下：
 
@@ -53,13 +53,59 @@
   - min-fresh / only-if-cached：这两个参数用于客户端的请求头，min-fresh后续跟随一个以秒为单位的数字，用于希望服务器能返回一个不少于该时间的缓存资源（即包含max-age且不少于min-fresh的数字）。only-if-cached表示客户端要求不发送网络请求，只使用缓存进行响应，若缓存不能命中，则直接返回503/Service Unavailable错误。
   - must-revalidate / proxy-revalidate：must-revalidate表示在资源过期后，一定需要从服务器中进行验证（即超过了max-age的时间，就等同于no-cache的行为），proxy-revalidate用于提示代理、CDN等缓存服务，语义与must-revalidate一致。
 
-- **Pragma**：
 
+### 协商缓存
 
+强制缓存是基于时效性的，但无论是人还是服务器，其实多数情况下都并没有什么把握去承诺某项资源多久不会变化。另外一种基于变化检测的缓存机制，在一致性上会有比强制缓存更好的表现，但需要一次变化检测的交互开销，性能上会略差一些，这种基于检测的缓存机制，通常被称为“协商缓存”。另外，请注意在HTTP中协商缓存与强制缓存并没有排他性，这两套机制是并行工作的，譬如，当强制缓存存在时，直接从强制缓存中返回资源，无需进行变动检查；而当强制缓存超过时效，或者被禁止（no-cache），协商缓存仍可以正常地工作。协商缓存主要有根据修改时间和根据哈希表示两种变动检查机制，都靠一组成对出现的请求、响应头来实现的：
 
+- **Last-Modified和If-Modified-Since**：Last-Modified是服务器的响应Header，用于告诉客户端这个资源的最后修改时间。对于带有这个Header的资源，当客户端需要在此请求时，会通过If-Modified-Since这个请求Header把之前收到的资源最后修改时间发送回服务端。<br/>如果此时服务端发现资源在该时间后没有被修改过，就只要返回一个304/Not Modified的响应即可，无需附带消息体，如下所示：
 
+  ```http
+  HTTP/1.1 304 Not Modified
+  Cache-Control: public, max-age=600
+  Last-Modified: Wed, 8 Apr 2020 15:31:30 GMT
+  ```
 
+  如果此时服务端发现资源在该时间之后有变动，就会返回200/OK的完整响应，在消息体中包含最新的资源，如下所示：
 
+  ```http
+  HTTP/1.1 200 OK
+  Cache-Control: public, max-age=600
+  Last-Modified: Wed, 8 Apr 2020 15:31:30 GMT
+  
+  Content
+  ```
 
+- **Etag和If-None-Match**：Etag是服务器的响应Header，用于告诉客户端这个资源的唯一标识（HTTP服务器可以根据自己的意愿来选择如何生成这个标识，譬如Apache服务器的Etag值，默认是对文件的索引节点（INode），大小（Size）和最后修改时间（MTime）进行哈希计算后得到的），对于带有这个Header的资源，当客户端需要在此请求时，会通过If-None-Match这个请求Header把之前收到的资源唯一标识发送回服务端。<br/>如果此时服务端计算后发现资源的唯一标识与上传回来的一致，说明资源没有被修改过，就只要返回一个304/Not Modified的响应即可，无需附带消息体，如下所示：
 
+  ```http
+  HTTP/1.1 304 Not Modified
+  Cache-Control: public, max-age=600
+  Last-Modified: Wed, 8 Apr 2020 15:31:30 GMT
+  ```
+
+  如果此时服务端发现资源的唯一标识有变动，就会返回200/OK的完整响应，在消息体中包含最新的资源，如下所示：
+
+  ``` http
+  HTTP/1.1 200 OK
+  Cache-Control: public, max-age=600
+  Last-Modified: Wed, 8 Apr 2020 15:31:30 GMT
+  
+  Content
+  ```
+
+Etag是HTTP中一致性最强的缓存机制，譬如，Last-Modified标注的最后修改只能精确到秒级，如果某些文件在1秒钟以内，被修改多次的话，它将不能准确标注文件的修改时间；又或者如果某些文件会被定期生成，可能内容并没有任何变化，但Last-Modified却改变了，导致文件无法有效使用缓存，这些情况Last-Modified都有可能产生一致性问题，只能使用Etag解决。
+
+Etag却又是HTTP中性能最差的缓存机制，体现在每次请求时，服务端都必须对资源进行哈希计算，这比起简单获取一下修改时间，开销要大了很多。Etag和Last-Modified是允许一起使用的，服务器会优先验证Etag，在Etag一致的情况下，再去对比Last-Modified，这是为了防止有一些HTTP服务器未将文件修改日期纳入哈希范围内。
+
+到这里为止，HTTP的协商缓存机制已经能很好地处理通过URL获取**单个资源**的场景，“单个资源”是什么意思？在HTTP协议的设计中，一个URL地址有可能能够提供多份不同版本的资源，譬如，一段文字的不同语言版本，一个文件的不同编码格式版本，一份数据的不同压缩方式版本，等等。HTTP协议设计了Accept\*（Accept、Accept-Language、Accept-Charset、Accept-Encoding）的一套请求Header和对应的Content-\*（Content-Language、Content-Type、Content-Encoding）的响应Header，这被称为HTTP的内容协商机制。与之对应的，对于一个URL能够获取多个资源的场景中，缓存也同样也需要有明确的标识来获知根据什么内容来对同一个URL返回给用户正确的资源。这个就是Vary Header的作用，Vary后面可以跟随其他Header的名字，譬如：
+
+```http
+HTTP/1.1 200 OK
+Vary: Accept, User-Agent
+```
+
+以上说明应该根据MINE类型和浏览器类型来缓存资源，获取资源时也需要根据请求头中对应的字段来筛选出适合的资源版本。
+
+## DNS缓存
 
