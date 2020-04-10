@@ -2,7 +2,7 @@ module.exports = {
     title: '软件架构探索：The Fenix Project',
     description: '现代软件架构探索',
     head: [
-        ['link', {rel: 'shortcut icon', type: "image/x-icon", href: `./favicon.ico`}]
+        ['link', {rel: 'shortcut icon', type: "image/x-icon", href: `/favicon.ico`}]
     ],
     host: 'localhost',
     port: 8080,
