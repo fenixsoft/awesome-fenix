@@ -296,7 +296,7 @@ CDN的工作过程，主要涉及到路由解析、内容分发、负载均衡�
 
 ### 路由解析
 
-根据我们在第二节中对DNS系统的介绍，一个用户访问网站（未使用CDN）的过程应该是这样的：
+根据我们在第二节中对DNS系统的介绍，一个未使用CDN的用户访问网站的过程应该是这样的：
 
 <mermaid style="margin-bottom: 0px">
 sequenceDiagram
@@ -310,7 +310,75 @@ sequenceDiagram
 	网站服务器 -->> 浏览器: 响应
 </mermaid>
 
-icyfenix.cn.cdn.dnsv1.com	
+以上时序所表达的内容跟第二节中讲述的没有差异，这里就不多解释了。而分析使用了CDN的DNS查询过程之前，我们先来看一段对本站查询的实际应答。通过dig或者host命令，可以很方便地得到DNS服务器的返回结果（结果中头4个IP的地址是我手工加入的，后面的就不一个一个查了），如下所示：
+
+```bash
+$ dig icyfenix.cn
+
+; <<>> DiG 9.11.3-1ubuntu1.8-Ubuntu <<>> icyfenix.cn
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 60630
+;; flags: qr rd ra; QUERY: 1, ANSWER: 17, AUTHORITY: 0, ADDITIONAL: 1
+
+;; OPT PSEUDOSECTION:
+; EDNS: version: 0, flags:; udp: 65494
+;; QUESTION SECTION:
+;icyfenix.cn.                   IN      A
+
+;; ANSWER SECTION:
+icyfenix.cn.            600     IN      CNAME   icyfenix.cn.cdn.dnsv1.com.
+icyfenix.cn.cdn.dnsv1.com. 599  IN      CNAME   4yi4q4z6.dispatch.spcdntip.com.
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	101.71.72.192      #浙江宁波 
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	113.200.16.234     #陕西省榆林市 
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	116.95.25.196      #内蒙古自治区呼和浩特市 
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	116.178.66.65      #新疆维吾尔自治区乌鲁木齐市
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	118.212.234.144
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	211.91.160.228
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	211.97.73.224
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	218.11.8.232
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	221.204.166.70
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	14.204.74.140
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	43.242.166.88
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	59.80.39.110
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	59.83.204.12
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	59.83.204.14
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	59.83.218.235
+
+;; Query time: 74 msec
+;; SERVER: 127.0.0.53#53(127.0.0.53)
+;; WHEN: Sat Apr 11 22:33:56 CST 2020
+;; MSG SIZE  rcvd: 152
+```
+
+根据以上信息，查询“icyfenix.cn.”的查询结果返回了一个[CNAME记录](https://zh.wikipedia.org/wiki/CNAME%E8%AE%B0%E5%BD%95)（icyfenix.cn.cdn.dnsv1.com.），进一步查询该CNAME时候，又返回了另一个看起来更奇怪的CNAME（4yi4q4z6.dispatch.spcdntip.com.），最后，这个CNAME返回了十几个位于全国不同地区的A记录，很明显，那些A记录就是存有本站缓存的CDN节点。CDN路由解析的工作过程是：
+
+1. 架设好服务器后，将服务器的IP地址在你的CDN服务商上注册为“源站”，注册后会得到一个CNAME，即本例中的“icyfenix.cn.cdn.dnsv1.com.”。
+2. 将得到的CNAME在你购买域名的DNS服务商上注册为一条CNAME记录。
+3. 当发生一次未命中缓存的DNS查询时，域名服务商解析出CNAME后，返回给本地DNS，至此之后链路解析的主导权就被CDN服务商接管了。
+4. 本地DNS查询CNAME时，能解析该CNAME的权威服务器只有CDN服务商的权威DNS，该DNS会根据一定的均衡策略和参数，如拓扑结构、容量、时延，在全国各地能的CDN服务器中挑选一个适合的，将它的IP返回给本地DNS。
+5. 浏览器从本地DNS拿到IP，将该IP当作源站服务器来进行访问，此时该IP的CDN服务上可能有，也可能没有缓存源站的资源，这点将在稍后内容分发中讨论。
+
+以上步骤反映在时序图上，将如下图所示：
+
+<mermaid style="margin-bottom: 0px">
+sequenceDiagram
+    浏览器 ->> 本地DNS: 查询网站icyfenix.cn
+    loop 递归查询
+	    本地DNS ->> 域名的权威DNS: 查询网站icyfenix.cn
+	end
+	域名的权威DNS -->> 本地DNS: CNAME:icyfenix.cn.cdn.dnsv1.com.
+	本地DNS -->> CNAME的权威DNS: 查询CNAME：icyfenix.cn.cdn.dnsv1.com.
+	loop 递归查询
+		CNAME的权威DNS ->> CNAME的权威DNS: 经过递归查询和负载均衡，确定合适的CDN
+	end
+	CNAME的权威DNS -->> 本地DNS: 地址:xx.xx.xx.xx
+	本地DNS -->> 浏览器: 地址:xx.xx.xx.xx
+	浏览器 ->> CDN服务器: 请求
+	CDN服务器 ->> 源站服务器: 请求
+	源站服务器 -->> CDN服务器: 响应
+	CDN服务器 -->> 浏览器: 缓存并响应
+</mermaid>
 
 ### 内容分发
 
