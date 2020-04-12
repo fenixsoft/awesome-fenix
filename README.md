@@ -11,10 +11,10 @@ pageClass: index-page-class
   </a>
 </p>
 <p align="center">
-    <a href="https://iycfenix.cn"  style="display:inline-block"><img src="https://icyfenix.cn/images/Release-v1.png"></a>
-    <a href="https://travis-ci.com/fenixsoft/awesome-fenix" target="_blank"  style="display:inline-block"><img src="https://api.travis-ci.com/fenixsoft/awesome-fenix.svg?branch=master" alt="Travis-CI"></a>
-    <a href="https://www.apache.org/licenses/LICENSE-2.0"  target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/License-Apache.png" alt="License"></a>
-    <a href="https://creativecommons.org/licenses/by/4.0/"  target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/DocLicense-CC-red.png" alt="Document License"></a>
+    <a href="https://icyfenix.cn" style="display:inline-block"><img src="https://icyfenix.cn/images/Release-v1.png"></a>
+    <a href="https://travis-ci.com/fenixsoft/awesome-fenix" target="_blank" style="display:inline-block"><img src="https://api.travis-ci.com/fenixsoft/awesome-fenix.svg?branch=master" alt="Travis-CI"></a>
+    <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/License-Apache.png" alt="License"></a>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/DocLicense-CC-red.png" alt="Document License"></a>
     <words type='badge' chapter='/'/>
     <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/Author-IcyFenix-blue.png" alt="About Author"></a>
 </p>
