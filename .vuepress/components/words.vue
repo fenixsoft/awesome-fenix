@@ -29,9 +29,6 @@
             },
             globalWordsText: function () {
                 return '字数: ' + this.globalWords + ' 字'
-            },
-            globalWordsBadge: function () {
-                return 'https://img.shields.io/badge/Doc%20Words-' + this.globalWords + '-ff69b4'
             }
         }
     }
