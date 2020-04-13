@@ -95,6 +95,10 @@ p, ul, ol
 .dropdown-wrapper .nav-dropdown .dropdown-item
   line-height: 2rem;
 
+.print-break
+  page-break-after: always;
+
+
 @media print
   .navbar
   .page-edit
@@ -102,3 +106,23 @@ p, ul, ol
   .not-print
   #vuepress-plugin-comment
     display none;
+
+  div[class*=language-]
+  pre
+  div[class*=language-]
+  pre[class*=language-]
+    box-shadow: inset 0 0 0 1000px #000;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+
+  .token.comment
+  .token.block-comment
+  .token.prolog
+  .token.doctype
+  .token.cdata
+    color: #eee;
+
+  .custom-block.tip
+  .quote
+  blockquote
+    box-shadow: inset 0 0 0 1000px #f3f5f7;

@@ -106,7 +106,10 @@ async function generatePDF(ctx, port, host) {
         await browserPage.pdf({
             path: pagePath,
             format: 'A4',
-            margin: {left: '0mm', top: '14mm', right: '0mm', bottom: '10mm'}
+            displayHeaderFooter: true,
+            headerTemplate: `<div style='width:100%; margin: 0 22px 0 22px; border-bottom: 1px solid #eaecef; text-align:right; font-size: 8px; line-height: 18px; font-family: "Microsoft YaHei"; color: #AAA'>${title}　　</div>`,
+            footerTemplate: "<span></span>",
+            margin: {left: '0mm', top: '20mm', right: '0mm', bottom: '15mm'}
         })
 
         logger.success(
