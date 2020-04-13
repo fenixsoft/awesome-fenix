@@ -33,7 +33,8 @@
     "qcloud-cdn-node-sdk": "^1.0.0",
     "vuepress": "^1.4.0",
     "vuepress-plugin-comment": "^0.7.3",
-    "vuepress-plugin-export": "^0.2.0"
+    "easy-pdf-merge": "^0.2.0",
+    "puppeteer": "^1.11.0"
   },
   "dependencies": {}
 }

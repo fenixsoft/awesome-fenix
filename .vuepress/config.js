@@ -27,6 +27,12 @@ module.exports = {
                 after: '</div>'
             },
         ],
+        ['vuepress-plugin-container',
+            {
+                type: 'not-print',
+                defaultTitle: ''
+            },
+        ],
         [
             '@vuepress/google-analytics',
             {
@@ -51,9 +57,9 @@ module.exports = {
                 }
             }
         ],
-        [require('./plugins/read-time')],
         ['@vuepress/back-to-top'],
-        ['vuepress-plugin-export']
+        [require('./plugins/read-time')],
+        [require('./plugins/export')]
     ],
     markdown: {
         // markdown-it-anchor 的选项
@@ -246,7 +252,6 @@ module.exports = {
                 ]
             }, {
                 title: '产品发布准备',
-                path: '/release',
                 collapsable: false,
                 children: [
                     '/release/build-script',

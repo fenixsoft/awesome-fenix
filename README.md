@@ -19,14 +19,11 @@ pageClass: index-page-class
     <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/Author-IcyFenix-blue.png" alt="About Author"></a>
 </p>
 
-
-
 ## 这是什么？
 
 简单地说，这是针对软件开发中不同架构、技术方案（如单体架构、微服务、服务网格、无服务架构、云原生等等）的演示程序。包含可以作为实际项目开发参考的样例代码（[PetStore-Like-Project](https://www.oracle.com/technetwork/cn/java/javaee/overview/index-136650.html)），以及作者对这些架构的使用方法、思想、优劣等的个人理解。
 
 这篇文章《<a href="https://icyfenix.cn/introduction/about-the-fenix-project.html">什么是“The Fenix Project”</a>》详细解释了此项目的意义和目标，如感兴趣，建议先行阅读。
-
 
 
 ## 如何使用？
@@ -44,8 +41,6 @@ pageClass: index-page-class
     - SpringCloud实现微服务架构：https://github.com/fenixsoft/microservice_arch_springcloud
     - 以Kubernetes为基础设施的微服务架构：https://github.com/fenixsoft/microservice_arch_kubernetes
     - Knative实现的无服务架构：https://github.com/fenixsoft/serverless_arch_knative
-
-
 
 ## 协议
 
@@ -66,8 +61,10 @@ pageClass: index-page-class
 
 只要您遵守许可协议条款中署名、非商业性使用、相同方式共享的条件，许可人就无法收回您的这些权利。
 
-
+:::not-print
+<br/>
 
 ## 备案
 
 网站备案信息：[粤ICP备18088957号-1](http://beian.miit.gov.cn/)
+:::
