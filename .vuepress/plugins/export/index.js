@@ -49,7 +49,7 @@ async function generatePDF(ctx, port, host) {
     let {pages, tempPath, siteConfig} = ctx
     const tempDir = join(tempPath, 'pdf')
     const sidebar = ctx.siteConfig.themeConfig.sidebar
-    const res = [pages[0], findPage(pages, '/summary')]
+    const res = [pages[0]]
     flatten(sidebar, res)
 
     function flatten(items, res) {
@@ -57,6 +57,8 @@ async function generatePDF(ctx, port, host) {
             if (items[i].children instanceof Array) {
                 items[i].path && res.push(findPage(pages, items[i].path))
                 flatten(items[i].children || [], res)
+            } else if(items[i].path){
+                res.push(findPage(pages, items[i].path))
             } else {
                 res.push(findPage(pages, items[i]))
             }
