@@ -30,7 +30,7 @@
                 : selfActive
             let prefix = ''
             if (item.readingTime && item.readingTime.words > 50) {
-                prefix = '✅ '
+                prefix = '✔️ '
             }
             const link = item.type === 'external'
                 ? renderExternal(h, item.path, item.title || item.path)

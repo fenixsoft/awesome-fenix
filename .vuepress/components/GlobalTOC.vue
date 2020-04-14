@@ -34,7 +34,7 @@
                 } else {
                     res = resolvePage(this.$site.pages, item, this.$route.path).title
                 }
-                return res.replace('✅ ', '')
+                return res.replace('✔️ ', '')
             },
             getWords: function (item) {
                 if (item.children) {

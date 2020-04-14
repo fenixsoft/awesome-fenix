@@ -121,7 +121,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     {
-                        title: '✅ 如何开始',
+                        title: '✔️ 如何开始',
                         path: '/deployment/development-env-setup/',
                         collapsable: false,
                         children: [
@@ -132,11 +132,11 @@ module.exports = {
                             '/deployment/development-env-setup/serverless_arch_knative'
                         ]
                     }, {
-                        title: '✅ 环境依赖',
+                        title: '✔️ 环境依赖',
                         path: '/deployment/deployment-env-setup/',
                         collapsable: false,
                         children: ['/deployment/deployment-env-setup/setup-docker', {
-                            title: '✅ 部署Kubernetes集群',
+                            title: '✔️ 部署Kubernetes集群',
                             path: '/deployment/deployment-env-setup/setup-kubernetes',
                             children: [
                                 '/deployment/deployment-env-setup/setup-kubernetes/setup-kubeadm',
@@ -157,7 +157,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     {
-                        title: '✅ 架构的普适问题',
+                        title: '✔️ 架构的普适问题',
                         collapsable: false,
                         path: '/architect-perspective/general-architecture',
                         children: [
@@ -165,9 +165,16 @@ module.exports = {
                             '/architect-perspective/general-architecture/system-security',
                             '/architect-perspective/general-architecture/transaction',
                             '/architect-perspective/general-architecture/diversion-system',
-                            '/architect-perspective/general-architecture/layered-system',
-                            '/architect-perspective/general-architecture/constraint',
-                            '/architect-perspective/general-architecture/testability'
+                            '/architect-perspective/general-architecture/concurrent-access'
+                        ]
+                    }, {
+                        title: '方法论',
+                        collapsable: false,
+                        children: [
+                            '/architect-perspective/methodology/layered-system',
+                            '/architect-perspective/methodology/capacity-design',
+                            '/architect-perspective/methodology/constraint',
+                            '/architect-perspective/methodology/testability'
                         ]
                     }, {
                         title: '技巧与专题',

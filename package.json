@@ -23,6 +23,7 @@
   "devDependencies": {
     "@vuepress/plugin-back-to-top": "^1.4.0",
     "@vuepress/plugin-google-analytics": "^1.4.0",
+    "easy-pdf-merge": "^0.2.0",
     "markdown-it-abbr": "^1.0.4",
     "markdown-it-figure": "^0.2.0",
     "markdown-it-ins": "^3.0.0",
@@ -30,11 +31,11 @@
     "markdown-it-smartarrows": "^1.0.1",
     "markdown-it-sub": "^1.0.0",
     "markdown-it-sup": "^1.0.0",
+    "puppeteer": "^1.11.0",
     "qcloud-cdn-node-sdk": "^1.0.0",
+    "github-buttons": "^2.3.0",
     "vuepress": "^1.4.0",
-    "vuepress-plugin-comment": "^0.7.3",
-    "easy-pdf-merge": "^0.2.0",
-    "puppeteer": "^1.11.0"
+    "vuepress-plugin-comment": "^0.7.3"
   },
   "dependencies": {}
 }
