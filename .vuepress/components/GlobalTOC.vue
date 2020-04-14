@@ -1,7 +1,9 @@
 <template>
     <ol>
         <li v-for="page in items">
-            <span :class="'level'+level">{{getTitle(page)}}</span>
+            <a :href="getLinks(page)" v-if="getLinks(page) != null"><span
+                    :class="'level'+level">{{getTitle(page)}}</span></a>
+            <span v-else :class="'level'+level">{{getTitle(page)}}</span>
             <span class="words">{{getWords(page)}}</span>
             <GlobalTOC :pages="page.children" :level="level + 1"/>
         </li>
@@ -37,15 +39,27 @@
                 return res.replace('✔️ ', '')
             },
             getWords: function (item) {
-                if (item.children) {
-                    return "";
+                let page = null;
+                if (item.path) {
+                    page = resolvePage(this.$site.pages, item.path, this.$route.path)
+                } else if (typeof (item) === 'string') {
+                    page = resolvePage(this.$site.pages, item, this.$route.path)
+                }
+                if (page && page.readingTime) {
+                    return `${page.readingTime.words.toLocaleString()} 字`
                 } else {
-                    try {
-                        let page = resolvePage(this.$site.pages, item, this.$route.path)
-                        return `${page.readingTime.words.toLocaleString()} 字`
-                    } catch (e) {
-                        this.items = [];
-                    }
+                    return ""
+                }
+            },
+            getLinks: function (item) {
+                if (item.path) {
+                    let page = resolvePage(this.$site.pages, item.path, this.$route.path)
+                    return (page.readingTime && page.readingTime.words > 50) ? page.path : null
+                } else if (typeof (item) === 'string') {
+                    let page = resolvePage(this.$site.pages, item, this.$route.path)
+                    return (page.readingTime && page.readingTime.words > 50) ? page.path : null
+                } else {
+                    return null;
                 }
             }
         }

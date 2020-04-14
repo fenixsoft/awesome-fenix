@@ -112,12 +112,7 @@ module.exports = {
             {
                 title: '目录',
                 collapsable: false,
-                children: [
-                    {
-                        title: '✔️ 目录与更新情况',
-                        path: '/SUMMARY.md'
-                    }
-                ]
+                path: '/SUMMARY.md'
             },
             {
                 title: '前言',
@@ -155,13 +150,55 @@ module.exports = {
                     {
                         title: '✔️ 架构的普适问题',
                         collapsable: false,
-                        path: '/architect-perspective/general-architecture',
+                        path: '/architect-perspective/general-architecture/',
                         children: [
-                            '/architect-perspective/general-architecture/api-style.md',
-                            '/architect-perspective/general-architecture/system-security',
-                            '/architect-perspective/general-architecture/transaction',
-                            '/architect-perspective/general-architecture/diversion-system',
-                            '/architect-perspective/general-architecture/concurrent-access'
+                            {
+                                title: '✔️ 服务风格设计',
+                                path: '/architect-perspective/general-architecture/api-style/',
+                                children: [
+                                    '/architect-perspective/general-architecture/api-style/rpc',
+                                    '/architect-perspective/general-architecture/api-style/rest'
+                                ]
+                            },
+                            {
+                                title: '✔️ 安全架构',
+                                path: '/architect-perspective/general-architecture/system-security/',
+                                children: [
+                                    '/architect-perspective/general-architecture/system-security/authentication',
+                                    '/architect-perspective/general-architecture/system-security/authorization',
+                                    '/architect-perspective/general-architecture/system-security/credentials',
+                                    '/architect-perspective/general-architecture/system-security/confidentiality',
+                                    '/architect-perspective/general-architecture/system-security/transport-security',
+                                    '/architect-perspective/general-architecture/system-security/verification',
+                                    '/architect-perspective/general-architecture/system-security/exploit'
+                                ]
+                            },
+                            {
+                                title: '✔️ 事务一致性',
+                                path: '/architect-perspective/general-architecture/transaction/',
+                                children: [
+                                    '/architect-perspective/general-architecture/transaction/local',
+                                    '/architect-perspective/general-architecture/transaction/global',
+                                    '/architect-perspective/general-architecture/transaction/share',
+                                    '/architect-perspective/general-architecture/transaction/distributed'
+                                ]
+                            },
+                            {
+                                title: '✔️ 透明多级分流系统',
+                                path: '/architect-perspective/general-architecture/diversion-system/',
+                                children: [
+                                    '/architect-perspective/general-architecture/diversion-system/client-cache',
+                                    '/architect-perspective/general-architecture/diversion-system/dns-lookup',
+                                    '/architect-perspective/general-architecture/diversion-system/transmission-optimization',
+                                    '/architect-perspective/general-architecture/diversion-system/cdn',
+                                    '/architect-perspective/general-architecture/diversion-system/load-balancing',
+                                    '/architect-perspective/general-architecture/diversion-system/cache-middleware'
+                                ]
+                            },
+                            {
+                                title: '高并发架构',
+                                path: '/architect-perspective/general-architecture/concurrent/'
+                            }
                         ]
                     }, {
                         title: '设计方法论',
@@ -187,7 +224,7 @@ module.exports = {
                     '/architecture/architect-history',
                     {
                         title: '单体架构',
-                        path: '/architecture/monolithic-architecture',
+                        path: '/architecture/monolithic-architecture/',
                         collapsable: false,
                         children: [
                             '/architecture/monolithic-architecture/j2ee-base-arch',
@@ -195,7 +232,7 @@ module.exports = {
                         ]
                     }, {
                         title: '微服务架构',
-                        path: '/architecture/microservices-architecture',
+                        path: '/architecture/microservices-architecture/',
                         collapsable: false,
                         children: [
                             '/architecture/microservices-architecture/springcloud-base-arch',
@@ -204,7 +241,7 @@ module.exports = {
                         ]
                     }, {
                         title: '无服务架构',
-                        path: '/architecture/serverless-architecture',
+                        path: '/architecture/serverless-architecture/',
                         collapsable: false,
                         children: [
                             '/architecture/serverless-architecture/serverless-arch-knative',
@@ -220,7 +257,7 @@ module.exports = {
                     '/technology/load-balancing',
                     {
                         title: '链路治理',
-                        path: '/technology/invokechain-manage',
+                        path: '/technology/invokechain-manage/',
                         collapsable: false,
                         children: [
                             '/technology/invokechain-manage/traffic-control',
@@ -239,7 +276,7 @@ module.exports = {
                 children: [
                     {
                         title: '网络',
-                        path: '/immutable-infrastructure/network',
+                        path: '/immutable-infrastructure/network/',
                         collapsable: false,
                         children: [
                             '/immutable-infrastructure/network/kubernetes-cni',
@@ -263,7 +300,7 @@ module.exports = {
                         collapsable: false,
                         children: ['/appendix/deployment-env-setup/setup-docker', {
                             title: '✔️ 部署Kubernetes集群',
-                            path: '/appendix/deployment-env-setup/setup-kubernetes',
+                            path: '/appendix/deployment-env-setup/setup-kubernetes/',
                             children: [
                                 '/appendix/deployment-env-setup/setup-kubernetes/setup-kubeadm',
                                 '/appendix/deployment-env-setup/setup-kubernetes/setup-rancher',
@@ -272,7 +309,7 @@ module.exports = {
                         }]
                     }, {
                         title: '运维环境',
-                        path: '/appendix/operation-env-setup',
+                        path: '/appendix/operation-env-setup/',
                         children: [
                             '/appendix/operation-env-setup/elk-setup',
                             '/appendix/operation-env-setup/devops-setup'
