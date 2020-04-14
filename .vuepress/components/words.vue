@@ -1,7 +1,7 @@
 <template>
     <span v-if="type==='span'">{{globalWords}}</span>
     <SvgBadge v-else-if="type==='badge'" label="Doc Words" :value="globalWords" :color="'#ff69b4'"/>
-    <!--    <img v-else-if="type==='badge'" :src="globalWordsBadge" style="display:inline-block"/>-->
+    <span v-else-if="type==='finish'">{{finishPage}}</span>
     <Badge v-else :text="globalWordsText"></Badge>
 </template>
 
@@ -29,6 +29,16 @@
             },
             globalWordsText: function () {
                 return '字数: ' + this.globalWords + ' 字'
+            },
+            finishPage: function () {
+                const statistics = this.$page.readingTime.globalWords;
+                let page = 0;
+                for (let key in statistics) {
+                    if (key.startsWith(this.chapter) && statistics[key] > 50) {
+                        page++
+                    }
+                }
+                return page;
             }
         }
     }
