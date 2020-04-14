@@ -114,7 +114,7 @@ module.exports = {
                 collapsable: false,
                 children: [
                     {
-                        title: '✔️ 全文目录',
+                        title: '✔️ 目录与更新情况',
                         path: '/SUMMARY.md'
                     }
                 ]

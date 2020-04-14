@@ -1,9 +1,9 @@
 <template>
     <ol>
         <li v-for="page in items">
-            <span>{{getTitle(page)}}</span>
+            <span :class="'level'+level">{{getTitle(page)}}</span>
             <span class="words">{{getWords(page)}}</span>
-            <GlobalTOC :pages="page.children"/>
+            <GlobalTOC :pages="page.children" :level="level + 1"/>
         </li>
     </ol>
 </template>
@@ -18,7 +18,7 @@
                 items: []
             }
         },
-        props: ['pages'],
+        props: ['pages', 'level'],
         created: function () {
             if (this.pages === '/') {
                 this.items = this.$themeConfig.sidebar
@@ -40,8 +40,12 @@
                 if (item.children) {
                     return "";
                 } else {
-                    let page = resolvePage(this.$site.pages, item, this.$route.path)
-                    return `${page.readingTime.words.toLocaleString()} 字`
+                    try {
+                        let page = resolvePage(this.$site.pages, item, this.$route.path)
+                        return `${page.readingTime.words.toLocaleString()} 字`
+                    } catch (e) {
+                        this.items = [];
+                    }
                 }
             }
         }
@@ -59,11 +63,18 @@
     li:before {
         counter-increment: a;
         content: counters(a, ".") ". ";
+        line-height: 35px;
     }
 
     .words {
         font-size: 14px;
         color: #999;
         float: right;
+    }
+
+    .level0 {
+        font-size: 17px;
+        line-height: 44px;
+        font-weight: bold;
     }
 </style>

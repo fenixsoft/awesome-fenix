@@ -7,4 +7,4 @@ permalink: /summary
 
 <br/>
 
-<GlobalTOC pages='/' />
+<GlobalTOC pages='/' :level='0' />
