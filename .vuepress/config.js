@@ -110,6 +110,16 @@ module.exports = {
         ],
         sidebar: [
             {
+                title: '目录',
+                collapsable: false,
+                children: [
+                    {
+                        title: '✔️ 全文目录',
+                        path: '/SUMMARY.md'
+                    }
+                ]
+            },
+            {
                 title: '前言',
                 collapsable: false,
                 children: [
@@ -121,35 +131,21 @@ module.exports = {
                 collapsable: false,
                 children: [
                     {
-                        title: '✔️ 如何开始',
-                        path: '/deployment/development-env-setup/',
+                        title: '阅读指引',
                         collapsable: false,
                         children: [
-                            '/deployment/development-env-setup/fenix-bookstore-frontend',
-                            '/deployment/development-env-setup/monolithic_arch_springboot',
-                            '/deployment/development-env-setup/microservice_arch_springcloud',
-                            '/deployment/development-env-setup/microservice_arch_kubernetes',
-                            '/deployment/development-env-setup/serverless_arch_knative'
+                            '/exploration/guide/quick-start'
                         ]
-                    }, {
-                        title: '✔️ 环境依赖',
-                        path: '/deployment/deployment-env-setup/',
+                    },
+                    {
+                        title: '技术演示工程',
                         collapsable: false,
-                        children: ['/deployment/deployment-env-setup/setup-docker', {
-                            title: '✔️ 部署Kubernetes集群',
-                            path: '/deployment/deployment-env-setup/setup-kubernetes',
-                            children: [
-                                '/deployment/deployment-env-setup/setup-kubernetes/setup-kubeadm',
-                                '/deployment/deployment-env-setup/setup-kubernetes/setup-rancher',
-                                '/deployment/deployment-env-setup/setup-kubernetes/setup-minikube'
-                            ]
-                        }]
-                    }, {
-                        title: '运维环境',
-                        path: '/deployment/operation-env-setup',
                         children: [
-                            '/deployment/operation-env-setup/elk-setup',
-                            '/deployment/operation-env-setup/devops-setup'
+                            '/exploration/projects/fenix-bookstore-frontend',
+                            '/exploration/projects/monolithic_arch_springboot',
+                            '/exploration/projects/microservice_arch_springcloud',
+                            '/exploration/projects/microservice_arch_kubernetes',
+                            '/exploration/projects/serverless_arch_knative'
                         ]
                     }]
             }, {
@@ -168,7 +164,7 @@ module.exports = {
                             '/architect-perspective/general-architecture/concurrent-access'
                         ]
                     }, {
-                        title: '方法论',
+                        title: '设计方法论',
                         collapsable: false,
                         children: [
                             '/architect-perspective/methodology/layered-system',
@@ -255,12 +251,33 @@ module.exports = {
                     '/immutable-infrastructure/hardware-schedule'
                 ]
             }, {
-                title: '产品发布准备',
+                title: '附录',
                 collapsable: false,
                 children: [
-                    '/release/build-script',
-                    '/release/continuous-integration',
-                    '/release/gated-launch'
+                    '/appendix/build-script',
+                    '/appendix/continuous-integration',
+                    '/appendix/gated-launch',
+                    {
+                        title: '✔️ 环境依赖',
+                        path: '/appendix/deployment-env-setup/',
+                        collapsable: false,
+                        children: ['/appendix/deployment-env-setup/setup-docker', {
+                            title: '✔️ 部署Kubernetes集群',
+                            path: '/appendix/deployment-env-setup/setup-kubernetes',
+                            children: [
+                                '/appendix/deployment-env-setup/setup-kubernetes/setup-kubeadm',
+                                '/appendix/deployment-env-setup/setup-kubernetes/setup-rancher',
+                                '/appendix/deployment-env-setup/setup-kubernetes/setup-minikube'
+                            ]
+                        }]
+                    }, {
+                        title: '运维环境',
+                        path: '/appendix/operation-env-setup',
+                        children: [
+                            '/appendix/operation-env-setup/elk-setup',
+                            '/appendix/operation-env-setup/devops-setup'
+                        ]
+                    }
                 ]
             }
         ]

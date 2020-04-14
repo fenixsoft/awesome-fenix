@@ -72,10 +72,7 @@ pageClass: index-page-class
 
 只要您遵守许可协议条款中署名、非商业性使用、相同方式共享的条件，许可人就无法收回您的这些权利。
 
-:::not-print
-<br/>
-
-## 备案
-
-网站备案信息：[粤ICP备18088957号-1](http://beian.miit.gov.cn/)
-:::
+<div style="padding-top: 20px" class="not-print">
+	<h2 id="备案">备案</h2>
+	<p>网站备案信息：<a href="http://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">粤ICP备18088957号-1</a></p>
+</div>
