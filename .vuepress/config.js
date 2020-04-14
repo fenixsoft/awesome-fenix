@@ -62,12 +62,9 @@ module.exports = {
         [require('./plugins/export')]
     ],
     markdown: {
-        // markdown-it-anchor 的选项
         anchor: {permalink: false},
-        // markdown-it-toc 的选项
         toc: {includeLevel: [2, 3]},
         extendMarkdown: md => {
-            // 使用更多的 markdown-it 插件!
             md.use(require('markdown-it-mermaid').default);
             md.use(require('markdown-it-sub'));
             md.use(require('markdown-it-sup'));

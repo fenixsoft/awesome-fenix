@@ -20,7 +20,7 @@ pageClass: index-page-class
     <a href="https://travis-ci.com/fenixsoft/awesome-fenix" target="_blank" style="display:inline-block"><img src="https://api.travis-ci.com/fenixsoft/awesome-fenix.svg?branch=master" alt="Travis-CI"></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/License-Apache.svg" alt="License"></a>
     <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/DocLicense-CC-red.svg" alt="Document License"></a>
-    <words type='badge' chapter='/'/>
+    <a href="/summary"  style="display:inline-block"><words type='badge' chapter='/'/></a>
     <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/Author-IcyFenix-blue.svg" alt="About Author"></a>
 </p>
 

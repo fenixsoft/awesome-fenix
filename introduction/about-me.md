@@ -27,6 +27,8 @@
   - [阿里云最有价值技术专家（MVP）](https://mvp.aliyun.com/mvp/detail/487)
   - [InfoQ.CN专栏撰稿人](https://www.infoq.cn/profile/1278833/publish)
 
+:::not-print
 <center>
 <img src="./images/icyfenix.jpg"></img>
 </center>
+:::
