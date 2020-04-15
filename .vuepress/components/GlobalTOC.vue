@@ -40,7 +40,11 @@
         },
         methods: {
             getTitle: function (page) {
-                return page.title.replace('✔️ ', '')
+                try {
+                    return page.title.replace('✔️ ', '')
+                } catch (e) {
+                    return "标题错误"
+                }
             },
             getWords: function (page) {
                 if (page && page.readingTime) {
