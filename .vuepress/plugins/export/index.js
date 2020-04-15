@@ -94,37 +94,38 @@ async function generatePDF(ctx, port, host) {
     const browser = await puppeteer.launch()
     const browserPage = await browser.newPage()
 
-    if (false) {
 
-        for (let i = 0; i < exportPages.length; i++) {
-            const {
-                location,
-                site,
-                path: pagePath,
-                url,
-                title
-            } = exportPages[i]
+    for (let i = 0; i < exportPages.length; i++) {
+        const {
+            location,
+            site,
+            path: pagePath,
+            url,
+            title
+        } = exportPages[i]
 
-            await browserPage.goto(
-                location,
-                {waitUntil: 'networkidle2'}
-            )
+        await browserPage.goto(
+            location,
+            {
+                waitUntil: 'networkidle0',
+                timeout: 0
+            }
+        )
 
-            await browserPage.pdf({
-                path: pagePath,
-                format: 'A4',
-                displayHeaderFooter: true,
-                headerTemplate: `<div style='width:100%; margin: 0 22px 0 22px; padding-right:12px; border-bottom: 1px solid #eaecef; text-align:right; font-size: 8px; line-height: 18px; font-family: "Microsoft YaHei"; color: #AAA'>${title}<div style='float:left; padding-left:12px'>https://icyfenix.cn</div></div>`,
-                footerTemplate: "<span></span>",
-                margin: {left: '0mm', top: '20mm', right: '0mm', bottom: '15mm'}
-            })
+        await browserPage.pdf({
+            path: pagePath,
+            format: 'A4',
+            displayHeaderFooter: true,
+            headerTemplate: `<div style='width:100%; margin: 0 22px 0 22px; padding-right:12px; border-bottom: 1px solid #eaecef; text-align:right; font-size: 8px; line-height: 18px; font-family: "Microsoft YaHei"; color: #AAA'>${title}<div style='float:left; padding-left:12px'>https://icyfenix.cn</div></div>`,
+            footerTemplate: "<span></span>",
+            margin: {left: '0mm', top: '20mm', right: '0mm', bottom: '15mm'}
+        })
 
-            logger.success(
-                `Generated ${yellow(title)} ${gray(`${url}`)}`
-            )
-        }
-
+        logger.success(
+            `Generated ${yellow(title)} ${gray(`${url}`)}`
+        )
     }
+
 
     const files = exportPages.map(({path}) => path)
     const outputFilename = siteConfig.title || 'site'
@@ -143,13 +144,12 @@ async function generatePDF(ctx, port, host) {
                 if (err) {
                     throw err
                 }
-                logger.success(`Merge ${yellow(`${i} to ${i + _files.length }`)} file!`)
+                logger.success(`Merge ${yellow(`${i} to ${i + _files.length}`)} file!`)
                 resolve()
             })
         })
     }
     logger.success(`Export ${yellow(outputFile)} file!`)
-
 
     await browser.close()
     fs.removeSync(tempDir)

@@ -22,12 +22,12 @@ pageClass: index-page-class
 		<github-button href="https://github.com/fenixsoft" data-show-count="true" aria-label="Follow @fenixsoft on GitHub">Follow</github-button>
 	</span>
     <a href="https://icyfenix.cn" style="display:inline-block"><img src="https://icyfenix.cn/images/Release-v1.svg"></a>
-    <a href="https://travis-ci.com/fenixsoft/awesome-fenix" target="_blank" style="display:inline-block"><img src="https://api.travis-ci.com/fenixsoft/awesome-fenix.svg?branch=master" alt="Travis-CI"></a>
+    <a href="https://travis-ci.com/fenixsoft/awesome-fenix" target="_blank" style="display:inline-block" class="not-print"><img src="https://api.travis-ci.com/fenixsoft/awesome-fenix.svg?branch=master" alt="Travis-CI"></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/License-Apache.svg" alt="License"></a>
     <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/DocLicense-CC-red.svg" alt="Document License"></a>
     <a href="/summary"  style="display:inline-block"><words type='badge' chapter='/'/></a>
     <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/Author-IcyFenix-blue.svg" alt="About Author"></a>
-	<span class="only-for-printer">
+	<span class="only-for-printer" style="padding-top:300px">
         <br/>周志明
         <br/>icyfenix@gmail.com
         </br/>发布日期：{{this.$site.pages[0].siteLastUpdated}}</span>
