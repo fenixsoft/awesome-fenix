@@ -48,6 +48,7 @@ module.exports = (opts = {}, ctx) => ({
 async function generatePDF(ctx, port, host) {
     let {pages, tempPath, siteConfig} = ctx
     const tempDir = join(tempPath, 'pdf')
+
     const sidebar = ctx.siteConfig.themeConfig.sidebar
     const res = [pages[0]]
     flatten(sidebar, res)
@@ -57,7 +58,7 @@ async function generatePDF(ctx, port, host) {
             if (items[i].children instanceof Array) {
                 items[i].path && res.push(findPage(pages, items[i].path))
                 flatten(items[i].children || [], res)
-            } else if(items[i].path){
+            } else if (items[i].path) {
                 res.push(findPage(pages, items[i].path))
             } else {
                 res.push(findPage(pages, items[i]))
@@ -93,46 +94,62 @@ async function generatePDF(ctx, port, host) {
     const browser = await puppeteer.launch()
     const browserPage = await browser.newPage()
 
-    for (let i = 0; i < exportPages.length; i++) {
-        const {
-            location,
-            site,
-            path: pagePath,
-            url,
-            title
-        } = exportPages[i]
+    if (false) {
 
-        await browserPage.goto(
-            location,
-            {waitUntil: 'networkidle2'}
-        )
+        for (let i = 0; i < exportPages.length; i++) {
+            const {
+                location,
+                site,
+                path: pagePath,
+                url,
+                title
+            } = exportPages[i]
 
-        await browserPage.pdf({
-            path: pagePath,
-            format: 'A4',
-            displayHeaderFooter: true,
-            headerTemplate: `<div style='width:100%; margin: 0 22px 0 22px; padding-right:12px; border-bottom: 1px solid #eaecef; text-align:right; font-size: 8px; line-height: 18px; font-family: "Microsoft YaHei"; color: #AAA'>${title}<div style='float:left; padding-left:12px'>https://icyfenix.cn</div></div>`,
-            footerTemplate: "<span></span>",
-            margin: {left: '0mm', top: '20mm', right: '0mm', bottom: '15mm'}
-        })
+            await browserPage.goto(
+                location,
+                {waitUntil: 'networkidle2'}
+            )
 
-        logger.success(
-            `Generated ${yellow(title)} ${gray(`${url}`)}`
-        )
+            await browserPage.pdf({
+                path: pagePath,
+                format: 'A4',
+                displayHeaderFooter: true,
+                headerTemplate: `<div style='width:100%; margin: 0 22px 0 22px; padding-right:12px; border-bottom: 1px solid #eaecef; text-align:right; font-size: 8px; line-height: 18px; font-family: "Microsoft YaHei"; color: #AAA'>${title}<div style='float:left; padding-left:12px'>https://icyfenix.cn</div></div>`,
+                footerTemplate: "<span></span>",
+                margin: {left: '0mm', top: '20mm', right: '0mm', bottom: '15mm'}
+            })
+
+            logger.success(
+                `Generated ${yellow(title)} ${gray(`${url}`)}`
+            )
+        }
+
     }
 
     const files = exportPages.map(({path}) => path)
     const outputFilename = siteConfig.title || 'site'
     const outputFile = `${outputFilename}.pdf`
-    await new Promise(resolve => {
-        PDFMerge(files, outputFile, err => {
-            if (err) {
-                throw err
-            }
-            logger.success(`Export ${yellow(outputFile)} file!`)
-            resolve()
+
+    // 文件太多超过了命令行最大长度，改为10个一组多次合并
+    for (let i = 0; i < files.length; i += 10) {
+        let _files;
+        if (i === 0) {
+            _files = files.slice(i, i + 10)
+        } else {
+            _files = [outputFile, ...files.slice(i, i + 10)]
+        }
+        await new Promise(resolve => {
+            PDFMerge(_files, outputFile, err => {
+                if (err) {
+                    throw err
+                }
+                logger.success(`Merge ${yellow(`${i} to ${i + _files.length }`)} file!`)
+                resolve()
+            })
         })
-    })
+    }
+    logger.success(`Export ${yellow(outputFile)} file!`)
+
 
     await browser.close()
     fs.removeSync(tempDir)

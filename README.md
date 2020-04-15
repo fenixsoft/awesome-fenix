@@ -27,7 +27,10 @@ pageClass: index-page-class
     <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/DocLicense-CC-red.svg" alt="Document License"></a>
     <a href="/summary"  style="display:inline-block"><words type='badge' chapter='/'/></a>
     <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/Author-IcyFenix-blue.svg" alt="About Author"></a>
-	<span class="only-for-printer"><br/>更新日期： {{this.$site.pages[0].siteLastUpdated}}</span>
+	<span class="only-for-printer">
+        <br/>周志明
+        <br/>icyfenix@gmail.com
+        </br/>发布日期：{{this.$site.pages[0].siteLastUpdated}}</span>
 </p>
 
 
@@ -41,14 +44,14 @@ pageClass: index-page-class
 - 在写作上，笔者已正式出版过七本计算机技术书籍，遗憾是没有一本与自己本职工作直接相关。尽管能按照自己的兴趣去写作，还能获得不菲的经济报酬是一件很快乐的事情，但撰写一部工作中能直接用使到的、能随时更新，能与人交流的在线文档，也是一件颇为实用、颇具价值的事情。
 - 在学习上，笔者认为技术人员成长有一“捷径”，技术不仅该去看、去读、去用，更要去说、去写。将自己以为会了的知识叙述出来，能够说得有条理清晰，讲得理直气壮；能够让他人听得明白，释去心中疑惑；能够把自己的观点交予别人的审视，乃至质疑，在此过程之中，自己会有很大的收获。未有知而不行，知而不行，只是未知。
 
-除文档部分外，笔者同时还建立了若干配套的代码工程，这是针对不同架构、技术方案（如单体架构、微服务、服务网格、无服务架构、云原生，等等）的演示程序（[PetStore-Like-Project](https://www.oracle.com/technetwork/cn/java/javaee/overview/index-136650.html)）。它们即是文档中所述知识的实践示例，亦可作为实际项目新创建时的可参考引用的基础代码。
+除文档部分外，笔者同时还建立了若干配套的代码工程，这是针对不同架构、技术方案（如单体架构、微服务、服务网格、无服务架构、云原生，等等）的演示程序（[PetStore-Like-Project](https://www.oracle.com/technetwork/cn/java/javaee/overview/index-136650.html)）。它们既是文档中所述知识的实践示例，亦可作为实际项目新创建时的可参考引用的基础代码。
 
 
 ## 如何使用？
 
 根据“使用”的所指含义的不同，笔者列举以下几种情况：
 
-- **在线阅读**：本文档在线阅读地址为：[https://icyfenix.cn](https://icyfenix.cn)。<br/>由[GitHub Pages](https://pages.github.com/)提供网站存储空间；由[Travis-CI](https://travis-ci.com/fenixsoft/awesome-fenix)提供的持续集成服务实时把Git仓库的Markdown文档编译同步至网站；由腾讯云CDN提供国内访问的缓存支持。
+- **在线阅读**：本文档在线阅读地址为：[https://icyfenix.cn](https://icyfenix.cn)。<br/>网站由[GitHub Pages](https://pages.github.com/)提供网站存储空间；由[Travis-CI](https://travis-ci.com/fenixsoft/awesome-fenix)提供的持续集成服务实时把Git仓库的Markdown文档编译同步至网站；由腾讯云CDN提供国内访问的缓存支持。
 
 - **离线阅读**：
 
@@ -65,13 +68,13 @@ pageClass: index-page-class
     $ npm run dev
     ```
     
-  - 生成PDF文件：文档站点已带有基于[vuepress-plugin-export](https://github.com/ulivz/vuepress-plugin-export)改造过的PDF导出插件，如你希望生成全文PDF文件，请使用如下命令：
+  - 生成PDF文件：工程源码中已带有基于[vuepress-plugin-export](https://github.com/ulivz/vuepress-plugin-export)针对本站修改后的PDF导出插件，如你希望生成全文PDF文件，请使用如下命令：
   
     ```bash
     # 编译PDF，结果将输出在网站根目录
     $ npm run export
     ```
-    PDF全文编译在笔者机器上约耗时25分钟，因此并未加入到持续集成服务。但在文档基本完善后，会定期编译并在文档网站里提供下载连接。
+    PDF全文编译在笔者机器上约耗时25分钟，所以并未加入到持续集成服务。但在文档基本完善后，会定期编译并在文档网站里提供下载连接。
   
 - **二次演绎、传播和发行**：本文档中所有的内容，如引用其他资料，均在文档中明确列出资料来源，一切权利归属原作者。除此以外的所有内容，包括但不限于文字、图片、表格，等等，均属笔者原创，这些原创内容，笔者声明以[知识共享署名 4.0](http://creativecommons.org/licenses/by/4.0/)发行，只要遵循许可协议条款中**署名**、**非商业性使用**、**相同方式共享**的条件，你可以在任何地方、以任何形式、向任何人使用、修改、演绎、传播本文档中任何部分的内容。详细可见本文档的“协议”一节。
 
