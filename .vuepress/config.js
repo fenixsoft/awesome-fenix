@@ -308,7 +308,7 @@ module.exports = {
                 children: [
                     '/immutable-infrastructure/history',
                     {
-                        title: '容器接口',
+                        title: '容器',
                         path: '/immutable-infrastructure/container/',
                         collapsable: false,
                         children: [
@@ -319,7 +319,7 @@ module.exports = {
                         ]
                     },
                     {
-                        title: '网络接口',
+                        title: '网络',
                         path: '/immutable-infrastructure/network/',
                         collapsable: false,
                         children: [
@@ -328,7 +328,8 @@ module.exports = {
                         ]
                     },
                     {
-                        title: '存储接口',
+                        title: '存储',
+                        path: '/immutable-infrastructure/storage/',
                         collapsable: false,
                         children: [
                             '/immutable-infrastructure/storage/csi',
