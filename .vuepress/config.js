@@ -160,7 +160,8 @@ module.exports = {
                                 path: '/architect-perspective/general-architecture/api-style/',
                                 children: [
                                     '/architect-perspective/general-architecture/api-style/rpc',
-                                    '/architect-perspective/general-architecture/api-style/rest'
+                                    '/architect-perspective/general-architecture/api-style/rest',
+                                    '/architect-perspective/general-architecture/api-style/mq',
                                 ]
                             },
                             {
@@ -195,12 +196,19 @@ module.exports = {
                                     '/architect-perspective/general-architecture/diversion-system/transmission-optimization',
                                     '/architect-perspective/general-architecture/diversion-system/cdn',
                                     '/architect-perspective/general-architecture/diversion-system/load-balancing',
-                                    '/architect-perspective/general-architecture/diversion-system/cache-middleware'
+                                    '/architect-perspective/general-architecture/diversion-system/cache-middleware',
+                                    '/architect-perspective/general-architecture/diversion-system/database-expansion'
                                 ]
                             },
                             {
-                                title: '高并发架构',
-                                path: '/architect-perspective/general-architecture/concurrent/'
+                                title: '高效并发',
+                                path: '/architect-perspective/general-architecture/concurrent/',
+                                children: [
+                                    '/architect-perspective/general-architecture/concurrent/process-thread-coroutine',
+                                    '/architect-perspective/general-architecture/concurrent/thread-safe',
+                                    '/architect-perspective/general-architecture/concurrent/synchronization',
+                                    '/architect-perspective/general-architecture/concurrent/hardware-concurrent',
+                                ]
                             }
                         ]
                     }, {
@@ -210,14 +218,16 @@ module.exports = {
                             '/architect-perspective/methodology/layered-system',
                             '/architect-perspective/methodology/capacity-design',
                             '/architect-perspective/methodology/constraint',
-                            '/architect-perspective/methodology/testability'
                         ]
                     }, {
                         title: '技巧与专题',
                         collapsable: false,
                         children: [
                             '/architect-perspective/tricks/graalvm-improvement',
-                            '/architect-perspective/tricks/cqrs'
+                            '/architect-perspective/tricks/responsive-programming',
+                            '/architect-perspective/tricks/zero-copy',
+                            '/architect-perspective/tricks/stream-computing',
+                            '/architect-perspective/tricks/pooling',
                         ]
                     }]
             }, {
@@ -256,39 +266,78 @@ module.exports = {
                 title: '核心技术支撑点',
                 collapsable: false,
                 children: [
-                    '/technology/service-discovery',
-                    '/technology/load-balancing',
                     {
-                        title: '链路治理',
-                        path: '/technology/invokechain-manage/',
+                        title: '服务治理',
+                        path: '/technology/service-governance/',
                         collapsable: false,
                         children: [
-                            '/technology/invokechain-manage/traffic-control',
-                            '/technology/invokechain-manage/service-downgrade',
-                            '/technology/invokechain-manage/exception-inject',
-                            '/technology/invokechain-manage/invokechain-trace'
+                            '/technology/service-governance/service-discovery',
+                            '/technology/service-governance/service-routing',
+                            '/technology/service-governance/composer',
                         ]
                     },
-                    '/technology/logging',
+                    '/technology/load-balancing',
+                    {
+                        title: '服务容错',
+                        path: '/technology/fault-tolerance/',
+                        collapsable: false,
+                        children: [
+                            '/technology/fault-tolerance/isolation',
+                            '/technology/fault-tolerance/breaker',
+                            '/technology/fault-tolerance/timeout',
+                            '/technology/fault-tolerance/traffic-control',
+                            '/technology/fault-tolerance/service-downgrade',
+                            '/technology/fault-tolerance/exception-inject',
+                        ]
+                    },
+                    {
+                        title: '服务监控',
+                        path: '/technology/service-monitoring/',
+                        collapsable: false,
+                        children: [
+                            '/technology/service-monitoring/logging',
+                            '/technology/service-monitoring/invokechain-trace',
+                            '/technology/service-monitoring/apm',
+                        ]
+                    },
                     '/technology/configuration',
-                    '/technology/message-queue-bus'
                 ]
             }, {
                 title: '不可变基础设施',
                 collapsable: false,
                 children: [
+                    '/immutable-infrastructure/history',
                     {
-                        title: '网络',
+                        title: '容器接口',
+                        path: '/immutable-infrastructure/container/',
+                        collapsable: false,
+                        children: [
+                            '/immutable-infrastructure/container/cri',
+                            '/immutable-infrastructure/container/resource-isolation',
+                            '/immutable-infrastructure/container/image',
+                            '/immutable-infrastructure/container/manage',
+                        ]
+                    },
+                    {
+                        title: '网络接口',
                         path: '/immutable-infrastructure/network/',
                         collapsable: false,
                         children: [
-                            '/immutable-infrastructure/network/kubernetes-cni',
-                            '/immutable-infrastructure/network/kubernetes-lb'
+                            '/immutable-infrastructure/network/cni',
+                            '/immutable-infrastructure/network/container-lb'
                         ]
                     },
-                    '/immutable-infrastructure/storage',
+                    {
+                        title: '存储接口',
+                        collapsable: false,
+                        children: [
+                            '/immutable-infrastructure/storage/csi',
+                            '/immutable-infrastructure/storage/storage-plugins'
+                        ]
+                    },
                     '/immutable-infrastructure/gpu-support',
-                    '/immutable-infrastructure/hardware-schedule'
+                    '/immutable-infrastructure/hardware-schedule',
+                    '/immutable-infrastructure/cloud-native',
                 ]
             }, {
                 title: '附录',
