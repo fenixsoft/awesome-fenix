@@ -113,6 +113,7 @@ Fenix's BookStore单体架构后端参考（并未完全遵循）了DDD的分层
 <p align="center">
     <img  src="https://raw.githubusercontent.com/fenixsoft/fenix-bookstore-frontend/master/markdown/ddd-arch.png" >
 </p>
+
 ## 协议
 
 - 本文档代码部分采用[Apache 2.0协议](https://www.apache.org/licenses/LICENSE-2.0)进行许可。你可以自由地对代码进行修改，再发布，可以用作商业用途。但要求你使用代码时遵循：
