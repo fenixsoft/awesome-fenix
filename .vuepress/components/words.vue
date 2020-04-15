@@ -9,7 +9,6 @@
     import Badge from '@vuepress/theme-default/global-components/Badge'
     import SvgBadge from './SvgBadge.vue'
 
-    // <span>{{globalWords}}</span>
     export default {
         name: "words",
         props: {
@@ -34,7 +33,7 @@
                 const statistics = this.$page.readingTime.globalWords;
                 let page = 0;
                 for (let key in statistics) {
-                    if (key.startsWith(this.chapter) && statistics[key] > 50) {
+                    if (key.startsWith(this.chapter) && statistics[key] > 100) {
                         page++
                     }
                 }

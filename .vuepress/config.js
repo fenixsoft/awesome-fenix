@@ -58,8 +58,8 @@ module.exports = {
             }
         ],
         ['@vuepress/back-to-top'],
-        [require('./plugins/read-time')],
-        [require('./plugins/export')]
+        require('./plugins/read-time'),
+        require('./plugins/export')
     ],
     markdown: {
         anchor: {permalink: false},
@@ -88,6 +88,9 @@ module.exports = {
                 // 这里是下拉列表展现形式。
                 items: [
                     {
+                        text: '文档工程',
+                        link: 'https://github.com/fenixsoft/awesome-fenix'
+                    }, {
                         text: '前端工程',
                         link: 'https://github.com/fenixsoft/fenix-bookstore-frontend'
                     }, {
@@ -113,8 +116,7 @@ module.exports = {
                 title: '目录',
                 collapsable: false,
                 path: '/SUMMARY.md'
-            },
-            {
+            }, {
                 title: '前言',
                 collapsable: false,
                 children: [
@@ -133,8 +135,9 @@ module.exports = {
                         ]
                     },
                     {
-                        title: '技术演示工程',
+                        title: '✔️ 技术演示工程',
                         collapsable: false,
+                        path: '/exploration/projects/',
                         children: [
                             '/exploration/projects/fenix-bookstore-frontend',
                             '/exploration/projects/monolithic_arch_springboot',

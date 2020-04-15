@@ -1,3 +1,6 @@
+const filepath = require('path')
+const spawn = require('cross-spawn')
+
 const globalWords = {};
 
 module.exports = (options = {}) => ({
@@ -53,6 +56,25 @@ module.exports = (options = {}) => ({
             words,
             minutes: words / 500,
             globalWords
+        }
+
+        function getGitLastUpdatedTimeStamp(filePath) {
+            let lastUpdated
+            try {
+                lastUpdated = parseInt(spawn.sync(
+                    'git',
+                    ['log', '-1', '--format=%at', filepath.basename(filePath)],
+                    {cwd: filepath.dirname(filePath)}
+                ).stdout.toString('utf-8')) * 1000
+            } catch (e) {
+                console.log(e)
+            }
+            return lastUpdated
+        }
+
+        if (path === '/') {
+            const timestamp = getGitLastUpdatedTimeStamp(".")
+            $page.siteLastUpdated = new Date(timestamp).toLocaleDateString()
         }
 
         return $page

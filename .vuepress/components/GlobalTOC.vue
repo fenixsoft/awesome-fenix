@@ -22,45 +22,35 @@
         },
         props: ['pages', 'level'],
         created: function () {
-            if (this.pages === '/') {
-                this.items = this.$themeConfig.sidebar
-            } else {
-                this.items = this.pages;
+            if (this.pages) {
+                let origin = (this.pages === '/' ? this.$themeConfig.sidebar : this.pages);
+                this.items = origin.map(item => {
+                    let page
+                    if (item.path) {
+                        page = resolvePage(this.$site.pages, item.path, this.$route.path)
+                    } else if (typeof (item) === 'string') {
+                        page = resolvePage(this.$site.pages, item, this.$route.path)
+                    } else {
+                        page = item;
+                    }
+                    page.children = item.children
+                    return page;
+                })
             }
         },
         methods: {
-            getTitle: function (item) {
-                let res = ""
-                if (item.title) {
-                    res = item.title;
-                } else {
-                    res = resolvePage(this.$site.pages, item, this.$route.path).title
-                }
-                return res.replace('✔️ ', '')
+            getTitle: function (page) {
+                return page.title.replace('✔️ ', '')
             },
-            getWords: function (item) {
-                let page = null;
-                if (item.path) {
-                    page = resolvePage(this.$site.pages, item.path, this.$route.path)
-                } else if (typeof (item) === 'string') {
-                    page = resolvePage(this.$site.pages, item, this.$route.path)
-                }
+            getWords: function (page) {
                 if (page && page.readingTime) {
                     return `${page.readingTime.words.toLocaleString()} 字`
                 } else {
                     return ""
                 }
             },
-            getLinks: function (item) {
-                if (item.path) {
-                    let page = resolvePage(this.$site.pages, item.path, this.$route.path)
-                    return (page.readingTime && page.readingTime.words > 50) ? page.path : null
-                } else if (typeof (item) === 'string') {
-                    let page = resolvePage(this.$site.pages, item, this.$route.path)
-                    return (page.readingTime && page.readingTime.words > 50) ? page.path : null
-                } else {
-                    return null;
-                }
+            getLinks: function (page) {
+                return (page.readingTime && page.readingTime.words > 100) ? page.path : null
             }
         }
     }

@@ -29,7 +29,7 @@
                 ? selfActive || item.children.some(c => isActive($route, item.basePath + '#' + c.slug))
                 : selfActive
             let prefix = ''
-            if (item.readingTime && item.readingTime.words > 50) {
+            if (item.readingTime && item.readingTime.words > 100) {
                 prefix = '✔️ '
             }
             const link = item.type === 'external'
