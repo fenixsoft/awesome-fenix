@@ -30,7 +30,7 @@ pageClass: index-page-class
 	<span class="only-for-printer" style="padding-top:300px">
         <br/>周志明
         <br/>icyfenix@gmail.com
-        </br/>发布日期：{{this.$site.pages[0].siteLastUpdated}}</span>
+        </br/>发行日期：{{this.$site.pages[0].siteLastUpdated}}</span>
 </p>
 
 
