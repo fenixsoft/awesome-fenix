@@ -67,14 +67,20 @@ module.exports = (options = {}) => ({
                     {cwd: filepath.dirname(filePath)}
                 ).stdout.toString('utf-8')) * 1000
             } catch (e) {
-                console.log(e)
+                console.error(e)
             }
             return lastUpdated
         }
 
         if (path === '/') {
             const timestamp = getGitLastUpdatedTimeStamp(".")
-            $page.siteLastUpdated = new Date(timestamp).toLocaleDateString()
+            if (timestamp) {
+                $page.siteLastUpdated = new Date(timestamp).toLocaleDateString()
+                console.error("编译日期：" + $page.siteLastUpdated)
+            } else {
+                $page.siteLastUpdated = new Date().toLocaleDateString()
+                console.error("GIT获取更新时间出错，采用默认时间")
+            }
         }
 
         return $page

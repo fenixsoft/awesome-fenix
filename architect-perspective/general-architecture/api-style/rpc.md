@@ -11,7 +11,7 @@
 - 万一发送的请求服务端不回复该怎么办？
 - ……
 
-早在1988年，绝大多数人都对分布式、远程服务没有什么概念的时候（这话轻了，说那时候多数人对计算机没什么概念都不嫌过分），Sun Microsystems就起草并向IETF提交了[RFC 1050](https://tools.ietf.org/html/rfc1050)规范，正式提出了远程服务调用（Remote Procedure Call，RPC）的概念，并设计了一套面向C语言的RPC协议（但最后并没有被实际采用）。
+早在1988年，绝大多数人都对分布式、远程服务没有什么概念的时候（这话轻了，说那时候多数人对计算机没什么概念都不嫌过分），Sun Microsystems就起草并向IETF提交了[RFC 1050](https://tools.ietf.org/html/rfc1050)规范，正式提出了远程服务调用（Remote Procedure Call，RPC）的概念，并设计了一套面向C语言的RPC协议，但最后并没有被实际采用。
 
 :::quote 远程服务调用
 Remote Procedure Call is a protocol that one program can use to request a service from a program located in another computer on a network without having to understand the network's details. A procedure call is also sometimes known as a function call or a subroutine call.
@@ -19,7 +19,7 @@ Remote Procedure Call is a protocol that one program can use to request a servic
 
 1991年，万维网还没正式诞生的年代，[对象管理组织](https://zh.wikipedia.org/wiki/%E5%AF%B9%E8%B1%A1%E7%AE%A1%E7%90%86%E7%BB%84%E7%BB%87)（Object Management Group，OMG）发布了跨进程、面向异构语言的服务调用协议：CORBA 1.0（Common Object Request Broker Architecture，1.0版本只提供了C语言的调用）。到1997年发布的CORBA 2.0版本，CORBA支持了C、C++、Java（1998年新加入的Java语言映射）等主流编程语言，这是第一套由国际标准组织牵头，多个主流软件提供商共同参与的分布式规范，当时影响力只有微软私有的[DCOM](https://zh.wikipedia.org/wiki/Distributed_COM)可以与之媲美。
 
-不过，CORBA与DCOM都没有获得最终的胜利，在1999年末，SOAP 1.0（Simple Object Access Protocol）规范的发布。SOAP是由微软和DevelopMentor共同起草的远程服务标准，随后提交给W3C成为国际标准，SOAP使用XML作为远程过程调用的编码载体（实际上并不绑定于XML-RPC，有SOAP Over UDP这类其他载体的应用），当时XML是计算机工业最新的银弹，只要是定义为XML的东西几乎就都是好的，连微软自己都主动放弃了DCOM转投SOAP。
+不过，CORBA与DCOM都没有获得最终的胜利，在1999年末，SOAP 1.0（Simple Object Access Protocol）规范的发布。SOAP是由微软和DevelopMentor共同起草的远程服务标准，随后提交给W3C成为国际标准，SOAP使用XML作为远程过程调用的编码载体（实际上并不绑定于XML-RPC，有SOAP over UDP这类其他载体的应用），当时XML是计算机工业最新的银弹，只要是定义为XML的东西几乎就都是好的，连微软自己都主动放弃了DCOM转投SOAP。
 
 SOAP没有天生属于哪家公司的烙印，商业运作非常成功，很受市场欢迎，大量的厂商都想分一杯羹。但从技术角度来看，SOAP设计得并不优秀，甚至可以说是有显著缺陷的。对于开发者而言，SOAP最大的缺点是它那过于严格的规范定义，需要专门的客户端去调用和解析SOAP，也需要专门的服务去部署SOAP（如Apache Axis/CXF）。SOAP协议家族中，除它本身外包括了服务描述的[Web服务描述标准](https://zh.wikipedia.org/wiki/WSDL)（Web Service Description Language，WSDL）协议、服务发现的[统一描述、发现和集成](https://zh.wikipedia.org/wiki/UDDI)（Universal Description / Discovery and Integration，UDDI）协议、还有一堆几乎谁都说不清有多少个的[WS-*](https://zh.wikipedia.org/wiki/Web%E6%9C%8D%E5%8A%A1%E8%A7%84%E8%8C%83%E5%88%97%E8%A1%A8)的子功能协议，对开发者来说都是很大的学习负担。
 
