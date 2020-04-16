@@ -128,7 +128,7 @@ async function generatePDF(ctx, port, host) {
 
 
     const files = exportPages.map(({path}) => path)
-    const outputFilename = "book"
+    const outputFilename = siteConfig.title || 'site'
     const outputFile = `${pdfDir}/${outputFilename}.pdf`
 
     // 文件太多超过了命令行最大长度，改为10个一组多次合并
@@ -150,17 +150,6 @@ async function generatePDF(ctx, port, host) {
         })
     }
     logger.success(`Export ${yellow(outputFile)} file!`)
-
-    try {
-        const gs = require('ghostscript4js')
-        // Take decision based on Ghostscript version
-        const version = gs.version()
-        console.log(version)
-        gs.executeSync(`gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=${pdfDir}/book-compressed.pdf ${outputFile}`)
-    } catch (err) {
-        // Handle error
-        throw err
-    }
 
     await browser.close()
     fs.removeSync(tempDir)
