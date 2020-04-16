@@ -112,11 +112,20 @@ async function generatePDF(ctx, port, host) {
             }
         )
 
+        // 将所有本地http://localhost的链接替换为网站的
+        const scriptToInject = `Array.from(document.querySelectorAll("a[href]")).filter(i=>i.hostname=='localhost').forEach(i=>{i.href="https://icyfenix.cn"+i.pathname});`;
+        await browserPage.evaluate(scriptText => {
+            const el = document.createElement('script');
+            el.type = 'text/javascript';
+            el.textContent = scriptText;
+            document.body.parentElement.appendChild(el);
+        }, scriptToInject);
+
         await browserPage.pdf({
             path: pagePath,
             format: 'A4',
             displayHeaderFooter: true,
-            headerTemplate: `<div style='width:100%; margin: 0 22px 0 22px; padding-right:12px; border-bottom: 1px solid #eaecef; text-align:right; font-size: 8px; line-height: 18px; font-family: "Microsoft YaHei"; color: #AAA'>${title}<div style='float:left; padding-left:12px'>https://icyfenix.cn</div></div>`,
+            headerTemplate: `<div style='width:100%; margin: 0 22px 0 22px; padding-right:12px; border-bottom: 1px solid #eaecef; text-align:right; font-size: 8px; line-height: 18px; font-family: "Microsoft YaHei"; color: #AAA'>${title}<div style='float:left; padding-left:12px'><a href="https://icyfenix.cn" style="color: #AAA;text-decoration: none;">https://icyfenix.cn</a></div></div>`,
             footerTemplate: "<span></span>",
             margin: {left: '0mm', top: '20mm', right: '0mm', bottom: '15mm'}
         })

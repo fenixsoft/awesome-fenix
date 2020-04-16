@@ -69,7 +69,7 @@ pageClass: index-page-class
     $ npm run dev
     ```
     
-  - 生成PDF文件：工程源码中已带有基于[vuepress-plugin-export](https://github.com/ulivz/vuepress-plugin-export)（针对本文档定制过）的PDF导出插件，如你希望生成全文PDF文件，请使用如下命令：
+  - 生成PDF文件：工程源码中已带有基于[vuepress-plugin-export](https://github.com/ulivz/vuepress-plugin-export)改造（针对本文档定制过）的PDF导出插件，如你希望生成全文PDF文件，请使用如下命令：
   
     ```bash
     # 编译PDF，结果将输出在网站根目录
