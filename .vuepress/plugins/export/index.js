@@ -50,7 +50,7 @@ async function generatePDF(ctx, port, host) {
     const tempDir = join(tempPath, 'pdf')
     const pdfDir = vuepressDir + '/dist/pdf'
     const sidebar = ctx.siteConfig.themeConfig.sidebar
-    const res = [pages[0]]
+    const res = [findPage(pages, '/')]
     flatten(sidebar, res)
 
     function flatten(items, res) {

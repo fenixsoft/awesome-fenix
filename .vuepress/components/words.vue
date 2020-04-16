@@ -1,6 +1,6 @@
 <template>
     <span v-if="type==='span'">{{globalWords}}</span>
-    <SvgBadge v-else-if="type==='badge'" label="Doc Words" :value="globalWords" :color="'#ff69b4'"/>
+    <SvgBadge v-else-if="type==='badge'" label="Words" :value="globalWords" :color="'#ff69b4'"/>
     <SvgBadge v-else-if="type==='updated'" label="Release" :value="'v1.0.'+updateDate.replace(/-/g, '')" :color="'#9cf'"/>
     <span v-else-if="type==='updatedText'">{{updateDate}}</span>
     <span v-else-if="type==='finish'">{{finishPage}}</span>
