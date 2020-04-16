@@ -1,6 +1,7 @@
 <template>
     <span v-if="type==='span'">{{globalWords}}</span>
     <SvgBadge v-else-if="type==='badge'" label="Doc Words" :value="globalWords" :color="'#ff69b4'"/>
+    <SvgBadge v-else-if="type==='updated'" label="Release" :value="updateDate" :color="'#9cf'"/>
     <span v-else-if="type==='finish'">{{finishPage}}</span>
     <Badge v-else :text="globalWordsText"></Badge>
 </template>
@@ -28,6 +29,9 @@
             },
             globalWordsText: function () {
                 return '字数: ' + this.globalWords + ' 字'
+            },
+            updateDate: function () {
+                return this.$site.pages[0].siteLastUpdated.replace(/[-\/\\]/g,'')
             },
             finishPage: function () {
                 const statistics = this.$page.readingTime.globalWords;
