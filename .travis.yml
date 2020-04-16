@@ -8,6 +8,7 @@ install:
 script:
   - npm run build
   - echo "icyfenix.cn" >> .vuepress/dist/CNAME
+  - npm run export
 deploy:
   - provider: pages
     skip_cleanup: true

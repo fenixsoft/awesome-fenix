@@ -46,9 +46,9 @@ module.exports = (opts = {}, ctx) => ({
 })
 
 async function generatePDF(ctx, port, host) {
-    let {pages, tempPath, siteConfig} = ctx
+    let {pages, tempPath, vuepressDir, siteConfig} = ctx
     const tempDir = join(tempPath, 'pdf')
-
+    const pdfDir = vuepressDir + '/dist/pdf'
     const sidebar = ctx.siteConfig.themeConfig.sidebar
     const res = [pages[0]]
     flatten(sidebar, res)
@@ -129,7 +129,7 @@ async function generatePDF(ctx, port, host) {
 
     const files = exportPages.map(({path}) => path)
     const outputFilename = siteConfig.title || 'site'
-    const outputFile = `${outputFilename}.pdf`
+    const outputFile = `${pdfDir}/${outputFilename}.pdf`
 
     // 文件太多超过了命令行最大长度，改为10个一组多次合并
     for (let i = 0; i < files.length; i += 10) {

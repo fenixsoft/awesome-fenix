@@ -21,7 +21,7 @@ pageClass: index-page-class
 		<github-button href="https://github.com/fenixsoft/awesome-fenix" data-icon="octicon-star" data-show-count="true" aria-label="Star fenixsoft/awesome-fenix on GitHub">Star</github-button>
 		<github-button href="https://github.com/fenixsoft" data-show-count="true" aria-label="Follow @fenixsoft on GitHub">Follow</github-button>
 	</span>
-    <a href="https://icyfenix.cn" style="display:inline-block"><words type='updated' chapter='/'/></a>
+    <a href="https://icyfenix.cn" style="display:inline-block"><words type='updated' /></a>
     <a href="https://travis-ci.com/fenixsoft/awesome-fenix" target="_blank" style="display:inline-block" class="not-print"><img src="https://api.travis-ci.com/fenixsoft/awesome-fenix.svg?branch=master" alt="Travis-CI"></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/License-Apache.svg" alt="License"></a>
     <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/DocLicense-CC-red.svg" alt="Document License"></a>
@@ -30,8 +30,9 @@ pageClass: index-page-class
 	<span class="only-for-printer" style="padding-top:300px">
         <br/>周志明
         <br/>icyfenix@gmail.com
-        </br/>发行日期：{{this.$site.pages[0].siteLastUpdated}}</span>
+        </br/>发行日期：<words type='updatedText' /></span>
 </p>
+
 
 
 ## 这是什么？
@@ -42,7 +43,7 @@ pageClass: index-page-class
 
 - 笔者的工作从事大型企业级软件的架构研发，借此机会，系统性地整理自己的知识，查缺补漏，将它们都融入既有的知识框架之中。
 - 笔者正式出版过七本计算机技术书籍，遗憾是没有一本与自己本职工作直接相关。尽管能按照自己的兴趣去写作，还能获得不菲的经济报酬是一件很快乐的事情，但撰写一部工作中能直接用使到的、能随时更新，能与人交流的在线文档，也是一件颇为实用、颇具价值的事情。
-- 笔者认为技术人员成长有一“捷径”，技术不仅该去看、去读、去想、去用，更要去说、去写。将自己“认为掌握了的”知识叙述出来，能够说得有条理清晰，讲得理直气壮；能够让他人听得明白，释去心中疑惑；能够把自己的观点交予别人的审视，乃至质疑，在此过程之中，会挖掘出很多藏在“已知”之后的“未知”。未有知而不行，知而不行，只是未知。
+- 笔者认为技术人员成长有一“捷径”，技术不仅该去看、去读、去想、去用，更要去说、去写。将自己“认为掌握了的”知识叙述出来，能够说得有条理清晰，讲得理直气壮；能够让他人听得明白，释去心中疑惑；能够把自己的观点交予别人的审视，乃至质疑，在此过程之中，会挖掘出很多潜藏在“已知”背后的“未知”。未有知而不行，知而不行，只是未知。
 
 除文档部分外，笔者同时还建立了若干配套的代码工程，这是针对不同架构、技术方案（如单体架构、微服务、服务网格、无服务架构、云原生，等等）的演示程序（[PetStore-Like-Project](https://www.oracle.com/technetwork/cn/java/javaee/overview/index-136650.html)）。它们既是文档中所述知识的实践示例，亦可作为实际项目新创建时的可参考引用的基础代码。
 
