@@ -5,12 +5,12 @@
             <stop offset="0" stop-color="#bbb" stop-opacity=".1"/>
             <stop offset="1" stop-opacity=".1"/>
         </linearGradient>
-        <clipPath id="a">
+        <clipPath :id="'a'+imageWidth(ll+lv)">
             <rect :width="imageWidth(ll+lv)" height="20" rx="3" fill="#fff"/>
         </clipPath>
-        <g clip-path="url(#a)">
+        <g :clip-path="'url(#a'+imageWidth(ll+lv)+')'">
             <path fill="#555" :d="d1()"/>
-            <path fill="#ff69b4" :d="d2()"/>
+            <path :fill="color" :d="d2()"/>
             <path fill="url(#b)" :d="d3()"/>
         </g>
         <g fill="#fff" text-anchor="middle" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="110">
@@ -50,11 +50,12 @@
             imageWidth: function (x) {
                 return x * 8 + 18
             },
+            // 含义：M偏移 0h宽度v20高度0z
             d1: function () {
                 return 'M0 0h' + (this.ll * 8 + 9) + 'v20H0z'
             },
             d2: function () {
-                return 'M' + (this.ll * 8 + 9) + ' 0h' + (Math.max(this.ll, this.lv) * 8 + 1) + 'v20H' + (this.ll * 8 + 9) + 'z'
+                return 'M' + (this.ll * 8 + 9) + ' 0h' + (this.lv * 8 + 9) + 'v20H' + (this.ll * 8 + 9) + 'z'
             },
             d3: function () {
                 return 'M0 0h' + ((this.ll + this.lv) * 8 + 18) + 'v20H0z'
