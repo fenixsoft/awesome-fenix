@@ -1,5 +1,6 @@
 const filepath = require('path')
 const spawn = require('cross-spawn')
+const moment = require('moment')
 
 const globalWords = {};
 
@@ -74,12 +75,14 @@ module.exports = (options = {}) => ({
 
         if (path === '/') {
             const timestamp = getGitLastUpdatedTimeStamp(".")
-            const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            // 受不了各个npm和浏览器版本实现不一致的问题，改用moment格式化
+            // const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
+            // new Date(timestamp).toLocaleDateString('zh', options);
             if (timestamp) {
-                $page.siteLastUpdated = new Date(timestamp).toLocaleDateString('zh', options);
+                $page.siteLastUpdated = moment(new Date(timestamp)).format('YYYY-MM-DD');
                 console.error("编译日期：" + $page.siteLastUpdated)
             } else {
-                $page.siteLastUpdated = new Date().toLocaleDateString('zh', options);
+                $page.siteLastUpdated = moment().format('YYYY-MM-DD');
                 console.error("GIT获取更新时间出错，采用默认时间")
             }
         }
