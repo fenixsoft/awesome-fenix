@@ -109,7 +109,7 @@ module.exports = {
                 ]
             },
             {text: '示例', link: 'http://bookstore.icyfenix.cn'},
-            {text: '全文PDF下载', link: 'https://icyfenix.cn/pdf/软件架构探索：The Fenix Project.pdf', target: "_self"},
+            {text: 'PDF下载', link: 'https://icyfenix.cn/pdf/the-fenix-project.pdf', target: "_blank"},
             {text: '讨论区', link: '/board', target: "_self"}
         ],
         sidebar: [

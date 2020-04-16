@@ -8,8 +8,8 @@ install:
 script:
   - npm run build
   - echo "icyfenix.cn" >> .vuepress/dist/CNAME
-after_script:
-  # 编译PDF，耗时较长，平时可以注释掉
+before_deploy:
+  # 以下为编译PDF，耗时较长，平时可以注释掉
   - echo "Start PDF Export"
   - sudo apt-get update
   - sudo apt-get -y install xfonts-utils fonts-droid-fallback xfonts-intl-asian

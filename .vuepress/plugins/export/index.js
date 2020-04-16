@@ -128,7 +128,7 @@ async function generatePDF(ctx, port, host) {
 
 
     const files = exportPages.map(({path}) => path)
-    const outputFilename = siteConfig.title || 'site'
+    const outputFilename = 'the-fenix-project'
     const outputFile = `${pdfDir}/${outputFilename}.pdf`
 
     // 文件太多超过了命令行最大长度，改为10个一组多次合并
