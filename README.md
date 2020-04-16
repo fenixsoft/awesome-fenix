@@ -69,13 +69,13 @@ pageClass: index-page-class
     $ npm run dev
     ```
     
-  - 生成PDF文件：工程源码中已带有基于[vuepress-plugin-export](https://github.com/ulivz/vuepress-plugin-export)针对本站修改后的PDF导出插件，如你希望生成全文PDF文件，请使用如下命令：
+  - 生成PDF文件：工程源码中已带有基于[vuepress-plugin-export](https://github.com/ulivz/vuepress-plugin-export)（针对本文档定制过）的PDF导出插件，如你希望生成全文PDF文件，请使用如下命令：
   
     ```bash
     # 编译PDF，结果将输出在网站根目录
     $ npm run export
     ```
-    PDF全文编译在笔者机器上约耗时25分钟，在Travis-CI上约需要5分钟。为避免持续集成时间过长，设置了开关在有较大更新时才触发编译，所以时效性会略差于在线阅读。
+    PDF全文编译时间较长，在笔者机器上约耗时25分钟，在Travis-CI上约需要约6分钟。PDF中文字体采用阿里巴巴普惠字体渲染，此字体被允许免费使用与传播。
   
 - **二次演绎、传播和发行**：本文档中所有的内容，如引用其他资料，均在文档中明确列出资料来源，一切权利归属原作者。除此以外的所有内容，包括但不限于文字、图片、表格，等等，均属笔者原创，这些原创内容，笔者声明以[知识共享署名 4.0](http://creativecommons.org/licenses/by/4.0/)发行，只要遵循许可协议条款中**署名**、**非商业性使用**、**相同方式共享**的条件，你可以在任何地方、以任何形式、向任何人使用、修改、演绎、传播本文档中任何部分的内容。详细可见本文档的“协议”一节。
 
