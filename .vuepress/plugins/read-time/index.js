@@ -76,10 +76,10 @@ module.exports = (options = {}) => ({
             const timestamp = getGitLastUpdatedTimeStamp(".")
             const options = { year: 'numeric', month: '2-digit', day: '2-digit' };
             if (timestamp) {
-                $page.siteLastUpdated = new Date(timestamp).toLocaleDateString('zh-CN', options);
+                $page.siteLastUpdated = new Date(timestamp).toLocaleDateString('zh', options);
                 console.error("编译日期：" + $page.siteLastUpdated)
             } else {
-                $page.siteLastUpdated = new Date().toLocaleDateString('zh-CN', options);
+                $page.siteLastUpdated = new Date().toLocaleDateString('zh', options);
                 console.error("GIT获取更新时间出错，采用默认时间")
             }
         }
