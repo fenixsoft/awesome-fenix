@@ -3,6 +3,11 @@ node_js:
   - lts/*
 before_install:
   - export TZ='Asia/Shanghai'
+  - sudo apt-get update
+  - sudo apt-get -y install xfonts-utils fonts-droid xfonts-intl-asian
+  - cp .vuepress/font/*.* /usr/share/fonts/truetype/
+  - sudo mkfontscale && mkfontdir && fc-cache
+  - echo "Environment Setup Compleled"
 install:
   - npm install
 script:
