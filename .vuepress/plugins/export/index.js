@@ -151,6 +151,17 @@ async function generatePDF(ctx, port, host) {
     }
     logger.success(`Export ${yellow(outputFile)} file!`)
 
+    try {
+        const gs = require('ghostscript4js')
+        // Take decision based on Ghostscript version
+        const version = gs.version()
+        console.log(version)
+        gs.executeSync('gs -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -dPDFSETTINGS=/screen -dNOPAUSE -dQUIET -dBATCH -sOutputFile=out.pdf '+outputFile)
+    } catch (err) {
+        // Handle error
+        throw err
+    }
+
     await browser.close()
     fs.removeSync(tempDir)
 }
