@@ -10,6 +10,8 @@
     import Badge from '@vuepress/theme-default/global-components/Badge'
     import SvgBadge from './SvgBadge.vue'
 
+    const moment = require('moment')
+
     export default {
         name: "words",
         props: {
@@ -31,7 +33,12 @@
                 return '字数: ' + this.globalWords + ' 字'
             },
             updateDate: function () {
-                return this.$site.pages[0].siteLastUpdated.replace(/[-\/\\]/g,'')
+                try {
+                    return this.$site.pages[0].siteLastUpdated.replace(/[-\/\\]/g, '')
+                } catch (e) {
+                    console.error("debug", this.$site.pages)
+                    return moment().format('YYYY-MM-DD');
+                }
             },
             finishPage: function () {
                 const statistics = this.$page.readingTime.globalWords;
