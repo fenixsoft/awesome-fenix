@@ -9,10 +9,9 @@ pageClass: index-page-class
     <img width="180" src="https://icyfenix.cn/images/logo-color.png" alt="logo">
   </a>
 </p>
-
 <span style="text-align: center;padding: 0 0 20px 0;display: block;">
     <h1 style="font-size: 2.6rem;margin: 10px 0 10px 0;font-family: cursive;">软件架构探索</h1>
-    <span style="font-size: 20px;font-weight: 400;font-family: Helvetica;">The Fenix Project</span>
+​    <span style="font-size: 20px;font-weight: 400;font-family: Helvetica;">The Fenix Project</span>
 </span>
 
 <p align="center" class="print-break">
@@ -79,7 +78,7 @@ pageClass: index-page-class
   
 - **二次演绎、传播和发行**：本文档中所有的内容，如引用其他资料，均在文档中明确列出资料来源，一切权利归属原作者。除此以外的所有内容，包括但不限于文字、图片、表格，等等，均属笔者原创，这些原创内容，笔者声明以[知识共享署名 4.0](http://creativecommons.org/licenses/by/4.0/)发行，只要遵循许可协议条款中**署名**、**非商业性使用**、**相同方式共享**的条件，你可以在任何地方、以任何形式、向任何人使用、修改、演绎、传播本文档中任何部分的内容。详细可见本文档的“协议”一节。
 
-- **运行技术演示工程**：笔者专门在探索起步中的“<a href="https://icyfenix.cn/exploration/projects/">技术演示工程</a>”详细介绍了配套工程的使用方法，如果你对构建运行环境也有所疑问，在附录中的“<a href="https://icyfenix.cn/appendix/deployment-env-setup/">环境依赖</a>”部分也已包括了详细的环境搭建步骤。此外，这些配套工程也均有使用Travis CI提供的持续集成服务，自动输出到Docker镜像库，如果你只关心运行效果，或只想了解部分运维方面的知识，可以直接运行Docker镜像而无需关心代码部分。你可以通过下面所列的地址，查看到本文档所有工程代码和在线演示的地址：
+- **运行技术演示工程**：笔者专门在探索起步中的“<a href="https://icyfenix.cn/exploration/projects/">技术演示工程</a>”详细介绍了配套工程的使用方法，如果你对构建运行环境也有所疑问，在附录中的“<a href="https://icyfenix.cn/appendix/deployment-env-setup/">环境依赖</a>”部分也已包括了详细的环境搭建步骤。此外，这些配套工程也均有使用Travis-CI提供的持续集成服务，自动输出到Docker镜像库，如果你只关心运行效果，或只想了解部分运维方面的知识，可以直接运行Docker镜像而无需关心代码部分。你可以通过下面所列的地址，查看到本文档所有工程代码和在线演示的地址：
 
   - 文档工程：
     - 软件架构探索：[https://icyfenix.cn](https://icyfenix.cn)
@@ -98,13 +97,13 @@ pageClass: index-page-class
 ## 协议
 
 - 本文档代码部分采用[Apache 2.0协议](https://www.apache.org/licenses/LICENSE-2.0)进行许可。遵循许可的前提下，你可以自由地对代码进行修改，再发布，可以将代码用作商业用途。但要求你：
-  - 署名：在原有代码和衍生代码中，保留原作者署名及代码来源信息。
-  - 保留许可证：在原有代码和衍生代码中，保留Apache 2.0协议文件。
+  - **署名**：在原有代码和衍生代码中，保留原作者署名及代码来源信息。
+  - **保留许可证**：在原有代码和衍生代码中，保留Apache 2.0协议文件。
   
 - 本作品文档部分采用[知识共享署名 4.0 国际许可协议](http://creativecommons.org/licenses/by/4.0/)进行许可。 遵循许可的前提下，你可以自由地共享，包括在任何媒介上以任何形式复制、发行本作品，亦可以自由地演绎、修改、转换或以本作品为基础进行二次创作。但要求你：
-  - 署名：应在使用本文档的全部或部分内容时候，注明原作者及来源信息。
-  - 非商业性使用：不得用于商业出版或其他任何带有商业性质的行为。如需商业使用，请联系作者。
-  - 相同方式共享的条件：在本文档基础上演绎、修改的作品，应当继续以知识共享署名 4.0国际许可协议进行许可。
+  - **署名**：应在使用本文档的全部或部分内容时候，注明原作者及来源信息。
+  - **非商业性使用**：不得用于商业出版或其他任何带有商业性质的行为。如需商业使用，请联系作者。
+  - **相同方式共享的条件**：在本文档基础上演绎、修改的作品，应当继续以知识共享署名 4.0国际许可协议进行许可。
 
 <div style="padding-top: 20px" class="not-print">
 	<h2 id="备案">备案</h2>
