@@ -11,7 +11,7 @@ pageClass: index-page-class
 </p>
 <span style="text-align: center;padding: 0 0 20px 0;display: block;">
     <h1 style="font-size: 2.6rem;margin: 10px 0 10px 0;font-family: cursive;">软件架构探索</h1>
-​    <span style="font-size: 20px;font-weight: 400;font-family: Helvetica;">The Fenix Project</span>
+​    <span style="font-size: 20px;font-weight: 400;font-family: Helvetica;">The Fenix Project <Badge text=" Alpha " type="warning"/></span>
 </span>
 
 <p align="center" class="print-break">
@@ -36,7 +36,7 @@ pageClass: index-page-class
 
 ## 这是什么？
 
-这是一部以介绍高级程序员、系统架构师为目标读者的技术手册，是一部以软件设计、架构工作中“要考虑哪些因素、需解决哪些问题、有哪些行业标准的解决方案”为主题的开源文档。文章《<a href="https://icyfenix.cn/introduction/about-the-fenix-project.html">什么是“The Fenix Project”</a>》详细阐述了此项目名字的来由、主旨与目标，文章《<a href="https://icyfenix.cn/exploration/guide/quick-start.html">如何开始</a>》简述了文档每章讨论的主要话题与详略分布，供阅前参考。
+这是一部以介绍高级程序员、系统架构师为目标读者的技术手册，是一部以软件设计、架构工作中“要考虑哪些因素、需解决哪些问题、有哪些行业标准的解决方案”为主题的开源文档。文章《<a href="https://icyfenix.cn/introduction/about-the-fenix-project.html">什么是“The Fenix Project”</a>》详细阐述了此项目主旨、目标与名字的来由，文章《<a href="https://icyfenix.cn/exploration/guide/quick-start.html">如何开始</a>》简述了文档每章讨论的主要话题与内容详略分布，供阅前参考。
 
 笔者出于以下目的，撰写这部文档：
 
@@ -51,7 +51,7 @@ pageClass: index-page-class
 
 根据“使用”的所指含义的不同，笔者列举以下几种情况：
 
-- **在线阅读**：本文档在线阅读地址为：[https://icyfenix.cn](https://icyfenix.cn)。<br/>网站由[GitHub Pages](https://pages.github.com/)提供网站存储空间；由[Travis-CI](https://travis-ci.com/fenixsoft/awesome-fenix)提供的持续集成服务实时把Git仓库的Markdown文档编译同步至网站；由腾讯云CDN提供国内访问的缓存支持。
+- **在线阅读**：本文档在线阅读地址为：[https://icyfenix.cn](https://icyfenix.cn)。<br/>网站由[GitHub Pages](https://pages.github.com/)提供网站存储空间；由[Travis-CI](https://travis-ci.com/fenixsoft/awesome-fenix)提供的持续集成服务实时把Git仓库的Markdown文档编译同步至网站；由[腾讯云CDN](https://cloud.tencent.com/product/cdn)提供国内访问的缓存支持。
 
 - **离线阅读**：
 

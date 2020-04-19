@@ -78,7 +78,7 @@ module.exports = {
         logo: '/images/logo-color.png',
         lastUpdated: '最后更新',
         smoothScroll: true,
-        repo: 'fenixsoft/awesome-fenix',
+        // repo: 'fenixsoft/awesome-fenix',
         editLinks: true,
         editLinkText: '在GitHub中编辑',
         // 添加导航栏
@@ -88,10 +88,10 @@ module.exports = {
                 // 这里是下拉列表展现形式。
                 items: [
                     {
-                        text: '文档工程',
+                        text: '文档工程 Awesome-Fenix',
                         link: 'https://github.com/fenixsoft/awesome-fenix'
                     }, {
-                        text: '前端工程',
+                        text: '前端工程 Fenix\'s Bookstore' ,
                         link: 'https://github.com/fenixsoft/fenix-bookstore-frontend'
                     }, {
                         text: '后端：单体架构 SpringBoot',
