@@ -267,6 +267,19 @@ $ sudo systemctl enable docker
 $ sudo systemctl start docker
 ```
 
+## 安装Docker-Compose
+
+在开发和部署微服务应用时，经常要使用Docker-Compose来组织多个镜像，对于Windows系统它是默认安装的，在Linux下需要另外下载一下，下载后直接扔到bin目录，加上执行权限即可使用
+
+```bash
+# 从GitHub下载
+sudo curl -L "https://github.com/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# 从国内镜像下载
+sudo curl -L "https://get.daocloud.io/docker/compose/releases/download/1.25.5/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+
+sudo chmod +x /usr/local/bin/docker-compose
+```
+
 ## 卸载Docker
 
 > Debian系：
