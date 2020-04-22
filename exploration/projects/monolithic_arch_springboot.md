@@ -110,9 +110,13 @@ Fenix's BookStore单体架构后端参考（并未完全遵循）了DDD的分层
 3. Domain：对应DDD中的Domain层，负责实现业务逻辑，即表达业务概念，处理业务状态信息以及业务规则这些行为，此层是整个项目的重点。
 4. Infrastructure：对应DDD中的Infrastructure层，向其他层提供通用的技术能力，譬如持久化能力、远程服务通讯、工具集，等等。
 
+<GitHubWrapper>
+
 <p align="center">
-    <img  src="./images/ddd-arch.png" >
+    <img  src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/ddd-arch.png" >
 </p>
+</GitHubWrapper>
+
 
 
 ## 协议

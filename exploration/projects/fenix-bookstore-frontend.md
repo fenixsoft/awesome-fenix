@@ -51,9 +51,11 @@ Fenix Project的主要目的是展示不同的后端技术架构，相对而言�
 > 然后在浏览器访问：[http://localhost:8080](http://localhost:8080)
 >
 
+<GitHubWrapper>
 <p align="center">
-    <img  src="https://raw.githubusercontent.com/fenixsoft/fenix-bookstore-frontend/master/markdown/sshot.jpg" >
+    <img  src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/sshot.jpg" >
 </p>
+</GitHubWrapper>
 
 也许你已注意到，以上这些运行方式，均没有涉及到任何的服务端、数据库的部署。现代软件工程里，基于MVVM的工程结构使得前、后端的开发可以完全分离，只要互相约定好服务的位置及模型即可。Fenix's BookStore以开发模式运行时，会自动使用Mock.js拦截住所有的远程服务请求，并以事项准备好的数据来完成对这些请求的响应。
 
