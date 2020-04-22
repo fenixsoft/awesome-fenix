@@ -1,3 +1,4 @@
+<GitHubWrapper>
 <p align="center">
 	<br/>
   <a href="https://icyfenix.cn" target="_blank">
@@ -17,7 +18,7 @@
     <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/Author-IcyFenix-blue.svg" alt="About Author"></a>
 	<PublishInfos />
 </p>
-
+</GitHubWrapper>
 
 
 ## 这是什么？
