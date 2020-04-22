@@ -1,35 +1,21 @@
----
-title: 软件架构探索：The Fenix Project
-comment: false
-pageClass: index-page-class
----
 <p align="center">
 	<br/>
   <a href="https://icyfenix.cn" target="_blank">
-    <img width="180" src="https://icyfenix.cn/images/logo-color.png" alt="logo">
+    <img width="180" src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/logo-color.png" alt="logo">
   </a>
 </p>
-<span style="text-align: center;padding: 0 0 20px 0;display: block;">
-    <h1 style="font-size: 2.6rem;margin: 10px 0 10px 0;font-family: cursive;">软件架构探索</h1>
-​    <span style="font-size: 20px;font-weight: 400;font-family: Helvetica;">The Fenix Project <Badge text=" Alpha " type="warning"/></span>
-</span>
+
+<TitleInfos />
 
 <p align="center" class="print-break">
-	<span class="git-hub">
-		<github-button href="https://github.com/fenixsoft/awesome-fenix/subscription" data-icon="octicon-eye" data-show-count="true" aria-label="Watch fenixsoft/awesome-fenix on GitHub">Watch</github-button>
-		<github-button href="https://github.com/fenixsoft/awesome-fenix" data-icon="octicon-star" data-show-count="true" aria-label="Star fenixsoft/awesome-fenix on GitHub">Star</github-button>
-		<github-button href="https://github.com/fenixsoft" data-show-count="true" aria-label="Follow @fenixsoft on GitHub">Follow</github-button>
-	</span>
+	<GithubInfos />
     <a href="https://icyfenix.cn" style="display:inline-block"><words type='updated' /></a>
     <a href="https://travis-ci.com/fenixsoft/awesome-fenix" target="_blank" style="display:inline-block" class="not-print"><img src="https://api.travis-ci.com/fenixsoft/awesome-fenix.svg?branch=master" alt="Travis-CI"></a>
-    <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/License-Apache.svg" alt="License"></a>
-    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/DocLicense-CC-red.svg" alt="Document License"></a>
+    <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/License-Apache.svg" alt="License"></a>
+    <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/DocLicense-CC-red.svg" alt="Document License"></a>
     <a href="/summary"  style="display:inline-block"><words type='badge' chapter='/'/></a>
-    <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/Author-IcyFenix-blue.svg" alt="About Author"></a>
-	<span class="only-for-printer" style="padding-top:300px">
-        <br/>周志明
-        <br/>icyfenix@gmail.com
-        </br/>发行日期：<words type='updatedText' /></span>
+    <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/Author-IcyFenix-blue.svg" alt="About Author"></a>
+	<PublishInfos />
 </p>
 
 
@@ -46,6 +32,9 @@ pageClass: index-page-class
 
 除文档部分外，笔者同时还建立了若干配套的代码工程，这是针对不同架构、技术方案（如单体架构、微服务、服务网格、无服务架构、云原生，等等）的演示程序（[PetStore-Like-Project](https://www.oracle.com/technetwork/cn/java/javaee/overview/index-136650.html)）。它们既是文档中所述知识的实践示例，亦可作为实际项目新创建时的可参考引用的基础代码。
 
+<p align="center" style="display:none" tips="view only in GitHub README.md">
+<img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/logo-color.png" >
+</p>
 
 ## 如何使用？
 

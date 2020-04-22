@@ -85,8 +85,12 @@ module.exports = (options = {}) => ({
                 $page.siteLastUpdated = moment().format('YYYY-MM-DD');
                 console.error("GIT获取更新时间出错，采用默认时间")
             }
-        }
 
+            // 由于README.md会显示在GitHub上，设置frontmatter不好看，改为这里进行
+            frontmatter.title = "软件架构探索：The Fenix Project"
+            frontmatter.comment = false
+            frontmatter.pageClass = "index-page-class"
+        }
         return $page
     }
 })
