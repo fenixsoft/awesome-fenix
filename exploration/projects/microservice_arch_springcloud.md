@@ -1,18 +1,20 @@
 # 后端工程：SpringCloud
 
+<GitHubWrapper>
 <p align="center">
   <a href="https://icyfenix.cn" target="_blank">
-    <img width="180" src="https://icyfenix.cn/images/logo-color.png" alt="logo">
+    <img width="180" src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/logo-color.png" alt="logo">
   </a>
 </p>
 <p align="center">
-    <a href="https://icyfenix.cn"  style="display:inline-block"><img src="https://icyfenix.cn/images/Release-v1.svg"></a>
+    <a href="https://icyfenix.cn"  style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/Release-v1.svg"></a>
     <a href="https://travis-ci.com/fenixsoft/microservice_arch_springcloud" target="_blank"  style="display:inline-block"><img src="https://travis-ci.com/fenixsoft/microservice_arch_springcloud.svg?branch=master" alt="Travis-CI"></a>
     <a href='https://coveralls.io/github/fenixsoft/microservice_arch_springcloud?branch=master'><img src='https://coveralls.io/repos/github/fenixsoft/microservice_arch_springcloud/badge.svg?branch=master'  target="_blank"  style="display:inline-block" alt='Coverage Status' /></a>
-    <a href="https://www.apache.org/licenses/LICENSE-2.0"  target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/License-Apache.svg" alt="License"></a>
-<a href="https://creativecommons.org/licenses/by/4.0/"  target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/DocLicense-CC-red.svg" alt="Document License"></a>
-    <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://icyfenix.cn/images/Author-IcyFenix-blue.svg" alt="About Author"></a>
+    <a href="https://www.apache.org/licenses/LICENSE-2.0"  target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/License-Apache.svg" alt="License"></a>
+<a href="https://creativecommons.org/licenses/by/4.0/"  target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/DocLicense-CC-red.svg" alt="Document License"></a>
+    <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/Author-IcyFenix-blue.svg" alt="About Author"></a>
 </p>
+</GitHubWrapper>
 
 如果你此时并不曾了解过什么是“The Fenix Project”，建议先阅读<a href="https://icyfenix.cn/introduction/about-the-fenix-project.html">这部分内容</a>。
 
@@ -22,15 +24,19 @@
 
 ## 需求场景
 
-我们的小书店Fenix's Bookstore生意日益兴隆，客人、货物、营收都在持续增长，对信息系统并发与可用方面的要求也越来越高。随着业务属性和质量属性需求的提升，信息系统需要更多的硬件资源去支撑，这听起来是合乎情理的，但是，如果我们把要求和场景列的更具体一些，便会发现“合理”下面的许多“不合理”之处：
+小书店Fenix's Bookstore生意日益兴隆，客人、货物、营收都在持续增长，对信息系统并发与可用方面的要求也越来越高。随着业务属性和质量属性需求的提升，信息系统需要更多的硬件资源去支撑，这听起来是合乎情理的，但是，如果我们把要求和场景列的更具体些，便会发现“合理”下面的许多无可奈何之处：
 
-- 譬如，恰逢双十一购物节，短时间内会有大批的交易产生，这时候运维的同事会把系统进行扩容以应对流量洪峰。但此时增长的业务量并不是均衡的，只有商品交易的活动剧增，新商品入库、新用户注册这类活动并未增加，甚至可能还降低了，此时，面对“铁板一块”的单体系统，运维在做扩容时，只能把“用不上的”商品管理代码、用户管理代码也一并部署。
-- 譬如，随着业务复杂度的增加，系统已不可避免地变得庞大臃肿，总会有一些不可预料的问题出现。要维持一个庞然大物的健康生存，对设计、开发、运维各方面的人员都提出越来越高的要求，但人力终有穷时，迟早会面临“没有一个人能了解系统的所有细节”的情形，持续膨胀的代码终会有崩溃的一刻。
+- 譬如，恰逢双十一购物节，短时间内会有大批的交易产生，这时候运维的同事会把系统进行扩容以应对流量洪峰。但此时增长的业务量并不是均衡的，只有商品交易的活动剧增，其他的活动，如新商品入库、新用户注册这类并未增加，甚至可能还降低了，此时，面对“铁板一块”的单体系统，运维在做扩容时，只能把“用不上的”商品管理代码、用户管理代码也一并扩容部署。
+- 譬如，高性能硬件也许对性能提升有帮助，但对稳定性的提升通常无能为力。业务复杂度的增加促使系统的技术复杂度也在持续增长，当系统不可避免地滑向庞大臃肿时，总伴随有各种难以预料的问题出现；要维持一个庞然大物的健康生存，也对设计、开发、运维各方面的人员都提出越来越高的要求。人力终有穷时，迟早会面临“没有一个人能了解系统的所有细节”的情形；系统的复杂程度也总有极限，持续膨胀的代码终会有崩溃的一刻。
 - 譬如，……
 
-微服务的需求场景还可以列举很多，这里就不再多写了，总之，在这一刻我们决定将Fenix's Bookstore拆分成为
+微服务的需求场景还可以列举很多，这里就不多列举了，总之，系统发展到一定程度，我们总能找到充分的理由去拆分。在我们设计的场景中，决定将Fenix's Bookstore拆分成为“用户”、“商品”、“交易”三个能够独立运行的子系统，它们将在一系列非功能性额技术模块和基础设施的支撑下互相协作，对外提供与原来单体系统在功能上一致的服务。
 
-
+<GitHubWrapper>
+<p align="center">
+    <img  src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/springcloud-ms.png" >
+</p>
+</GitHubWrapper>
 
 ## 运行程序
 

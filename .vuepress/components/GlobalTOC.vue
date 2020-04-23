@@ -48,7 +48,7 @@
             },
             getWords: function (page) {
                 if (page && page.readingTime) {
-                    return `${page.readingTime.words.toLocaleString()} 字`
+                    return `${page.readingTime.words.toLocaleString()} 字　`
                 } else {
                     return ""
                 }
