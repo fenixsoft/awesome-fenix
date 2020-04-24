@@ -47,7 +47,7 @@ Graal编译器未来的前途可期，作为Java虚拟机执行代码的最新�
 
 直到[Substrate VM](https://github.com/oracle/graal/tree/master/substratevm)出现，才算是满足了人们心中对Java提前编译的全部期待。Substrate VM是在Graal VM 0.20版本里新出现的一个极小型的运行时环境，包括了独立的异常处理、同步调度、线程管理、内存管理（垃圾收集）和JNI访问等组件，目标是代替HotSpot用来支持提前编译后的程序执行。它还包含了一个本地镜像的构造器（Native Image Generator）用于为用户程序建立基于Substrate VM的本地运行时镜像。这个构造器采用指针分析（Points-To Analysis）技术，从用户提供的程序入口出发，搜索所有可达的代码。在搜索的同时，它还将执行初始化代码，并在最终生成可执行文件时，将已初始化的堆保存至一个堆快照之中。这样一来，Substrate VM就可以直接从目标程序开始运行，而无须重复进行Java虚拟机的初始化过程。但相应地，原理上也决定了Substrate VM必须要求目标程序是完全封闭的，即不能动态加载其他编译期不可知的代码和类库。基于这个假设，Substrate VM才能探索整个编译空间，并通过静态分析推算出所有虚方法调用的目标方法。
 
-Substrate VM带来的好处是能显著降低了内存占用及启动时间，由于HotSpot本身就会有一定的内存消耗（通常约几十MB），这对最低也从几GB内存起步的大型单体应用来说并不算什么，但在微服务下就是一笔不可忽视的成本。根据Oracle官方给出的测试数据，运行在Substrate VM上的小规模应用，其内存占用和启动时间与运行在HotSpot相比有了5倍到50倍的下降，具体结果如下图所示：
+Substrate VM带来的好处是能显著降低了内存占用及启动时间，由于HotSpot本身就会有一定的内存消耗（通常约几十MB），这对最低也从几GB内存起步的大型单体应用来说并不算什么，但在微服务下就是一笔不可忽视的成本。根据Oracle官方给出的[测试数据](https://www.infoq.com/presentations/graalvm-performance/)，运行在Substrate VM上的小规模应用，其内存占用和启动时间与运行在HotSpot相比有了5倍到50倍的下降，具体结果如下图所示：
 
 :::center
 ![](./images/substrate1.png)
@@ -58,8 +58,14 @@ Substrate VM带来的好处是能显著降低了内存占用及启动时间，�
 
 Substrate VM补全了Graal VM“Run Programs Faster Anywhere”愿景蓝图里最后的一块拼图，让Graal VM支持其他语言时不会有重量级的运行负担。譬如运行JavaScript代码，Node.js的V8引擎执行效率非常高，但即使是最简单的HelloWorld，它也要使用约20MB的内存，而运行在Substrate VM上的Graal.js，跑一个HelloWorld则只需要4.2MB内存而已，且运行速度与V8持平。Substrate VM 的轻量特性，使得它十分适合于嵌入至其他系统之中，譬如[Oracle自家的数据库](https://oracle.github.io/oracle-db-mle)就已经开始使用这种方式支持用不同的语言代替PL/SQL来编写存储过程。
 
-## 前路荆棘 <Badge text="编写中" type="warning"/>
+## 漫漫前路
 
+尽管Java已经看清楚了在微服务中前进的目标，但是，由于Java天生的语言特性所限，通往这个目标的道路注定会是充满荆棘的。尽管已经有了放弃“一次编写，到处运行”、放弃Java语言动态性的思想准备，但这些特性是Java语言诞生之初就植入到基因里面的，当GraalVM打破它们的同时，也受到了Java语言和在其之上的Java生态的强烈反噬，笔者选择其中最主要的一些困难列举如下：
 
+- Java语言的反射特性，使得GraalVM编译本地镜像时处理起来极为痛苦。除非使用[安全管理器](/architect-perspective/general-architecture/system-security/authentication.html)去专门进行认证许可，否则，反射具有在运行期动态调用几乎所有API接口的能力。为此，必须有由程序的设计者明确地告知GraalVM有哪些代码可能被发射调用（通过JSON配置文件的形式），GraalVM才能在编译本地程序时将它们囊括进来。这是一项可操作性极其低下却又无可奈何的解决方案，即时你能不厌其烦地列举出自己代码中所用到的反射API，但又如何能保证程序所引用的其他类库的反射行为都已被你所知，其中不会有遗漏？与此类似的，动态代理和一切非程序性质的资源，如最典型的配置文件等，都必须明确加入配置中才能被GraalVM编译打包。
+- 一切运行期对字节码的生成和修改操作，在GraalVM看来都是无法接受的。请不要觉得直接操作字节码很罕见，导致的影响应该不大。举个例子，CGLIB这种通过运行时产生字节码来做动态代理的方式，长期以来都是Java世界里进行类增强的最主流形式。由于CGLIB是Spring的默认的类增强方式，而GraalVM明确表示是不会支持CGLIB的，因此从SpringBoot 2.2起，在SpringBootApplication注解中增加了proxyBeanMethods参数，用于全局切换类型增强的方式。
+- 一切HotSpot虚拟机本身的内部接口，譬如JVMTI、JVMCI等，都不复存在了——在本地镜像中，连HotSpot本身都被消灭了，这些接口自然成了无根之木。这对使用者一侧的最大影响是再也无法进行Java语言层次的远程调试了，最多只能进行汇编层次的调试。
+- GraalVM放弃了一部分的语言和平台层面的特性，譬如Finalizer、安全管理器、InvokeDynamic指令和MethodHandles，等等，在GraalVM中都被声明为不支持的，这部分倒大多并非全然无法解决，主要是基于工作量性价比的原因。能够被放弃的语言特性，说明确实是影响非常小的，这个问题对使用者倒的确是影响不会太大。
+- ……
 
 ## Spring over Graal <Badge text="编写中" type="warning"/>

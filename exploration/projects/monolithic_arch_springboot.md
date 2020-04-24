@@ -29,7 +29,7 @@
 > $ docker run -d -p 8080:8080 --name bookstore icyfenix/bookstore:monolithic 
 > ```
 >
-> 然后在浏览器访问：[http://localhost:8080](http://localhost:8080)
+> 然后在浏览器访问：[http://localhost:8080](http://localhost:8080)，系统预置了一个用户（user:icyfenix，pw:123456），也可以注册新用户来测试。
 >
 > 默认会使用HSQLDB的内存模式作为数据库，并在系统启动时自动初始化好了Schema，完全开箱即用。但这同时也意味着当程序运行结束时，所有的数据都将不会被保留。
 >
@@ -64,7 +64,7 @@
 >$ java -jar target/bookstore-1.0.0-Monolithic-SNAPSHOT.jar
 >```
 >
->然后在浏览器访问：[http://localhost:8080](http://localhost:8080)
+>然后在浏览器访问：[http://localhost:8080](http://localhost:8080)，系统预置了一个用户（user:icyfenix，pw:123456），也可以注册新用户来测试。
 
 - 通过Git上的源码，在IDE环境中运行：
 
