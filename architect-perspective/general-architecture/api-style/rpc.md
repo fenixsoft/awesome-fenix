@@ -11,7 +11,7 @@
 - 万一发送的请求服务端不回复该怎么办？
 - ……
 
-早在1988年，绝大多数人都对分布式、远程服务没有什么概念的时候（这话轻了，说那时候多数人对计算机没什么概念都不嫌过分），Sun Microsystems就起草并向IETF提交了[RFC 1050](https://tools.ietf.org/html/rfc1050)规范，正式提出了远程服务调用（Remote Procedure Call，RPC）的概念，并设计了一套面向C语言的RPC协议，但最后并没有被实际采用。
+早在1988年，绝大多数人都对分布式、远程服务没有什么概念的时候（这话轻了，说那时候多数人对计算机没什么概念都不嫌过分），Sun Microsystems就起草并向IETF提交了[RFC 1050](https://tools.ietf.org/html/rfc1050)规范，正式提出了远程服务调用（Remote Procedure Call，RPC）的概念，并设计了一套通用的、基于TCP/IP网络的、面向C语言的RPC协议，后被称为[ONC RPC](https://zh.wikipedia.org/wiki/%E9%96%8B%E6%94%BE%E7%B6%B2%E8%B7%AF%E9%81%8B%E7%AE%97%E9%81%A0%E7%AB%AF%E7%A8%8B%E5%BA%8F%E5%91%BC%E5%8F%AB)（用以区别于Unix系统下专有的[DEC/RPC](https://zh.wikipedia.org/wiki/DCE/RPC)）。
 
 :::quote 远程服务调用
 Remote Procedure Call is a protocol that one program can use to request a service from a program located in another computer on a network without having to understand the network's details. A procedure call is also sometimes known as a function call or a subroutine call.
