@@ -64,7 +64,7 @@ $ sudo apt-get update
 * kubectl: 用于操作运行中的集群的命令行工具。
 
 ```bash
-$ sudo apt-get install -y kubelet kubeadm kubectl
+$ sudo apt-get install kubelet kubeadm kubectl
 ```
 
 ## 初始化集群前的准备
@@ -97,6 +97,12 @@ $ sudo cat /etc/fstab_bak | grep -v swap > /etc/fstab
 
 其次，由于Kubernetes与Docker默认的cgroup（root控制组）驱动程序并不一致，Kubernetes默认为systemd，而Docker默认为cgroupfs。
 
+::: warning 更新信息
+
+从1.18开始，Kubernetes默认的cgroup驱动已经[默认修改](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)成cgroupfs了，这时候再进行改动反而又会不一致
+
+:::
+
 > **额外知识**
 >
 > Kubernetes是在Docker之上做容器编排的，为什么它的cgroup驱动会被设计成与Docker的不一致？
@@ -125,6 +131,7 @@ $ sudo cat /etc/fstab_bak | grep -v swap > /etc/fstab
 然后重新启动Docker容器：
 
 ```bash
+$ systemctl daemon-reload
 $ systemctl restart docker
 ```
 
@@ -151,7 +158,7 @@ k8s.gcr.io/coredns:1.6.5
 ……
 ```
 
-这里必须使用“--kubernetes-version”参数指定具体版本，因为尽管每个版本需要的镜像信息在本地是有存储的，但如果不加的话，Kubernetes会向远程查询最新的版本号，又会因网络无法访问而导致问题。
+这里必须使用“--kubernetes-version”参数指定具体版本，因为尽管每个版本需要的镜像信息在本地是有存储的，但如果不加的话，Kubernetes将向远程GCR仓库查询最新的版本号，会因网络无法访问而导致问题。但加版本号的时候切记不能照抄上面的命令中的“v1.17.3”，应该与你安装的kubelet版本保持一致，否则在初始化集群控制平面的时候会提示控制平面版本与kubectl版本不符。
 
 得到这些镜像名称和tag后，可以从[DockerHub](https://hub.docker.com)上找存有相同镜像的仓库来拉取，至于具体哪些公开仓库有，考虑到以后阅读本文时Kubernetes的版本应该会有所差别，所以需要自行到网站上查询一下。笔者比较常用的是一个名为“anjia0532”的仓库，有机器人自动跟官方同步，相对比较及时。
 
@@ -168,13 +175,20 @@ $ docker rmi anjia0532/google-containers.coredns:1.6.5
 
 ## 初始化集群控制平面
 
-到了这里，终于可以开始Master节点的部署了，先通过su直接切换到root用户（而不是使用sudo），然后使用以下命令开始部署：
+到了这里，终于可以开始Master节点的部署了，先确保kubelet是开机启动的：
+
+```bash
+$ sudo systemctl start kubelet
+$ sudo systemctl enable kubelet
+```
+
+接下来使用su直接切换到root用户（而不是使用sudo），然后使用以下命令开始部署：
 
 ```bash
 $ kubeadm init --kubernetes-version v1.17.3 --pod-network-cidr=10.244.0.0/16
 ```
 
-这里使用“--kubernetes-version”参数的原因与前面预拉取是一样的，避免额外的网络访问；另外一个参数“--pod-network-cidr”着在稍后介绍完CNI网络插件时会去说明。
+这里使用“--kubernetes-version”参数（要注意版本号与kubelet一致）的原因与前面预拉取是一样的，避免额外的网络访问；另外一个参数“--pod-network-cidr”着在稍后介绍完CNI网络插件时会去说明。
 
 当看到下面信息之后，说明集群主节点已经安装完毕了。
 

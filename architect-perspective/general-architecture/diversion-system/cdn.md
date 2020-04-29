@@ -2,7 +2,7 @@
 
 ::: tip 内容分发网络（Content Distribution Network）
 
-CDN是一种十分古老而又十分透明，没什么存在感的分流系统，多出人都说听过它，但真正了解过它的人却很少。
+CDN是一种十分古老而又十分透明，没什么存在感的分流系统，许多人都说听过它，但真正了解过它的人却很少。
 
 :::
 
@@ -57,8 +57,8 @@ $ dig icyfenix.cn
 icyfenix.cn.            600     IN      CNAME   icyfenix.cn.cdn.dnsv1.com.
 icyfenix.cn.cdn.dnsv1.com. 599  IN      CNAME   4yi4q4z6.dispatch.spcdntip.com.
 4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	101.71.72.192      #浙江宁波市
-4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	113.200.16.234     #陕西省榆林市 
-4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	116.95.25.196      #内蒙古自治区呼和浩特市 
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	113.200.16.234     #陕西省榆林市
+4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	116.95.25.196      #内蒙古自治区呼和浩特市
 4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	116.178.66.65      #新疆维吾尔自治区乌鲁木齐市
 4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	118.212.234.144
 4yi4q4z6.dispatch.spcdntip.com.	60 IN	A	211.91.160.228

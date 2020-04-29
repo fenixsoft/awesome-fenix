@@ -59,5 +59,30 @@ $ curl --insecure -sfL https://localhost:8443/v3/import/vgkj5tzphj9vzg6l57krdc9g
 
 最后再提一句，Rancher与Kubernetes集群之间是被动链接的，即由Kubernetes去主动找Rancher，这意味着部署在外网的Rancher，可以无障碍地管理处于内网（譬如NAT后）的Kubernetes集群，这对于大量没有公网IP的集群来说是很方便的事情。
 
-## 使用Rancher创建Kubernetes集群 <Badge text="编写中" type="warning"/>
+## 使用Rancher创建Kubernetes集群
 
+也可以直接使用Rancher直接在裸金属服务器上创建Kubernetes集群，此时在添加集群中选择From existing nodes \(Custom\)，在自定义界面中，设置要安装的集群名称、Kubernetes版本、CNI网络驱动、私有镜像库以及其他一些集群的参数选项。
+
+:::center
+![](./images/rancher-setup-cluster.png)
+:::
+
+下一步确认该主机在Kubernetes中扮演的角色，每台主机可以扮演多个角色。但至少要保证每个集群都有一个Etcd角色、一个Control角色、一个Worker角色。
+
+:::center
+![](./images/rancher-setup-cluster2.png)
+:::
+
+复制生成的命令，在要安装集群的每一台主机的SSH中执行。此时Docker会下载运行Rancher的Agent镜像，当执行成功后，Rancher界面会有提示新主机注册成功。
+
+:::center
+![](./images/rancher-setup-success.png)
+:::
+
+点击完成，将会在集群列表中看见正在Provisioning的新集群，稍后将变为Active状态.
+
+:::center
+![](./images/rancher-setup-success-provisioning.png)
+:::
+
+安装完成后你就可以在Rancher的图形界面管理Kubernetes集群了，如果还需要在命令行中工作，kubectl、kubeadm等工具是没有安装的，可参考“[使用Kubeadm部署Kubernetes集群](setup-kubeadm)”的内容安装使用。

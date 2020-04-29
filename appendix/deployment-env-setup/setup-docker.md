@@ -21,7 +21,7 @@
 > Debian系：
 >
 > ```bash
-> $ sudo apt-get remove docker docker-engine docker.io containerd runc
+> $ sudo apt-get remove docker docker-engine docker.io containerd runc docker-ce docker-ce-cli containerd.io
 > ```
 >
 > RedHat系：
@@ -50,7 +50,7 @@
 >                        ca-certificates \
 >                        curl \
 >                        software-properties-common
->                        
+>
 > # 注册Docker官方GPG公钥
 > $ sudo curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
 >

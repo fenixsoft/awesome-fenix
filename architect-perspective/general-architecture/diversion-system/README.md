@@ -9,7 +9,7 @@
 - [**客户端缓存**](./client-cache)（Client Cache）：HTTP协议的无状态性决定了它必须依靠客户端缓存来解决网络传输效率上的缺陷。
 - [**域名解析**](./dns-lookup)（DNS Lookup）：DNS也许是全世界最大、使用最频繁的信息查询系统，如果没有适当的分流机制，DNS将会成为整个网络的瓶颈。
 - [**链路优化**](./transmission-optimization)（Transmission Optimization）：今天的链路优化原则，在若干年后的未来再回头看它们时，其中多数已经成了奇技淫巧，有些甚至成了反模式。
-- [**内容分发网络**](./cdn)（Content Distribution Network）：CDN是一种十分古老而又十分透明，没什么存在感的分流系统，多出人都说听过它，但真正了解过它的人却很少。
+- [**内容分发网络**](./cdn)（Content Distribution Network）：CDN是一种十分古老而又十分透明，没什么存在感的分流系统，许多人都说听过它，但真正了解过它的人却很少。
 - [**负载均衡**](./load-balancing)（Load Balancing）：调度后方的多台机器，以统一的接口对外提供服务，承担此职责的技术组件被称为“负载均衡”。
 - [**缓存中间件**](./cache-middleware)（Cache Middleware） <Badge text="编写中" type="warning"/>：讨论数据缓存、方法缓存、进程内/外、集中式/分布式缓存等等。
 - [**数据库扩展**](./database-expansion)（Database Expansion） <Badge text="编写中" type="warning"/>：（传统）数据库必须保证一致性与高可用，它与分布式天生就存在矛盾，我们要想一些别的办法来提升它的可扩展性。
