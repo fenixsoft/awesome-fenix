@@ -24,19 +24,25 @@
 
 本章分为“普适问题”和“技巧专题”两部分，前者指的是每一种架构风格都需要考虑的通用问题，后者挑选了若干在微服务、云原生架构的迁移过程中较为普遍遇到的问题和解决技巧、方案。
 
-## 演进中的微服务 <words chapter='/architecture'/>
+## 演进中的架构 <words chapter='/architecture'/>
 
 本章面向于从单体架构转向微服务架构的开发者。
 
 TBD
 
-## 核心技术支撑点 <words chapter='/technology'/>
+## 分布式的基石<words chapter='/distribution'/>
 
 本章面向于基础设施、平台的开发者。
 
 TBD
 
 ## 不可变基础设施 <words chapter='/immutable-infrastructure'/>
+
+本章面向于基础设施、平台的开发者。
+
+TBD
+
+## 技巧与专题 <words chapter='/tricks'/>
 
 本章面向于基础设施、平台的开发者。
 
