@@ -240,7 +240,7 @@ module.exports = {
             ]
           },
           {
-            title: '核心框架',
+            title: '从架构到实现',
             collapsable: false,
             children: [
               '/architecture/architect-framework/j2ee-base-arch',
@@ -335,11 +335,20 @@ module.exports = {
         title: '技巧与专题',
         collapsable: false,
         children: [
-          '/tricks/graalvm-improvement',
+          {
+            title: '✔️ Graal VM',
+            collapsable: false,
+            path: '/tricks/graalvm/',
+            children: [
+              '/tricks/graalvm/graal-compiler',
+              '/tricks/graalvm/substratevm',
+              '/tricks/graalvm/graalvm-native',
+              '/tricks/graalvm/spring-over-graal'
+            ]
+          },
           '/tricks/responsive-programming',
           '/tricks/zero-copy',
-          '/tricks/stream-computing',
-          '/tricks/pooling',
+          '/tricks/stream-computing'
         ]
       }
       , {
