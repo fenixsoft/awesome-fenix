@@ -20,7 +20,7 @@
           </a>
           <div class="not-print" style="display: inline-block">
             <badge type="error" v-if="checkUpdate(page)">
-                {{page.update}}天前更新
+                {{page.update === 0 ? '当天更新': page.update+'天前更新'}}
             </badge>
           </div>
           <span class="words">{{page.words}}</span>
