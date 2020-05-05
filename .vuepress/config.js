@@ -132,7 +132,8 @@ module.exports = {
             title: '阅读指引',
             collapsable: false,
             children: [
-              '/exploration/guide/quick-start'
+              '/CHANGELOG.md',
+              '/exploration/guide/quick-start',
             ]
           },
           {

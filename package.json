@@ -38,5 +38,6 @@
     "vuepress": "^1.4.0",
     "vuepress-plugin-comment": "^0.7.3"
   },
-  "dependencies": {}
+  "dependencies": {
+  }
 }
