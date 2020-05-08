@@ -1,4 +1,4 @@
-# 后端工程：SpringCloud
+# 后端工程：Spring Cloud
 
 <GitHubWrapper>
 <p align="center">
@@ -18,7 +18,7 @@
 
 如果你此时并不曾了解过什么是“The Fenix Project”，建议先阅读<a href="https://icyfenix.cn/introduction/about-the-fenix-project.html">这部分内容</a>。
 
-至少到目前，基于Spring Cloud的微服务解决方案仍是以Java为运行平台的微服务中，使用者数量最多的一个分支。这个结果即是Java在服务端应用中长久积累的深厚基础的体现，也是Spring在Java应用中统治性的地位的体现。Spring Cloud令现存数量极为庞大的、基于Spring和SpringBoot的单体系统，得以平滑地迁移到微服务架构中，令这些系统的大部分代码都能够无需或少量修改即可保留重用。微服务兴起的早期，Spring Cloud就集成了[Netflix OSS](https://netflix.github.io/)（以及Netflix闭源后对应的替代组件）所开发的体系化的微服务套件，基本上算“半透明地”解决了在微服务环境中必然会面临的服务发现、远程调用、负载均衡、集中配置等基础问题。
+至少到目前，基于Spring Cloud的微服务解决方案仍是以Java为运行平台的微服务中，使用者数量最多的一个分支。这个结果即是Java在服务端应用中长久积累的深厚基础的体现，也是Spring在Java应用中统治性的地位的体现。Spring Cloud令现存数量极为庞大的、基于Spring和Spring Boot的单体系统，得以平滑地迁移到微服务架构中，令这些系统的大部分代码都能够无需或少量修改即可保留重用。微服务兴起的早期，Spring Cloud就集成了[Netflix OSS](https://netflix.github.io/)（以及Spring Cloud Netflix进入维护期后对应的替代组件）所开发的体系化的微服务套件，基本上算“半透明地”解决了在微服务环境中必然会面临的服务发现、远程调用、负载均衡、集中配置等基础问题。
 
 不过，笔者自己并不太认同Spring Cloud Netflix这种以应用代码去解决基础设施功能问题的“解题思路”，以笔者的观点看来，这既是容器化、原生化的微服务基础设施完全成熟之前必然会出现的应用形态，同时也决定了这是微服务进化过程中必然会被替代的过渡形态。无论笔者的看法如何，基于Spring Cloud Netflix的微服务在当前是主流，直至未来不算短的一段时间内仍会是主流，并且以应用的视角，自顶向下观察基础设施在微服务中面临的需求和挑战，用我们熟悉的Java代码来解释分析问题，也有利于对微服务的整体思想的深入理解，所以将它作为我们了解的第一种微服务架构的实现是十分适合的。
 
@@ -35,7 +35,6 @@
 <GitHubWrapper>
 <p align="center">
     <img  src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/springcloud-ms.png" >
-    微服务应用视图
 </p>
 </GitHubWrapper>
 
@@ -141,7 +140,7 @@
   
 ## 技术组件
 
-Fenix's BookStore采用基于SpringCloud微服务架构，微服务部分主要采用了Netflix OSS组件进行支持，它们包括：
+Fenix's BookStore采用基于Spring Cloud微服务架构，微服务部分主要采用了Netflix OSS组件进行支持，它们包括：
 
 - **配置中心**：默认采用[Spring Cloud Config](https://spring.io/projects/spring-cloud-config)，亦可使用[Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul)、[Spring Cloud Alibaba Nacos](https://spring.io/projects/spring-cloud-alibaba)代替。
 - **服务发现**：默认采用[Netflix Eureka](https://github.com/Netflix/eureka)，亦可使用[Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul)、[Spring Cloud Zookeeper](https://spring.io/projects/spring-cloud-zookeeper)、[etcd](https://github.com/etcd-io/etcd)等代替。

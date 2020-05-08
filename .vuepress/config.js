@@ -186,7 +186,7 @@ module.exports = {
                   '/architect-perspective/general-architecture/transaction/local',
                   '/architect-perspective/general-architecture/transaction/global',
                   '/architect-perspective/general-architecture/transaction/share',
-                  '/architect-perspective/general-architecture/transaction/distributed'
+                  '/architect-perspective/general-architecture/transaction/distributed',
                 ]
               },
               {
@@ -259,16 +259,25 @@ module.exports = {
         collapsable: false,
         children: [
           {
-            title: '服务治理',
-            path: '/distribution/service-governance/',
+            title: '✔️ 分布式共识算法',
+            path: '/distribution/consensus/',
             collapsable: false,
             children: [
-              '/distribution/service-governance/service-discovery',
-              '/distribution/service-governance/service-routing',
-              '/distribution/service-governance/composer',
+              '/distribution/consensus/paxos',
+              '/distribution/consensus/raft',
+              '/distribution/consensus/gossip',
             ]
           },
-          '/distribution/load-balancing',
+          {
+            title: '服务发现',
+            path: '/distribution/service-discovery/',
+            collapsable: false,
+            children: [
+              '/distribution/service-discovery/service-routing',
+              '/distribution/service-discovery/load-balancing',
+              '/distribution/service-discovery/composer',
+            ]
+          },
           {
             title: '服务容错',
             path: '/distribution/fault-tolerance/',

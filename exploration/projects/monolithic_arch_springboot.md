@@ -1,4 +1,4 @@
-# 后端工程：SpringBoot
+# 后端工程：Spring Boot
 
 <p align="center">
   <a href="https://icyfenix.cn" target="_blank">
@@ -33,7 +33,7 @@
 >
 > 默认会使用HSQLDB的内存模式作为数据库，并在系统启动时自动初始化好了Schema，完全开箱即用。但这同时也意味着当程序运行结束时，所有的数据都将不会被保留。
 >
-> 如果希望使用HSQLDB的文件模式，或者其他非嵌入式的独立的数据库支持的话，也是很简单的。以常用的MySQL/MariaDB为例，程序中也已内置了MySQL的表结构初始化脚本，你可以使用环境变量“PROFILES”来激活SpringBoot中针对MySQL所提供的配置，命令如下所示：
+> 如果希望使用HSQLDB的文件模式，或者其他非嵌入式的独立的数据库支持的话，也是很简单的。以常用的MySQL/MariaDB为例，程序中也已内置了MySQL的表结构初始化脚本，你可以使用环境变量“PROFILES”来激活Spring Boot中针对MySQL所提供的配置，命令如下所示：
 >
 > ```bash
 > $ docker run -d -p 8080:8080 --name bookstore icyfenix/bookstore:monolithic -e PROFILES=mysql
