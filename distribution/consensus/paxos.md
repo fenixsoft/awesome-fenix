@@ -12,11 +12,11 @@ There is only one consensus protocol, and that's “Paxos” — all other appro
 
 :::
 
-Paxos是由[Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport)（就是大名鼎鼎的[LaTeX](https://en.wikipedia.org/wiki/LaTeX)中的“La”）提出的一种基于消息传递的协商共识算法，现已是当今分布式系统最重要的理论基础，几乎就是“共识”二字的代名词。尽管不像Mike Burrows说的“世界上只有Paxos一种分布式共识算法”那么夸张，但是如果没有Paxos，那后续的Raft、ZAB算法，ZooKeeper、etcd这些分布式协调框架、Hadoop、Consul等在此基础上的各类分布式应用都很可能会延后几年面世。
+Paxos是由[Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport)（就是大名鼎鼎的[LaTeX](https://en.wikipedia.org/wiki/LaTeX)中的“La”）提出的一种基于消息传递的协商共识算法，现已是当今分布式系统最重要的理论基础，几乎就是“共识”二字的代名词（这句话是Raft作者在论文中说的）。尽管不像Mike Burrows说的“世界上只有Paxos一种分布式共识算法”那么夸张，但是如果没有Paxos，那后续的Raft、ZAB算法，ZooKeeper、etcd这些分布式协调框架、Hadoop、Consul等在此基础上的各类分布式应用都很可能会延后几年面世。
 
 Lamport虚构了一个名为“Paxos”的希腊城邦，这个城邦按照民主制度制定法律，却又不存在一个中心化的专职立法机构，立法靠着“兼职议会”（Part-Time Parliament）来完成，无法保证所有城邦居民都能够及时地了解新的法律提案、也无法保证居民会及时为提案投票。Paxos算法的目标就是让城邦能够在每一位居民都无法承诺一定会及时参与的情况下，依然可以按照少数服从多数的原则，最终达成一致意见（但是并不考虑[拜占庭将军问题](https://en.wikipedia.org/wiki/Byzantine_fault)，即假设信息可能丢失也可能延迟，但不会被错误传递）。
 
-Lamport最初在1990年首次发表了Paxos算法，选的题目就是“[The Part-Time Parliament](https://lamport.azurewebsites.net/pubs/lamport-paxos.pdf)”。由于算法本身较为复杂，用希腊城邦作为比喻反而使得描述更为晦涩，论文的三个审稿人一致要求他把希腊城邦的故事删除掉，这令Lamport感觉颇为不爽，然后干脆就撤稿不发了，所以Paxos刚刚被提出的时候并没有引起什么反响。八年之后（1998年），Lamport再次将此文章重新整理后投到《[ACM Transactions on Computer Systems](https://dl.acm.org/journal/tocs)》，这次论文成功发表，吸引了一些人去研究，结果是并没有什么人能弄懂，甚至还有人撰写了一篇[以吐槽Paxos论文不好懂的论文](https://web.stanford.edu/~ouster/cgi-bin/papers/raft-atc14)获得过ATC 2014的Best Paper。时间又过去了三年（2001年），Lamport认为前两次是同行们无法理解他以“希腊城邦”来讲故事的幽默感，第三次以“[Paxos Made Simple](https://lamport.azurewebsites.net/pubs/paxos-simple.pdf)”为题，在《[SIGACT News](https://www.sigact.org/SIGACT_News/)》杂志上发表文章，终于放弃了“希腊城邦”的比喻，尽可能用（他认为）简单直接、（他认为）可读性较强的方式去介绍Paxos算法，情况虽然比前两次好，但以Paxos本应获得的重视程度来说，这次依然只能算是应者寥寥。这段跟网络段子一般的经历被Lamport以自嘲的形式放到了[他自己的个人网站](http://lamport.azurewebsites.net/pubs/pubs.html#lamport-paxos)上。尽管我们作为后辈应该尊重Lamport老爷子，但当笔者翻开“Paxos Made Simple”读到只有一句话的“摘要”时，心里实在是不得不怀疑Lamport这样写论文是不是在恶搞审稿人和读者，在嘲讽“你们这些愚蠢的人类！”。
+Lamport最初在1990年首次发表了Paxos算法，选的题目就是“[The Part-Time Parliament](https://lamport.azurewebsites.net/pubs/lamport-paxos.pdf)”。由于算法本身较为复杂，用希腊城邦作为比喻反而使得描述更为晦涩，论文的三个审稿人一致要求他把希腊城邦的故事删除掉，这令Lamport感觉颇为不爽，然后干脆就撤稿不发了，所以Paxos刚刚被提出的时候并没有引起什么反响。八年之后（1998年），Lamport再次将此文章重新整理后投到《[ACM Transactions on Computer Systems](https://dl.acm.org/journal/tocs)》，这次论文成功发表，吸引了一些人去研究，结果是并没有什么人能弄懂。时间又过去了三年（2001年），Lamport认为前两次是同行们无法理解他以“希腊城邦”来讲故事的幽默感，第三次以“[Paxos Made Simple](https://lamport.azurewebsites.net/pubs/paxos-simple.pdf)”为题，在《[SIGACT News](https://www.sigact.org/SIGACT_News/)》杂志上发表文章，终于放弃了“希腊城邦”的比喻，尽可能用（他认为）简单直接、（他认为）可读性较强的方式去介绍Paxos算法，情况虽然比前两次好，但以Paxos本应获得的重视程度来说，这次依然只能算是应者寥寥。这段跟网络段子一般的经历被Lamport以自嘲的形式放到了[他自己的个人网站](http://lamport.azurewebsites.net/pubs/pubs.html#lamport-paxos)上。尽管我们作为后辈应该尊重Lamport老爷子，但当笔者翻开“Paxos Made Simple”读到只有一句话的“摘要”时，心里实在是不得不怀疑Lamport这样写论文是不是在恶搞审稿人和读者，在嘲讽“你们这些愚蠢的人类！”。
 
 :::center
 ![](./images/abstract.png)
@@ -97,5 +97,5 @@ sequenceDiagram
 
 以上介绍是基于Basic Paxos、以正常流程（未出现网络分区等异常）、以通俗的方式介绍的Paxos算法，并未涉及到严谨的逻辑和数学原理，也未讨论Paxos的推导证明过程，对于普通的技术人员，理解起来应该并不算困难的。
 
-本节介绍的Basic Paxos只能对单个值形成决议，并且决议的形成至少需要两次网络请求和应答（准备和批准阶段各一次），高并发情况下将产生较大的网络开销，极端情况下甚至可能形成活锁。总之，Basic Paxos是一种很学术化但对工程并不友好的算法，现在几乎只用来做理论研究，并不直接应用在实际软件研发当中。实际的应用都是基于Multi-Paxos和Fast-Paxos算法的，接下来我们将会了解Multi-Paxos与它的理论等价算法Raft和ZAB算法。
+本节介绍的Basic Paxos只能对单个值形成决议，并且决议的形成至少需要两次网络请求和应答（准备和批准阶段各一次），高并发情况下将产生较大的网络开销，极端情况下甚至可能形成活锁。总之，Basic Paxos是一种很学术化但对工程并不友好的算法，现在几乎只用来做理论研究，并不直接应用在实际软件研发当中。实际的应用都是基于Multi Paxos和Fast Paxos算法的，接下来我们将会了解Multi Paxos与它的理论等价算法Raft和ZAB算法。
 
