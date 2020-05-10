@@ -94,6 +94,9 @@ module.exports = {
             text: '前端工程 Fenix\'s Bookstore',
             link: 'https://github.com/fenixsoft/fenix-bookstore-frontend'
           }, {
+            text: '前端工程在线示例 Fenix\'s Bookstore',
+            link: 'http://bookstore.icyfenix.cn'
+          }, {
             text: '后端：单体架构 SpringBoot',
             link: 'https://github.com/fenixsoft/monolithic_arch_springboot'
           }, {
@@ -108,7 +111,6 @@ module.exports = {
           }
         ]
       },
-      {text: '示例', link: 'http://bookstore.icyfenix.cn'},
       {text: 'PDF下载', link: 'https://icyfenix.cn/pdf/the-fenix-project.pdf', target: "_blank"},
       {text: '讨论区', link: '/board', target: "_self"}
     ],

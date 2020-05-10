@@ -2,8 +2,19 @@
   @media screen and (max-width: 960px)
     max-width: 100%;
     padding: 1rem;
-  @media screen and (min-width: 961px)
+  @media screen and (min-width: 961px) and (max-width: 1366px)
+    max-width: 92%;
+  @media screen and (min-width: 1367px)
     max-width: 80%;
+
+.gt-container
+  padding-top 20px;
+  @media screen and (max-width: 1366px)
+    width 90%;
+    margin-left 5%;
+  @media screen and (min-width: 1367px)
+    width 80%;
+    margin-left 10%;
 
 body
   word-break: break-all;
@@ -51,14 +62,6 @@ p, ul, ol
   footer
     display none;
 
-.gt-container
-  padding-top 20px;
-  @media screen and (max-width: 960px)
-    width 90%;
-    margin-left 5%;
-  @media screen and (min-width: 961px)
-    width 80%;
-    margin-left 10%;
 
 .badge {
   font-size: 10px !important;
