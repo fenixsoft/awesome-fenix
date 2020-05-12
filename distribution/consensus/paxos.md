@@ -16,7 +16,7 @@ Paxos是由[Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport)（就�
 
 Lamport虚构了一个名为“Paxos”的希腊城邦，这个城邦按照民主制度制定法律，却又不存在一个中心化的专职立法机构，立法靠着“兼职议会”（Part-Time Parliament）来完成，无法保证所有城邦居民都能够及时地了解新的法律提案、也无法保证居民会及时为提案投票。Paxos算法的目标就是让城邦能够在每一位居民都无法承诺一定会及时参与的情况下，依然可以按照少数服从多数的原则，最终达成一致意见（但是并不考虑[拜占庭将军问题](https://en.wikipedia.org/wiki/Byzantine_fault)，即假设信息可能丢失也可能延迟，但不会被错误传递）。
 
-Lamport最初在1990年首次发表了Paxos算法，选的题目就是“[The Part-Time Parliament](https://lamport.azurewebsites.net/pubs/lamport-paxos.pdf)”。由于算法本身较为复杂，用希腊城邦作为比喻反而使得描述更为晦涩，论文的三个审稿人一致要求他把希腊城邦的故事删除掉，这令Lamport感觉颇为不爽，然后干脆就撤稿不发了，所以Paxos刚刚被提出的时候并没有引起什么反响。八年之后（1998年），Lamport再次将此文章重新整理后投到《[ACM Transactions on Computer Systems](https://dl.acm.org/journal/tocs)》，这次论文成功发表，吸引了一些人去研究，结果是并没有什么人能弄懂。时间又过去了三年（2001年），Lamport认为前两次是同行们无法理解他以“希腊城邦”来讲故事的幽默感，第三次以“[Paxos Made Simple](https://lamport.azurewebsites.net/pubs/paxos-simple.pdf)”为题，在《[SIGACT News](https://www.sigact.org/SIGACT_News/)》杂志上发表文章，终于放弃了“希腊城邦”的比喻，尽可能用（他认为）简单直接、（他认为）可读性较强的方式去介绍Paxos算法，情况虽然比前两次好，但以Paxos本应获得的重视程度来说，这次依然只能算是应者寥寥。这段跟网络段子一般的经历被Lamport以自嘲的形式放到了[他自己的个人网站](http://lamport.azurewebsites.net/pubs/pubs.html#lamport-paxos)上。尽管我们作为后辈应该尊重Lamport老爷子，但当笔者翻开“Paxos Made Simple”读到只有一句话的“摘要”时，心里实在是不得不怀疑Lamport这样写论文是不是在恶搞审稿人和读者，在嘲讽“你们这些愚蠢的人类！”。
+Lamport最初在1990年首次发表了Paxos算法，选的题目就是“[The Part-Time Parliament](https://lamport.azurewebsites.net/pubs/lamport-paxos.pdf)”。由于算法本身较为复杂，用希腊城邦作为比喻反而使得描述更为晦涩，论文的三个审稿人一致要求他把希腊城邦的故事删除掉，这令Lamport感觉颇为不爽，然后干脆就撤稿不发了，所以Paxos刚刚被提出的时候并没有引起什么反响。八年之后（1998年），Lamport再次将此文章重新整理后投到《[ACM Transactions on Computer Systems](https://dl.acm.org/journal/tocs)》，这次论文成功发表，吸引了一些人去研究，结果是并没有什么人能弄懂。时间又过去了三年（2001年），Lamport认为前两次是同行们无法理解他以“希腊城邦”来讲故事的幽默感，第三次以“[Paxos Made Simple](https://lamport.azurewebsites.net/pubs/paxos-simple.pdf)”为题，在《[SIGACT News](https://www.sigact.org/SIGACT_News/)》杂志上发表文章，终于放弃了“希腊城邦”的比喻，尽可能用（他认为）简单直接、（他认为）可读性较强的方式去介绍Paxos算法，情况虽然比前两次要好，但以Paxos本应获得的重视程度来说，这次依然只能算是应者寥寥。这段跟网络段子一般的经历被Lamport以自嘲的形式放到了[他自己的个人网站](http://lamport.azurewebsites.net/pubs/pubs.html#lamport-paxos)上。尽管我们作为后辈应该尊重Lamport老爷子，但当笔者翻开“Paxos Made Simple”读到只有一句话的“摘要”时，心里实在是不得不怀疑Lamport这样写论文是不是在恶搞审稿人和读者，在嘲讽“你们这些愚蠢的人类！”。
 
 :::center
 ![](./images/abstract.png)
@@ -25,13 +25,13 @@ Lamport最初在1990年首次发表了Paxos算法，选的题目就是“[The Pa
 
 虽然Lamport本人连发三篇文章都没能让大多数同行理解Paxos，但是到了2006年，Google的Chubby、Megastore以及Spanner等分布式系统都使用Paxos解决了分布式共识的问题，并将其整理成正式的论文发表之后，得益于Google的行业影响力，辅以Chubby作者Mike Burrows那略显夸张但足够吸引眼球的评价推波助澜，致使Paxos一夜间成为计算机科学分布式这条分支中最炙手可热网红概念，从这时起被学术界众人争相研究。2013年，Lamport本人因其对分布式系统的杰出理论贡献获得了2013年的图灵奖，足可见技术圈里即使再有本事，也还是需要好好包装一下的。
 
-讲完段子吃过西瓜，希望你没有被这些对Paxos的“困难”做的铺垫所吓倒，假如放弃些许严谨性，并简化分支细节和特殊情况的话，Paxos是完全可能去通俗地理解的，Lamport在论文中也只用两段话就描述“清楚”了它的工作流程，下面我们正式来学习Paxos算法（在本节中均特指Basic Paxos算法）。Paxos算法将分布式系统中的节点分为三类：
+讲完段子吃过西瓜，希望你没有被这些对Paxos的“困难”做的铺垫所吓倒，反正又不让你去实现它，假如放弃些许严谨性，并简化分支细节和特殊情况的话，Paxos是完全可能去通俗地理解的，Lamport在论文中也只用两段话就描述“清楚”了它的工作流程，下面我们正式来学习Paxos算法（在本节中均特指Basic Paxos算法）。Paxos算法将分布式系统中的节点分为三类：
 
 - **提案节点**（称为Proposer）：提出对某个值进行设置操作的节点，设置值这个行为就被称之为“提案”（Proposal）。请注意，这里的“设置值”不要类比成程序中变量赋值操作，应该类比成日志记录操作，值一旦设置成功，就是不丢失、不可变的，在后面介绍的Raft算法中就索性直接把“提案”叫做“日志”了。
 - **决策节点**（称为Acceptor）：应答提案节点该提案是否可被投票、是否可被接受。提案一旦得到过半数决策节点的接受，即称该提案被批准，提案被批准即意味着该值不能再被更改，也不会丢失，且最终所有节点都会接受该它。
 - **记录节点**（被称为Learner）：不参与提案，也不参与决策，只是单纯地从提案、决策节点中学习已经达成一致的提案，譬如少数派节点从网络分区中恢复时，将会进入这种状态。
 
-使用Paxos的分布式系统里的，所有的节点都是平等的，它们都可以承担以上某一种或者多种的角色，不过为了便于确保有明确的多数派，决策节点的数量应该被设定为奇数个，且在初始化时，集群中每个节点都知道整个集群所有决策节点的数量、地址等信息。
+使用Paxos的分布式系统里的，所有的节点都是平等的，它们都可以承担以上某一种或者多种的角色，不过为了便于确保有明确的多数派，决策节点的数量应该被设定为奇数个，且在初始化时，网络中每个节点都知道整个网络所有决策节点的数量、地址等信息。
 
 分布式环境下，我们如果说各个节点“就某个值（提案）达成一致”，所指的意思是“不存在某个时刻有一个值为A，另一个时刻该值又为B的情景”。解决这个问题的复杂度主要来源于以下两个方面因素的共同作用：
 
@@ -76,9 +76,9 @@ sequenceDiagram
 
 整个Paxos算法的工作流程确实并不复杂，如果你此前并未专门学习过分布式的知识，相信阅读到这里，不一定会对操作过程有疑惑，但估计还是不能对Paxos究竟是如何解决协商共识的形成具体的概念的，下面笔者将举一个具体例子来讲解，例子与截图来源于《[Implementing Replicated Logs with Paxos](https://ongardie.net/static/raft/userstudy/paxos.pdf)》，在此统一注明，后面就不单独列出了。
 
-假设一个集群中有五个节点，分别命名为S<sub>1</sub>、S<sub>2</sub>、S<sub>3</sub>、S<sub>4</sub>、S<sub>5</sub>，只讨论正常场景，不会涉及到网络分区。全部节点都同时扮演着提案节点和决策节点的身份。此时，有两个并发的请求分别希望将同一个值分别设定为X（由S<sub>1</sub>作为提案节点提出）和Y（由S<sub>5</sub>作为提案节点提出），以P代表准备阶段，以A代表批准阶段，这时候可能发生以下情况：
+假设一个分布式系统有五个节点，分别命名为S<sub>1</sub>、S<sub>2</sub>、S<sub>3</sub>、S<sub>4</sub>、S<sub>5</sub>，只讨论正常场景，不会涉及到网络分区。全部节点都同时扮演着提案节点和决策节点的身份。此时，有两个并发的请求分别希望将同一个值分别设定为X（由S<sub>1</sub>作为提案节点提出）和Y（由S<sub>5</sub>作为提案节点提出），以P代表准备阶段，以A代表批准阶段，这时候可能发生以下情况：
 
-- 情况一：譬如，S<sub>1</sub>选定的提案ID是3.1（全局唯一ID加上节点编号），先取得了多数派决策节点的Promise和Accepted应答，此时S<sub>5</sub>选定提案ID是4.5，发起Prepare请求，收到的多数派应答中至少会包含1个此前应答过S<sub>1</sub>的决策节点，假设是S<sub>3</sub>，那么S<sub>3</sub>提供的Promise中必将包含S<sub>1</sub>已设定好的值X，S<sub>5</sub>就必须无条件地用X代替Y作为自己提案的值，由此整个集群对“取值为X”这个事实达成了一致。如下图所示：
+- 情况一：譬如，S<sub>1</sub>选定的提案ID是3.1（全局唯一ID加上节点编号），先取得了多数派决策节点的Promise和Accepted应答，此时S<sub>5</sub>选定提案ID是4.5，发起Prepare请求，收到的多数派应答中至少会包含1个此前应答过S<sub>1</sub>的决策节点，假设是S<sub>3</sub>，那么S<sub>3</sub>提供的Promise中必将包含S<sub>1</sub>已设定好的值X，S<sub>5</sub>就必须无条件地用X代替Y作为自己提案的值，由此整个系统对“取值为X”这个事实达成了一致。如下图所示：
 :::center
 ![](./images/paxos1.png)
 :::
@@ -86,7 +86,7 @@ sequenceDiagram
 :::center
 ![](./images/paxos2.png)
 :::
-- 情况三：当然，另外一种可能的结果是S<sub>5</sub>提案时Promise应答中并未包含批准过X的决策节点，譬如应答S<sub>5</sub>提案时，节点S<sub>1</sub>已经批准了X，节点S<sub>2</sub>、S<sub>3</sub>未批准但返回了Promise应答，此时S<sub>5</sub>以更大的提案ID获得了S<sub>3</sub>、S<sub>4</sub>、S<sub>5</sub>的Promise，这三个节点均未批准过任何值，那么S<sub>3</sub>将不会再接受来自S<sub>1</sub>的Accept请求，因为它的提案ID已经不是最大的了，这三个节点将批准Y的取值，整个集群最终会对“取值为Y”达成一致。
+- 情况三：当然，另外一种可能的结果是S<sub>5</sub>提案时Promise应答中并未包含批准过X的决策节点，譬如应答S<sub>5</sub>提案时，节点S<sub>1</sub>已经批准了X，节点S<sub>2</sub>、S<sub>3</sub>未批准但返回了Promise应答，此时S<sub>5</sub>以更大的提案ID获得了S<sub>3</sub>、S<sub>4</sub>、S<sub>5</sub>的Promise，这三个节点均未批准过任何值，那么S<sub>3</sub>将不会再接受来自S<sub>1</sub>的Accept请求，因为它的提案ID已经不是最大的了，这三个节点将批准Y的取值，整个系统最终会对“取值为Y”达成一致。
 :::center
 ![](./images/paxos3.png)
 :::
