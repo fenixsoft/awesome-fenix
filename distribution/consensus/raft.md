@@ -20,9 +20,9 @@ sequenceDiagram
     节点（1，主）->>节点（1，主）: Accept/Accepted(n, i , value)
 	节点（1，主）->>节点（2）: Accept(n, i , value)
 	节点（1，主）->>节点（3）: Accept(n, i , value)
-	节点（3）->>节点（1，主）:Accepted(n, i , value)
-	节点（2）->>节点（1，主）:Accepted(n, i , value)
-	节点（1，主）->>-用户: 返回结果
+	节点（3）-->>节点（1，主）:Accepted(n, i , value)
+	节点（2）-->>节点（1，主）:Accepted(n, i , value)
+	节点（1，主）-->>-用户: 返回结果
 
 </mermaid>
 

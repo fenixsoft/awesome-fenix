@@ -95,12 +95,12 @@ module.exports = {
             link: 'https://github.com/fenixsoft/fenix-bookstore-frontend'
           }, {
             text: '前端工程在线示例 Fenix\'s Bookstore',
-            link: 'http://bookstore.icyfenix.cn'
+            link: 'https://bookstore.icyfenix.cn'
           }, {
-            text: '后端：单体架构 SpringBoot',
+            text: '后端：单体架构 Spring Boot',
             link: 'https://github.com/fenixsoft/monolithic_arch_springboot'
           }, {
-            text: '后端：微服务架构 SpringCloud',
+            text: '后端：微服务架构 Spring Cloud',
             link: 'https://github.com/fenixsoft/microservice_arch_springcloud'
           }, {
             text: '后端：微服务架构 Kubernetes',
@@ -270,16 +270,10 @@ module.exports = {
               '/distribution/consensus/gossip',
             ]
           },
-          {
-            title: '服务发现',
-            path: '/distribution/service-discovery/',
-            collapsable: false,
-            children: [
-              '/distribution/service-discovery/service-routing',
-              '/distribution/service-discovery/load-balancing',
-              '/distribution/service-discovery/composer',
-            ]
-          },
+          '/distribution/service-discovery',
+          '/distribution/service-routing',
+          '/distribution/load-balancing',
+          '/distribution/composer',
           {
             title: '服务容错',
             path: '/distribution/fault-tolerance/',

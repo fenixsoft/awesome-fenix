@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年5月15日
+
+- 完成“[服务发现](/distribution/service-discovery)”章节
+
 ### 2020年5月9日
 
 - 完成“[分布式共识算法](/distribution/consensus/)”章节
@@ -11,7 +15,6 @@ permalink: /changelog
 ### 2020年5月5日
 
 - 创建更新日志页面
-
 - 在[目录](/summary/)中增加根据Git提交时间生成的内容更新标识
 
 ### 2020年5月2日
