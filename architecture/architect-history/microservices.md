@@ -22,7 +22,7 @@ Microservices is a software development technique — a variant of the service-o
 
 微服务真正的崛起是在2014年，相信阅读此文的大多数读者，也是从Martin Flower与James Lewis合写的文章《[Microservices:a definition of this new architectural term](https://martinfowler.com/articles/microservices.html)》中首次了解到微服务的，并不是指各位一定读过这篇文章，或者准确地说，今天各位所了解的“微服务”是这篇文章中提出的“微服务”。在此文中，定义了现代微服务的概念：“**微服务是一种通过多个小型服务组合来构建单个应用的架构风格，这些服务围绕业务能力而非特定的技术标准来构建。各个服务可以采用不同的编程语言，不同的数据存储技术，运行在不同的进程之中。服务采取轻量级的通讯机制和自动化的部署机制实现通讯与运维**”。此外，文中给出了微服务的九个核心的业务与技术特征，包括：
 
-- **围绕业务能力构建**（Organized around Business Capabilities），这里再次强调了康维定律的重要性
+- **围绕业务能力构建**（Organized around Business Capabilities），这里再次强调了康威定律的重要性
 - **分散治理**（Decentralized Governance），这是表达“谁家孩子谁来管”的意思，服务对应的开发团队有直接对服务运行质量负责的责任，也有着不受干预地掌控服务各个方面的权力，譬如选择与其他服务异构的技术来实现自己的服务
 - **可独立替换升级的组件**（Componentization via Services），之所以通过“服务”（Service）而不是“类库”（Library）来构建组件，就是为了获得独立升级替换的能力
 - **产品化思维**（Products not Projects），避免把软件研发视作要完成某种功能，而是视作一种持续改进、提升的过程
