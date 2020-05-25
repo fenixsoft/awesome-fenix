@@ -4,7 +4,7 @@ permalink: /changelog
 
 # 更新日志
 
-### 2020年5月15日
+### 2020年5月25日
 
 - 提供了新的架构演示“[基于Kubernetes实现的后端工程](/exploration/projects/microservice_arch_kubernetes)”
 
