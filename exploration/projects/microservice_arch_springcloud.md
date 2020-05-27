@@ -1,4 +1,4 @@
-# 后端工程：Spring Cloud
+# 微服务：Spring Cloud
 
 <GitHubWrapper>
 <p align="center">
@@ -63,15 +63,10 @@
   # 进入工程根目录
   $ cd microservice_arch_springcloud
   
-  # 编译打包（方式1）
+  # 编译打包
   # 采用Maven Wrapper，此方式只需要机器安装有JDK 8或以上版本即可，无需包括Maven在内的其他任何依赖
   # 克隆后你可能需要使用chmod给mvnw赋予执行权限，如在Windows下应使用mvnw.cmd package代替以下命令
   $ ./mvnw package
-  
-  # 编译打包（方式2）
-  # 直接采用Maven，由于国内访问Apache Maven的分发地址和中央仓库速度感人
-  # 采用Maven Wrapper有可能长时间无响应，如你机器已安装了Maven，建议使用如下命令
-  $ mvn package
   
   # 工程将编译出七个SpringBoot Jar
   # 启动服务需要运行以下七个微服务组件
@@ -90,16 +85,16 @@
   # 商品交易微服务：localhost:8601
   $ java -jar ./bookstore-microservices-domain-payment/target/bookstore-microservices-domain-payment-1.0.0-SNAPSHOT.jar
   ```
-
+  
   由于在命令行启动多个服务、通过容器实现各服务隔离、扩展等都较繁琐，笔者提供了一个docker-compose.dev.yml文件，便于开发期调试使用：
-
+  
   ```bash
   # 使用Maven编译出JAR包后，可使用以下命令直接在本地构建镜像运行
-  $ docker-compose -f docker-compose.dev.yml up
+$ docker-compose -f docker-compose.dev.yml up
   ```
 
   以上两种本地运行的方式可任选其一，服务全部启动后，在浏览器访问：[http://localhost:8080](http://localhost:8080)，系统预置了一个用户（user:icyfenix，pw:123456），也可以注册新用户来测试<br/>
-
+  
 - 通过Git上的源码，在IDE环境中运行：
 
   - 以IntelliJ IDEA为例，Git克隆本项目后，在File -> Open菜单选择本项目所在的目录，或者pom.xml文件，以Maven方式导入工程。

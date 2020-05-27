@@ -249,7 +249,7 @@ Docker自带了bash的命令行补全，用其他shell，如zsh，则需采用zs
 >
 > ```bash
 > $ mkdir -p ~/.zsh/completion
-> $ curl -L https://raw.githubusercontent.com/docker/docker/master/contrib/completion/zsh/_docker > ~/.zsh/completion/_docker
+> $ curl -L https://raw.githubusercontent.com/docker/cli/master/contrib/completion/zsh/_docker > ~/.zsh/completion/_docker
 >
 > $ echo 'fpath=(~/.zsh/completion $fpath)' >> ~/.zshrc
 > $ echo 'autoload -Uz compinit && compinit -u' >> ~/.zshrc

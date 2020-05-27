@@ -107,7 +107,7 @@ module.exports = {
             link: 'https://github.com/fenixsoft/microservice_arch_kubernetes'
           }, {
             text: '后端：微服务架构 Istio',
-            link: 'https://github.com/fenixsoft/microservice_arch_istio'
+            link: 'https://github.com/fenixsoft/servicemesh_arch_istio'
           }, {
             text: '后端：无服务架构 Serverless',
             link: 'https://github.com/fenixsoft/serverless_arch'
@@ -150,7 +150,7 @@ module.exports = {
               '/exploration/projects/monolithic_arch_springboot',
               '/exploration/projects/microservice_arch_springcloud',
               '/exploration/projects/microservice_arch_kubernetes',
-              '/exploration/projects/microservice_arch_istio',
+              '/exploration/projects/servicemesh_arch_istio',
               '/exploration/projects/serverless_arch'
             ]
           }]

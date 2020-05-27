@@ -1,4 +1,4 @@
-# 后端工程：Spring Boot
+# 单体架构：Spring Boot
 
 <p align="center">
   <a href="https://icyfenix.cn" target="_blank">
@@ -50,15 +50,10 @@
 ># 进入工程根目录
 >$ cd monolithic_arch_springboot
 >
-># 编译打包（方式1）
+># 编译打包
 ># 采用Maven Wrapper，此方式只需要机器安装有JDK 8或以上版本即可，无需包括Maven在内的其他任何依赖
 ># 如在Windows下应使用mvnw.cmd package代替以下命令
 >$ ./mvnw package
->
-># 编译打包（方式2）
-># 直接采用Maven，由于国内访问Apache Maven的分发地址和中央仓库速度感人
-># 采用Maven Wrapper有可能长时间无响应，如你机器已安装了Maven，建议使用如下命令
->$ mvn package
 >
 ># 运行程序，地址为localhost:8080
 >$ java -jar target/bookstore-1.0.0-Monolithic-SNAPSHOT.jar
