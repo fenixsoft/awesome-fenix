@@ -198,17 +198,15 @@ $ kubeadm init --kubernetes-version v1.17.3 --pod-network-cidr=10.244.0.0/16
 
 这信息先恭喜你已经把控制平面安装成功了，但还有三行“you need……”、“you should……”、“you can……”开头的内容，这是三项后续的“可选”工作，下面继续介绍。
 
-## 让非Root用户可以使用Kubernetes <Badge text="可选" type="warning"/>
+## 为当前用户生成kubeconfig
 
-Kubernetes最初是以root用户安装的，如果需要非root的其他用户也可以使用Kubernetes集群，那需要为该用户先配置好admin.conf文件。切换至该用户后，进行如下操作：
+使用Kubernetes前需要为当前用户先配置好admin.conf文件。切换至需配置的用户后，进行如下操作：
 
 ```bash
 $ mkdir -p $HOME/.kube
 $ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 $ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
-
-当然，如果只是在测试环境，准备后续都准备使用root运行，那这个步骤可以略过。
 
 ## 安装CNI插件 <Badge text="可选" type="warning"/>
 
@@ -242,6 +240,27 @@ $ kubectl taint nodes --all node-role.kubernetes.io/master-
 :::center
 ![](./images/kubernetes-setup-completed.png)
 :::
+
+## 调整NodePort范围<Badge text="可选" type="warning"/>
+
+Kubernetes默认的NodePort范围为30000-32767，为了方便使用低端口，可能需要修改此范围，这需要调整Api-Server的启动参数，具体操作如下（如过是高可用部署，需要对每一个Master节点进行修改）：
+
+- 修改`/etc/kubernetes/manifests/kube-apiserver.yaml`文件，添加一个参数在`spec.containers.command`中增加一个参数`--service-node-port-range=1-32767`
+
+- 重启Api-Server，现在Kubernetes基本都是以静态Pods模式部署，Api-Server是一个直接由kubelet控制的静态Pod，删除后它会自动重启：
+
+  ```bash
+  # 获得 apiserver 的 pod 名字
+  export apiserver_pods=$(kubectl get pods --selector=component=kube-apiserver -n kube-system --output=jsonpath={.items..metadata.name})
+  # 删除 apiserver 的 pod
+  kubectl delete pod $apiserver_pods -n kube-system
+  ```
+
+- 验证修改结果：可以在pod中看到该参数即可
+
+  ```bash
+  kubectl describe pod $apiserver_pods -n kube-system
+  ```
 
 ## 启用kubectl命令自动补全功能 <Badge text="可选" type="warning"/>
 

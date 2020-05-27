@@ -11,7 +11,8 @@
   - Mock.js支持的纯前端演示：[https://bookstore.icyfenix.cn](https://bookstore.icyfenix.cn)
   - Vue.js 2实现前端工程：[https://github.com/fenixsoft/fenix-bookstore-frontend](https://github.com/fenixsoft/fenix-bookstore-frontend)
 - 后端工程：
-  - SpringBoot实现单体架构：[https://github.com/fenixsoft/monolithic_arch_springboot](https://github.com/fenixsoft/monolithic_arch_springboot) 
-  - SpringCloud实现微服务架构：[https://github.com/fenixsoft/microservice_arch_springcloud](https://github.com/fenixsoft/microservice_arch_springcloud)
-  - Kubernetes为基础设施的微服务架构：https://github.com/fenixsoft/microservice_arch_kubernetes
-  - Knative实现的无服务架构：https://github.com/fenixsoft/serverless_arch_knative
+  - Spring Boot 实现单体架构：[https://github.com/fenixsoft/monolithic_arch_springboot](https://github.com/fenixsoft/monolithic_arch_springboot)
+  - Spring Cloud 实现微服务架构：[https://github.com/fenixsoft/microservice_arch_springcloud](https://github.com/fenixsoft/microservice_arch_springcloud)
+  - Kubernetes 为基础设施的微服务架构：[https://github.com/fenixsoft/microservice_arch_kubernetes](https://github.com/fenixsoft/microservice_arch_kubernetes)
+  - Istio 为基础设施的服务网格架构：https://github.com/fenixsoft/servicemesh_arch_istio
+  - 基于云端的无服务架构：https://github.com/fenixsoft/serverless_arch

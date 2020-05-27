@@ -79,8 +79,9 @@
   - 后端工程：
     - Spring Boot 实现单体架构：[https://github.com/fenixsoft/monolithic_arch_springboot](https://github.com/fenixsoft/monolithic_arch_springboot)
     - Spring Cloud 实现微服务架构：[https://github.com/fenixsoft/microservice_arch_springcloud](https://github.com/fenixsoft/microservice_arch_springcloud)
-    - Kubernetes 为基础设施的微服务架构：https://github.com/fenixsoft/microservice_arch_kubernetes
-    - Knative 实现的无服务架构：https://github.com/fenixsoft/serverless_arch_knative
+    - Kubernetes 为基础设施的微服务架构：[https://github.com/fenixsoft/microservice_arch_kubernetes](https://github.com/fenixsoft/microservice_arch_kubernetes)
+    - Istio 为基础设施的服务网格架构：https://github.com/fenixsoft/servicemesh_arch_istio
+    - 基于云端的无服务架构：https://github.com/fenixsoft/serverless_arch
 
 
 
