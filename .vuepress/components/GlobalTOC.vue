@@ -101,7 +101,8 @@
         return (page.readingTime && page.readingTime.words > 100) ? page.path : null
       },
       getUpdate: function (page) {
-        return -1 * moment.duration(new moment(page.lastUpdated, 'L').diff(new Date())).days()
+        let lastDay = new moment(page.lastUpdated, 'L');
+        return Math.floor(-1 * moment.duration(lastDay.diff(new Date())).asDays())
       }
     }
   }

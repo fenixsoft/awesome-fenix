@@ -23,7 +23,7 @@
 
 ## 需求场景
 
-当引入了<a href="https://icyfenix.cn/exploration/projects/microservice_arch_springcloud.html">微服务架构</a>后，小书店Fenix's Bookstore解决了扩容缩容、独立部署、运维和管理等问题，满足了产品经理不断提出的日益复杂的业务需求。可是，对于团队的开发人员、设计人员、架构人员来说，并没有感觉到工作变得轻松，微服务中的各种新技术名词，如配置中心、服务发现、网关、熔断、负载均衡等等，就够一名新手学习好长一段时间；从产品角度来看，各种Spring Cloud的技术套件，如Config、Eureka、Zuul、Hystrix、Ribbon、Feign等，也占据了产品的大部分编译后的代码容量。之所以微服务架构里，我们选择在应用层面而不是基础设施层面去解决这些分布式问题，完全是因为由硬件构成的基础设施，跟不上由软件构成的应用服务的灵活性的无奈之举。当Kubernetes统一了容器编排管理系统之后，这些纯技术性的底层问题，便开始有了被广泛认可和采纳的基础设施层面的解决方案。为此，Fenix's Bookstore也迎来了它在“后微服务时代”中的下一次架构演进，这次升级的目标主要有如下两点：
+当引入了<a href="https://icyfenix.cn/exploration/projects/microservice_arch_springcloud.html">基于Spring Cloud的微服务架构</a>后，小书店Fenix's Bookstore初步解决了扩容缩容、独立部署、运维和管理等问题，满足了产品经理不断提出的日益复杂的业务需求。可是，对于团队的开发人员、设计人员、架构人员来说，并没有感觉到工作变得轻松，微服务中的各种新技术名词，如配置中心、服务发现、网关、熔断、负载均衡等等，就够一名新手学习好长一段时间；从产品角度来看，各种Spring Cloud的技术套件，如Config、Eureka、Zuul、Hystrix、Ribbon、Feign等，也占据了产品的大部分编译后的代码容量。之所以微服务架构里，我们选择在应用层面而不是基础设施层面去解决这些分布式问题，完全是因为由硬件构成的基础设施，跟不上由软件构成的应用服务的灵活性的无奈之举。当Kubernetes统一了容器编排管理系统之后，这些纯技术性的底层问题，便开始有了被广泛认可和采纳的基础设施层面的解决方案。为此，Fenix's Bookstore也迎来了它在“后微服务时代”中的下一次架构演进，这次升级的目标主要有如下两点：
 
 - **目标一**：尽可能缩减非业务功能代码的比例。<br/>在Fenix's Bookstore中，用户服务（Account）、商品服务（Warehouse）、交易服务（Payment）三个工程是真正承载业务逻辑的，认证授权服务（Security）可以认为是同时涉及到了技术与业务，而配置中心（Configuration）、网关（Gateway）和服务注册中心（Registry）则是纯技术性。我们希望尽量消除这些纯技术的工程，以及那些依附在其他业务工程上的纯技术组件。
 - **目标二**：尽可能在不影响原有的代码的前提下完成迁移。<br/>得益于Spring Framework 4中的Conditional Bean等声明式特性的出现，近年来新发布的技术组件，[声明式编程](https://en.wikipedia.org/wiki/Declarative_programming)（Declarative Programming）已经逐步取代[命令式编程](https://en.wikipedia.org/wiki/Imperative_programming)（Imperative Programming）成为主流。这使得我们可以从目的而不是过程的角度去描述编码意图，使得代码几乎不会与具体技术实现产生耦合，若要更换一种技术实现，只需要调整配置中的声明便可做到。

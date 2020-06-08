@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年6月13日
+
+- 提供了新的架构演示“[基于Istio实现的后端工程](/exploration/projects/servicemesh_arch_istio)”
+
 ### 2020年5月25日
 
 - 提供了新的架构演示“[基于Kubernetes实现的后端工程](/exploration/projects/microservice_arch_kubernetes)”

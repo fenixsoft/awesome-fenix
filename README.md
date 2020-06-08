@@ -58,13 +58,13 @@
     $ npm run dev
     ```
 
-  - 生成PDF文件：工程源码中已带有基于 [vuepress-plugin-export](https://github.com/ulivz/vuepress-plugin-export) 改造（针对本文档定制过）的PDF导出插件，如你希望生成全文 PDF 文件，请使用如下命令：
+  - 生成PDF文件：工程源码中已带有基于 [vuepress-plugin-export](https://github.com/ulivz/vuepress-plugin-export) 改造（针对本文档定制过）的PDF导出插件，如你希望生成全文 PDF 文件，请在已进行上一步工程克隆和依赖安装的前提下使用如下命令：
 
     ```bash
     # 编译PDF，结果将输出在网站根目录
     $ npm run export
     ```
-    PDF 全文编译时间较长，在笔者机器上约耗时25分钟，在 Travis-CI 上约需要约6分钟。PDF 中文字体采用阿里巴巴普惠字体渲染，此字体被允许免费使用与传播。
+    PDF 全文编译时间较长，在笔者机器上约耗时25分钟，在 Travis-CI 上约需要约8分钟。PDF 中文字体采用阿里巴巴普惠字体渲染，此字体被允许免费使用与传播。
 
 - **二次演绎、传播和发行**：本文档中所有的内容，如引用其他资料，均在文档中明确列出资料来源，一切权利归属原作者。除此以外的所有内容，包括但不限于文字、图片、表格，等等，均属笔者原创，这些原创内容，笔者声明以[知识共享署名 4.0](http://creativecommons.org/licenses/by/4.0/)发行，只要遵循许可协议条款中**署名**、**非商业性使用**、**相同方式共享**的条件，你可以在任何地方、以任何形式、向任何人使用、修改、演绎、传播本文档中任何部分的内容。详细可见本文档的“协议”一节。
 
@@ -80,7 +80,7 @@
     - Spring Boot 实现单体架构：[https://github.com/fenixsoft/monolithic_arch_springboot](https://github.com/fenixsoft/monolithic_arch_springboot)
     - Spring Cloud 实现微服务架构：[https://github.com/fenixsoft/microservice_arch_springcloud](https://github.com/fenixsoft/microservice_arch_springcloud)
     - Kubernetes 为基础设施的微服务架构：[https://github.com/fenixsoft/microservice_arch_kubernetes](https://github.com/fenixsoft/microservice_arch_kubernetes)
-    - Istio 为基础设施的服务网格架构：https://github.com/fenixsoft/servicemesh_arch_istio
+    - Istio 为基础设施的服务网格架构：[https://github.com/fenixsoft/servicemesh_arch_istio](https://github.com/fenixsoft/servicemesh_arch_istio)
     - 基于云端的无服务架构：https://github.com/fenixsoft/serverless_arch
 
 
