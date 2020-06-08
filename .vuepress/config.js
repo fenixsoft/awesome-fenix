@@ -155,6 +155,38 @@ module.exports = {
             ]
           }]
       }, {
+        title: '演进中的架构',
+        collapsable: false,
+        children: [
+          {
+            title: '✔️ 服务架构演进史',
+            path: '/architecture/architect-history/',
+            collapsable: false,
+            children: [
+              '/architecture/architect-history/primitive-distribution',
+              '/architecture/architect-history/monolithic',
+              '/architecture/architect-history/soa',
+              '/architecture/architect-history/microservices',
+              '/architecture/architect-history/post-microservices',
+              '/architecture/architect-history/serverless'
+            ]
+          }
+          // ,
+          // {
+          //   title: '从架构到实现',
+          //   collapsable: false,
+          //   children: [
+          //     '/architecture/architect-framework/j2ee-base-arch',
+          //     '/architecture/architect-framework/springboot-base-arch',
+          //     '/architecture/architect-framework/springcloud-base-arch',
+          //     '/architecture/architect-framework/kubernetes-base-arch',
+          //     '/architecture/architect-framework/servicemesh-lstio-arch',
+          //     '/architecture/architect-framework/serverless-arch-knative',
+          //     '/architecture/architect-framework/serverless-arch-kubeless'
+          //   ]
+          // }
+        ]
+      }, {
         title: '设计者的视角',
         collapsable: false,
         children: [
@@ -173,20 +205,7 @@ module.exports = {
                 ]
               },
               {
-                title: '✔️ 安全架构',
-                path: '/architect-perspective/general-architecture/system-security/',
-                children: [
-                  '/architect-perspective/general-architecture/system-security/authentication',
-                  '/architect-perspective/general-architecture/system-security/authorization',
-                  '/architect-perspective/general-architecture/system-security/credentials',
-                  '/architect-perspective/general-architecture/system-security/confidentiality',
-                  '/architect-perspective/general-architecture/system-security/transport-security',
-                  '/architect-perspective/general-architecture/system-security/verification',
-                  '/architect-perspective/general-architecture/system-security/exploit'
-                ]
-              },
-              {
-                title: '✔️ 事务一致性',
+                title: '✔️ 事务处理',
                 path: '/architect-perspective/general-architecture/transaction/',
                 children: [
                   '/architect-perspective/general-architecture/transaction/local',
@@ -206,6 +225,19 @@ module.exports = {
                   '/architect-perspective/general-architecture/diversion-system/load-balancing',
                   '/architect-perspective/general-architecture/diversion-system/cache-middleware',
                   '/architect-perspective/general-architecture/diversion-system/database-expansion'
+                ]
+              },
+              {
+                title: '✔️ 安全架构',
+                path: '/architect-perspective/general-architecture/system-security/',
+                children: [
+                  '/architect-perspective/general-architecture/system-security/authentication',
+                  '/architect-perspective/general-architecture/system-security/authorization',
+                  '/architect-perspective/general-architecture/system-security/credentials',
+                  '/architect-perspective/general-architecture/system-security/confidentiality',
+                  '/architect-perspective/general-architecture/system-security/transport-security',
+                  '/architect-perspective/general-architecture/system-security/verification',
+                  '/architect-perspective/general-architecture/system-security/exploit'
                 ]
               },
               {
@@ -230,37 +262,6 @@ module.exports = {
           }
         ]
       }, {
-        title: '演进中的架构',
-        collapsable: false,
-        children: [
-          {
-            title: '✔️ 服务架构演进史',
-            path: '/architecture/architect-history/',
-            collapsable: false,
-            children: [
-              '/architecture/architect-history/primitive-distribution',
-              '/architecture/architect-history/monolithic',
-              '/architecture/architect-history/soa',
-              '/architecture/architect-history/microservices',
-              '/architecture/architect-history/post-microservices',
-              '/architecture/architect-history/serverless'
-            ]
-          },
-          {
-            title: '从架构到实现',
-            collapsable: false,
-            children: [
-              '/architecture/architect-framework/j2ee-base-arch',
-              '/architecture/architect-framework/springboot-base-arch',
-              '/architecture/architect-framework/springcloud-base-arch',
-              '/architecture/architect-framework/kubernetes-base-arch',
-              '/architecture/architect-framework/servicemesh-lstio-arch',
-              '/architecture/architect-framework/serverless-arch-knative',
-              '/architecture/architect-framework/serverless-arch-kubeless'
-            ]
-          }
-        ]
-      }, {
         title: '分布式的基石',
         collapsable: false,
         children: [
@@ -274,34 +275,51 @@ module.exports = {
               '/distribution/consensus/gossip',
             ]
           },
-          '/distribution/service-discovery',
-          '/distribution/service-routing',
-          '/distribution/load-balancing',
-          '/distribution/composer',
           {
-            title: '服务容错',
-            path: '/distribution/fault-tolerance/',
+            title: '服务互联',
+            // path: '/distribution/connect/',
             collapsable: false,
             children: [
-              '/distribution/fault-tolerance/isolation',
-              '/distribution/fault-tolerance/breaker',
-              '/distribution/fault-tolerance/timeout',
-              '/distribution/fault-tolerance/traffic-control',
-              '/distribution/fault-tolerance/service-downgrade',
-              '/distribution/fault-tolerance/exception-inject',
+              '/distribution/connect/service-discovery',
+              '/distribution/connect/service-routing',
+              '/distribution/connect/load-balancing',
+              '/distribution/connect/composer',
+              '/distribution/connect/configuration',
             ]
           },
           {
-            title: '服务监控',
-            path: '/distribution/service-monitoring/',
+            title: '流量管控',
+            // path: '/distribution/traffic-management/',
             collapsable: false,
             children: [
-              '/distribution/service-monitoring/logging',
-              '/distribution/service-monitoring/invokechain-trace',
-              '/distribution/service-monitoring/apm',
+              '/distribution/traffic-management/isolation',
+              '/distribution/traffic-management/breaker',
+              '/distribution/traffic-management/timeout',
+              '/distribution/traffic-management/traffic-control',
+              '/distribution/traffic-management/service-downgrade',
+              '/distribution/traffic-management/exception-inject',
             ]
           },
-          '/distribution/configuration',
+          {
+            title: '可靠通讯',
+            // path: '/distribution/secure/',
+            collapsable: false,
+            children: [
+              '/distribution/secure/traffic-encryption',
+              '/distribution/secure/access-policies',
+              '/distribution/secure/auditing',
+            ]
+          },
+          {
+            title: '可观测性',
+            // path: '/distribution/observability/',
+            collapsable: false,
+            children: [
+              '/distribution/observability/logging',
+              '/distribution/observability/invokechain-trace',
+              '/distribution/observability/apm',
+            ]
+          },
         ]
       }, {
         title: '不可变基础设施',
@@ -309,37 +327,57 @@ module.exports = {
         children: [
           '/immutable-infrastructure/history',
           {
-            title: '容器',
+            title: '虚拟化容器',
             path: '/immutable-infrastructure/container/',
             collapsable: false,
             children: [
               '/immutable-infrastructure/container/cri',
               '/immutable-infrastructure/container/resource-isolation',
-              '/immutable-infrastructure/container/image',
+              '/immutable-infrastructure/container/resource',
               '/immutable-infrastructure/container/manage',
             ]
           },
           {
-            title: '网络',
+            title: '容器间网络',
             path: '/immutable-infrastructure/network/',
             collapsable: false,
             children: [
               '/immutable-infrastructure/network/cni',
+              '/immutable-infrastructure/network/strategy',
+              '/immutable-infrastructure/network/plugin',
               '/immutable-infrastructure/network/container-lb'
             ]
           },
           {
-            title: '存储',
+            title: '配置与数据持久化',
             path: '/immutable-infrastructure/storage/',
             collapsable: false,
             children: [
               '/immutable-infrastructure/storage/csi',
+              '/immutable-infrastructure/storage/dfs',
               '/immutable-infrastructure/storage/storage-plugins'
             ]
           },
-          '/immutable-infrastructure/gpu-support',
+          {
+            title: 'GPU虚拟化',
+            path: '/immutable-infrastructure/gpu/',
+            collapsable: false,
+            children: [
+              '/immutable-infrastructure/gpu/device-plugin',
+              '/immutable-infrastructure/gpu/gpu-schedule',
+              '/immutable-infrastructure/gpu/nvidia'
+            ]
+          },
+          {
+            title: '扩展基础设施',
+            path: '/immutable-infrastructure/extension/',
+            collapsable: false,
+            children: [
+              '/immutable-infrastructure/extension/crd',
+              '/immutable-infrastructure/extension/api-server',
+            ]
+          },
           '/immutable-infrastructure/hardware-schedule',
-          '/immutable-infrastructure/cloud-native',
         ]
       }, {
         title: '技巧与专题',
@@ -357,8 +395,8 @@ module.exports = {
             ]
           },
           '/tricks/responsive-programming',
-          '/tricks/zero-copy',
-          '/tricks/stream-computing'
+          '/tricks/lambda-stream',
+          '/tricks/aio'
         ]
       }
       , {
