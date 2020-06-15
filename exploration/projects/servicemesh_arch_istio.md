@@ -9,7 +9,7 @@
 </p>
 <p align="center">
     <a href="https://icyfenix.cn"  style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/Release-v1.svg"></a>
-    <a href="https://travis-ci.com/fenixsoft/servicemesh_arch_istio" target="_blank"  style="display:inline-block"><img src="https://travis-ci.com/fenixsoft/servicemesh_arch_istio.svg?branch=master" alt="Travis-CI"></a>
+    <a href="https://travis-ci.com/fenixsoft/servicemesh_arch_istio" target="_blank"  style="display:inline-block"><img src="https://travis-ci.com/fenixsoft/monolithic_arch_istio.svg?branch=master" alt="Travis-CI"></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0"  target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/License-Apache.svg" alt="License"></a>
 <a href="https://creativecommons.org/licenses/by/4.0/"  target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/DocLicense-CC-red.svg" alt="Document License"></a>
     <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/Author-IcyFenix-blue.svg" alt="About Author"></a>
@@ -54,7 +54,7 @@ Kubernetes给予了我们强大的虚拟化基础设施，这是一把好用的�
 
   ```bash
   # 资源描述文件
-  $ kubectl create -f https://raw.githubusercontent.com/fenixsoft/servicemesh_arch_istio/master/bookstore.yml
+  $ kubectl apply -f https://raw.githubusercontent.com/fenixsoft/servicemesh_arch_istio/master/bookstore.yml
   ```
 
   当所有的Pod都处于正常工作状态后（这个过程一共需要下载几百MB的镜像，尤其是Docker中没有各层基础镜像缓存时，请根据自己的网速保持一定的耐心。未来GraalVM对Spring Cloud的支持更成熟一些后，可以考虑<a href="https://icyfenix.cn/tricks/graalvm/">采用GraalVM来改善</a>这一点）。

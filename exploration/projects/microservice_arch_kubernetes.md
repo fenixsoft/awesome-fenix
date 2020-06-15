@@ -45,7 +45,7 @@
 
   ```bash
   # 资源描述文件
-  $ kubectl create -f https://raw.githubusercontent.com/fenixsoft/microservice_arch_kubernetes/master/bookstore.yml
+  $ kubectl apply -f https://raw.githubusercontent.com/fenixsoft/microservice_arch_kubernetes/master/bookstore.yml
   ```
   
   当所有的Pod都处于正常工作状态后（这个过程一共需要下载几百MB的镜像，尤其是Docker中没有各层基础镜像缓存时，请根据自己的网速保持一定的耐心。未来GraalVM对Spring Cloud的支持更成熟一些后，可以考虑<a href="https://icyfenix.cn/tricks/graalvm/">采用GraalVM来改善</a>这一点），在浏览器访问：[http://localhost:30080](http://localhost:30080)，系统预置了一个用户（user:icyfenix，pw:123456），也可以注册新用户来测试。
