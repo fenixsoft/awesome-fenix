@@ -90,7 +90,7 @@
   
   ```bash
   # 使用Maven编译出JAR包后，可使用以下命令直接在本地构建镜像运行
-$ docker-compose -f docker-compose.dev.yml up
+  $ docker-compose -f docker-compose.dev.yml up
   ```
 
   以上两种本地运行的方式可任选其一，服务全部启动后，在浏览器访问：[http://localhost:8080](http://localhost:8080)，系统预置了一个用户（user:icyfenix，pw:123456），也可以注册新用户来测试<br/>
