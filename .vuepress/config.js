@@ -391,7 +391,7 @@ module.exports = {
               '/tricks/graalvm/graal-compiler',
               '/tricks/graalvm/substratevm',
               '/tricks/graalvm/graalvm-native',
-              '/tricks/graalvm/spring-over-graal'
+              '/tricks/graalvm/spring-over-graal',
             ]
           },
           '/tricks/responsive-programming',
