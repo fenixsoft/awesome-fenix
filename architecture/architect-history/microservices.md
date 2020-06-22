@@ -32,13 +32,13 @@ Microservices is a software development technique — a variant of the service-o
 - **演进式设计**（Evolutionary Design），容错性设计承认服务会出错，演进式设计则是承认服务会被报废淘汰。一个良好设计的服务，应该是能够报废的，而不是期望得到长久的发展，如果一个系统中出现不可更改、无可替代的服务，这并不能说明这个服务是多么的重要，反而是一种系统设计上脆弱的表现，微服务带来的独立、自治，也是在反对这种脆弱性的表现。
 - **基础设施自动化**（Infrastructure Automation）：基础设施自动化，如CI/CD的长足发展，显著减少了构建、发布、运维工作的复杂性。由于运维的服务数量比起单体架构要有数量级的增长，使用微服务的团队更加依赖于基础设施的自动化，人工是无法运维成百上千乃至成千上万级别的服务的。
 
-《Microservices》一文中对微服务特征的描写已经相当具体了，此文中除了定义的微服务是什么，还专门申明了微服务不是什么——微服务不是SOA的衍生品，应该明确地与SOA划清了界线，不再贴上任何SOA的标签。如此，微服务的概念才算是一种真正丰满、独立、具体的架构风格，为它在未来的几年时间里如明星一般闪耀崛起于技术舞台铺下了厚实基础。
+《Microservices》一文中对微服务特征的描写已经相当具体了，此文中除了定义的微服务是什么，还专门申明了微服务不是什么——微服务不是SOA的变体或衍生品，应该明确地与SOA划清了界线，不再贴上任何SOA的标签。如此，微服务的概念才算是一种真正丰满、独立、具体的架构风格，为它在未来的几年时间里如明星一般闪耀崛起于技术舞台铺下了理论基础。
 
 :::quote Microservices and SOA
 
 This common manifestation of SOA has led some microservice advocates to reject the SOA label entirely, although others consider microservices to be one form of SOA , perhaps service orientation done right. Either way, the fact that SOA means such different things means it's valuable to have a term that more crisply defines this architectural style
 
-与SOA的共同表现形式已经让微服务主张彻底拒绝再被打上SOA的标签，尽管有一些人认为微服务就是SOA的一种形式，也许在面向服务方面是没有错的。无论哪种方式，SOA都意味着不同的东西，这意味着使用一个术语来更加简明的定义这种架构风格是有必要的。
+由于与SOA具有一致的表现形式，这让微服务的支持者更加迫切地拒绝再被打上SOA的标签，尽管有一些人坚持认为微服务就是SOA的一种变体形式，也许从面向服务方面这个方面来说是对的，但无论如何，SOA与微服务都是两种不同的东西，正因如此，使用一个别的名称来简明地定义这种架构风格就显得更有必要。
 
 :::right
 
