@@ -6,6 +6,10 @@ permalink: /changelog
 
 ### 2020年6月18日
 
+- 重写了“[远程服务调用](/architect-perspective/general-architecture/api-style/rpc.html)”章节
+
+### 2020年6月18日
+
 - [GraalVM](/tricks/graalvm/)增加了视频PPT讲解：[GraalVM——云原生时代的Java](/tricks/graalvm/video)。<br/>正在与某知识服务商合作，未来本文档的主要内容会提供成音频稿。并且仍然会以公开课的性质免费提供。
 - 更新了[服务架构演进史](/architecture/architect-history/)，大概增加了40%的内容。
 
