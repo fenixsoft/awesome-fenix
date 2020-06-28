@@ -2,11 +2,11 @@
 
 [远程服务调用](https://en.wikipedia.org/wiki/Remote_procedure_call)（Remote Procedure Call，RPC）在计算机科学中已经存在有超过40年时间了，但在今天仍然可以在Quora、知乎等网站上随处可见“什么是RPC？”、“如何评价某某RPC技术？”、“RPC好还是REST好？”之类的问题，仍然“每天”都有新的不同形状的RPC轮子被发明制造出来，仍然有层出不穷的文章去比对谷歌gRPC、阿里Dubbo等等各个厂家的RPC技术优劣。
 
-在计算机这个技术快速更迭的领域，以上肯定不是正常现象，这一方面是由于微服务风潮带来的热度，另外一方面，也不得不承认，某些开发者对RPC本身解决什么问题、如何解决这些问题的或多或少存在认知模糊之处。本篇中，笔者将尽可能从根源到现状，尝试去解析清楚RPC的前世与今生。
+在计算机这个技术快速更迭的领域，以上情景并不是常见的现象，这一方面是由于微服务风潮带来的热度，另外一方面，也不得不承认，部分开发者对RPC本身解决什么问题、如何解决这些问题、为什么要这样解决都或多或少存在认知模糊。本篇中，笔者将尽可能从根源到现状，从表现到本质去解析清楚RPC的来龙去脉。
 
-## 通信的成本
+## 进程间通讯
 
-尽管今天的大多数RPC技术已经不再追求这个目标了，但无可否认，RPC出现的最初目的，就是**为了让计算机能够跟调用本地方法一样去调用远程方法**。所以，我们先来看一下本地方法调用时，会发生什么。笔者通过以下这段Java风格的伪代码，先来定义几个概念：
+尽管今天的大多数RPC技术已经不再追求这个目标了，但无可否认，RPC出现的最初目的，就是**为了让计算机能够跟调用本地方法一样去调用远程方法**。所以，我们先来看一下本地方法调用时，会发生什么。笔者通过以下这段Java风格的伪代码，来定义几个概念：
 
 ```java
 // 调用者（Caller）      ： main()
@@ -21,13 +21,12 @@ public static void main(String[] args) {
 
 在完全不考虑编译器优化的前提下，程序运行至调用`println()`的这一行时，计算机（物理机或者虚拟机）会做以下这些事情：
 
-1. 将字符串`helloworld`的引用压栈。
-2. 确定`println()`方法的版本。
-   这其实并不是一个简单的过程，不论是编译时静态解析也好，是运行时动态分派也好，总之必须根据某些语言规范中明确定义原则，找到明确的`Callee`，“明确”是指唯一的一个`Callee`，或者有严格优先级的多个`Callee`，譬如不同的重载版本。笔者曾在《[深入理解Java虚拟机](https://book.douban.com/subject/34907497/)》中用一整章篇幅介绍这个过程，这里就不赘述了。
-3. 从栈中获得`Parameter`，以此为输入，执行`Callee`内部的逻辑。
-4. 将`Callee`的执行结果压栈，并将指令流恢复到`Call Site`处继续向下执行。
+1. **传递方法参数**：将字符串`helloworld`的引用压栈。
+2. **确定方法版本**：确定`println()`方法的版本其实并不是一个简单的过程，不论是编译时静态解析也好，是运行时动态分派也好，总之必须根据某些语言规范中明确定义原则，找到明确的`Callee`，“明确”是指唯一的一个`Callee`，或者有严格优先级的多个`Callee`，譬如不同的重载版本。笔者曾在《[深入理解Java虚拟机](https://book.douban.com/subject/34907497/)》中用一整章篇幅介绍该过程，这里就不赘述了。
+3. **执行方法**：从栈中获得`Parameter`，以此为输入，执行`Callee`内部的逻辑。
+4. **传回执行结果**：将`Callee`的执行结果压栈，并将指令流恢复到`Call Site`处继续向下执行。
 
-接下来，我们考虑当`println()`方法不在当前进程的内存地址空间中的情况。很显然，此时第一步就无法做下去，将参数在一个进程的内存中压栈，对于另外一个进程执行的方法毫无意义。我们面临的第一个问题是两个进程之间，要有交换数据的手段，这件事情被称为“[进程间通讯](https://en.wikipedia.org/wiki/Inter-process_communication)”（Inter-Process Communication，IPC）。可以考虑的办法有以下几种：
+接下来，我们考虑当`println()`方法不在当前进程的内存地址空间中的情况。很显然，此时第一步如何将参数传递给方法就无法做下去，把参数在调用进程的内存中压栈，对于另外一个进程执行的方法毫无意义。我们面临的第一个问题是两个进程之间，要有交换数据的手段，这件事情被称为“[进程间通讯](https://en.wikipedia.org/wiki/Inter-process_communication)”（Inter-Process Communication，IPC）。可以考虑的办法有以下几种：
 
 - **管道**（Pipe）或者**具名管道**（Named Pipe）：管道类似于两个进程间的桥梁，用于进程间传递少量的字符流或字节流。普通管道可用于有亲缘关系进程（由一个进程启动的另外一个进程）间的通信，具名管道摆脱了普通管道没有名字的限制，除具有管道所具有的功能外，它还允许无亲缘关系进程间的通信。管道典型的应用就是命令行中的`|`操作符，譬如：
 
@@ -53,7 +52,9 @@ public static void main(String[] args) {
 
 - **套接字接口**（Socket）：以上两种方式只适合单机多进程间的通讯，套接字接口是更为普适的进程间通信机制，可用于不同机器之间的进程通信。起初是由Unix系统的BSD分支开发出来的，但现在已经移植到所有*nix系统上。基于效率考虑，当仅限于本机进程间通讯时，套接字接口是被优化过的，不会经过网络协议栈，不需要打包拆包、计算校验和、维护序号和应答等操作，只是简单地将应用层数据从一个进程拷贝到另一个进程，此时可以称之为Unix Domain Socket。
 
-之所以花费那么多篇幅来介绍IPC的手段，是因为最初计算机科学家们的想法，就是将RPC作为IPC的一种特例来看待的（其实现在分类上这么说也仍然合适，只是到具体操作手段上不会这么做了）。请读者特别关注最后一种基于套接字接口的通讯方式（IPC Socket），它不仅普适，能够支持基于的网络多机进程间通讯，而且被许多实践验证过是有效的，譬如X Window服务器和GUI程序之间的交互就是由这套机制来实现。此外，这样做有一个看起来无比诱人的好处，由于IPC Socket是操作系统提供的标准接口，完全有可能把远程方法调用的通讯细节隐藏在操作系统底层，从应用层面上看来可以做到远程调用与本地方法调用几乎完全一致。事实上，在[原始分布式时代](/architecture/architect-history/primitive-distribution.html)的初期确实是奔着这个目标去做的，但这种透明的调用形式却反而造成了程序员**误以为通信是无成本的假象**，从而被滥用以致于显著降低了分布式系统的性能。1987年，当“透明的RPC调用”还是主流观点的时候，Andrew Tanenbaum教授就发表了论文《[A Critique of the Remote Procedure Call Paradigm](https://www.cs.vu.nl/~ast/Publications/Papers/euteco-1988.pdf)》，对这种透明的RPC范式提出了一系列质问：
+## 通信的成本
+
+之所以花费那么多篇幅来介绍IPC的手段，是因为最初计算机科学家们的想法，就是将RPC作为IPC的一种特例来看待的（其实现在分类上这么说也仍然合适，只是到具体操作手段上不会这么做了）。请读者特别关注最后一种基于套接字接口的通讯方式（IPC Socket），它不仅普适，能够支持基于的网络多机进程间通讯，而且被许多实践验证过是有效的，譬如X Window服务器和GUI程序之间的交互就是由这套机制来实现。此外，这样做有一个看起来无比诱人的好处，由于IPC Socket是操作系统提供的标准接口，完全有可能把远程方法调用的通讯细节隐藏在操作系统底层，从应用层面上看来可以做到远程调用与本地方法调用几乎完全一致。事实上，在[原始分布式时代](/architecture/architect-history/primitive-distribution.html)的初期确实是奔着这个目标去做的，但这种透明的调用形式却反而造成了程序员**误以为通信是无成本的假象**，从而被滥用以致于显著降低了分布式系统的性能。1987年，当“透明的RPC调用”一度成为主流范式的时候，Andrew Tanenbaum教授曾发表了论文《[A Critique of the Remote Procedure Call Paradigm](https://www.cs.vu.nl/~ast/Publications/Papers/euteco-1988.pdf)》，对这种透明的RPC范式提出了一系列质问：
 
 - 两个进程通讯，谁作为服务端，谁作为客户端？
 - 怎样进行异常处理？异常该如何让调用者获知？
@@ -94,7 +95,7 @@ Remote procedure call is the synchronous language-level transfer of control betw
 
 80年代中后期，惠普和Apollo提出了[网络运算架构](https://en.wikipedia.org/wiki/Network_Computing_System)（Network Computing Architecture，NCA）的设想，并随后在[DCE项目](https://en.wikipedia.org/wiki/Distributed_Computing_Environment)中发展成在Unix系统下的远程服务调用框架[DCE/RPC](https://zh.wikipedia.org/wiki/DCE/RPC)，笔者曾经在“[原始分布式时代](/architecture/architect-history/primitive-distribution.html)”中介绍过DEC，这是历史上第一次对分布式有组织的探索尝试，由于DEC本身是基于Unix操作系统的，所以DEC/RPC也仅面向于在Unix系统程序之间通用。在1988年，Sun Microsystems起草并向[互联网工程任务组](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force)（Internet Engineering Task Force，IETF）提交了[RFC 1050](https://tools.ietf.org/html/rfc1050)规范，此规范中设计了一套面向于广域网或混合网络环境的、基于TCP/IP网络的、支持C语言的RPC协议，后被称为[ONC RPC](https://en.wikipedia.org/wiki/Open_Network_Computing_Remote_Procedure_Call)（Open Network Computing RPC，也被称为Sun RPC），这两个RPC协议就可以算是如今各种RPC协议的鼻祖了，从它们开始，直至接下来这几十年来所有流行过的RPC协议，都不外乎通过各种手段来解决以下三个基本问题：
 
-- **如何表示数据**：无论是将参数传递给另外一个进程，还是从另外一个进程中取回执行结果，都涉及到数据应该如何表示的问题。进程内的方法调用，使用程序语言内置的和程序员自定义的数据类型就很容易解决数据表示问题，远程方法调用则完全可能面临交互双方分属不同程序语言的情况；即使只支持同一种语言RPC协议，在不同硬件指令集、不同操作系统下，也完全可能有不一样表现细节，譬如数据宽度、字节序的差异等等。行之有效的做法是将交互双方所涉及的数据转换为某种事先约定好的中立数据流格式来进行传输，将数据流转换回不同语言中对应的数据类型来进行使用，这个操作相信大家都很熟悉，就是序列化与反序列化。每种RPC协议都应该要有对应的序列化协议，如：
+- **如何表示数据**：这里数据包括了传递给方法的参数，以及方法的返回值。无论是将参数传递给另外一个进程，还是从另外一个进程中取回执行结果，都涉及到它们应该如何表示的问题。进程内的方法调用，使用程序语言内置的和程序员自定义的数据类型就很容易解决数据表示问题，远程方法调用则完全可能面临交互双方分属不同程序语言的情况；即使只支持同一种语言RPC协议，在不同硬件指令集、不同操作系统下，也完全可能有不一样表现细节，譬如数据宽度、字节序的差异等等。行之有效的做法是将交互双方所涉及的数据转换为某种事先约定好的中立数据流格式来进行传输，将数据流转换回不同语言中对应的数据类型来进行使用，这个操作相信大家都很熟悉，就是序列化与反序列化。每种RPC协议都应该要有对应的序列化协议，如：
   - ONC RPC的[External Data Representation](https://en.wikipedia.org/wiki/External_Data_Representation) （XDR）
   - CORBA的[Common Data Representation](https://en.wikipedia.org/wiki/Common_Data_Representation)（CDR）
   - Java RMI的[Java Object Serialization Stream Protocol](https://docs.oracle.com/javase/8/docs/platform/serialization/spec/protocol.html#a10258)
@@ -115,6 +116,8 @@ Remote procedure call is the synchronous language-level transfer of control betw
   - Web Service的[Web Service Description Language](https://zh.wikipedia.org/wiki/WSDL)（WSDL）
   - JSON-RPC的[JSON Web Service Protocol](https://en.wikipedia.org/wiki/JSON-WSP)（JSON-WSP）
   - ……
+
+以上三个RPC中的基本问题，我们都可以在本地方法调用中找到对应的操作。RPC的思想始于本地方法调用，尽管早已不再追求实现成与本地方法调用完全一致，但其发展仍然带有本地方法调用的深刻烙印，抓住两者间的联系来类比，对我们理解RPC的本质很有好处。
 
 ## 统一的RPC
 
@@ -141,7 +144,7 @@ Web Service没有天生属于哪家公司的烙印，商业运作非常成功，
 
 经历了RPC框架的“战国时代”，开发者们终于认可了不同的RPC框架所提供的不同特性或多或少是有矛盾的，很难有某一种框架说“我全部都要”。要把面向对象那套全搬过来，就注定不会太简单（如建Stub、Skeleton就很烦了，即使由IDL生成也很麻烦）；功能多起来，协议就要弄得复杂，效率一般就会受影响；要简单易用，那很多事情就必须遵循约定而不是配置才行；要重视效率，那就需要采用二进制的序列化器和较底层的传输协议，支持的语言范围容易受限。也正是每一种RPC框架都有不完美的地方，所以才导致不断有新的RPC轮子出现，决定了选择框架时在获得一些利益的同时，要付出另外一些代价。到了最近几年，RPC框架有明显的朝着插件化方向发展的趋势，不再选择自己去解决RPC的全部三个问题（表示数据、传递数据、表示方法），而是将全部或者一部分问题设计为扩展点，实现核心能力的可配置，再辅以外围功能，如负载均衡、服务注册、可观察性等方面的支持。这一类框架的代表有Facebook的Thrift与阿里的Dubbo（现在两者都是Apache的）。以Dubbo的序列化器为例，它默认采用Hessian 2作为序列化器，如果你有JSON的需求，可以替换为Fastjson，如果你对性能有更高的需求，可以替换为[Kryo](https://github.com/EsotericSoftware/kryo)、[FST](https://github.com/RuedigerMoeller/fast-serialization)、Protocol Buffers等，如果不想依赖其他包，直接使用JDK自带的序列化器也可以，这种设计在一定程度上缓解了RPC框架必须取舍，难以完美的缺憾。
 
-最后，笔者提个问题，大家不妨来反思一下：开发一个分布式系统，是不是就一定要用RPC呢？RPC的三大问题源自于对本地方法调用的类比模拟，如果没有了方法调用，那自然参数与结果如何表示、方法如何表示、数据如何传递这些问题都会海阔天空，拥有焕然一新的视角。但是我们写程序，真的可能不面向方法来编程吗？这就是笔者下一篇准备谈的话题了。
+最后，笔者提个问题，大家不妨来反思一下：开发一个分布式系统，是不是就一定要用RPC呢？RPC的三大问题源自于对本地方法调用的类比模拟，如果我们把思维从“方法调用”的约束中挣脱，那参数与结果如何表示、方法如何表示、数据如何传递这些问题都会海阔天空，拥有焕然一新的视角。但是我们写程序，真的可能不面向方法来编程吗？这就是笔者下一篇准备谈的话题了。
 
 ---
 
