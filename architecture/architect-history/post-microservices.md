@@ -33,7 +33,8 @@ Kubernetes成为容器战争胜利者标志着后微服务时代的开端，但K
 
 :::center
 ![](./images/sidecar.png)
-图片来自Istio的[配置文档](https://istio.io/docs/reference/config/policy-and-telemetry/mixer-overview/)，图中的Mixer在Istio 1.5之后已经取消，这里仅作示意
+边车代理流量示意<br/>
+图来自Istio的[配置文档](https://istio.io/docs/reference/config/policy-and-telemetry/mixer-overview/)，图中的Mixer在Istio 1.5之后已经取消，这里仅作示意
 :::
 
 很难从概念上判定清楚一个与应用系统运行于同一资源容器之内的代理服务到底应该算软件还是算基础设施，但它对应用是透明的，不需要改动任何软件代码就可以实现的服务治理，这便足够了。服务网格在2018年才火起来，今天它仍然是个新潮的概念，Istio和Envoy的发展时间尚短，仍然未完全成熟，甚至连Kubernetes也还算是个新生事物（以它开源的日期来计算）。但笔者相信，未来几年Kubernetes将会成为服务器端标准的运行环境，如同在此之前Linux；服务网格将会成为微服务之间通讯交互的主流模式，把“选择什么通讯协议”、“如何做认证授权”之类的技术问题隔离于应用软件之外，取代今天Spring Cloud全家桶中大部分组件的功能，这是最理想的[Smart Endpoints](https://martinfowler.com/articles/microservices.html#SmartEndpointsAndDumbPipes)解决方案，微服务只需要考虑业务本身的逻辑。

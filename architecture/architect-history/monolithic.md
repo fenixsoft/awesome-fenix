@@ -24,6 +24,7 @@ Monolith means composed all in one piece. The Monolithic application describes a
 
 :::center
 ![](./images/layed-arch.png)
+分层架构示意<br/>
 图片来自O'Reilly的开放文档《[Software Architecture Patterns](https://www.oreilly.com/programming/free/files/software-architecture-patterns.pdf)》
 :::
 

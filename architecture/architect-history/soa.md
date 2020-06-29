@@ -16,6 +16,7 @@
 
 :::center
 ![](./images/coresystem.png)
+微内核架构示意<br/>
 图片来自O'Reilly的开放文档《[Software Architecture Patterns](https://www.oreilly.com/programming/free/files/software-architecture-patterns.pdf)》
 :::
 
@@ -23,6 +24,7 @@
 
 :::center
 ![](./images/eventbus.png)
+事件驱动架构示意<br/>
 图片来自O'Reilly的开放文档《[Software Architecture Patterns](https://www.oreilly.com/programming/free/files/software-architecture-patterns.pdf)》
 :::
 
