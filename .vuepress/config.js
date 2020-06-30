@@ -187,79 +187,69 @@ module.exports = {
           // }
         ]
       }, {
-        title: '设计者的视角',
+        title: '架构师的视角',
         collapsable: false,
         children: [
           {
-            title: '✔️ 架构的普适问题',
+            title: '✔️ 服务风格设计',
             collapsable: false,
-            path: '/architect-perspective/general-architecture/',
+            path: '/architect-perspective/general-architecture/api-style/',
             children: [
-              {
-                title: '✔️ 服务风格设计',
-                path: '/architect-perspective/general-architecture/api-style/',
-                children: [
-                  '/architect-perspective/general-architecture/api-style/rpc',
-                  '/architect-perspective/general-architecture/api-style/rest',
-                  '/architect-perspective/general-architecture/api-style/mq',
-                ]
-              },
-              {
-                title: '✔️ 事务处理',
-                path: '/architect-perspective/general-architecture/transaction/',
-                children: [
-                  '/architect-perspective/general-architecture/transaction/local',
-                  '/architect-perspective/general-architecture/transaction/global',
-                  '/architect-perspective/general-architecture/transaction/share',
-                  '/architect-perspective/general-architecture/transaction/distributed',
-                ]
-              },
-              {
-                title: '✔️ 透明多级分流系统',
-                path: '/architect-perspective/general-architecture/diversion-system/',
-                children: [
-                  '/architect-perspective/general-architecture/diversion-system/client-cache',
-                  '/architect-perspective/general-architecture/diversion-system/dns-lookup',
-                  '/architect-perspective/general-architecture/diversion-system/transmission-optimization',
-                  '/architect-perspective/general-architecture/diversion-system/cdn',
-                  '/architect-perspective/general-architecture/diversion-system/load-balancing',
-                  '/architect-perspective/general-architecture/diversion-system/cache-middleware',
-                  '/architect-perspective/general-architecture/diversion-system/database-expansion'
-                ]
-              },
-              {
-                title: '✔️ 安全架构',
-                path: '/architect-perspective/general-architecture/system-security/',
-                children: [
-                  '/architect-perspective/general-architecture/system-security/authentication',
-                  '/architect-perspective/general-architecture/system-security/authorization',
-                  '/architect-perspective/general-architecture/system-security/credentials',
-                  '/architect-perspective/general-architecture/system-security/confidentiality',
-                  '/architect-perspective/general-architecture/system-security/transport-security',
-                  '/architect-perspective/general-architecture/system-security/verification',
-                  '/architect-perspective/general-architecture/system-security/exploit'
-                ]
-              },
-              {
-                title: '高效并发',
-                path: '/architect-perspective/general-architecture/concurrent/',
-                children: [
-                  '/architect-perspective/general-architecture/concurrent/process-thread-coroutine',
-                  '/architect-perspective/general-architecture/concurrent/thread-safe',
-                  '/architect-perspective/general-architecture/concurrent/synchronization',
-                  '/architect-perspective/general-architecture/concurrent/hardware-concurrent',
-                ]
-              }
+              '/architect-perspective/general-architecture/api-style/rpc',
+              '/architect-perspective/general-architecture/api-style/rest',
+              // '/architect-perspective/general-architecture/api-style/mq',
             ]
-          }, {
-            title: '设计方法论',
+          },
+          {
+            title: '✔️ 事务处理',
             collapsable: false,
+            path: '/architect-perspective/general-architecture/transaction/',
             children: [
-              '/architect-perspective/methodology/layered-system',
-              '/architect-perspective/methodology/capacity-design',
-              '/architect-perspective/methodology/constraint',
+              '/architect-perspective/general-architecture/transaction/local',
+              '/architect-perspective/general-architecture/transaction/global',
+              '/architect-perspective/general-architecture/transaction/share',
+              '/architect-perspective/general-architecture/transaction/distributed',
             ]
-          }
+          },
+          {
+            title: '✔️ 透明多级分流系统',
+            collapsable: false,
+            path: '/architect-perspective/general-architecture/diversion-system/',
+            children: [
+              '/architect-perspective/general-architecture/diversion-system/client-cache',
+              '/architect-perspective/general-architecture/diversion-system/dns-lookup',
+              '/architect-perspective/general-architecture/diversion-system/transmission-optimization',
+              '/architect-perspective/general-architecture/diversion-system/cdn',
+              '/architect-perspective/general-architecture/diversion-system/load-balancing',
+              '/architect-perspective/general-architecture/diversion-system/cache-middleware',
+              '/architect-perspective/general-architecture/diversion-system/database-expansion'
+            ]
+          },
+          {
+            title: '✔️ 安全架构',
+            collapsable: false,
+            path: '/architect-perspective/general-architecture/system-security/',
+            children: [
+              '/architect-perspective/general-architecture/system-security/authentication',
+              '/architect-perspective/general-architecture/system-security/authorization',
+              '/architect-perspective/general-architecture/system-security/credentials',
+              '/architect-perspective/general-architecture/system-security/confidentiality',
+              '/architect-perspective/general-architecture/system-security/transport-security',
+              '/architect-perspective/general-architecture/system-security/verification',
+              '/architect-perspective/general-architecture/system-security/exploit'
+            ]
+          },
+          // {
+          //   title: '高并发与高可用',
+          //   collapsable: false,
+          //   path: '/architect-perspective/general-architecture/concurrent/',
+          //   children: [
+          //     '/architect-perspective/general-architecture/concurrent/process-thread-coroutine',
+          //     '/architect-perspective/general-architecture/concurrent/thread-safe',
+          //     '/architect-perspective/general-architecture/concurrent/synchronization',
+          //     '/architect-perspective/general-architecture/concurrent/hardware-concurrent',
+          //   ]
+          // }
         ]
       }, {
         title: '分布式的基石',
@@ -378,6 +368,14 @@ module.exports = {
             ]
           },
           '/immutable-infrastructure/hardware-schedule',
+        ]
+      }, {
+        title: '设计方法论',
+        collapsable: false,
+        children: [
+          '/methodology/layered-system',
+          '/methodology/capacity-design',
+          '/methodology/constraint',
         ]
       }, {
         title: '技巧与专题',
