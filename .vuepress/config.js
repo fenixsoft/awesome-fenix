@@ -266,19 +266,19 @@ module.exports = {
             ]
           },
           {
-            title: '服务互联',
+            title: '从类库到服务',
             // path: '/distribution/connect/',
             collapsable: false,
             children: [
               '/distribution/connect/service-discovery',
               '/distribution/connect/service-routing',
               '/distribution/connect/load-balancing',
-              '/distribution/connect/composer',
-              '/distribution/connect/configuration',
+              // '/distribution/connect/composer',
+              // '/distribution/connect/configuration',
             ]
           },
           {
-            title: '流量管控',
+            title: '服务流量治理',
             // path: '/distribution/traffic-management/',
             collapsable: false,
             children: [

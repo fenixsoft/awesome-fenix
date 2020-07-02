@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年7月2日
+
+- 完成“[客户端负载均衡](/distribution/connect/load-balancing.html)”章节
+
 ### 2020年6月29日
 
 - 完成“[网关路由](/distribution/connect/service-routing)”章节
