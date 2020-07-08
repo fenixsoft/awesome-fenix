@@ -191,7 +191,7 @@ module.exports = {
         collapsable: false,
         children: [
           {
-            title: '✔️ 服务风格设计',
+            title: '✔️ 远程访问',
             collapsable: false,
             path: '/architect-perspective/general-architecture/api-style/',
             children: [
@@ -222,7 +222,7 @@ module.exports = {
               '/architect-perspective/general-architecture/diversion-system/cdn',
               '/architect-perspective/general-architecture/diversion-system/load-balancing',
               '/architect-perspective/general-architecture/diversion-system/cache-middleware',
-              '/architect-perspective/general-architecture/diversion-system/database-expansion'
+              '/architect-perspective/general-architecture/diversion-system/store-expansion'
             ]
           },
           {
@@ -278,15 +278,15 @@ module.exports = {
             ]
           },
           {
-            title: '服务流量治理',
-            // path: '/distribution/traffic-management/',
+            title: '✔️ 服务与流量治理',
+            path: '/distribution/traffic-management/',
             collapsable: false,
             children: [
-              '/distribution/traffic-management/isolation',
-              '/distribution/traffic-management/breaker',
-              '/distribution/traffic-management/timeout',
+              '/distribution/traffic-management/failure',
+              // '/distribution/traffic-management/qos',
+              // '/distribution/traffic-management/timeout',
               '/distribution/traffic-management/traffic-control',
-              '/distribution/traffic-management/service-downgrade',
+              // '/distribution/traffic-management/service-downgrade',
               '/distribution/traffic-management/exception-inject',
             ]
           },
