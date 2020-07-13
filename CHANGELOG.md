@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年7月13日
+
+- 完成“[流量控制](/distribution/traffic-management/traffic-control.html)”章节
+
 ### 2020年7月8日
 
 - 完成“[服务容错](/distribution/traffic-management/failure.html)”章节
