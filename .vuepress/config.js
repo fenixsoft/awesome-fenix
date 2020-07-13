@@ -283,11 +283,7 @@ module.exports = {
             collapsable: false,
             children: [
               '/distribution/traffic-management/failure',
-              // '/distribution/traffic-management/qos',
-              // '/distribution/traffic-management/timeout',
               '/distribution/traffic-management/traffic-control',
-              // '/distribution/traffic-management/service-downgrade',
-              '/distribution/traffic-management/exception-inject',
             ]
           },
           {
