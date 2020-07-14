@@ -16,7 +16,6 @@
             const ICYFENIX_CN = 'https://icyfenix.cn/images/'
             let raw = this.$refs.github_raw;
             let images = raw.querySelectorAll(`img[src^='${GIT_PREFIX}']`)
-            console.log(`image url wrapper：${images.length}`)
             images.forEach(i => {
                 i.src = i.src.replace(GIT_PREFIX, ICYFENIX_CN)
             })
