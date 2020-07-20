@@ -266,8 +266,8 @@ module.exports = {
             ]
           },
           {
-            title: '从类库到服务',
-            // path: '/distribution/connect/',
+            title: '✔️ 从类库到服务',
+            path: '/distribution/connect/',
             collapsable: false,
             children: [
               '/distribution/connect/service-discovery',
@@ -287,13 +287,12 @@ module.exports = {
             ]
           },
           {
-            title: '可靠通讯',
-            // path: '/distribution/secure/',
+            title: '✔️ 可靠通讯',
+            path: '/distribution/secure/',
             collapsable: false,
             children: [
-              '/distribution/secure/traffic-encryption',
-              '/distribution/secure/access-policies',
-              '/distribution/secure/auditing',
+              '/distribution/secure/zero-trust',
+              '/distribution/secure/auth',
             ]
           },
           {

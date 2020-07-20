@@ -50,20 +50,29 @@ Kubernetes给予了我们强大的虚拟化基础设施，这是一把好用的�
 
 在已经<a href="https://icyfenix.cn/appendix/deployment-env-setup/setup-kubernetes/">部署Kubernetes</a>与Istio的前提下，通过以下几种途径，可以运行程序，浏览最终的效果：
 
-- 直接在Istio服务网格环境上运行：<br/>工程在编译时已通过Kustomize产生出集成式的资源描述文件，可通过该文件直接在Kubernetes集群中运行程序：
+- 在Kubernetes无Sidecar状态下运行：<br/>在业务逻辑的开发过程中，或者其他不需要双向TLS、不需要认证授权支持、不需要可观测性支持等非功能性能力增强的环境里，可以不启动Envoy（但还是要安装Istio的，因为用到了Istio Ingress Gateway），工程在编译时已通过Kustomize产生出集成式的资源描述文件：
 
   ```bash
-  # 资源描述文件
+  # Kubernetes without Envoy资源描述文件
+  $ kubectl apply -f https://raw.githubusercontent.com/fenixsoft/servicemesh_arch_istio/master/bookstore-dev.yml
+  ```
+  
+  请注意资源文件中对Istio Ingress Gateway的设置是针对Istio默认安装编写的，即以“istio-ingressgateway”作为标签，以LoadBalancer形式对外开放80端口，对内监听8080端口。在部署时可能需要根据实际情况进行调整，你可观察以下命令的输出结果来确认这一点：
+  
+  ```bash
+  $ kubectl get svc istio-ingressgateway -nistio-system -o yaml
+  ```
+  
+  在浏览器访问：[http://localhost](http://localhost)，系统预置了一个用户（user:icyfenix，pw:123456），也可以注册新用户来测试。
+  
+- 在Istio服务网格环境上运行：<br/>工程在编译时已通过Kustomize产生出集成式的资源描述文件，可通过该文件直接在Kubernetes with Envoy集群中运行程序：
+
+  ```bash
+  # Kubernetes with Envoy 资源描述文件
   $ kubectl apply -f https://raw.githubusercontent.com/fenixsoft/servicemesh_arch_istio/master/bookstore.yml
   ```
 
   当所有的Pod都处于正常工作状态后（这个过程一共需要下载几百MB的镜像，尤其是Docker中没有各层基础镜像缓存时，请根据自己的网速保持一定的耐心。未来GraalVM对Spring Cloud的支持更成熟一些后，可以考虑<a href="https://icyfenix.cn/tricks/graalvm/">采用GraalVM来改善</a>这一点）。
-
-  请注意资源文件中对Istio Ingress Gateway的设置是针对Istio默认安装编写的，即以“istio-ingressgateway”作为标签，以LoadBalancer形式对外开放80端口，对内监听8080端口。在部署时可能需要根据实际情况进行调整，可观察以下命令的输出结果来确认这一点：
-
-  ```bash
-  $ kubectl get svc istio-ingressgateway -nistio-system -o yaml
-  ```
 
   在浏览器访问：[http://localhost](http://localhost)，系统预置了一个用户（user:icyfenix，pw:123456），也可以注册新用户来测试。
 
@@ -86,24 +95,24 @@ Kubernetes给予了我们强大的虚拟化基础设施，这是一把好用的�
 - 调整代理自动注入<br/>
 
   项目提供的资源文件中，默认是允许边车代理自动注入到Pod中的，这会导致服务需要有额外的容器初始化过程。开发期间，我们可能需要关闭自动注入以提升容器频繁改动、重新部署时的效率。如需关闭代理自动注入，请自行调整bookstore-kubernetes-manifests目录下的bookstore-namespaces.yaml资源文件，根据需要将istio-injection修改为enable或者disable。
-  
+
   如果关闭了边车代理，意味着你的服务丧失了访问控制（以前是基于Spring Security实现的，在Istio版本中这些代码已经被移除）、断路器、服务网格可视化等一系列依靠Envoy代理所提供能力。但这些能力是纯技术的，与业务无关，并不影响业务功能正常使用，所以在本地开发、调试期间关闭代理是可以考虑的。
 
 ## 技术组件
 
-Fenix's BookStore采用基于Istio的服务网格架构，其中主要的技术组件包括：
+Fenix's Bookstore采用基于Istio的服务网格架构，其中主要的技术组件包括：
 
 - **配置中心**：通过Kubernetes的ConfigMap来管理。
 - **服务发现**：通过Kubernetes的Service来管理，由于已经不在引入Spring Cloud Feign了，所以在OpenFeign中，直接使用短服务名进行访问。
 - **负载均衡**：未注入边车代理时，依赖KubeDNS实现基础的负载均衡，一旦有了Envoy的支持，就可以配置丰富的代理规则和策略。
 - **服务网关**：依靠Istio Ingress Gateway来实现，已经移除了Kubernetes版本中保留的Zuul网关。
-- **服务熔断**：依靠Envoy来实现，已经移除了Kubernetes版本中保留的Hystrix断路器。
+- **服务容错**：依靠Envoy来实现，已经移除了Kubernetes版本中保留的Hystrix。
 - **认证授权**：依靠Istio的安全机制来实现，实质上已经不再依赖Spring Security进行ACL控制，但Spring Security OAuth 2仍然以第三方JWT授权中心的角色存在，为系统提供终端用户认证，为服务网格提供令牌生成、公钥[JWKS](https://auth0.com/docs/tokens/concepts/jwks)等支持。
 
 
 ## 协议
 
-- 本文档代码部分采用[Apache 2.0协议](https://www.apache.org/licenses/LICENSE-2.0)进行许可。遵循许可的前提下，你可以自由地对代码进行修改，再发布，可以将代码用作商业用途。但要求你：
+- 本作品代码部分采用[Apache 2.0协议](https://www.apache.org/licenses/LICENSE-2.0)进行许可。遵循许可的前提下，你可以自由地对代码进行修改，再发布，可以将代码用作商业用途。但要求你：
   - **署名**：在原有代码和衍生代码中，保留原作者署名及代码来源信息。
   - **保留许可证**：在原有代码和衍生代码中，保留Apache 2.0协议文件。
 
