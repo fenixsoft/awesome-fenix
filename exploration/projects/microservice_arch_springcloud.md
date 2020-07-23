@@ -135,23 +135,23 @@
   
 ## 技术组件
 
-Fenix's BookStore采用基于Spring Cloud微服务架构，微服务部分主要采用了Netflix OSS组件进行支持，它们包括：
+Fenix's Bookstore采用基于Spring Cloud微服务架构，微服务部分主要采用了Netflix OSS组件进行支持，它们包括：
 
 - **配置中心**：默认采用[Spring Cloud Config](https://spring.io/projects/spring-cloud-config)，亦可使用[Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul)、[Spring Cloud Alibaba Nacos](https://spring.io/projects/spring-cloud-alibaba)代替。
 - **服务发现**：默认采用[Netflix Eureka](https://github.com/Netflix/eureka)，亦可使用[Spring Cloud Consul](https://spring.io/projects/spring-cloud-consul)、[Spring Cloud Zookeeper](https://spring.io/projects/spring-cloud-zookeeper)、[etcd](https://github.com/etcd-io/etcd)等代替。
 - **服务网关**：默认采用[Netflix Zuul](https://github.com/Netflix/zuul)，亦可使用[Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway)代替。
-- **服务熔断**：默认采用[Netflix Hystrix](https://github.com/Netflix/Hystrix)，亦可使用[Sentinel](https://github.com/alibaba/Sentinel)、[Resilience4j](https://github.com/resilience4j/resilience4j)代替。
+- **服务治理**：默认采用[Netflix Hystrix](https://github.com/Netflix/Hystrix)，亦可使用[Sentinel](https://github.com/alibaba/Sentinel)、[Resilience4j](https://github.com/resilience4j/resilience4j)代替。
 - **进程内负载均衡**：默认采用[Netfilix Ribbon](https://github.com/Netflix/ribbon)，亦可使用[Spring Cloud Loadbalancer](https://spring.io/guides/gs/spring-cloud-loadbalancer/)代替。
 - **声明式HTTP客户端**：默认采用[Spring Cloud OpenFeign](https://spring.io/projects/spring-cloud-openfeign)。这个并没有代替的必要，访问远程服务而已，使用RestTemplete或者更底层的[OkHTTP](https://square.github.io/okhttp/)、[HTTPClient](https://hc.apache.org/httpcomponents-client-ga/)也能完成，多写点代码罢了。
 
 尽管Netflix套件的使用人数很多，但由于Spring Cloud Netflix已进入维护模式，所以笔者均列出了上述组件的代替品。这些组件几乎都是声明式的，这保证了替代它们的成本相当低，只需要更换注解，修改配置，无需改动代码。你在阅读源码时也会发现，三个“platform”开头的服务，基本上没有任何实际代码的存在。
 
-其他与微服务无关的技术组件（REST服务、安全、数据访问，等等），笔者已在<a href="https://icyfenix.cn/exploration/projects/monolithic_arch_springboot.html#技术组件">Fenix's BookStore单体架构</a>中介绍过，在此不再重复。
+其他与微服务无关的技术组件（REST服务、安全、数据访问，等等），笔者已在<a href="https://icyfenix.cn/exploration/projects/monolithic_arch_springboot.html#技术组件">Fenix's Bookstore单体架构</a>中介绍过，在此不再重复。
 
 
 ## 协议
 
-- 本文档代码部分采用[Apache 2.0协议](https://www.apache.org/licenses/LICENSE-2.0)进行许可。遵循许可的前提下，你可以自由地对代码进行修改，再发布，可以将代码用作商业用途。但要求你：
+- 本作品代码部分采用[Apache 2.0协议](https://www.apache.org/licenses/LICENSE-2.0)进行许可。遵循许可的前提下，你可以自由地对代码进行修改，再发布，可以将代码用作商业用途。但要求你：
   - **署名**：在原有代码和衍生代码中，保留原作者署名及代码来源信息。
   - **保留许可证**：在原有代码和衍生代码中，保留Apache 2.0协议文件。
   

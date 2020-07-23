@@ -4,9 +4,13 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年7月23日
+
+- 完成了“[服务安全](/distribution/secure/service-security.html)”章节。
+
 ### 2020年7月20日
 
-- 更新了[基于Spring Cloud](/exploration/projects/microservice_arch_springcloud.html)和[基于Istio](/exploration/projects/servicemesh_arch_istio.html)的Fenix's Bookstore的代码，提供了基于RSA SHA256的JWT令牌实现，以配合后面两节的主题。
+- 更新了[基于Spring Cloud](/exploration/projects/microservice_arch_springcloud.html)和[基于Istio](/exploration/projects/servicemesh_arch_istio.html)的Fenix's Bookstore的代码，提供了RSA SHA256的JWT令牌实现，以配合后面两节的主题。
 - 完成了“[零信任网络](/distribution/secure/zero-trust.html)”章节。
 - 这部文档的总字数在今天突破了20万字，留个纪念。
 

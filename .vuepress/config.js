@@ -292,7 +292,7 @@ module.exports = {
             collapsable: false,
             children: [
               '/distribution/secure/zero-trust',
-              '/distribution/secure/auth',
+              '/distribution/secure/service-security',
             ]
           },
           {
