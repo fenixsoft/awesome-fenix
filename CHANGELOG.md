@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年8月5日
+
+- 完成了“[缓存](/architect-perspective/general-architecture/diversion-system/cache-middleware.html)”章节。
+
 ### 2020年7月23日
 
 - 完成了“[服务安全](/distribution/secure/service-security.html)”章节。

@@ -222,7 +222,7 @@ module.exports = {
               '/architect-perspective/general-architecture/diversion-system/cdn',
               '/architect-perspective/general-architecture/diversion-system/load-balancing',
               '/architect-perspective/general-architecture/diversion-system/cache-middleware',
-              '/architect-perspective/general-architecture/diversion-system/store-expansion'
+              // '/architect-perspective/general-architecture/diversion-system/store-expansion'
             ]
           },
           {
@@ -236,7 +236,7 @@ module.exports = {
               '/architect-perspective/general-architecture/system-security/confidentiality',
               '/architect-perspective/general-architecture/system-security/transport-security',
               '/architect-perspective/general-architecture/system-security/verification',
-              '/architect-perspective/general-architecture/system-security/exploit'
+              // '/architect-perspective/general-architecture/system-security/exploit'
             ]
           },
           // {
