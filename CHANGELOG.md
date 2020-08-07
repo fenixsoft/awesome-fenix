@@ -6,6 +6,10 @@ permalink: /changelog
 
 ### 2020年8月5日
 
+- 提供了新的架构演示“[AWS Lambda 为基础的无服务架构](/exploration/projects/serverless_arch)”。
+
+### 2020年8月5日
+
 - 完成了“[缓存](/architect-perspective/general-architecture/diversion-system/cache-middleware.html)”章节。
 
 ### 2020年7月23日
