@@ -15,4 +15,4 @@
   - Spring Cloud 实现微服务架构：[https://github.com/fenixsoft/microservice_arch_springcloud](https://github.com/fenixsoft/microservice_arch_springcloud)
   - Kubernetes 为基础设施的微服务架构：[https://github.com/fenixsoft/microservice_arch_kubernetes](https://github.com/fenixsoft/microservice_arch_kubernetes)
   - Istio 为基础设施的服务网格架构：[https://github.com/fenixsoft/servicemesh_arch_istio](https://github.com/fenixsoft/servicemesh_arch_istio)
-  - 基于云端的无服务架构：https://github.com/fenixsoft/serverless_arch
+  - AWS Lambda 为基础的无服务架构：[https://github.com/fenixsoft/serverless_arch_awslambda](https://github.com/fenixsoft/serverless_arch_awslambda)
