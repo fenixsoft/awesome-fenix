@@ -56,9 +56,9 @@ graph LR
 
 ## OAuth2
 
-简要介绍过RBAC，下面我们再来看看相对要复杂繁琐一些的OAuth2授权协议（顺带一提，更繁琐的OAuth1.0已经完全废弃了）。先明确一件事情，OAuth2是一个多方系统中的授权协议，如果你的系统并不涉及到第三方（譬如我们单体架构的Bookstore，即不为第三方提供服务，也不使用第三方的服务），引入OAuth2其实并无必要。我们之所以把OAuth2提前引入，主要是为了给微服务架构做铺垫。
+简要介绍过RBAC，下面我们再来看看相对要复杂繁琐一些的OAuth2认证授权协议（顺带一提，更繁琐的OAuth1已经完全被废弃了，勿念）。先明确一件事情，OAuth2是一个多方系统中的认证授权协议，如果你的系统并不涉及到第三方（譬如我们单体架构的Bookstore，即不为第三方提供服务，也不使用第三方的服务），引入OAuth2其实并无多大必要。我们之所以把OAuth2提前引入，主要是为了给微服务架构做铺垫。
 
-OAuth2是在[RFC 6749](https://tools.ietf.org/html/rfc6749)中定义授权协议，在RFC 6749正文的第一句就明确了OAuth2是解决第三方应用（Third-Party  Application）的授权协议。前面也说到，如果只是单方系统，授权过程是比较容易解决的，至于多方系统授权过程会有什么问题，这里举个现实的例子来说明。
+OAuth2是在[RFC 6749](https://tools.ietf.org/html/rfc6749)中定义授权协议，在RFC 6749正文的第一句就明确了OAuth2是解决第三方应用（Third-Party  Application）的认证授权协议。前面也说到，如果只是单方系统，授权过程是比较容易解决的，至于多方系统授权过程会有什么问题，这里举个现实的例子来说明。
 
 譬如你现在正在阅读的这个网站（[https://icyfenix.cn](https://icyfenix.cn)），它的建设和更新大致流程是：笔者以Markdown形式写好了某篇文章，上传到由[GitHub](https://github.com)提供的[代码仓库](https://github.com/fenixsoft/awesome-fenix)，接着由[Travis-CI](https://travis-ci.com)提供的持续集成服务会检测到该仓库发生了变化，触发一次Vuepress编译活动，生成目录和静态的HTML页面，然后推送回GitHub Pages，再触发腾讯云CDN的缓存刷新。这个过程要能顺利进行，就存在一些必须解决的授权问题，Travis-CI只有得到了我的明确授权，GitHub才能同意它读取我代码仓库中的内容，问题是它该如何获得我的授权呢？一种简单粗暴的方案是我把我的用户账号和密码都告诉Travis-CI，但这显然导致了以下这些问题：
 
@@ -132,7 +132,7 @@ sequenceDiagram
 - 为什么要设计一个时限较长的刷新令牌和时限较短的访问令牌？不能直接把访问令牌的时间调长吗？<br/>
   这是为了缓解OAuth2在**实际应用**中的一个主要缺陷，通常访问令牌一旦发放，除非超过了令牌中的有效期，否则很难（需要付出较大代价）有其他方式让它失效，所以访问令牌的时效性一般设计的比较短（譬如几个小时），如果还需要继续用，那就定期用刷新令牌去更新，授权服务器就可以在更新过程中决定是否还要继续给予授权。至于为什么说很难让它失效，我们将放到下一节“凭证”中解释这一点。
 
-尽管授权码模式是严谨的，但是它并不够好用，这不仅仅体现在它那繁复的调用过程上，还体现在它对第三方应用提出了一个具体的要求：必须有服务端（因为第4步要发起服务端转向，而且服务端的地址必须与注册时提供的回调URI在同一个域内）。不要觉得要求一个系统要有服务端是天经地义理所当然的事情，本站的示例程序（[http://bookstore.icyfenix.cn](http://bookstore.icyfenix.cn)）就没有服务端支持，里面使用到了GitHub Issue作为留言板，对GitHub来说照样是第三方应用，需要OAuth2授权来解决。除浏览器外，现在越来越普遍的是移动或桌面端的Client-Side Web Applications，譬如现在大量的基于Cordova、Electron、Node-Webkit.js的[PWA应用](https://zh.wikipedia.org/wiki/%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F)。所以在此需求里，引出了OAuth2的第二种授权模式：隐式授权。
+尽管授权码模式是严谨的，但是它并不够好用，这不仅仅体现在它那繁复的调用过程上，还体现在它对第三方应用提出了一个具体的要求：必须有服务端（因为第4步要发起服务端转向，而且服务端的地址必须与注册时提供的回调URI在同一个域内）。不要觉得要求一个系统要有服务端是天经地义理所当然的事情，你现在阅读文章的这个网站就没有任何服务端的支持，里面使用到了GitHub Issue作为每篇文章的留言板，它对GitHub来说照样是第三方应用，需要OAuth2授权来解决。除浏览器外，现在越来越普遍的是移动或桌面端的Client-Side Web Applications，譬如现在大量的基于Cordova、Electron、Node-Webkit.js的[PWA应用](https://zh.wikipedia.org/wiki/%E6%B8%90%E8%BF%9B%E5%BC%8F%E7%BD%91%E7%BB%9C%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F)。所以在此需求里，引出了OAuth2的第二种授权模式：隐式授权。
 
 ### 隐式授权
 
@@ -152,11 +152,15 @@ sequenceDiagram
 
 还有一点，在RFC 6749对隐式授权的描述中，特别强调了令牌是“通过Fragment带回”的。部分对超文本协议没有了解的读者，可能不知道[Fragment](https://en.wikipedia.org/wiki/Fragment_identifier)是个什么东西？
 
-:::quote 额外知识
-In computer [hypertext](https://en.wikipedia.org/wiki/Hypertext), a **fragment identifier** is a [string](https://en.wikipedia.org/wiki/Character_string_(computer_science)) of [characters](https://en.wikipedia.org/wiki/Character_(computing)) that refers to a [resource](https://en.wikipedia.org/wiki/Resource_(computer_science)) that is subordinate to another, primary resource. The primary resource is identified by a [Uniform Resource Identifier](https://en.wikipedia.org/wiki/Uniform_Resource_Identifier) (URI), and the fragment identifier points to the subordinate resource.
+:::tip 额外知识：什么是Fragment
+In computer hypertext, a fragment identifier is a string of characters that refers to a resource that is subordinate to another, primary resource. The primary resource is identified by a Uniform Resource Identifier (URI), and the fragment identifier points to the subordinate resource.
+:::right
+
+——[URI Fragment](https://en.wikipedia.org/wiki/URI_fragment)，Wikipedia
+
 :::
 
-不想看英文，或者看了觉得概念不好的话，我简单告诉你，Fragment就是地址中"#"号后面的部分，譬如这个地址：
+看了这段英文定义还是觉得概念不好的话，我简单告诉你，Fragment就是地址中"#"号后面的部分，譬如这个地址：
 
 > http://bookstore.icyfenix.cn/#/detail/1
 
@@ -164,9 +168,11 @@ In computer [hypertext](https://en.wikipedia.org/wiki/Hypertext), a **fragment i
 
 ### 密码模式
 
-前面所说的授权码模式和隐私模式，是纯粹的授权模式，它与认证没有直接的关系，如何认证用户的真实身份这是与进行授权互相独立的过程。但在密码模式里，认证和授权就被整合成了同一个过程了。
+前面所说的授权码模式和隐私模式属于纯粹的授权模式，它们与认证没有直接的联系，如何认证用户的真实身份这是与进行授权互相独立的过程。但在密码模式里，认证和授权就被整合成了同一个过程了。
 
-这一种模式原本是只提供给用户对第三方应用是高度可信任的场景之中，譬如第三方应用是操作系统，本应该是不太多见的。但是近年来微服务风潮兴起，反而涌现出了密码模式的一种常见应用形式，譬如微服务群中有一些应用服务与授权服务都是由同一个服务商所搭建的，这自然就可以信任它们了。在单体服务的Fenix's Bookstore实现里，就直接采用了密码模式将认证和授权统一起来，我并不需要担心通过前端代码输入用户名、密码时，前端代码会对这些敏感信息做出什么不轨的行为，因为前端代码虽然在OAuth2中相当于第三方应用的角色，但它也是我本人所提供的，所以不存在信任问题（同时再次说明，如果不是出于方便与其他架构对比的目的，那也不存在引入OAuth2把它当作第三方看待的必要）。密码模式的调用时序就很简单了，如下图所示：
+密码模式原本的设计意图是仅限于用户对第三方应用是高度可信任的场景中使用，因为用户需要把密码明文提供给第三方应用，第三方以此向授权服务器获取令牌，一种可能合理的应用场景是操作系统作为第三方应用向授权服务器申请资源，用户把密码提供给操作系统有可能的。除此之外，这种高度可信的第三方本应该是较罕见的，但在分布式系统里，“第三方应用”完全可以看作是逻辑上与授权服务器同属一个系统，物理上独立于授权服务器部署的其他服务节点。譬如微服务集群中，负责用户身份认证的服务与授权服务很可能都是由同一个服务商所提供的，名义上是第三方，其实是同一个系统，这两者之间自然可以存在可信任的关系。
+
+单体版本、微服务版本的Fenix's Bookstore都直接采用了密码模式将认证和授权统一到一个过程当中。你并不会担心前端的Frontend工程或者后端的Account等工程在接收到用户名、密码后，会通过这些敏感信息，向授权服务器申请权限进行恶意的资源访问，因为这些代码虽然在OAuth2里被视为第三方应用的角色，但它们事实上是Fenix's Bookstore这个系统的一部分。理解了密码模式的用途，它的调用时序就很简单了，如下图所示：
 
 <mermaid style="margin-bottom: 0px">
 sequenceDiagram
@@ -175,13 +181,13 @@ sequenceDiagram
 	授权服务器 -->> 第三方应用: 发放访问令牌和刷新令牌
 </mermaid>
 
-显然，在这种模式下，“如何保障安全”的职责无法由OAuth2的过程设计来承担，应是由用户和第三方应用来自行保障了，尽管OAuth2在规范中强调到“此模式下，第三方应用不得保存用户的密码”，但这并没有任何的约束力。
+密码模式下“如何保障安全”的职责无法由OAuth2的过程设计来承担，应是由用户和第三方应用来自行保障，尽管OAuth2在规范中强调到“此模式下，第三方应用不得保存用户的密码”，但这并没有任何的约束力。
 
 ### 客户端模式
 
-客户端模式是四种模式中最简单的，它只涉及到两个主体，第三方应用和授权服务器。严谨一点说，现在叫第三方应用已经不合适的，因为这里已经没有了“第二方”的存在，资源所有者、操作代理都是不存在的。甚至于叫“授权”都不太恰当，资源所有者都没有了，自然也不会有谁授予谁权限的过程。
+客户端模式是四种模式中最简单的，它只涉及到两个主体，第三方应用和授权服务器。如果严谨一点，现在说“第三方应用”其实已经不合适了，因为这里已经没有了“第二方”的存在，资源所有者、操作代理都是不存在的。甚至于叫“授权”都不太恰当，资源所有者都没有了，自然也不会有谁授予谁权限的过程。
 
-客户端模式是指应用（就不写第三方了）以自己的名义，向授权服务器申请资源许可。这通常用在一些管理或者自动处理形场景之中。举个例子，譬如我开了一家网上书店，因为小本经营，不像京东那样全国多个仓库可以调货，我得保证只要客户成功购买，我就必须有货可发，不能超卖。但经常有人下了订单又拖着不付款，导致部分货物处于冻结状态。所以我写了一个订单清理的定时服务，自动清理掉超过2分钟的未付款的订单。这件UserStory里，订单肯定属于用户自己的资源，如果把订单清理服务看作一个独立的第三方应用的话，他就不应该向用户去申请授权，而应该直接以自己的名义向授权服务器申请一个能清理所有用户订单的授权。客户端模式的时序如下图所示：
+客户端模式是指第三方应用（行文一致考虑，还是继续叫第三方应用）以自己的名义，向授权服务器申请资源许可。这通常用在一些管理或者自动处理形场景之中。举个例子，譬如我开了一家网上书店Fenix's Bookstore，因为小本经营，不像京东那样全国多个仓库可以调货，因此必须保证只要客户成功购买，书店就必须有货可发，不能超卖。但经常有顾客下了订单又拖着不付款，导致部分货物处于冻结状态。所以Fenix's Bookstore中有一个订单清理的定时服务，自动清理掉超过两分钟的未付款的订单。这件用户里，订单肯定属于用户自己的资源，如果把订单清理服务看作一个独立的第三方应用的话，他就不可能向用户去申请授权，而应该直接以自己的名义向授权服务器申请一个能清理所有用户订单的授权。客户端模式的时序如下图所示：
 
 <mermaid style="margin-bottom: 0px">
 sequenceDiagram
@@ -189,7 +195,9 @@ sequenceDiagram
 	授权服务器 -->>- 应用: 发放访问令牌
 </mermaid>
 
-还有一种与客户端模式类似的授权模式，在[RFC 8628](https://tools.ietf.org/html/rfc8628#section-3.4)中定义为“设备码模式（Device Code）”，这里顺便简单提一下。设备码模式用于在无输入的情况下区分设备是否允许，典型的应用便是手机锁网解锁（锁网在国内较少，但在国外很常见）或者激活（譬如某游戏机注册到某个游戏平台）的过程。时序如下图所示：
+后面在微服务的“[可靠通讯](/distribution/secure/)”中会讲到，并不提倡各个微服务之间有默认的信任关系，所以服务之间调用也需要先认证授权。此时客户端模式也是一种常用的服务间认证授权的解决方案。Spring Cloud版本的Fenix's Bookstore是采用这种方案来保证微服务之间的合法调用的，Istio版本的Fenix's Bookstore则启用了双向mTLS通讯，使用客户端证书保障安全，感兴趣的读者可以对比一下这两种方式差异优劣。
+
+OAuth2中还有一种与客户端模式类似的授权模式，在[RFC 8628](https://tools.ietf.org/html/rfc8628#section-3.4)中定义为“设备码模式（Device Code）”，这里顺便简单提一下。设备码模式用于在无输入的情况下区分设备是否允许，典型的应用便是手机锁网解锁（锁网在国内较少，但在国外很常见）或者激活（譬如某游戏机注册到某个游戏平台）的过程。时序如下图所示：
 
 <mermaid style="margin-bottom: 0px">
 sequenceDiagram

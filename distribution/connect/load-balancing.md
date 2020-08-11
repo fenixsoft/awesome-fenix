@@ -10,7 +10,7 @@
 
 > **案例场景：**
 >
-> 你身处广东，要上[Fenix's Boosstore](/exploration/projects/microservice_arch_kubernetes.html)上购买一本书，在程序业务逻辑里，购书其中一个关键步骤是调用商品出库服务来完成货物准备，在代码中该服务的调用请求为：
+> 你身处广东，要上Fenix's Boosstore上购买一本书，在程序业务逻辑里，购书其中一个关键步骤是调用商品出库服务来完成货物准备，在代码中该服务的调用请求为：
 >
 > ```http
 > PATCH https://warehouse:8080/restful/stockpile/3

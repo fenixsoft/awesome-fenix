@@ -4,7 +4,11 @@ permalink: /changelog
 
 # 更新日志
 
-### 2020年8月5日
+### 2020年8月12日
+
+- 重写了安全架构中的“[认证](/architect-perspective/general-architecture/system-security/authentication.html)”一节。
+
+### 2020年8月7日
 
 - 提供了新的架构演示“[AWS Lambda 为基础的无服务架构](/exploration/projects/serverless_arch)”。
 

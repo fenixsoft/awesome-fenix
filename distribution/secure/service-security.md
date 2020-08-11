@@ -42,7 +42,7 @@ spec:
 
 如果你的分布式系统中存在不受Istio管理（即未注入Sidecar）的服务端或者客户端——这其实在大型系统中是颇为常见的，你也可以将传输声明为“宽容模式”（Permissive Mode）。宽容模式的含义是受Istio管理的服务会允许同时接受纯文本和mTLS两种流量，纯文本流量仅用于与那些不受Istio管理的节点进行交互，你需要自行想办法解决纯文本流量的认证问题；而对于服务网格内部的流量，就可以使用mTLS认证。宽容模式为普通微服务向服务网格迁移提供了极大的灵活性，运维人员能够逐个服务进行mTLS升级，原本没有启用mTLS的服务在启用mTLS时甚至允许不中断现存已建立的纯文本传输连接。一旦所有服务都完成迁移，便可将整个系统设置为严格TLS模式（即上面代码中的mode: STRICT）。
 
-在Spring Cloud版本的Fenix's Bookstore里，因为没有基础设施的支持，一切认证工作就不得不在应用层面去实现。笔者选择的方案是借用[OAtuh2授权协议](/architect-perspective/general-architecture/system-security/authorization.html#oauth2)的客户端模式来进行认证，其大体思路有如下两步：
+在Spring Cloud版本的Fenix's Bookstore里，因为没有基础设施的支持，一切认证工作就不得不在应用层面去实现。笔者选择的方案是借用[OAtuh2协议](/architect-perspective/general-architecture/system-security/authorization.html#oauth2)的客户端模式来进行认证，其大体思路有如下两步：
 
 - 每一个要调用服务的客户端都与认证服务器约定好一组只有自己知道的密钥（Client Secret），这个约定过程应该是由运维人员在线下自行完成，通过参数传给服务（而不是由开发人员在源码或配置文件中直接设定，笔者在演示工程的代码注释中也专门强调了这点，以免有读者被示例代码误导）。密钥就是客户端的身份证明，客户端调用服务时，会先使用该密钥向认证服务器申请到JWT令牌。如以下代码定义了五个客户端，其中四个是集群内部的微服务，均使用客户端模式，且注明了授权范围是“SERVICE”（后面介绍授权会用到）。
 

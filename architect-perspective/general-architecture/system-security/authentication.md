@@ -6,19 +6,154 @@
 
 :::
 
-“认证”可以说是一个系统中最基础的安全设计，再简陋的系统大概也不大可能省略掉“用户登录”功能。但“认证”这件事情又并不如大多数人所认为的那样，校验一下 用户名、密码是否正确这么简单。尤其是在基于Java的软件系统里，尝试去触接了解Java安全标准的人往往会对一些今天看起来很别扭的概念产生疑惑。在这一部分，将简要概览一下关于认证的主流行业规范、标准；项目中具体如何认证、授权的内容放到下一节去介绍。
+认证（Authentication）、授权（Authorization）和凭证（Credentials）可以说是一个系统中最基础的安全设计，再简陋的系统大概也很难省略掉“用户登录”功能，系统为用户提供服务前，总是希望先弄清楚“你是谁？”（认证）、“能干什么？”（授权）以及“如何证明？”（凭证）这三个基本问题的答案。另一方面，认证、授权与凭证这三个基本问题，又并不如部分人所认为的那样，只是“系统登录”功能，校验一下 用户名、密码是否正确这么简单。因为账户信息作为一种必须保障安全和隐私，又同时要兼顾各个系统模块中共享访问的基础主数据，它的存储、管理与使用都面临一系列复杂的问题。对于某些大规模的信息系统，账户管理往往要由专门的基础设施，如微软的活动目录（Active Directory，AD）或者轻量目录访问协议（Lightweight Directory Access Protocol，LDAP）甚至是基于区块链技术去完成。笔者准备使用三节篇幅，介绍互联网系统和企业级系统是如何实现认证、授权与凭证的，涉及到哪些行业规范和标准。
 
-最初的Java系统里，安全中的“认证”其实是特指“代码级安全”（你是否信任要在你的电脑中运行的代码），这是由“Java 2”之前它的主要应用形式Applets所决定的：从远端下载一段Java代码，以Applet的形式在用户的浏览器中运行，当然要保证这些代码不会损害用户的计算机才行。这一阶段的安全催生了今天仍然存在于Java体系中的“安全管理器”（java.lang.SecurityManager）、“代码权限许可”（java.lang.RuntimePermission）这些概念。
+首先澄清一个可能很多人都会有的先入为主的观念：尽管“认证”是解决“你是谁？”的问题，但这里的“你”并不是一定是个人（听着像是骂人的话），也有可能是外部代码，即第三方的类库或者服务。最初对代码认证的重视程度甚至高于对最终用户的认证，譬如最早的Java系统里，安全中的“认证”就是特指“代码级安全”（你是否信任要在你的电脑中运行的代码），这是由Java早期的主要应用形式——Java Applets所决定的：类加载器从远端下载一段Java代码（严谨地说是字节码），以Applet的形式在用户的浏览器中运行，由于Java的语言操作计算机资源的能力要远远强于JavaScript，因此当然要保证这些代码不会损害用户的计算机，否则谁都不敢去用。这一阶段的安全观念催生了现在仍然存在于Java技术体系中的“安全管理器”（java.lang.SecurityManager）、“代码权限许可”（java.lang.RuntimePermission）等概念。如今，对外部类库和服务的认证需求依旧旺盛，但相比起稍后介绍的百花齐放式的最终用户认证来说，代码认证的研究方向已经很固定，基本上都统一到证书签名上。本节我们讨论的范围只针对最终用户认证，代码认证会安排在“分布式的基石”中的“[服务安全](/distribution/secure/service-security.html)”中去讲解。
 
-不久之后，Java迎来了互联网的迅速兴起，进入了Java第一次快速发展时期，基于超文本的Web应用迅速盖过了“Java 2”时代之前的Applet，此时“安全认证”的重点逐渐转为“用户级安全”（你是否信任正在操作的用户）。在1999年随着J2EE 1.2（它是J2EE的首个版本，版本号直接就是1.2）所发布的Servlet 2.2中增加了一系列认证的API，诸如：
+世纪之交，Java迎来了Web时代的辉煌，互联网迅速兴起促使Java进入了快速发展时期。这时候，基于HTML和JavaScript的超文本Web应用迅速盖过了“Java 2时代”之前的JavaApplet应用，B/S系统对最终用户认证的需求使得“安全认证”的重点逐渐从“代码级安全”转向为“用户级安全”（你是否信任正在操作的用户）。在1999年，随J2EE 1.2（它是J2EE的首个版本，初始版本号直接就是1.2）所发布的Servlet 2.2中增加了一系列用于认证的API，主要包括两部分内容：
 
-- HttpServletRequest.isUserInRole()
-- HttpServletRequest.getUserPrincipal()
-- 还内置支持了四种硬编码、不可扩展的认证机制：BASIC、FORM、CLIENT-CERT和DIGEST。
+- 在标准上，添加了四种内置的（不可扩展的）认证方案，即Client-Cert、Basic、Digest和Form。
+- 在实现上，添加了与认证和授权相关的一套程序接口，譬如HttpServletRequest::isUserInRole()、HttpServletRequest::getUserPrincipal()等。
 
-到Java 1.3时代中，Sun公司提出了同时面向与代码级安全和用户级安全的认证授权服务JAAS（Java Authentication and Authorization Service，1.3处于扩展包中，1.4纳入标准包），不过相对而言，在JAAS中代码级安全仍然是占更主要的地位。
+原本一项发布超过20年的老旧技术，应该没有多少专门提起的必要，笔者之所以在这里专门引用这件事，是想从它标准和实现的两个改进点中引出一个系统安全的经验原则：以标准规范为指导、以标准接口去实现。安全涉及的问题很复杂，解决方案却也相当的成熟，对于99%的系统来说，在安全上不去做轮子，不去想发明创造，严格遵循标准就是最恰当的安全。本文也顺着此思路展开，分别介绍业界中认证的标准规范的做法，以及在Java程序中落地实现的方法。
 
-由于用户数据可能来自于各种不同的数据源（譬如RDBMS、JNDI、LDAP等等），JAAS设计了一种插入式（Pluggable）的认证和授权模型，以适配各种环境。在今天仍然活跃的主流安全框架中的许多概念，譬如用户叫做“Subject / Principal”、密码存在“Credentials”之中、登陆后从安全上下文“Context”中获取状态等都可以追溯到这一时期所设计的API：
+## 认证的标准
+
+引用J2EE 1.2对安全的改进还有另一个原因，它内置支持的Basic、Digest、Form和Client-Cert四种认证方案很有代表性，刚好分别覆盖了通讯信道、协议和内容层面的认证，这三种层面认证的含义和应用场景笔者列举如下：
+
+- 通讯信道上的认证：你和我建立通讯连接之前，要先证明你是谁。在网络传输（Network）场景中的典型是基于SSL/TLS传输安全层的认证。
+- 通讯协议上的认证：你请求获取我的资源之前，要先证明你是谁。在互联网（Internet）场景中的典型是基于HTTP协议的认证。
+- 通讯内容上的认证：你使用我提供的服务之前，要先证明你是谁。在万维网（World Wide Web）场景中的典型是基于Web内容的认证。
+
+关于第一点信道上的认证，由于内容较多，而且与后续介绍微服务安全方面的话题关系密切，将会独立放到本章的“[传输](/architect-perspective/general-architecture/system-security/transport-security.html)”里（而且J2EE中的Client-Cert其实并不是用于TLS的，凑个数吧）。在本节中，我们来了解基于通讯协议、内容的认证方式。
+
+### HTTP认证
+
+前面已经提前用到了一个名词`认证方案`（Authentication Schemes），它就是指“生成能够证明用户身份的凭证的某种方法”，概念来源于HTTP协议的`认证框架`（Authentication Framework）。互联网工程任务组（Internet Engineering Task Force，IETF）在[RFC 7235](https://tools.ietf.org/html/rfc7235)中定义了HTTP协议的通用认证框架，要求所有支持HTTP协议的服务器，当未授权的用户意图访问服务端保护区域的资源时，应返回401 Unauthorized的状态码，同时应在响应报文头里附带以下两个Header项之一（分别代表网页认证和代理认证），告知客户端应该采取何种方式生成能够代表访问者身份的凭证信息：
+
+``` http
+WWW-Authenticate: <认证方案> realm=<保护区域的描述信息>
+Proxy-Authenticate: <认证方案> realm=<保护区域的描述信息>
+```
+
+接收到该响应后，客户端必须遵循服务端指定的认证方案，在请求资源的报文头中加入身份凭证信息，服务端核实通过后才会允许该请求正常返回，否则将返回403 Forbidden。请求头报文应包含以下Header项之一：
+
+```http
+Authorization: <认证方案> <凭证内容>
+Proxy-Authorization: <认证方案> <凭证内容>
+```
+
+综合以上请求、响应的步骤的介绍，HTTP认证框架的工作流程如以下时序所示：
+
+<mermaid style="margin-bottom: 0px">
+sequenceDiagram
+	客户端->>+服务端: GET /admin 
+	服务端-->>-客户端: 401 Unauthorized （WWW-Authenticate）
+	客户端->>客户端: Ask user
+	客户端->>+服务端: GET /admin（Authorization）
+	服务端->>服务端: Check credentials
+	服务端-->>-客户端: 200 OK / 403 Forbidden
+</mermaid>
+
+HTTP认证框架的设计意图是希望能把“身份认证”的目的与“具体如何认证”的实现分离开来，无论客户端通过生物信息（指纹、人脸）、用户密码、证书（U盾、数字证书）来生成凭证，均可归为是某种关于如何生成凭证的具体实现，均可包容在HTTP协议预设的框架之内。
+
+以上概念性的介绍可能还是有些抽象，笔者以最基础的认证方案`HTTP Basic Authentication`为例，这是一种主要以演示为目的认证方案（在一些不要求安全性的场合也有实际应用，譬如你家的路由器登录很可能就是这种认证方式）。Basic认证生成凭证的方法是让用户输入用户名和密码，然后经过Base64编码“加密”后作为身份凭证。譬如请求资源"GET /admin"时，浏览器收到服务端的如下响应：
+
+```http
+HTTP/1.1 401 Unauthorized
+Date: Mon, 24 Feb 2020 16:50:53 GMT
+WWW-Authenticate: Basic realm="example from icyfenix.cn"
+```
+
+此时，浏览器需要询问最终用户，要求提供用户名和密码，会弹出类似下图所示的HTTP Basic认证窗口：
+
+:::center
+![Basic-Authentication](./images/Basic-Authentication.png)
+HTTP Basic Authentication
+:::
+
+当用户输入了密码信息，譬如输入用户名“icyfenix”，密码“123456”，浏览器会将字符串“icyfenix:123456”编码为“aWN5ZmVuaXg6MTIzNDU2”，然后发送回服务端，如下所示：
+
+```http
+GET /admin HTTP/1.1
+Authorization: Basic aWN5ZmVuaXg6MTIzNDU2
+```
+
+由于Base64只是一种编码方式，并非任何形式的加密，Basic认证的风险是显而易见的，因此说它是一种带演示性质的认证方案。除Basic认证外，IETF还定义了很多种可用于生产的认证方案，譬如：
+
+- **Digest**：[RFC 7616](https://tools.ietf.org/html/rfc7616)，HTTP摘要认证，可视为Basic认证的改良版本，针对Base64明文发送的风险，Digest认证把用户名和密码加盐（一个被称为Nonce的变化值）后再通过MD5/SHA等哈希算法取摘要发送出去。可是，无论客户端如何加密，在面临中间人攻击时依然存在不小的安全风险，“[保密](/architect-perspective/general-architecture/system-security/confidentiality.html)”一节中我们将具体讨论这方面的问题。
+- **Bearer**：[RFC 6750](https://tools.ietf.org/html/rfc6750)，基于OAuth 2规范来完成认证，OAuth2是一个同时涉及到认证与授权的协议，我们将在下一节“[授权](/architect-perspective/general-architecture/system-security/authorization.html)”中详细介绍OAuth 2。
+- **HOBA**：[RFC 7486](https://tools.ietf.org/html/rfc7486) ，HTTP Origin-Bound Authentication的缩写，一种基于数字签名的认证。
+
+HTTP认证框架中认证方案是允许自行扩展的，不要求一定要在RFC中定义，只要客户端（User Agent，这里就不一定是浏览器了）能够识别该方案即可。很多厂商也加入了自己的认证方式，譬如：
+
+- **AWS4-HMAC-SHA256**：相当简单粗暴的名字，就是亚马逊AWS基于HMAC-SHA256哈希算法的认证。
+- **NTLM** / **Negotiate**：这是微软公司NT LAN Manager（NTLM）用到的两种认证方式。
+- **Windows Live ID**：这个顾名思义，无需解释。
+- **Twitter Basic**：一个不存在的网站所改良的HTTP基础认证。
+- ……
+
+### Web认证
+
+HTTP认证框架支持可插拔（Pluggable）的认证方案，本希望能够支持多种应用场景，但目前信息系统中，尤其是系统对终端用户的认证场景中，直接采用HTTP认证框架的比例并其实很小。原因仔细想一下就能明白：HTTP是“超文本传输协议”，首要任务是把资源从服务端传输到客户端，至于资源具体是什么内容，完全是由客户端自行解析驱动的。以HTTP为基础的认证只能面向传输协议而不是具体传输内容来设计，你查看一张图片、下载一个文件、浏览一个HTML页面、或者访问一个复杂的信息系统，都依赖同一套认证框架来支持。如果我从服务器中下载文件，弹个对话框让我登录或许还是可接受的；如果我访问信息系统，身份认证是在系统提供的“登录”功能中完成的，是由提供服务具体内容的信息系统，而不是由HTTP服务器来进行认证，这才是目前信息系统主流的认证方式，通常被称为“表单认证"（Form Authentication）。
+
+直至2019年以前，表单认证都没有什么行业标准可循，表单中的用户字段、密码字段、验证码字段、是否要在客户端加密、采用何种方式加密、接受表单的服务地址是什么等等，都直接由服务端与客户端的开发者自行协商决定。“没有标准的约束”反倒成了表单认证的一大优点，表单认证允许我们做出五花八门的页面，各种程序语言、框架或开发者本身都可以自行决定认证的全套交互细节。
+
+可能你还记得开篇中说的“遵循规范、别造轮子就是最恰当的安全”，这里又将表单认证的高自由度说成是一大优点，初听来有矛盾。细想却并非如此，我们提倡用标准规范去解决安全领域的共性的问题，并不应该与界面是否美观合理、操作流程是否灵活便捷这些应用需求对立起来。譬如，需要支持密码或扫码等多种登录方式、需要引入图形验证码来驱逐爬虫与机器人、需要在登录表单提交之前进行必要的表单校验等等，这些不可能定义在任何规范上，却很合理的应用需求应当被满足。同时，如何控制权限保证不产生越权操作、如何传输信息保证内容不被窃听篡改、如何加密敏感内容保证即使泄漏也不被逆推出明文等等，这些问题都有通行的解决方案，明确定义在规范中的要求也应当被遵循。到了具体实现层面，表单认证与HTTP认证完全可以结合使用，以Fenix's Bootstore的登录功能为例，页面表单是一个自行设计的Vue.js页面，但认证的交互过程遵循了OAuth 2规范的密码模式来完成。
+
+2019年3月，万维网联盟（World Wide Web Consortium，W3C）批准了由[FIDO](https://fidoalliance.org/)（Fast IDentity Online，一个安全、开放、防钓鱼、无密码认证标准的联盟）领导的第一份Web认证的标准“[WebAuthn](https://www.w3.org/TR/webauthn/)”，这里也许又有一些思维严谨的读者会感到矛盾与奇怪，刚才不是才说了Web表单长什么样、要不要验证码、登录表单是否在客户端校验等等是不可能定义在规范上的吗？的确如此，所以WebAuthn彻底抛弃了传统的密码登陆方式，改为直接采用生物识别（指纹、人脸、虹膜、声纹）或者实体密钥（以USB、蓝牙、NFC连接的物理密钥容器）来作为身份凭证，从根本上杜绝了输入错误（校验需求）和机器人模拟（验证码需求）等问题。
+
+WebAuthn是相对比较复杂的认证协议，在阅读接下来的讲解之前，笔者建议如果你的设备和环境允许（硬件基本都没问题，用带有TouchBar的MacBook或者其他支持指纹、FaceID验证的手机即可。软件的话，直至iOS13.6，iPhone仍未支持，但Android和MacOS中的Chrome已经可以使用），先在[GitHub网站](https://github.blog/2019-08-21-github-supports-webauthn-for-security-keys/)的2FA认证上实际体验一下通过WebAuthn进行两段式登陆认证，然后再继续阅读后面的内容。
+
+:::center
+![](./images/webauthen.png)
+Github在不同浏览器上使用WebAuthen登陆
+:::
+
+WebAuthn涵盖了“注册”与“认证”两个流程，先来说注册。注册大致可以分为以下步骤：
+
+1. 用户进入系统的注册页面，这个页面的格式、内容和用户注册时需要填写的信息均不包含在WebAuthn标准的范围内。
+2. 当用户填写完信息，点击“注册”按钮后，服务端暂存用户提交的数据，生成一个随机字符串（规范中称为Challenge）和用户的UserID（在规范中称作凭证ID）。
+3. 浏览器的WebAuthn API接收到Challenge和UserID，把这些信息发送给验证器（Authenticator，可以理解为你机器上TouchBar、FaceID等认证设备的统一接口）。
+4. 验证器提示用户进行验证，如果你机器支持多种认证设备，还会提示用户选择一个想要使用的设备。验证的结果是生成一个密钥对（公钥和私钥），验证器自己存储好私钥、用户信息以及域名。然后使用私钥对Challenge进行签名，并将签名结果、UserID和公钥一起返回给浏览器。
+5. 浏览器将验证器返回的结果转发给服务器。
+6. 服务器核验信息，检查UserID与之前发送的是否一致，并用公钥解密后得到的结果与之前发送的Challenge是否一致，一致即表明注册通过，服务端存储该UserID对应的公钥。
+
+以上步骤的时序如下图所示：
+
+<mermaid style="margin-bottom: 0px">
+sequenceDiagram
+    用户->>+浏览器: 访问登陆页面 
+    浏览器->>+服务器: HTTP Request
+    服务器-->>-浏览器: HTTP Response
+    浏览器->>-用户: 登陆页面
+    用户->>+浏览器: 点击“注册”按钮
+    浏览器->>+服务器: 请求Challenge和UserID
+    服务器-->>-浏览器: 返回Challenge和UserID
+    浏览器->>+验证器: 请求生成密钥对，并对Challenge签名
+    验证器->>用户: 进行生物或物理认证
+    用户-->>验证器: 完成认证
+    验证器-->>-浏览器: 返回签名信息和公钥
+    浏览器->>+服务器: 转发签名信息和公钥到服务器
+    服务器-->>-浏览器: 签名信息验证通过
+    浏览器-->>-用户: 完成注册
+</mermaid>
+
+登陆流程与注册流程很类似，如果你理解了注册流程，登陆就比较简单了。登陆大致可以分为以下步骤：
+
+1. 用户访问登陆页面，填入用户名后即可点击登陆按钮。
+2. 服务器返回随机字符串Challenge、用户UserID。
+3. 浏览器将Challenge和UserID转发给验证器。
+4. 验证器提示用户进行认证操作。由于在注册阶段验证器已经存储了该域名的私钥和用户信息，所以如果域名和用户都相同的话，就不需要生成密钥对了，直接以存储的私钥加密Challenge，然后返回给浏览器。
+5. 服务端接收到浏览器转发来的被私钥加密的Challenge，以此前注册时存储的公钥进行解密，如果解密成功则宣告登录成功。
+
+因为登陆流程与注册流程的步骤是基本一致的，笔者就不单独画登录的时序图了。WebAuthen采用非对称加密的公钥、私钥替代传统的密码，这是非常理想的认证方案，私钥是保密的，只有验证器需要知道它，用户本身都不需要得知，也就没有人为泄漏的可能；公钥是公开的，可以被任何人看到或存储。公钥可用于验证私钥生成的签名，但不能用来签名，因此除了得知私钥外，没有其途径能够生成可被公钥验证为有效的签名，这样服务器就可以通过公钥是否能够解密来判断最终用户的身份是否合法。
+
+WebAuthen还一揽子地解决了传统密码在网络传输上的风险，在“[保密](/architect-perspective/general-architecture/system-security/confidentiality.html)”一节中我们会讲到无论密码是否客户端进行加密、如何加密，对防御中间人攻击来说都是没有意义的。更值得夸赞的是WebAuthen为登录过程带来极大的便捷性，不仅注册和验证的用户体验十分优秀，而且彻底避免了用户在一个网站上泄漏密码，所有使用相同密码的网站都收到攻击的问题，这个优点使得用户无需再为每个网站想不同的密码。当前的WebAuthen还很年轻，普及率暂时还很有限，但笔者相信几年之内它必定会发展成Web认证的主流方式，被大多数网站和系统所支持。
+
+## 认证的实现
+
+了解过业界标准的认证规范以后，这节我们简要地介绍一下在Java技术体系内、在Fenix's Bookstore中具体是如何去实现安全认证的。Java其实也有自己的认证规范，第一个系统性的Java认证规范发布于Java 1.3时代，Sun公司提出了同时面向与代码级安全和用户级安全的认证授权服务[JAAS](https://en.wikipedia.org/wiki/Java_Authentication_and_Authorization_Service)（Java Authentication and Authorization Service，1.3处于扩展包中，1.4纳入标准包），尽管JAAS已经开始照顾了最终用户的认证，但相对而言规范中代码级安全仍然是占更主要的地位。可能今天用过甚至是听过JAAS的Java程序员都已经不多了，但是这个规范提出了很多在今天仍然活跃于主流Java安全框架中的概念，譬如用户叫做“Subject / Principal”、密码存在“Credentials”之中、登录后从安全上下文“Context”中获取状态等常见设计都可以追溯到这一时期所定下的API：
 
 - LoginModule （javax.security.auth.spi.LoginModule）
 - LoginContext （javax.security.auth.login.LoginContext）
@@ -26,91 +161,22 @@
 - Principal （java.security.Principal）
 - Credentials（javax.security.auth.Destroyable、javax.security.auth.Refreshable）
 
-但是，尽管JAAS开创了许多沿用至今的安全概念，实质上并没有得到广泛的应用。这里有两大原因，一方面是由于JAAS同时面向代码级和用户级的安全机制，使得它过度复杂化，难以推广。在这里问题上JCP一直在做着持续的增强和补救，譬如Java EE 6中的JASPIC、Java EE 8中的EE Security：
+JAAS开创了这些沿用至今的安全概念，但规范本身实质上并没有得到广泛的应用，笔者认为有两大原因，一方面是由于JAAS同时面向代码级和用户级的安全机制，使得它过度复杂化，难以推广。在这个问题上Java社区一直有做持续的增强和补救，譬如Java EE 6中的JASPIC、Java EE 8中的EE Security：
 
 - JSR 115：[Java Authorization Contract for Containers](https://jcp.org/aboutJava/communityprocess/mrel/jsr115/index3.html)（JACC）
 - JSR 196：[Java Authentication Service Provider Interface for Containers](https://jcp.org/aboutJava/communityprocess/mrel/jsr196/index2.html)（JASPIC）
 - JSR 375： [Java EE Security API](https://jcp.org/en/jsr/detail?id=375)（EE Security）
 
-而另一方面，可能是更重要的一个原因是在21世纪的第一个十年里，以EJB为代表的容器化J2EE与以“Without EJB”为口号、以Spring、Hibernate等为代表的轻量化企业级开发框架之争，以后者的胜利而结束。这也使得依赖于容器安全的JAAS无法得到大多数人的认可。
+而另一方面，可能是更重要的一个原因是在21世纪的第一个十年里，以EJB为代表的容器化J2EE与以“Without EJB”为口号、以Spring、Hibernate等为代表的轻量化企业级开发框架发生了激烈的竞争，结果是后者获得了全面胜利。这个结果使得依赖于容器安全的JAAS无法得到大多数人的认可。在今时今日，实际活跃于Java安全领域的是两个私有的（私有的意思是不由JSR所规范的，即没有java/javax.*作为包名的）的安全框架：[Apache Shiro](https://shiro.apache.org/)和[Spring Security](https://spring.io/projects/spring-security)。
 
-在今时今日，实际活跃于Java届的两大私有的（私有的意思是不由JSR所规范的，即没有java/javax.*作为包名的）的安全框架：
+相较而言，Shiro使用更为便捷易用，而Spring Security的功能则要复杂强大一些。Fenix's Bookstore（无论是单体架构还是微服务架构）选择了Spring Security作为安全框架，这个选择与功能、性能之类的考虑都没什么关系，就只是因为Spring Boot/Cloud全家桶的原因。从目标上看，以上两个安全框架都解决的问题都很类似，大致包括以下四类：
 
-- [Apache Shiro](https://shiro.apache.org/)
-- [Spring Security](https://spring.io/projects/spring-security)
+- 认证功能：以HTTP协议中定义的各种认证、表单等认证方式确认用户身份，这是本节的主要话题。
+- 安全上下文：用户获得认证之后，要开放一些接口，让应用可以得知该用户的基本资料、用户拥有的权限、角色等。
+- 授权功能：授权在代码实现的角度来看主要就是访问控制（Access Control），但授权从标准的角度看仍然许多值得讨论的话题，这部分内容会放到“[授权](/architect-perspective/general-architecture/system-security/authorization.html)”去介绍。
+- 密码的存储与验证：密码是烫手的山芋， 无论存储、传输还是验证都很麻烦，我们会放到“[保密](/architect-perspective/general-architecture/system-security/confidentiality.html)”去具体讨论。
 
-相较而言，Shiro使用更为便捷易用，而Spring Security的功能则要复杂强大一些。在我们的项目中（无论是单体架构还是微服务架构），均选择了Spring Security作为安全框架。当然，这里面也有很大一部分是因为Spring Boot/Cloud全家桶的原因。这两大安全框架都解决的问题都很类似，大致可以分为四类：
 
-- 认证：以HTTP协议中定义的各种认证、表单等认证方式确认用户身份，这是本节的主要话题。
-- 授权：主要是授权结果，即访问控制（Access Control），稍后讲的“授权”将聚焦在授权的过程，尤其是多方授权中。这部分内容会放到下一节一起讨论。
-- 密码的存储：就是字面意思，我们会放到“保密”这节去一起讨论。
-- 安全上下文：用户获得认证之后，需要有API可以得知该用户的基本资料、用户拥有的权限、角色等。
 
-介绍了一大段关于Java中安全标准的历史，我们最终还是要切入到如何处理认证的话题上，这可是随着网络出现就有的一个东西，所以，IETF的最初想法是基于Web的验证就应该在HTTP协议层面来解决。
 
-:::quote 互联网工程任务组（Internet Engineering Task Force，IETF）
-管理和发布互联网标准的组织，其标准以RFC即"请求意见稿"Request for Comments的形式发出。不仅是HTTP，几乎目前所有的主要网络协议，如IP、TCP、UDP、FTP、CMIP、SOCKS，等等都是以RFC形式定义的。
-:::
 
-IETF给HTTP 1.1协议定义了401（Unauthorized，未授权）状态码，当服务端向客户端返回此状态码时，应在Header中附带一个WWW-Authenticate项，此项目通过跟随的一个可扩展的Scheme，告诉客户端应该采取怎样的方式来开始验证，例如：
-
-```http
-HTTP/1.1 401 Unauthorized
-Date: Mon, 24 Feb 2020 16:50:53 GMT
-WWW-Authenticate: Basic realm="From icyfenix.cn"
-```
-
-同时，IETF也定义了几种标准的Schema，对应了一些预定义好的认证方式，包括：
-
-- **Basic**：[RFC 7617](https://tools.ietf.org/html/rfc7617)，HTTP基础认证，弹出一个输入框，把用户名和密码Base64之后发送出去
-- **Digest**：[RFC 7616](https://tools.ietf.org/html/rfc7616)，HTTP摘要认证，弹出一个输入框，把用户名和密码加盐后再通过MD5/SHA等哈希算法摘要后发送出去
-- **Bearer**：[RFC 6750](https://tools.ietf.org/html/rfc6750)，OAuth 2.0令牌（OAuth2是一个授权协议，但同时也涉及到认证的内容，下一节的主角）
-- **HOBA**：[RFC 7486](https://tools.ietf.org/html/rfc7486) ，**H**TTP **O**rigin-**B**ound **A**uthentication的缩写，一种基于数字签名的认证。
-
-因为Scheme是允许自定义扩展的，很多厂商也加入了自己的认证方式，譬如：
-
-- **AWS4-HMAC-SHA256**：简单粗暴的名字，一看就是亚马逊AWS基于HMAC-SHA256哈希算法的认证
-- **NTLM** / **Negotiate**：微软公司NT LAN Manager（NTLM）用到的两种认证方式
-- **Windows Live ID**：这个不需要解释了
-- **Twitter Basic**：一个不存在的网站所改良的HTTP基础认证
-- ……
-
-现在主流的信息系统，直接采用上面这些认证方式比例不算太高，目前的主流仍是Form表单认证，即我们通常所说的“登陆页面”。表单认证并没有什么行业标准可循，表单中的用户字段、密码字段、验证码字段、是否要在客户端加密、加密的方式、接受表单的服务入口等都可由服务端、客户端自行协商决定。
-
-在Fenix's Bookstore项目中，我们所设计的登录实质上也是一种表单认证，借用了Spring Security的认证管理器。Spring Security中提供了默认的登陆表单界面和配套的服务，只要在Spring Security的Web安全中简单配置即可启用：
-
-```java
-@Configuration
-@EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    @Override
-    protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
-                .antMatchers("/").permitAll() // 首页地址'/'的请求都允许访问
-                .anyRequest().authenticated() // 任何请求,登录后才可以访问
-                .and()
-                .formLogin()  // 启用表单登录认证，还有另一种httpBasic()方法代表了HTTP基础认证
-                .permitAll(); // 登录页面用户任意访问
-                .and()
-                .logout().permitAll(); // 注销的服务任意访问
-    }    
-}
-```
-
-Spring Security的权限控制措施在两个层面进行，一种Web级别的访问控制，这是在Web服务器中附加的过滤器（FilterSecurityInterceptor）实现的，另一种是方法级权限控制，是通过动态代理实现的。第二种将在下一节“授权”部分中提及，这里先来说第一种。
-
-当Spring Security被启动时（在Spring Boot中通过@EnableWebSecurity注解启动），将会在Web服务器中附加十几个不同作用的过滤器，譬如上面代码就直接涉及到其中三个：
-
-- SecurityContextPersistenceFilter：用于维护安全上下文，“上下文”说白了就是如果用户登陆了系统，那服务的代码中总该有个地放可以取到当前登陆用户是谁这类信息
-- UsernamePasswordAuthenticationFilter：用于完成用户名、密码的验证过程
-- LogoutFilter：用于注销
-- FilterSecurityInterceptor：用于Web级别的访问控制，如果设置了指定地址需要登陆而实际未登陆，或者设定了需要某些权限才能访问而实际用户并没有，那将抛出AuthenticationException与AccessDeniedException异常
-
-让我们再回到上面的代码，这段简单的工作流程是：
-
-1. 启用过滤器UsernamePasswordAuthenticationFilter，在其attemptAuthentication()方法中，会从Request中获取用户名和密码，传递给认证管理器AuthenticationManager的authenticate()方法
-2. 认证管理器的目的是协调不同的用户来源，譬如来自数据库、来自LDAP、来自OAuth等等，每一个用户来源都应该有一个实现了AuthenticationProvider接口并注册到认证管理器的实现类所代表，认证管理器将根据需要，调用对应Provider的authenticate()方法实际完成认证操作。
-3. Spring Security默认的Provider是DaoAuthenticationProvider，它在Bookstore项目中并未被采用，而是另外实现了一个UsernamePasswordAuthenticationProvider。但是两者的实际逻辑是相似的，都是调用UserDetailsService接口里的loadUserByUsername()来获取用户信息，UserDetailsService是读取用户明细数据的接口，Spring Security并不关心用户系统的实际存储结构，但认证时肯定也必须使用到用户信息，默认使用InMemoryUserDetailsManager，也就是从内存中写死一些用户数据来完成。
-4. 在AuthenticationProvider中比较传入的用户密码与数据库中的用户密码是否一致（具体怎么个比较法将在“保密”这一节中说明），返回结果，完成认证。
-
-以上流程是大多数系统，尤其是单体系统中主流的认证方式，哪怕不基于Apache Shiro或Spring Security来实现，其思路很可能也是与上面描述的差不多的。但我们的Bookstore却并未直接应用这种认证方式，而是借用了OAuth2授权协议中的密码授权模式，在此过程中完成认证。为何会选择这种方式，以及具体实现部分的内容，将在下一部分“授权”中继续介绍。
