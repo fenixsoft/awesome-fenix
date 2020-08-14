@@ -109,8 +109,8 @@ module.exports = {
             text: '后端：微服务架构 Istio',
             link: 'https://github.com/fenixsoft/servicemesh_arch_istio'
           }, {
-            text: '后端：无服务架构 Serverless',
-            link: 'https://github.com/fenixsoft/serverless_arch'
+            text: '后端：无服务架构 AWS Lambda',
+            link: 'https://github.com/fenixsoft/serverless_arch_awslambda'
           }
         ]
       },
@@ -171,20 +171,6 @@ module.exports = {
               '/architecture/architect-history/serverless'
             ]
           }
-          // ,
-          // {
-          //   title: '从架构到实现',
-          //   collapsable: false,
-          //   children: [
-          //     '/architecture/architect-framework/j2ee-base-arch',
-          //     '/architecture/architect-framework/springboot-base-arch',
-          //     '/architecture/architect-framework/springcloud-base-arch',
-          //     '/architecture/architect-framework/kubernetes-base-arch',
-          //     '/architecture/architect-framework/servicemesh-lstio-arch',
-          //     '/architecture/architect-framework/serverless-arch-knative',
-          //     '/architecture/architect-framework/serverless-arch-kubeless'
-          //   ]
-          // }
         ]
       }, {
         title: '架构师的视角',
@@ -239,19 +225,16 @@ module.exports = {
               // '/architect-perspective/general-architecture/system-security/exploit'
             ]
           },
-          // {
-          //   title: '高并发与高可用',
-          //   collapsable: false,
-          //   path: '/architect-perspective/general-architecture/concurrent/',
-          //   children: [
-          //     '/architect-perspective/general-architecture/concurrent/process-thread-coroutine',
-          //     '/architect-perspective/general-architecture/concurrent/thread-safe',
-          //     '/architect-perspective/general-architecture/concurrent/synchronization',
-          //     '/architect-perspective/general-architecture/concurrent/hardware-concurrent',
-          //   ]
-          // }
         ]
-      }, {
+      },{
+        title: '设计方法论',
+        collapsable: false,
+        children: [
+          '/methodology/layered-system',
+          '/methodology/capacity-design',
+          '/methodology/constraint',
+        ]
+      },{
         title: '分布式的基石',
         collapsable: false,
         children: [
@@ -363,14 +346,6 @@ module.exports = {
             ]
           },
           '/immutable-infrastructure/hardware-schedule',
-        ]
-      }, {
-        title: '设计方法论',
-        collapsable: false,
-        children: [
-          '/methodology/layered-system',
-          '/methodology/capacity-design',
-          '/methodology/constraint',
         ]
       }, {
         title: '技巧与专题',

@@ -4,7 +4,11 @@ permalink: /changelog
 
 # 更新日志
 
-### 2020年8月12日
+### 2020年8月14日
+
+- 重写了事务处理中的“[本地事务](/architect-perspective/general-architecture/transaction/local.html)”一节。
+
+### 2020年8月11日
 
 - 重写了安全架构中的“[认证](/architect-perspective/general-architecture/system-security/authentication.html)”一节。
 

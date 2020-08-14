@@ -1,4 +1,4 @@
-# 无服务：Serverless
+# 无服务：AWS Lambda
 
 <GitHubWrapper>
 
