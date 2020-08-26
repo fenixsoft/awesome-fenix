@@ -43,7 +43,7 @@
 > 
 > :::right
 > 
-> —— Alan Turing，[Computing Machinery and Intelligence](https://en.wikipedia.org/wiki/Computing_Machinery_and_Intelligence)，1950
+> —— [Alan Turing](https://en.wikipedia.org/wiki/Alan_Turing)，[Computing Machinery and Intelligence](https://en.wikipedia.org/wiki/Computing_Machinery_and_Intelligence)，1950
 > 
 > :::
 

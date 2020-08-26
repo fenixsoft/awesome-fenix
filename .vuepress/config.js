@@ -114,7 +114,11 @@ module.exports = {
           }
         ]
       },
-      {text: 'PDF下载', link: 'https://icyfenix.cn/pdf/the-fenix-project.pdf', target: "_blank"},
+      {
+        text: 'PDF下载',
+        link: 'https://raw.githubusercontent.com/fenixsoft/awesome-fenix/gh-pages/pdf/the-fenix-project.pdf',
+        target: "_blank"
+      },
       {text: '讨论区', link: '/board', target: "_self"}
     ],
     sidebar: [
@@ -208,7 +212,7 @@ module.exports = {
               '/architect-perspective/general-architecture/diversion-system/cdn',
               '/architect-perspective/general-architecture/diversion-system/load-balancing',
               '/architect-perspective/general-architecture/diversion-system/cache-middleware',
-              // '/architect-perspective/general-architecture/diversion-system/store-expansion'
+              '/architect-perspective/general-architecture/diversion-system/scalability'
             ]
           },
           {
@@ -226,15 +230,7 @@ module.exports = {
             ]
           },
         ]
-      },{
-        title: '设计方法论',
-        collapsable: false,
-        children: [
-          '/methodology/layered-system',
-          '/methodology/capacity-design',
-          '/methodology/constraint',
-        ]
-      },{
+      }, {
         title: '分布式的基石',
         collapsable: false,
         children: [
@@ -346,6 +342,25 @@ module.exports = {
             ]
           },
           '/immutable-infrastructure/hardware-schedule',
+        ]
+      }, {
+        title: '架构方法论',
+        collapsable: false,
+
+        children: [
+          {
+            title: '✔️ 向微服务迈进',
+            path: '/methodology/forward-msa/',
+            collapsable: false,
+            children: [
+              '/methodology/forward-msa/objective',
+              '/methodology/forward-msa/prerequest',
+              '/methodology/forward-msa/granularity',
+              '/methodology/forward-msa/governance',
+              '/methodology/forward-msa/measurement',
+              // '/methodology/forward-msa/risk',
+            ]
+          },
         ]
       }, {
         title: '技巧与专题',

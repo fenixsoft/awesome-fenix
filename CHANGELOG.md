@@ -6,6 +6,14 @@ permalink: /changelog
 
 ### 2020年8月14日
 
+- 写了几篇谈理论的务虚文章：[向微服务迈进](/methodology/forward-msa/)
+  - [目的：为什么要微服务](/methodology/forward-msa/objective.html)
+  - [前提：微服务需要的条件](/methodology/forward-msa/prerequest.html)
+  - [边界：微服务的粒度](/methodology/forward-msa/granularity.html)
+  - [治理：直面系统复杂性](/methodology/forward-msa/governance.html)
+
+### 2020年8月14日
+
 - 重写了事务处理中的“[本地事务](/architect-perspective/general-architecture/transaction/local.html)”一节。
 
 ### 2020年8月11日
