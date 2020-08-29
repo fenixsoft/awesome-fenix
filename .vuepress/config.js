@@ -212,7 +212,7 @@ module.exports = {
               '/architect-perspective/general-architecture/diversion-system/cdn',
               '/architect-perspective/general-architecture/diversion-system/load-balancing',
               '/architect-perspective/general-architecture/diversion-system/cache-middleware',
-              '/architect-perspective/general-architecture/diversion-system/scalability'
+              // '/architect-perspective/general-architecture/diversion-system/scalability'
             ]
           },
           {
@@ -275,13 +275,13 @@ module.exports = {
             ]
           },
           {
-            title: '可观测性',
-            // path: '/distribution/observability/',
+            title: '✔️ 可观测性',
+            path: '/distribution/observability/',
             collapsable: false,
             children: [
               '/distribution/observability/logging',
-              '/distribution/observability/invokechain-trace',
-              '/distribution/observability/apm',
+              '/distribution/observability/tracing',
+              '/distribution/observability/metrics',
             ]
           },
         ]
@@ -344,7 +344,7 @@ module.exports = {
           '/immutable-infrastructure/hardware-schedule',
         ]
       }, {
-        title: '架构方法论',
+        title: '技术方法论',
         collapsable: false,
 
         children: [

@@ -42,7 +42,7 @@ This common manifestation of SOA has led some microservice advocates to reject t
 
 :::right
 
-—— Martin Flower / James Lewis，[Microservices](https://martinfowler.com/articles/microservices.html)
+—— Martin Fowler / James Lewis，[Microservices](https://martinfowler.com/articles/microservices.html)
 
 :::
 

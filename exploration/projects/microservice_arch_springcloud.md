@@ -142,7 +142,7 @@ Fenix's Bookstore采用基于Spring Cloud微服务架构，微服务部分主要
 - **服务网关**：默认采用[Netflix Zuul](https://github.com/Netflix/zuul)，亦可使用[Spring Cloud Gateway](https://spring.io/projects/spring-cloud-gateway)代替。
 - **服务治理**：默认采用[Netflix Hystrix](https://github.com/Netflix/Hystrix)，亦可使用[Sentinel](https://github.com/alibaba/Sentinel)、[Resilience4j](https://github.com/resilience4j/resilience4j)代替。
 - **进程内负载均衡**：默认采用[Netfilix Ribbon](https://github.com/Netflix/ribbon)，亦可使用[Spring Cloud Loadbalancer](https://spring.io/guides/gs/spring-cloud-loadbalancer/)代替。
-- **声明式HTTP客户端**：默认采用[Spring Cloud OpenFeign](https://spring.io/projects/spring-cloud-openfeign)。这个并没有代替的必要，访问远程服务而已，使用RestTemplete或者更底层的[OkHTTP](https://square.github.io/okhttp/)、[HTTPClient](https://hc.apache.org/httpcomponents-client-ga/)也能完成，多写点代码罢了。
+- **声明式HTTP客户端**：默认采用[Spring Cloud OpenFeign](https://spring.io/projects/spring-cloud-openfeign)。声明式的HTTP客户端其实没有找替代品的必要性，如果需要，可考虑[Retrofit](https://square.github.io/retrofit/)，或者使用RestTemplete乃至于更底层的[OkHTTP](https://square.github.io/okhttp/)、[HTTPClient](https://hc.apache.org/httpcomponents-client-ga/)以命令式编程来访问，多写一些代码而已了。
 
 尽管Netflix套件的使用人数很多，但由于Spring Cloud Netflix已进入维护模式，所以笔者均列出了上述组件的代替品。这些组件几乎都是声明式的，这保证了替代它们的成本相当低，只需要更换注解，修改配置，无需改动代码。你在阅读源码时也会发现，三个“platform”开头的服务，基本上没有任何实际代码的存在。
 

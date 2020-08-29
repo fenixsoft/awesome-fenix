@@ -4,9 +4,15 @@ permalink: /changelog
 
 # 更新日志
 
-### 2020年8月14日
+### 2020年8月29日
 
-- 写了几篇谈理论的务虚文章：[向微服务迈进](/methodology/forward-msa/)
+-  完成了“[可观测性](/distribution/observability/)”章节
+
+### 2020年8月27日
+
+写了几篇谈理论的务虚文章：
+
+- [向微服务迈进](/methodology/forward-msa/)
   - [目的：为什么要微服务](/methodology/forward-msa/objective.html)
   - [前提：微服务需要的条件](/methodology/forward-msa/prerequest.html)
   - [边界：微服务的粒度](/methodology/forward-msa/granularity.html)
