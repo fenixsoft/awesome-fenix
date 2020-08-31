@@ -19,7 +19,7 @@
 
 这种数据恢复操作被称为`崩溃恢复`（Crash Recovery，也有称作Failure Recovery或Transaction Recovery），为了能够顺利地完成崩溃恢复，在磁盘中写数据就不能像程序修改内存中变量值那样，直接改变某表某行某列的某个值，必须将修改数据这个操作所需的全部信息（譬如修改什么数据、数据物理上位于哪个内存页和磁盘块中、从什么值改成什么值，等等），以日志的形式（日志特指仅进行顺序追加的文件写入方式，这是最高效的写入方式）先记录到磁盘中。只有在日志记录全部都安全落盘，见到代表事务成功提交的“Commit Record”后，数据库才会根据日志上的信息对真正的数据进行修改，修改完成后，在日志中加入一条“End Record”表示事务已完成持久化，这种事务实现方法被称为“Commit Logging”。
 
-:::tip 额外知识：Shadow Paging
+:::quote 额外知识：Shadow Paging
 
 通过日志实现事务的原子性和持久性是当今的主流方案，但并非唯一的选择。除日志外，还有另外一种称为“[Shadow Paging](https://en.wikipedia.org/wiki/Shadow_paging)”（有中文资料翻译为“影子分页”）的事务实现机制，常用的轻量级数据库SQLite Version 3采用的就是Shadow Paging。
 

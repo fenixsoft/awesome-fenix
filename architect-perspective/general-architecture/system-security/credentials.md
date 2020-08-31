@@ -73,7 +73,7 @@ Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX25hbWUiOiJpY
 
 它描述了令牌的类型（统一为typ:JWT）和令牌签名的算法，示例中HS256为HMAC SHA256算法的缩写，其他各种系统所支持的签名算法可以参考[https://jwt.io/](https://jwt.io/)网站所列。
 
-:::tip 额外知识：散列消息认证码
+:::quote 额外知识：散列消息认证码
 
 在本节及后面其他关于安全的内容中，经常会在某种算法前出现“HMAC”的前缀，这是指`散列消息认证码`（Hash-based Message Authentication Code，HMAC）。目标上可以简单将它理解为一种带有密钥的哈希摘要，实现形式上可以简单理解为密钥通过加盐方式混入，与内容一起做哈希即可。
 

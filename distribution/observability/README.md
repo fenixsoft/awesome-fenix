@@ -2,11 +2,11 @@
 
 随着分布式架构渐成主流，[可观测性](https://en.wikipedia.org/wiki/Observability)（Observability）一词也日益频繁地被提起。它与[可控制性](https://en.wikipedia.org/wiki/Controllability)（Controllability）是[Rudolf E. Kálmán](https://en.wikipedia.org/wiki/Rudolf_E._Kálmán)针对线性动态控制系统提出的一组对偶属性，原本的含义是“可以由其外部输出推断其内部状态的程度”。
 
-可观测性是近几年才从控制理论中借用的舶来概念，不过其内容实际在计算机科学中已有多年的实践积累。如今一般会将可观测性具体分解为三项具体内容：[日志收集](/distribution/observability/logging.html)（Logging）、[链路追踪](/distribution/observability/tracing.html)（Tracing）和[聚合度量](/distribution/observability/metrics.html)（Metrics），如果此前你从来没接触过分布式系统的观测工作，那可能只会对日志比较了解，对追踪和度量都相对陌生。尽管在分布式系统中追踪和度量必要性和复杂程度确实比单体系统时要更高，但此前单体系统中你肯定已经做过类似的工作，譬如：
+可观测性是近几年才从控制理论中借用的舶来概念，不过其内容实际在计算机科学中已有多年的实践积累。如今一般会将可观测性具体分解为三个更具体方向进行研究：[日志收集](/distribution/observability/logging.html)（Logging）、[链路追踪](/distribution/observability/tracing.html)（Tracing）和[聚合度量](/distribution/observability/metrics.html)（Metrics），如果此前你从来没接触过分布式系统的观测工作，那可能只会对日志比较了解，对追踪和度量都相对陌生。尽管在分布式系统中追踪和度量必要性和复杂程度确实比单体系统时要更高，但此前单体系统中你肯定已经做过类似的工作，譬如：
 
 - **日志**：日志的主要职责是记录离散事件，通过日志事后分析出程序的行为，譬如曾经调用过什么方法，操作过哪些数据。日志功能非常基础，不论是单体还是微服务，今天你也许还能找到不使用Spring的Java系统，却应该很难找到不使用Slf4j或Common Logging的系统了，Log4j、Slf4j这些日志实现及外观（Facade）类库已事实上成了Java程序标配的基础类库。但你是否曾想过什么是日志？日志的边界在哪里？输出日志是为了解决什么问题？代价是什么？打印日志被认为是程序中最简单的工作之一，在调试问题时常有人说“当初这里记得打点日志就好了”，可见是一项举手之劳的工作。尽管输出日志很简单，但收集和分析日志却可能会很复杂，也许对大多数程序员来说，分析日志就是最常遇见也最有实践可行性的“大数据”系统了。用大数据的视角来观察日志，会有许多应该考虑、可以分析挖掘的内容。
-- **追踪**：单体系统时代追踪的概念只局限于[栈追踪](https://en.wikipedia.org/wiki/Stack_trace)（Stack Tracing），你调试程序时，在IDE打个断点，看到的Call Stack视图上的内容便是跟踪；你编写代码时，处理异常调用了Exception::printStackTrace()方法，它输出的堆栈信息也是追踪。微服务时代，追踪就不只局限于调用栈了，一个外部请求需要内部若干服务的共同响应，这时候完整的调用轨迹将跨越了多个服务，包括服务间的网络交互与各个服务内部的调用栈，因此，分布式系统中的追踪在国内常被称为“全链路追踪”（本文就直接称“链路追踪”了），国外一般不叫“全链路”，习惯就叫做“分布式追踪”，即[Distributed Tracing](https://opentracing.io/docs/overview/what-is-tracing/)。追踪的主要目的是故障排查，如分析调用链的哪一部分、哪个方法出现错误、阻塞，输入输出是否符合预期等等。
-- **度量**：度量是指对系统中某一类信息的总结聚合，譬如，每一只股票都会定时公布财务报表，通过财报上的营业收入、净利率、毛利润率、资产、负载等等一系列数据来体现过去一个财务周期中公司的经营状况，这便是一种信息聚合。Java里有一种很基本的度量便是由虚拟机直接提供的JMX（Java Management eXtensions），诸如内存大小、各分代的用量、峰值的线程数、垃圾收集的吞吐量、频率，等等都可以从JMX中获得。度量的主要目的是监控预警（Monitoring），如某些度量指标达到风险阈值时触发事件，以便自动处理或者提醒管理员介入。
+- **追踪**：单体系统时代追踪的概念只局限于[栈追踪](https://en.wikipedia.org/wiki/Stack_trace)（Stack Tracing），你调试程序时，在IDE打个断点，看到的Call Stack视图上的内容便是跟踪；你编写代码时，处理异常调用了Exception::printStackTrace()方法，它输出的堆栈信息也是追踪。微服务时代，追踪就不只局限于调用栈了，一个外部请求需要内部若干服务的共同响应，这时候完整的调用轨迹将跨越了多个服务，包括服务间的网络交互与各个服务内部的调用栈，因此，分布式系统中的追踪在国内常被称为“全链路追踪”（本文就直接称“链路追踪”了），国外一般不叫“全链路”，习惯就称做“分布式追踪”，即[Distributed Tracing](https://opentracing.io/docs/overview/what-is-tracing/)。追踪的主要目的是故障排查，如分析调用链的哪一部分、哪个方法出现错误、阻塞，输入输出是否符合预期等等。
+- **度量**：度量是指对系统中某一类信息的总结聚合，譬如，证券市场的每一只股票都会定期公布财务报表，通过财报上的营收、净利、毛利、资产、负载等等一系列数据来体现过去一个财务周期中公司的经营状况，这便是一种信息聚合。Java里有一种很基本的度量便是由虚拟机直接提供的JMX（Java Management eXtensions）度量，诸如内存大小、各分代的用量、峰值的线程数、垃圾收集的吞吐量、频率，等等都可以从JMX中获得。度量的主要目的是监控预警（Monitoring），如某些度量指标达到风险阈值时触发事件，以便自动处理或者提醒管理员介入。
 
 日志、追踪、度量三者并不是完全互相独立的，它之间有有许多天然重合或者可以结合之处，2007年Peter Bourgon撰写的文章《[Metrics, tracing, and logging](https://peter.bourgon.org/blog/2017/02/21/metrics-tracing-and-logging.html)》讲述了这三者之间的关系，如下图所示。
 
@@ -19,7 +19,7 @@
 
 度量领域，跟随着Kubernetes统一容器编排的步伐，Prometheus也击败了度量领域里以Zabbix为代表的众多前辈，成为了云原生时代度量监控的事实标准。从市场角度来说Prometheus还没有达到Kubernetes那样一统天下的程度，但从社区活跃度上看，Prometheus已占有绝对的优势，在Google和CNCF的推动下，未来前途可期。
 
-:::quote Kubernetes与Prometheus的关系
+:::quote 额外知识：Kubernetes与Prometheus的关系
 
 Kubernetes是CNCF第一个孵化成功的项目，Prometheus是CNCF第二个孵化成功的项目。<br/>Kubernetes起源于Google的编排系统Borg，Prometheus起源于Google为Borg做的度量监控系统BorgMon。
 

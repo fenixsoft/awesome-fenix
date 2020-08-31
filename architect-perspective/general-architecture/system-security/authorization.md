@@ -152,7 +152,7 @@ sequenceDiagram
 
 还有一点，在RFC 6749对隐式授权的描述中，特别强调了令牌是“通过Fragment带回”的。部分对超文本协议没有了解的读者，可能不知道[Fragment](https://en.wikipedia.org/wiki/Fragment_identifier)是个什么东西？
 
-:::tip 额外知识：什么是Fragment
+:::quote 额外知识：Fragment
 In computer hypertext, a fragment identifier is a string of characters that refers to a resource that is subordinate to another, primary resource. The primary resource is identified by a Uniform Resource Identifier (URI), and the fragment identifier points to the subordinate resource.
 :::right
 

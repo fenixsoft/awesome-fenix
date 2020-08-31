@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年9月1日
+
+-  完成了“[日志分析](/distribution/observability/logging.html)”章节
+
 ### 2020年8月29日
 
 -  完成了“[可观测性](/distribution/observability/)”章节

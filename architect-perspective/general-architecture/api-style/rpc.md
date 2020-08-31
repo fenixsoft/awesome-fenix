@@ -80,7 +80,7 @@ public static void main(String[] args) {
 
 在1980年代初期，传奇的[施乐Palo Alto研究中心](https://en.wikipedia.org/wiki/PARC_(company))发布了基于Cedar语言的RPC框架Lupine，并实现了世界上第一个基于RPC的商业应用Courier，这里施乐PARC所定义的“远程服务调用”的概念就是符合以上对RPC的结论的，所以，尽管此前已经有用其他名词指代RPC这种操作，一般仍认为RPC的概念最早由施乐公司所提出。
 
-:::quote 首次提出远程服务调用的定义
+:::quote 额外知识：首次提出远程服务调用的定义
 Remote procedure call is the synchronous language-level transfer of control between programs in disjoint address spaces whose primary communication medium is a narrow channel. 
 
 ![](./images/rpc.png)
