@@ -7,6 +7,7 @@ permalink: /changelog
 ### 2020年9月1日
 
 -  完成了“[日志分析](/distribution/observability/logging.html)”章节
+-  完成了“[链路追踪](/distribution/observability/tracing.html)”章节
 
 ### 2020年8月29日
 

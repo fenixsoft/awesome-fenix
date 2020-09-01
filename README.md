@@ -23,7 +23,7 @@
 
 ## 这是什么？
 
-这是一部以“合格的架构师，应该掌握哪些知识”为叙事主线的开源文档，是一部帮助开发人员整理现代软件架构里各条分支上的知识技能的手册。文章《<a href="https://icyfenix.cn/introduction/about-the-fenix-project.html">什么是“The Fenix Project”</a>》详细阐述了此项目主旨、目标与名字的来由，文章《<a href="https://icyfenix.cn/exploration/guide/quick-start.html">如何开始</a>》简述了文档每章讨论的主要话题与内容详略分布，供阅前参考。
+这是一部以“架构师应该掌握哪些架构知识”为叙事主线的开源文档，是一幅帮助开发人员整理现代软件架构各条分支中繁多知识点的技能地图。文章《<a href="https://icyfenix.cn/introduction/about-the-fenix-project.html">什么是“The Fenix Project”</a>》详细阐述了这部文档的主旨、目标与名字的来由，文章《<a href="https://icyfenix.cn/exploration/guide/quick-start.html">如何开始</a>》简述了文档每章讨论的主要话题与内容详略分布，供阅前参考。
 
 笔者出于以下目的，撰写这部文档：
 
@@ -31,7 +31,7 @@
 - 笔者正式出版过七本计算机技术书籍，遗憾的是暂时还没有一本与自己本职工作直接相关。能按照自己的兴趣去写作，还能获得不菲的经济报酬是一件很快乐的事情；撰写一部工作中能直接使用的、能随时更新、与人交流的在线文档，同样也是一件很实用、很有价值的事情。
 - 笔者认为技术人员成长有一“捷径”，学技术不仅要去看、去读、去想、去用，更要去说、去写。将自己“认为掌握了的”知识叙述出来，能够说得有条理清晰，讲得理直气壮；能够让他人听得明白，释去心中疑惑；能够把自己的观点交予别人的审视，乃至质疑，在此过程之中，会挖掘出很多潜藏在“已知”背后的“未知”。未有知而不行者，知而不行，只是未知。
 
-除文档部分外，笔者同时还建立了若干配套的代码工程，这是针对不同架构、技术方案（如单体架构、微服务、服务网格、无服务架构，等等）的演示程序（[PetStore-Like-Project](https://www.oracle.com/technetwork/cn/java/javaee/overview/index-136650.html)）。它们既是文档中所述知识的实践示例，亦可作为实际项目新创建时的可参考引用的基础代码。
+除文档部分外，笔者同时还建立了若干配套的代码工程，这是针对不同架构、技术方案（如单体架构、微服务、服务网格、无服务架构，等等）的演示程序。它们既是文档中所述知识的实践示例，亦可作为实际项目新创建时的可参考引用的基础代码。
 
 <p align="center" style="display:none" tips="view only in GitHub README.md">
 <img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/sshot-index.png" >

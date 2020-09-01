@@ -8,7 +8,7 @@
 - **追踪**：单体系统时代追踪的概念只局限于[栈追踪](https://en.wikipedia.org/wiki/Stack_trace)（Stack Tracing），你调试程序时，在IDE打个断点，看到的Call Stack视图上的内容便是跟踪；你编写代码时，处理异常调用了Exception::printStackTrace()方法，它输出的堆栈信息也是追踪。微服务时代，追踪就不只局限于调用栈了，一个外部请求需要内部若干服务的共同响应，这时候完整的调用轨迹将跨越了多个服务，包括服务间的网络交互与各个服务内部的调用栈，因此，分布式系统中的追踪在国内常被称为“全链路追踪”（本文就直接称“链路追踪”了），国外一般不叫“全链路”，习惯就称做“分布式追踪”，即[Distributed Tracing](https://opentracing.io/docs/overview/what-is-tracing/)。追踪的主要目的是故障排查，如分析调用链的哪一部分、哪个方法出现错误、阻塞，输入输出是否符合预期等等。
 - **度量**：度量是指对系统中某一类信息的总结聚合，譬如，证券市场的每一只股票都会定期公布财务报表，通过财报上的营收、净利、毛利、资产、负载等等一系列数据来体现过去一个财务周期中公司的经营状况，这便是一种信息聚合。Java里有一种很基本的度量便是由虚拟机直接提供的JMX（Java Management eXtensions）度量，诸如内存大小、各分代的用量、峰值的线程数、垃圾收集的吞吐量、频率，等等都可以从JMX中获得。度量的主要目的是监控预警（Monitoring），如某些度量指标达到风险阈值时触发事件，以便自动处理或者提醒管理员介入。
 
-日志、追踪、度量三者并不是完全互相独立的，它之间有有许多天然重合或者可以结合之处，2007年Peter Bourgon撰写的文章《[Metrics, tracing, and logging](https://peter.bourgon.org/blog/2017/02/21/metrics-tracing-and-logging.html)》讲述了这三者之间的关系，如下图所示。
+日志、追踪、度量三者并不是完全互相独立的，它之间有有许多天然重合或者可以结合之处，2017年Peter Bourgon撰写的文章《[Metrics, tracing, and logging](https://peter.bourgon.org/blog/2017/02/21/metrics-tracing-and-logging.html)》讲述了这三者之间的关系，如下图所示。日志、追踪、度量三者融合是趋势，像OpenTelemetry这样三者兼备的融合框架，被CNCF视为可观测性的终极方案。
 
 :::center
 ![](./images/mtl.png)
@@ -25,7 +25,7 @@ Kubernetes是CNCF第一个孵化成功的项目，Prometheus是CNCF第二个孵�
 
 :::
 
-追踪领域与日志、度量不同，它是与具体网络协议、程序语言相关的，收集日志你不必关心某段日志是由Java程序输出的还是由Golang程序输出的，对你来说它们都是一段非结构化文本，同理，度量对你来说也只是一个个聚合的数据指标而已。但是，链路追踪就不一样，各个服务之间是使用HTTP还是gRPC来进行网络访问会直接影响追踪的实现，各个服务是使用Java、Golang还是Node.js来编写，也会直接影响到进程内调用栈的追踪方式。这决定了追踪工具本身有更强烈的探针插件化的需求，也决定了追踪领域很难出现一家独大的情况。近年来各种链路追踪产品层出不穷，市面上主流的工具既有像Datadog这样的一揽子商业方案，也有AWS X-Ray和Google Stackdriver Trace这样的云厂商产品，还有像SkyWalking、Zipkin、Jaeger这样来自开源社区的产品。2017年，CNCF牵头制定了[OpenTracing规范](https://opentracing.io/specification/)，推进追踪领域的工具与协议标准化，未来我们很可能会根据服务具体情况的差异，组合使用不同厂商或组织的追踪工具。
+追踪领域与日志、度量不同，它是与具体网络协议、程序语言相关的，收集日志你不必关心某段日志是由Java程序输出的还是由Golang程序输出的，对你来说它们都是一段非结构化文本，同理，度量对你来说也只是一个个聚合的数据指标而已。但是，链路追踪就不一样，各个服务之间是使用HTTP还是gRPC来进行网络访问会直接影响追踪的实现，各个服务是使用Java、Golang还是Node.js来编写，也会直接影响到进程内调用栈的追踪方式。这决定了追踪工具本身有更强烈的探针插件化的需求，也决定了追踪领域很难出现一家独大的情况。近年来各种链路追踪产品层出不穷，市面上主流的工具既有像Datadog这样的一揽子商业方案，也有AWS X-Ray和Google Stackdriver Trace这样的云厂商产品，还有像SkyWalking、Zipkin、Jaeger这样来自开源社区的产品。2016年，CNCF牵头制定了[OpenTracing规范](https://opentracing.io/specification/)，这是CNCF接受的第三个项目，OpenTracing致力于推进追踪领域的工具与协议标准化，未来我们很可能会根据服务具体情况的差异，组合使用不同厂商或组织的追踪工具。
 
 :::center
 ![](./images/cncf.png)
