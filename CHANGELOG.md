@@ -4,9 +4,13 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年9月4日
+
+-  完成了“[聚合度量](/distribution/observability/metrics.html)”章节
+
 ### 2020年9月1日
 
--  完成了“[日志分析](/distribution/observability/logging.html)”章节
+-  完成了“[事件日志](/distribution/observability/logging.html)”章节
 -  完成了“[链路追踪](/distribution/observability/tracing.html)”章节
 
 ### 2020年8月29日
@@ -21,7 +25,7 @@ permalink: /changelog
   - [目的：为什么要微服务](/methodology/forward-msa/objective.html)
   - [前提：微服务需要的条件](/methodology/forward-msa/prerequest.html)
   - [边界：微服务的粒度](/methodology/forward-msa/granularity.html)
-  - [治理：直面系统复杂性](/methodology/forward-msa/governance.html)
+  - [治理：理解系统复杂性](/methodology/forward-msa/governance.html)
 
 ### 2020年8月14日
 
