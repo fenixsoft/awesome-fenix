@@ -7,6 +7,7 @@ permalink: /changelog
 ### 2020年9月4日
 
 -  完成了“[聚合度量](/distribution/observability/metrics.html)”章节
+-  目前到了26万字，整部文档所规划的框架里，只剩下介绍云原生基础设施的“不可变基础设施”这最后一大块了，希望今年内能全部写完。
 
 ### 2020年9月1日
 
