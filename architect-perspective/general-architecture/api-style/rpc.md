@@ -10,7 +10,7 @@
 
 ```java
 // 调用者（Caller）      ： main()
-// 被调者（Callee）      ： println()
+// 被调用者（Callee）    ： println()
 // 调用点（Call Site）   ： 发生方法调用的指令流位置
 // 调用参数（Parameter） ： 由Caller传递给Callee的数据，即“hello world”
 // 返回值（Retval）      ： 由Callee传递给Caller的数据，如果方法正常完成，是void，如果方法异常完成，是对应的异常

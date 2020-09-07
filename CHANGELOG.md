@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年9月8日
+
+-  完成了“[虚拟化容器](/immutable-infrastructure/container/)”与“[容器的崛起](/immutable-infrastructure/container/history.html)”章节
+
 ### 2020年9月4日
 
 -  完成了“[聚合度量](/distribution/observability/metrics.html)”章节

@@ -51,7 +51,7 @@ Trace和Spans（图片来源于[Dapper论文](https://static.googleusercontent.c
   :::
   当然，也必须说明清楚的是像Pinpoint这种详细程度的追踪对应用系统的性能压力是相当大的，应该仅在除错时开启，Pinpoint本身就是比较重负载的系统（运行它必须先维护一套HBase）。目前服务追踪的其中一个发展趋势是轻量化，SkyWalking是这方面的佼佼者。
 
-- 基于边车代理的追踪目前基本上只有[Envoy](https://www.envoyproxy.io/)一家能做，毕竟Sidecar领域并没有什么能和Envoy竞争的产品。现在主流的服务网格框架，如Istio和微软的OSM（Open Service Mesh）都是基于Envoy的。基于边车代理的追踪毫无疑问是最符合理想中的分布式追踪模型的，它对应用完全透明，无论是日志还是服务本身都不会有任何变化；它与程序语言无关，无论应用采用什么编程语言实现，只要它还是通过网络（HTTP或者gRPC）来访问服务就可以被追踪到；它有自己独立的数据通道，追踪数据通过xDS协议进行上报，避免了对服务本身网络或者日志归集的依赖，保证了精确性。如果要说这种追踪方式还有什么缺点的话，那就是服务网格现在还不够普及，未来随着云原生的发展，相信它会成为追踪系统的主流实现方式之一。另外就是Envoy本身的工作原理决定了它只能实现服务调用层面的追踪，像上面Pinpoint截图那样本地方法调用级别的追踪诊断是做不到的。<br/>Envoy也没有提供自己的界面端和存储端，所以Envoy和Sleuth一样都属于狭义的追踪系统，需要配合专门的UI来使用，现在SkyWalking、Zipkin、[Jaeger](https://www.jaegertracing.io/)、[LightStep Tracing](https://lightstep.com/products/)等系统都可以接受来自于Envoy的追踪数据，充当它的界面端。
+- 基于边车代理的追踪目前实际上只有[Envoy](https://www.envoyproxy.io/)一家能做（如果把“实际上”改成“理论上”的话可算上Linkerd/Conduit和NginMesh），毕竟当前Sidecar领域还没有什么能和Envoy真正竞争的产品。现在主流的服务网格框架，如Istio和微软的OSM（Open Service Mesh）都是基于Envoy的。基于边车代理的追踪毫无疑问是最符合理想中的分布式追踪模型的，它对应用完全透明，无论是日志还是服务本身都不会有任何变化；它与程序语言无关，无论应用采用什么编程语言实现，只要它还是通过网络（HTTP或者gRPC）来访问服务就可以被追踪到；它有自己独立的数据通道，追踪数据通过xDS协议进行上报，避免了对服务本身网络或者日志归集的依赖，保证了精确性。如果要说这种追踪方式还有什么缺点的话，那就是服务网格现在还不够普及，未来随着云原生的发展，相信它会成为追踪系统的主流实现方式之一。另外就是Envoy本身的工作原理决定了它只能实现服务调用层面的追踪，像上面Pinpoint截图那样本地方法调用级别的追踪诊断是做不到的。<br/>Envoy也没有提供自己的界面端和存储端，所以Envoy和Sleuth一样都属于狭义的追踪系统，需要配合专门的UI来使用，现在SkyWalking、Zipkin、[Jaeger](https://www.jaegertracing.io/)、[LightStep Tracing](https://lightstep.com/products/)等系统都可以接受来自于Envoy的追踪数据，充当它的界面端。
 
 ## 追踪规范化
 

@@ -103,7 +103,7 @@ Kubernetes给予了我们强大的虚拟化基础设施，这是一把好用的�
 Fenix's Bookstore采用基于Istio的服务网格架构，其中主要的技术组件包括：
 
 - **配置中心**：通过Kubernetes的ConfigMap来管理。
-- **服务发现**：通过Kubernetes的Service来管理，由于已经不在引入Spring Cloud Feign了，所以在OpenFeign中，直接使用短服务名进行访问。
+- **服务发现**：通过Kubernetes的Service来管理，由于已经不再引入Spring Cloud Feign了，所以在OpenFeign中，直接使用短服务名进行访问。
 - **负载均衡**：未注入边车代理时，依赖KubeDNS实现基础的负载均衡，一旦有了Envoy的支持，就可以配置丰富的代理规则和策略。
 - **服务网关**：依靠Istio Ingress Gateway来实现，已经移除了Kubernetes版本中保留的Zuul网关。
 - **服务容错**：依靠Envoy来实现，已经移除了Kubernetes版本中保留的Hystrix。

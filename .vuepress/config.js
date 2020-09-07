@@ -289,16 +289,15 @@ module.exports = {
         title: '不可变基础设施',
         collapsable: false,
         children: [
-          '/immutable-infrastructure/history',
+          '/immutable-infrastructure/msa-to-cn',
           {
-            title: '虚拟化容器',
+            title: '✔️ 虚拟化容器',
             path: '/immutable-infrastructure/container/',
             collapsable: false,
             children: [
-              '/immutable-infrastructure/container/cri',
-              '/immutable-infrastructure/container/resource-isolation',
+              '/immutable-infrastructure/container/history',
+              '/immutable-infrastructure/container/kubernetes',
               '/immutable-infrastructure/container/resource',
-              '/immutable-infrastructure/container/manage',
             ]
           },
           {
@@ -306,34 +305,23 @@ module.exports = {
             path: '/immutable-infrastructure/network/',
             collapsable: false,
             children: [
+              '/immutable-infrastructure/network/linux-vnet',
               '/immutable-infrastructure/network/cni',
-              '/immutable-infrastructure/network/strategy',
               '/immutable-infrastructure/network/plugin',
-              '/immutable-infrastructure/network/container-lb'
             ]
           },
           {
-            title: '配置与数据持久化',
+            title: '分布式共享存储',
             path: '/immutable-infrastructure/storage/',
             collapsable: false,
             children: [
-              '/immutable-infrastructure/storage/csi',
               '/immutable-infrastructure/storage/dfs',
+              '/immutable-infrastructure/storage/csi',
               '/immutable-infrastructure/storage/storage-plugins'
             ]
           },
           {
-            title: 'GPU虚拟化',
-            path: '/immutable-infrastructure/gpu/',
-            collapsable: false,
-            children: [
-              '/immutable-infrastructure/gpu/device-plugin',
-              '/immutable-infrastructure/gpu/gpu-schedule',
-              '/immutable-infrastructure/gpu/nvidia'
-            ]
-          },
-          {
-            title: '扩展基础设施',
+            title: '可扩展基础设施',
             path: '/immutable-infrastructure/extension/',
             collapsable: false,
             children: [
@@ -342,6 +330,16 @@ module.exports = {
             ]
           },
           '/immutable-infrastructure/hardware-schedule',
+          {
+            title: '服务网格',
+            path: '/immutable-infrastructure/mesh/',
+            collapsable: false,
+            children: [
+              '/immutable-infrastructure/mesh/mesh-impl',
+              '/immutable-infrastructure/mesh/xds',
+              '/immutable-infrastructure/mesh/envoy',
+            ]
+          },
         ]
       }, {
         title: '技术方法论',
@@ -357,13 +355,29 @@ module.exports = {
               '/methodology/forward-msa/prerequest',
               '/methodology/forward-msa/granularity',
               '/methodology/forward-msa/governance',
-              '/methodology/forward-msa/measurement',
+              // '/methodology/forward-msa/measurement',
               // '/methodology/forward-msa/risk',
+            ]
+          },{
+            title: '架构设计模式',
+            collapsable: false,
+            children: [
+              {
+                title: '基于事件的服务解耦',
+                path: '/methodology/pattern/events/',
+                collapsable: false,
+                children: [
+                  '/methodology/pattern/events/es',
+                  '/methodology/pattern/events/cqrs',
+                  '/methodology/pattern/events/cep',
+                ]
+              },
+              '/methodology/pattern/orchestration',
             ]
           },
         ]
       }, {
-        title: '技巧与专题',
+        title: '专题随笔',
         collapsable: false,
         children: [
           {
@@ -377,18 +391,18 @@ module.exports = {
               '/tricks/graalvm/spring-over-graal',
             ]
           },
-          '/tricks/responsive-programming',
-          '/tricks/lambda-stream',
-          '/tricks/aio'
+          // '/tricks/responsive-programming',
+          // '/tricks/lambda-stream',
+          // '/tricks/aio'
         ]
       }
       , {
         title: '附录',
         collapsable: false,
         children: [
-          '/appendix/build-script',
-          '/appendix/continuous-integration',
-          '/appendix/gated-launch',
+          // '/appendix/build-script',
+          // '/appendix/continuous-integration',
+          // '/appendix/gated-launch',
           {
             title: '✔️ 环境依赖',
             path: '/appendix/deployment-env-setup/',
@@ -405,9 +419,10 @@ module.exports = {
           }, {
             title: '运维环境',
             path: '/appendix/operation-env-setup/',
+            collapsable: false,
             children: [
               '/appendix/operation-env-setup/elk-setup',
-              '/appendix/operation-env-setup/devops-setup'
+              '/appendix/operation-env-setup/prometheus-setup'
             ]
           }
         ]
