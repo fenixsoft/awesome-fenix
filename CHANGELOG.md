@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年9月10日
+
+完成了“[以容器构建系统](/immutable-infrastructure/container/container-build-system.html)”章节
+
 ### 2020年9月8日
 
 -  完成了“[虚拟化容器](/immutable-infrastructure/container/)”与“[容器的崛起](/immutable-infrastructure/container/history.html)”章节
