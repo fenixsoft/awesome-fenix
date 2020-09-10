@@ -4,9 +4,9 @@
 
 ## 文件隔离：chroot
 
-容器的起点可以追溯到1979年[Version 7 UNIX](https://en.wikipedia.org/wiki/Version_7_Unix)系统中提供的`chroot`命令，它是英文单词“Change Root”的缩写，功能是当某个进程经过chroot操作之后，它的根目录就会被锁定在参数指定的位置，以后它或者它的子进程将不能再访问和操作该目录之外的其他文件。
+容器的起点可以追溯到1979年[Version 7 UNIX](https://en.wikipedia.org/wiki/Version_7_Unix)系统中提供的`chroot`命令，它是英文单词“Change Root”的缩写，功能是当某个进程经过`chroot`操作之后，它的根目录就会被锁定在参数指定的位置，以后它或者它的子进程将不能再访问和操作该目录之外的其他文件。
 
-1991年，世界上第一个监控黑客行动的蜜罐程序就是使用chroot来实现的，那个参数指定的根目录当时被作者被戏称为“Chroot监狱”（Chroot Jail，黑客突破chroot限制的方法就称为Jailbreak）。后来，FreeBSD 4.0系统使用虚拟化技术重新实现了chroot命令，用它作为系统中进程沙箱隔离的基础，并将其命名为[FreeBSD jail](https://en.wikipedia.org/wiki/FreeBSD_jail)，再后来，苹果公司又以FreeBSD为基础研发出了举世闻名的iOS系统，此时，黑客们就将绕过绕过iOS沙箱机制以root权限任意安装程序的方法称为“越狱”（[Jailbreak](https://zh.wikipedia.org/wiki/Jailbreak)），这些故事都是后话了。
+1991年，世界上第一个监控黑客行动的蜜罐程序就是使用`chroot`来实现的，那个参数指定的根目录当时被作者被戏称为“Chroot监狱”（Chroot Jail，黑客突破`chroot`限制的方法就称为Jailbreak）。后来，FreeBSD 4.0系统使用虚拟化技术重新实现了`chroot`命令，用它作为系统中进程沙箱隔离的基础，并将其命名为[FreeBSD jail](https://en.wikipedia.org/wiki/FreeBSD_jail)，再后来，苹果公司又以FreeBSD为基础研发出了举世闻名的iOS操作系统，此时，黑客们就将绕过iOS沙箱机制以root权限任意安装程序的方法称为“越狱”（[Jailbreak](https://zh.wikipedia.org/wiki/Jailbreak)），这些故事都是后话了。
 
 2000年，Linux Kernel 2.3.41版内核引入了`pivot_root`技术来实现文件隔离，`pivot_root`直接切换了[根文件系统](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard)（rootfs），有效地避免`chroot`命令的安全性问题。本文后续提到的容器技术，如LXC、Docker等也都是使用`pivot_root`来实现根文件系统的切换的。
 
@@ -18,17 +18,17 @@
 
 Linux的名称空间是一种由内核直接提供的全局资源封装，是内核针对进程设计的访问隔离机制。进程在一个独立的Linux名称空间中朝系统看去，会觉得自己仿佛就是这方天地的主人，拥有这台Linux主机上的一切资源，不仅文件系统是独立的，还有着独立的PID编号（譬如拥有自己的0号进程，即系统初始化的进程）、UID/GID编号（譬如拥有自己独立的root用户）、网络（譬如完全独立的IP地址、网络栈、防火墙等设置），等等，此时进程的心情简直不能再好了。
 
-Linux的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs)”（一个分布式操作系统，“九号”项目并非代号，操作系统的名字就叫“Plan 9 from Bell Labs”）的启发而设计的，最初的目的依然只是为了隔离文件系统，而非为了什么容器化的实现。这点从2002年发布时只提供了Mount名称空间，并且其构造参数为“CLONE_NEWNS”（即Clone New NameSpace）而非“CLONE_NEWMOUNT”便能看出一些端倪。后来，要求系统隔离其他访问操作的呼声愈发强烈，从2006年起，内核陆续添加了UTS、IPC等名称空间隔离，直到目前最新的Linux Kernel 5.6版内核为止，Linux名称空间支持以下八种资源的隔离（内核的官网kernel.org上仍然只[列出六种](https://www.kernel.org/doc/html/latest/admin-guide/namespaces/compatibility-list.html)，文档更新并没有跟上代码的更新）：
+Linux的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs)”（一个分布式操作系统，“九号”项目并非代号，操作系统的名字就叫“Plan 9 from Bell Labs”，满满的赛博朋克风格）的启发而设计的，最初的目的依然只是为了隔离文件系统，而非为了什么容器化的实现。这点从2002年发布时只提供了Mount名称空间，并且其构造参数为“CLONE_NEWNS”（即Clone New NameSpace）而非“CLONE_NEWMOUNT”便能看出一些端倪。后来，要求系统隔离其他访问操作的呼声愈发强烈，从2006年起，内核陆续添加了UTS、IPC等名称空间隔离，直到目前最新的Linux Kernel 5.6版内核为止，Linux名称空间支持以下八种资源的隔离（内核的官网[kernel.org](https://www.kernel.org/)上仍然只[列出六种](https://www.kernel.org/doc/html/latest/admin-guide/namespaces/compatibility-list.html)，文档更新并没有跟上代码的更新）：
 
 | 名称空间 | 隔离内容                                                     | 内核版本 |
 | :------- | ------------------------------------------------------------ | -------- |
-| Mount    | 隔离文件系统，功能上大致相当于chroot                         | 2.4.19   |
+| Mount    | 隔离文件系统，功能上大致相当于`chroot`                       | 2.4.19   |
 | UTS      | 隔离主机的[Hostname](https://en.wikipedia.org/wiki/Hostname)、[Domain names](https://en.wikipedia.org/wiki/Domain_name) | 2.6.19   |
 | IPC      | 隔离进程间通讯的渠道（详见“[远程服务调用](/architect-perspective/general-architecture/api-style/rpc.html)”中对IPC的介绍） | 2.6.19   |
 | PID      | 隔离进程编号，无法看到其他名称空间中的PID，意味着无法其他进程产生影响 | 2.6.24   |
 | Network  | 隔离网络资源，如网卡、网络栈、IP地址、端口，等等             | 2.6.29   |
 | User     | 隔离用户和用户组                                             | 3.8      |
-| Cgroup   | 这里似乎说分配比隔离更合适，`cgroups`的话题很重要，稍后会安排一整节来介绍 | 4.6      |
+| Cgroup   | 隔离`cgourps`，进程有自己的`cgroupns root`和`cgroup filesystem`视图。`cgroups`的话题很重要，稍后会安排一整节来介绍 | 4.6      |
 | Time     | 隔离系统时间，2020年3月最新的5.6内核开始支持进程独立设置系统时间 | 5.6      |
 
 如今，对文件、进程、用户、网络等各类信息的访问，都被囊括在Linux的名称空间中，即使一些今天仍有没被隔离的访问（譬如[syslog](https://en.wikipedia.org/wiki/Syslog)就还没被隔离，容器内可以看到容器外其他进程产生的内核syslog），日后也可以随内核版本的更新纳入到这套框架之内，现在距离完美的隔离性就只差最后一步了：资源的隔离。
@@ -96,18 +96,18 @@ Docker除了包装来自Linux内核的特性之外，它的价值还在于：
 
 从开源到现在也只过了短短数年时间，Docker已成为软件开发、测试、分发、部署等各个环节都难以或缺的基础支撑，自身的架构也发生了相当大的改变，Docker被分解为由Docker Client、Docker Daemon、Docker Registry、Docker Container等子系统，以及Graph、Driver、libcontainer等各司其职的模块组成，此时再说一百多行脚本能实现Docker核心功能，再说Docker没有太高的技术含量，就已经不再合适了。
 
-2014年，Docker开源了自己采用Golang开发的[libcontainer](https://github.com/opencontainers/runc/tree/master/libcontainer)，这是一个越过LXC直接操作`namespaces`、`cgroups`的核心模块，有了libcontainer以后，Docker就不必依赖LXC来提供虚拟化的能力了。
+2014年，Docker开源了自己采用Golang开发的[libcontainer](https://github.com/opencontainers/runc/tree/master/libcontainer)，这是一个越过LXC直接操作`namespaces`、`cgroups`的核心模块，有了libcontainer以后，Docker就能直接与系统内核打交道，不必依赖LXC来提供容器化隔离能力了。
 
 2015年，在Docker的主导和倡议下，多家公司联合制定了[开放容器交互标准](https://en.wikipedia.org/wiki/Open_Container_Initiative)（Open Container Initiative，OCI），这是一个关于容器格式和运行时的规范文件，其中包含运行时标准（[runtime-spec](https://github.com/opencontainers/runtime-spec/blob/master/spec.md) ）、容器镜像标准（[image-spec](https://github.com/opencontainers/image-spec/blob/master/spec.md)）和镜像分发标准（[distribution-spec](https://github.com/opencontainers/distribution-spec/blob/master/spec.md)，分发标准还未正式发布）。运行时标准定义了应该如何运行一个容器、如何管理容器的状态和生命周期、如何使用操作系统的底层特性（`namespaces`、`cgroup`、`pivot_root`等等）；容器镜像标准规定了容器镜像的格式、配置、元数据的格式，可以理解为对镜像的静态描述；镜像分发标准规定了镜像推送和拉取的网络交互过程。
 
-为了符合OCI标准，Docker推动自身的架构继续演变，首先将libcontainer独立出来，封装重构成[runC](https://github.com/opencontainers/runc)并捐献给了Linux基金会管理，runC是OCI Runtime的首个参考实现，提出了“让标准容器无所不在（Make Standard Containers Available Everywhere）”的口号。为了能够兼容所有符合标准的OCI Runtime实现，Docker进一步重构了Docker Daemon子系统，将其中与运行时交互的部分抽象为[containerd](https://containerd.io/)，这是一个管理容器执行、分发、监控、网络、构建、日志等功能的核心模块，内部会为每个容器运行时创建一个containerd-shim适配进程，默认与runC搭配工作，但也可以切换到其他OCI Runtime实现上。在2016年，Docker把containerd捐献给了CNCF。这两个项目的捐赠托管，即有Docker对开源信念的追求，也有Docker在众多云计算大厂夹击下自救的无奈，它们将成为未来Docker消亡和存续的伏笔（看到本文末尾就能理解这句话了）。
+为了符合OCI标准，Docker推动自身的架构继续演变，首先将libcontainer独立出来，封装重构成[runC](https://github.com/opencontainers/runc)并捐献给了Linux基金会管理，runC是OCI Runtime的首个参考实现，提出了“让标准容器无所不在（Make Standard Containers Available Everywhere）”的口号。为了能够兼容所有符合标准的OCI Runtime实现，Docker进一步重构了Docker Daemon子系统，将其中与运行时交互的部分抽象为[containerd](https://containerd.io/)，这是一个管理容器执行、分发、监控、网络、构建、日志等功能的核心模块，内部会为每个容器运行时创建一个containerd-shim适配进程，默认与runC搭配工作，但也可以切换到其他OCI Runtime实现上。在2016年，Docker把containerd捐献给了CNCF，runC与containerd两个项目的捐赠托管，即带有Docker对开源信念的追求，也带有Docker在众多云计算大厂夹击下自救的无奈，它们将成为未来Docker消亡和存续的伏笔（看到本文末尾你就能理解这句矛盾的话了）。
 
 :::center
 ![](./images/runc.png)
 Docker、containerd和runC的交互关系
 :::
 
-以上笔者列举的这些Docker推动的开源与标准化工作，既是对Docker为开源乃至整个软件业做出贡献的赞赏，也是为后面介绍容器编排时，讲述当前容器引擎的混乱关系做的一些铺垫。Docker目前无疑处于容器领域的统治地位，但不仅不是高枕无忧，所示危机四伏都不为过。目前已经有了可见的、足以威胁动摇Docker地位的潜在可能性正在酝酿，风险源于虽然Docker赢得了容器战争，但Docker Swarm却输掉了容器编排战争。从结果回望当初，Docker赢得容器战争有一些偶然，Docker Swarm输掉的编排战争却是必然的。
+以上笔者列举的这些Docker推动的开源与标准化工作，既是对Docker为开源乃至整个软件业做出贡献的赞赏，也是为后面介绍容器编排时，讲述当前容器引擎的混乱关系做的一些铺垫。Docker目前无疑处于容器领域的统治地位，但不仅没到高枕无忧，说是危机四伏都不为过。目前已经有了可见的、足以威胁动摇Docker地位的潜在可能性正在酝酿，风险源于虽然Docker赢得了容器战争，但Docker Swarm却输掉了容器编排战争。从结果回望当初，Docker赢得容器战争有一些偶然，Docker Swarm输掉的编排战争却是必然的。
 
 ## 容器编排：Kubernetes
 
@@ -126,20 +126,20 @@ Kubernetes的成功与Docker不同，Docker靠的是优秀的理念，以一个�
 Kubernetes与容器引擎的调用关系
 :::
 
-在Kubernetes开源的早期，它是完全依赖且绑定Docker的，直至Kubernetes 1.5之前，Kubernetes 管理容器的方式都是通过内部的DockerManager向Docker Engine以HTTP方式发送指令，通过Docker来操作镜像的增删改查的，如上图最右边线路的箭头所示。图中的kubelet是集群节点中的代理程序，负责与管理集群的Master通讯，其他节点的含义在后文中都会有解释。将这个阶段Kubernetes与容器引擎的调用关系捋直，并结合上一节提到的Docker捐献containerd与runC后重构的调用，整个调用链条就如下所示：
+在Kubernetes开源的早期，它是完全依赖且绑定Docker的，并没有考虑够日后有使用其他容器引擎的可能性。直至Kubernetes 1.5之前，Kubernetes 管理容器的方式都是通过内部的DockerManager向Docker Engine以HTTP方式发送指令，通过Docker来操作镜像的增删改查的，如上图最右边线路的箭头所示（图中的kubelet是集群节点中的代理程序，负责与管理集群的Master通讯，其他节点的含义在后文中都会有解释）。将这个阶段Kubernetes与容器引擎的调用关系捋直，并结合上一节提到的Docker捐献containerd与runC后重构的调用，完整的调用链条如下所示：
 
 :::center
 > Kubernetes Master --> kubelet --> DockerManager --> Docker Engine --> containerd --> runC
 :::
 
-2016年，Kubernetes 1.5版本开始引入[容器运行时接口](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)（Container Runtime Interface，CRI），这是一个定义容器运行时应该如何接入到kubelet的规范标准，从此Kubernetes内部的DockerManager就被更为通用的KubeGenericRuntimeManager所替代（实际上在1.6.6之前都仍然可以选择到DockerManager），kubelet与KubeGenericRuntimeManager之间通过gRPC协议通讯。由于CRI在Docker之后才发布，Docker是肯定不支持CRI的，所以Kubernetes又提供了DockerShim服务作为CRI的适配层，由它与Docker Engine以HTTP形式通讯，实现了原来DockerManager的全部功能。此时，Docker对Kubernetes来说只是一项默认依赖，而非之前的无可或缺了，它们的调用关系为：
+2016年，Kubernetes 1.5版本开始引入[容器运行时接口](https://kubernetes.io/blog/2016/12/container-runtime-interface-cri-in-kubernetes/)（Container Runtime Interface，CRI），这是一个定义容器运行时应该如何接入到kubelet的规范标准，从此Kubernetes内部的DockerManager就被更为通用的KubeGenericRuntimeManager所替代（实际上在1.6.6之前都仍然可以选择到DockerManager），kubelet与KubeGenericRuntimeManager之间通过gRPC协议通讯。由于CRI在Docker之后才发布，Docker是肯定不支持CRI的，所以Kubernetes又提供了DockerShim服务作为CRI的适配层，由它与Docker Engine以HTTP形式通讯，实现了原来DockerManager的全部功能。此时，Docker对Kubernetes来说只是一项默认依赖，而非之前的无可或缺了，它们的调用链为：
 
 :::center
 
 > Kubernetes Master --> kubelet --> KubeGenericRuntimeManager --> DockerShim --> Docker Engine --> containerd --> runC
 :::
 
-2017年，由Google、RedHat、Intel、SUSE、IBM联合发起的[ORI-O](https://github.com/cri-o/cri-o)（Container Runtime Interface Orchestrator）项目发布了首个正式版本。从名字就可以看出，它肯定是完全遵循CRI标准进行实现的，另一方面，它可以支持所有符合OCI运行时标准的容器引擎，默认仍然是与runC搭配工作的，若要换成[Clear Containers](https://github.com/clearcontainers)、[Kata Containers](https://katacontainers.io/)等其他OCI运行时也完全没有问题。虽然Kubernetes是使用ORI-O、cri-containerd抑或是DockerShim作为CRI实现，完全可以由用户自由选择，但在RedHat自己扩展定制的Kubernetes企业版，即[OpenShift4](https://en.wikipedia.org/wiki/OpenShift)中，调用关系已经没有了Docker的身影：
+2017年，由Google、RedHat、Intel、SUSE、IBM联合发起的[ORI-O](https://github.com/cri-o/cri-o)（Container Runtime Interface Orchestrator）项目发布了首个正式版本。从名字就可以看出，它肯定是完全遵循CRI标准进行实现的，另一方面，它可以支持所有符合OCI运行时标准的容器引擎，默认仍然是与runC搭配工作的，若要换成[Clear Containers](https://github.com/clearcontainers)、[Kata Containers](https://katacontainers.io/)等其他OCI运行时也完全没有问题。虽然Kubernetes是使用ORI-O、cri-containerd抑或是DockerShim作为CRI实现，完全可以由用户自由选择，但在RedHat自己扩展定制的Kubernetes企业版，即[OpenShift 4](https://en.wikipedia.org/wiki/OpenShift)中，调用链已经没有了Docker Engine的身影：
 
 :::center
 
@@ -148,13 +148,13 @@ Kubernetes与容器引擎的调用关系
 
 由于Docker在容器引擎中的市场份额仍然占有绝对优势，对于普通用户来说，如果没有明确的收益，并没有什么动力要把Docker换成别的引擎，所以CRI-O即使摆出了直接挖掉Docker根基的凶悍姿势，其实也并没有给Docker带来太大的影响，不过能够想像此时Docker心中肯定充斥了难以言喻的危机感。
 
-2018年，由Docker捐献给CNCF的containerd发布了1.1版，1.1版与1.0版的最大区别是此时它已完美地支持了CRI标准，这意味着原本用作CRI适配器的cri-containerd已经不再需要。此时，再观察Kubernetes到容器运行时的调用链，你会发现调用步骤要比通过DockerShim、Docker Engine与containerd交互的步骤要少两步，这意味着用户只要愿意抛弃掉Docker情怀的话，在容器编排上便可至少省略一次HTTP调用，获得性能上的收益，且根据Kubernetes官方给出的[测试数据](https://kubernetes.io/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/)，收益还相当可观。Kubernetes的1.10版本宣布开始支持containerd 1.1，在调用链中已经可以完全抹去Docker Engine的存在：
+2018年，由Docker捐献给CNCF的containerd，在CNCF的精心孵化下发布了1.1版，1.1版与1.0版的最大区别是此时它已完美地支持了CRI标准，这意味着原本用作CRI适配器的cri-containerd从此不再需要。此时，再观察Kubernetes到容器运行时的调用链，你会发现调用步骤会比通过DockerShim、Docker Engine与containerd交互的步骤要少两步，这又意味着用户只要愿意抛弃掉Docker情怀的话，在容器编排上便可至少省略一次HTTP调用，获得性能上的收益，且根据Kubernetes官方给出的[测试数据](https://kubernetes.io/blog/2018/05/24/kubernetes-containerd-integration-goes-ga/)，这些免费的收益还相当可观。Kubernetes的1.10版本宣布开始支持containerd 1.1，在调用链中已经完全抹去Docker Engine的存在：
 
 :::center
 
 > Kubernetes Master --> kubelet --> KubeGenericRuntimeManager --> containerd --> runC
 :::
 
-今天，要使用哪一种容器运行时取决于你安装Kubernetes时机器上的容器运行时环境，但对于云计算厂商，譬如国内的阿里云等云厂商的Kubernetes，用的普遍都已是containerd，毕竟运行性能对它们来说是核心竞争力。
+今天，要使用哪一种容器运行时取决于你安装Kubernetes时机器上的容器运行时环境，但对于云计算厂商，譬如国内的[阿里云ACK](https://cn.aliyun.com/product/kubernetes)、[腾讯云TKE](https://cloud.tencent.com/product/tke)等直接提供的Kubernetes容器环境，采用的容器运行时普遍都已是containerd，毕竟运行性能对它们来说就是核心生产力和竞争力。
 
-未来，随着Kubernetes的持续发展，Docker  Engine经历从不可或缺、被依赖、可选择、直到淘汰是大概率事件，这件事情表面上是Google、RedHat等云计算大厂联手而为，实际淘汰它的是技术发展的潮流趋势，就如同Docker诞生时依赖LXC，到最后用libcontainer取代掉LXC一般。话也说回来，现在连LXC都还没挂掉，反倒还发展出了[LXD](https://linuxcontainers.org/lxd/introduction/)，相信Docker本身也很难彻底消亡的，已经养成习惯的CLI，已经形成成熟生态的镜像仓库等都会长期存在，只是在容器编排领域，未来的Docker很可能会以runC和containerd的形式续存，毕竟它们最初都出自于Docker之手。
+未来，随着Kubernetes的持续发展壮大，Docker  Engine经历从不可或缺、默认依赖、可选择、直到淘汰是大概率事件，这件事情表面上是Google、RedHat等云计算大厂联手所为，实际淘汰它的是技术发展的潮流趋势，就如同Docker诞生时依赖LXC，到最后用libcontainer取代掉LXC一般。然而我们也该看到事情的另外一面，现在连LXC都还没有挂掉，反倒还发展出了更加专注于与OpenVZ等系统级虚拟化竞争的[LXD](https://linuxcontainers.org/lxd/introduction/)，相信Docker本身也很难彻底消亡的，已经养成习惯的CLI界面，已经形成成熟生态的镜像仓库等都应该会长期存在，只是在容器编排领域，未来的Docker很可能只会以runC和containerd的形式续存下去，毕竟它们最初都出源于Docker之手。

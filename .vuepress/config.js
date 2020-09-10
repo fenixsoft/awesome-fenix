@@ -296,8 +296,8 @@ module.exports = {
             collapsable: false,
             children: [
               '/immutable-infrastructure/container/history',
-              '/immutable-infrastructure/container/kubernetes',
-              '/immutable-infrastructure/container/resource',
+              '/immutable-infrastructure/container/container-build-system',
+              '/immutable-infrastructure/container/futures',
             ]
           },
           {
@@ -321,15 +321,25 @@ module.exports = {
             ]
           },
           {
-            title: '可扩展基础设施',
+            title: '资源调度',
+            path: '/immutable-infrastructure/schedule/',
+            collapsable: false,
+            children: [
+              '/immutable-infrastructure/schedule/hardware-schedule',
+              // '/immutable-infrastructure/schedule/resilience',
+              // '/immutable-infrastructure/schedule/elasticity',
+            ]
+          },
+          {
+            title: '可扩展设计',
             path: '/immutable-infrastructure/extension/',
             collapsable: false,
             children: [
               '/immutable-infrastructure/extension/crd',
+              '/immutable-infrastructure/extension/operator',
               '/immutable-infrastructure/extension/api-server',
             ]
           },
-          '/immutable-infrastructure/hardware-schedule',
           {
             title: '服务网格',
             path: '/immutable-infrastructure/mesh/',
@@ -363,7 +373,7 @@ module.exports = {
             collapsable: false,
             children: [
               {
-                title: '基于事件的服务解耦',
+                title: '事件驱动架构',
                 path: '/methodology/pattern/events/',
                 collapsable: false,
                 children: [
@@ -372,6 +382,7 @@ module.exports = {
                   '/methodology/pattern/events/cep',
                 ]
               },
+              '/methodology/pattern/afk',
               '/methodology/pattern/orchestration',
             ]
           },
@@ -404,7 +415,7 @@ module.exports = {
           // '/appendix/continuous-integration',
           // '/appendix/gated-launch',
           {
-            title: '✔️ 环境依赖',
+            title: '✔️ 部署环境',
             path: '/appendix/deployment-env-setup/',
             collapsable: false,
             children: ['/appendix/deployment-env-setup/setup-docker', {
