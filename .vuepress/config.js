@@ -373,7 +373,7 @@ module.exports = {
             collapsable: false,
             children: [
               {
-                title: '事件驱动架构',
+                title: '✔️ 事件驱动架构',
                 path: '/methodology/pattern/events/',
                 collapsable: false,
                 children: [
