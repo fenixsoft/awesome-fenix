@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年9月14日
+
+- 完成了“[应用为中心的封装](/immutable-infrastructure/container/application-centric.html)”章节
+
 ### 2020年9月10日
 
 - 完成了“[以容器构建系统](/immutable-infrastructure/container/container-build-system.html)”章节

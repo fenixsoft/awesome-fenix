@@ -297,7 +297,7 @@ module.exports = {
             children: [
               '/immutable-infrastructure/container/history',
               '/immutable-infrastructure/container/container-build-system',
-              '/immutable-infrastructure/container/futures',
+              '/immutable-infrastructure/container/application-centric',
             ]
           },
           {

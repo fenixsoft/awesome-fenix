@@ -96,7 +96,7 @@ Operator是使用自定义资源（CR，笔者注：CR即Custom Resource，是CR
 
 如果把ReplicaSet中的Pod比喻为养殖场中的肉猪，那StatefulSet就是被家庭当宠物圈养的荷兰猪，不同的肉猪在食用功能上并没有什么区别，但每只宠物猪都是无独一无二的，有专属于自己的名字、习性与记忆，事实上StatefulSet就曾经有一段时间用的名字就是PetSet。StatefulSet出现以后，Pod解决了Pod重新创建后仍然保留上一次运行状态的问题，不过有状态应用的维护并不仅限于此，譬如对于一套Elasticsearch集群来说，通过StatefulSet只能做到创建集群、删除集群、扩容缩容等基础操作，其他的运维操作，譬如备份恢复数据、创建删除索引、调整平衡策略等操作也很常用，StatefulSet却并不能提供什么帮助。
 
-为了解释清楚Operator在这个问题上能提供的帮助，笔者举个具体例子来说明：要部署一套Elasticsearch集群，通常要在StatefulSet中定义相当多的细节，譬如服务的端口、Elasticsearch的配置、更新策略、内存大小、JVM参数、环境变量、数据文件位置，等等，为了便于你对Kubernetes的“复杂”有更加直观的体验，我们就奢侈一回，挥霍一点儿版面，将YAML全文贴出如下：
+为了解释清楚Operator在这个问题上能提供的帮助，笔者举个具体例子来说明：要部署一套Elasticsearch集群，通常要在StatefulSet中定义相当多的细节，譬如服务的端口、Elasticsearch的配置、更新策略、内存大小、JVM参数、环境变量、数据文件位置，等等，为了便于你对Kubernetes的“复杂”有更加直观的体验，咱就奢侈一回，挥霍一点儿版面，将YAML全文贴出如下：
 
 ```yaml
 apiVersion: v1
@@ -242,7 +242,7 @@ Operator将简洁的“高级指令”转化为Kubernetes中实际操作的方�
 
 把运维的操作封装在应用代码上，表面上最大的受益者是运维人员，开发人员要付出更多劳动。然而Operator并没有被开发者抵制，让它变得小众，反而由于代码相对于资源配置的表达能力提升，让开发与运维之间的协作成本降低而备受开发者的好评。Operator变成了近两、三年容器封装应用的一股新潮流，现在很多复杂分布式系统都有了官方或者第三方提供的的Operator（[这里收集了其中一部分](https://github.com/operator-framework/awesome-operators)），RedHat也持续在Operator上面大量投入，推出了简化开发人员编写Operator的[Operator Framework/SDK](https://github.com/operator-framework/operator-sdk)。
 
-目前来看，应对有状态应用的封装运维问题，Operator也许是最可行的方案，但这依然不是一项轻松的工作，譬如[Etcd的Operator](https://github.com/coreos/etcd-operator)，Etcd本身不算特别复杂的应用，Operator实现的功能看起来也挺基础，主要有创建集群、删除集群、扩容缩容、故障转移、滚动更新、备份恢复等，其代码就已经超过一万行了。尽管现在开发Operator还相对有些复杂，但是Operator符合技术潮流，顺应软件业界所提倡的DevOps一体化理念，等Operator的开发支持和生态进一步成熟之后，未来会是大有可为的。
+目前来看，应对有状态应用的封装运维问题，Operator也许是最可行的方案，但这依然不是一项轻松的工作，譬如[Etcd的Operator](https://github.com/coreos/etcd-operator)，Etcd本身不算特别复杂的应用，Operator实现的功能看起来也挺基础，主要有创建集群、删除集群、扩容缩容、故障转移、滚动更新、备份恢复等，其代码就已经超过一万行了。现在开发Operator的确还相对有些复杂，但是Operator符合技术潮流，顺应软件业界所提倡的DevOps一体化理念，等Operator的开发支持和生态进一步成熟之后，未来会是大有可为的。
 
 ## 开放应用模型
 
