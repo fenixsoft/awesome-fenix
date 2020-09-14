@@ -2,7 +2,7 @@
 
 容器的最初的目的不是为了部署软件，而是为了隔离计算机中的各类资源，以便降低软件开发、测试阶段可能产生的误操作风险，或者专门充当[蜜罐](https://en.wikipedia.org/wiki/Honeypot_(computing))，吸引黑客的攻击，以便监视黑客的行为。
 
-## 文件隔离：chroot
+## 隔离文件：chroot
 
 容器的起点可以追溯到1979年[Version 7 UNIX](https://en.wikipedia.org/wiki/Version_7_Unix)系统中提供的`chroot`命令，它是英文单词“Change Root”的缩写，功能是当某个进程经过`chroot`操作之后，它的根目录就会被锁定在参数指定的位置，以后它或者它的子进程将不能再访问和操作该目录之外的其他文件。
 
@@ -12,15 +12,15 @@
 
 时至今日，`chroot`命令依然活跃在Unix和几乎所有主流的Linux发行版中，同时以命令行工具（[chroot(8)](https://linux.die.net/man/8/linux-user-chroot)）或者系统调用（[chroot(2)](https://linux.die.net/man/2/chroot) ）的形式存在，但无论是`chroot`命令抑或是`pivot_root`，都并不能提供完美的隔离性。按照[Unix的设计哲学](https://en.wikipedia.org/wiki/Everything_is_a_file)（In UNIX, Everything is a File），一切资源都可以视为文件，一切处理都可以视为对文件的操作，隔离了文件系统本该安枕无忧才对。可是，哲学归哲学，现实归现实，从硬件层面暴露的低层次资源，如磁盘、网络、内存、处理器，到经操作系统层面封装的高层次资源，如Unix分时（Unix Time-Sharing，UTS）、进程ID（Process ID，PID）、用户ID（User ID，UID）、进程间通讯（Inter-Process Communication，IPC）都存在大量以非文件形式暴露的操作入口，以`chroot`为代表的文件隔离，仅仅是容器崛起之路的第一步。
 
-## 访问隔离：namespaces
+## 隔离访问：namespaces
 
 2002年，Linux Kernel 2.4.19版内核引入了一种全新的隔离机制：[Linux名称空间](https://en.wikipedia.org/wiki/Linux_namespaces)（Linux Namespaces）。名称空间的概念在很多现代的高级程序语言中都存在，常用于避免不同开发者提供的API相互冲突，相信作为一名开发人员的你应该不会陌生。
 
 Linux的名称空间是一种由内核直接提供的全局资源封装，是内核针对进程设计的访问隔离机制。进程在一个独立的Linux名称空间中朝系统看去，会觉得自己仿佛就是这方天地的主人，拥有这台Linux主机上的一切资源，不仅文件系统是独立的，还有着独立的PID编号（譬如拥有自己的0号进程，即系统初始化的进程）、UID/GID编号（譬如拥有自己独立的root用户）、网络（譬如完全独立的IP地址、网络栈、防火墙等设置），等等，此时进程的心情简直不能再好了。
 
-Linux的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs)”（一个分布式操作系统，“九号”项目并非代号，操作系统的名字就叫“Plan 9 from Bell Labs”，满满的赛博朋克风格）的启发而设计的，最初的目的依然只是为了隔离文件系统，而非为了什么容器化的实现。这点从2002年发布时只提供了Mount名称空间，并且其构造参数为“CLONE_NEWNS”（即Clone New NameSpace）而非“CLONE_NEWMOUNT”便能看出一些端倪。后来，要求系统隔离其他访问操作的呼声愈发强烈，从2006年起，内核陆续添加了UTS、IPC等名称空间隔离，直到目前最新的Linux Kernel 5.6版内核为止，Linux名称空间支持以下八种资源的隔离（内核的官网[kernel.org](https://www.kernel.org/)上仍然只[列出六种](https://www.kernel.org/doc/html/latest/admin-guide/namespaces/compatibility-list.html)，文档更新并没有跟上代码的更新）：
+Linux的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs)”（一个分布式操作系统，“九号”项目并非代号，操作系统的名字就叫“Plan 9 from Bell Labs”，满满的赛博朋克风格）的启发而设计的，最初的目的依然只是为了隔离文件系统，而非为了什么容器化的实现。这点从2002年发布时只提供了Mount名称空间，并且其构造参数为“CLONE_NEWNS”（即Clone New NameSpace）而非“CLONE_NEWMOUNT”便能看出一些端倪。后来，要求系统隔离其他访问操作的呼声愈发强烈，从2006年起，内核陆续添加了UTS、IPC等名称空间隔离，直到目前最新的Linux Kernel 5.6版内核为止，Linux名称空间支持以下八种资源的隔离（内核的官网[kernel.org](https://www.kernel.org/)上仍然只列出了[前六种](https://www.kernel.org/doc/html/latest/admin-guide/namespaces/compatibility-list.html)，文档更新并没有跟上代码的更新）：
 
-| 名称空间 | 隔离内容                                                     | 内核版本 |
+| <div style="width:70px">名称空间</div> | 隔离内容                                                     | <div style="width:50px">内核版本</div> |
 | :------- | ------------------------------------------------------------ | -------- |
 | Mount    | 隔离文件系统，功能上大致相当于`chroot`                       | 2.4.19   |
 | UTS      | 隔离主机的[Hostname](https://en.wikipedia.org/wiki/Hostname)、[Domain names](https://en.wikipedia.org/wiki/Domain_name) | 2.6.19   |
@@ -28,12 +28,12 @@ Linux的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia.
 | PID      | 隔离进程编号，无法看到其他名称空间中的PID，意味着无法其他进程产生影响 | 2.6.24   |
 | Network  | 隔离网络资源，如网卡、网络栈、IP地址、端口，等等             | 2.6.29   |
 | User     | 隔离用户和用户组                                             | 3.8      |
-| Cgroup   | 隔离`cgourps`，进程有自己的`cgroupns root`和`cgroup filesystem`视图。`cgroups`的话题很重要，稍后会安排一整节来介绍 | 4.6      |
+| Cgroup   | 隔离`cgourps`，进程有自己的`cgroups`的根目录视图（在/proc/self/cgroup不会看到整个系统的信息）。`cgroups`的话题很重要，稍后笔者会安排一整节来介绍 | 4.6      |
 | Time     | 隔离系统时间，2020年3月最新的5.6内核开始支持进程独立设置系统时间 | 5.6      |
 
 如今，对文件、进程、用户、网络等各类信息的访问，都被囊括在Linux的名称空间中，即使一些今天仍有没被隔离的访问（譬如[syslog](https://en.wikipedia.org/wiki/Syslog)就还没被隔离，容器内可以看到容器外其他进程产生的内核syslog），日后也可以随内核版本的更新纳入到这套框架之内，现在距离完美的隔离性就只差最后一步了：资源的隔离。
 
-## 资源隔离：cgroups
+## 隔离资源：cgroups
 
 如果要让一台物理计算机中的各个进程看起来像独享整台虚拟计算机的话，不仅要隔离各自进程的访问操作，还必须能够隔离或者说分配好各个进程对资源的使用配额，不然的话，一个进程发生了内存溢出或者占满了处理器，其他进程就莫名其妙地被牵连挂起，这样肯定算不上是完美的隔离。
 
@@ -53,9 +53,9 @@ Linux系统解决以上问题的方案是[控制群组](https://en.wikipedia.org
 | hugetlb      | 主要针对于HugeTLB系统进行限制                                |
 | perf_event   | 允许Perf工具基于`cgroups`分组做性能监测                      |
 
-`cgroups`项目最早是由Google的工程师（主要是Paul Menage和Rohit Seth）在2006年发起的，当时取的名字就叫做“进程容器”（Process Containers），不过“容器”（Container）这个名词的定义在那时候尚不如今天清晰，不同场景中常有不同所指，为避免混乱，2007年这个项目才被重命名为`cgroups`，并且被合并到2.6.24版的内核，于2008年对外发布，这个阶段的`cgroups`被称为“第一代`cgroups`”。在2016年3月发布的Linux Kernel 4.5中，搭载了由Facebook工程师（主要是Tejun Heo）重新编写的“第二代`cgroups`”（主要改进是[支持Unified Hierarchy](https://www.kernel.org/doc/Documentation/cgroup-v2.txt)），目前这两个版本的`cgroups`在Linux内核中是并存的，Docker暂时仅支持第一版的`cgroups`。
+`cgroups`项目最早是由Google的工程师（主要是Paul Menage和Rohit Seth）在2006年发起的，当时取的名字就叫做“进程容器”（Process Containers），不过“容器”（Container）这个名词的定义在那时候尚不如今天清晰，不同场景中常有不同所指，为避免混乱，2007年这个项目才被重命名为`cgroups`，在2008年合并到2.6.24版的内核后对外发布，这个阶段的`cgroups`被称为“第一代`cgroups`”。在2016年3月发布的Linux Kernel 4.5中，搭载了由Facebook工程师（主要是Tejun Heo）重新编写的“第二代`cgroups`”（关键改进是[支持Unified Hierarchy](https://www.kernel.org/doc/Documentation/cgroup-v2.txt)），目前这两个版本的`cgroups`在Linux内核中是并存的，Docker暂时仅支持第一版的`cgroups`。
 
-## 容器降生：LXC
+## 封装系统：LXC
 
 当文件系统、访问、资源都可以被隔离后，容器已经有它降生所需的全部前置支撑条件，而且Linux的开发者们也已经明确地看到了这一点。为降低普通用户综合使用`namespaces`、`cgroups`这些低级特性的门槛，2008年Linux Kernel 2.6.24内核刚刚开始提供`cgroups`的第一时间，就一并发布了名为[Linux容器](https://en.wikipedia.org/wiki/LXC)（LinuX Containers，LXC）的[系统级虚拟化](https://en.wikipedia.org/wiki/OS-level_virtualization)特性。此前，Linux也并不是没有系统级虚拟化的解决方案，如传统的[OpenVZ](https://zh.wikipedia.org/wiki/OpenVZ)和[Linux-VServer](https://zh.wikipedia.org/w/index.php?title=Linux-VServer&action=edit&redlink=1)都能够实现容器隔离，并且只会有很低的性能损失（按OpenVZ提供的数据，只会有1-3%的损失），但它们都是非官方的技术，最大的阻碍是系统级虚拟化必须要有内核的支持，它们就只能通过非官方内核补丁的方式修改标准内核才能获得那些原本不存在的能力。
 
@@ -63,7 +63,7 @@ LXC带着令人瞩目的光环登场，它的出现促使“容器”从一个�
 
 LXC的出现肯定受到了OpenVZ和Linux-VServer的启发，摸着巨人的肩膀过河这并没有什么不对。可惜的是，LXC在设定自己的发展目标时，也被前辈们的影响所局限。LXC眼中的容器的定义与OpenVZ和Linux-VServer并无差别，是一种**封装系统**的轻量级虚拟机，Docker眼中的容器的定义则是一种**封装应用**的技术手段。这两种封装理念在技术层面并没有什么差别，但应用效果就差异巨大。举个具体例子，如果你要建设一个[LAMP](https://en.wikipedia.org/wiki/LAMP_(software_bundle))（Linux、Apache、MySQL、PHP）应用，按照LXC的思路，你应该寻找到[LAMP的template](https://gist.github.com/ralt/492a09d9f9fea64fb28b)（可以暂且不准确地类比为LXC版本的Dockerfile吧），以此构造出一个LAMP容器。如果按部署虚拟机的角度来说，这的还算挺方便的，作为那个时代（距今也就十年）的系统管理员，所有软件、补丁、配置都是自己搞定的，部署一台新虚拟机要花费一两天时间都很正常，有LXC的template，一下子帮你把LAMP都安装好了，还想要啥自行车？但是，作为一名现代的系统管理员，这里问题就相当大，如果我想把LAMP改为LNMP（Linux、Nginx、MySQL、PHP）该怎么办？如果我想把LAMP里的MySQL 5调整为MySQL 8该怎么办？都得找到或者自己编写新的template来解决。好吧，那这台机的软件、版本都配置对了，下一台机我要构建[LYME](https://en.wikipedia.org/wiki/LYME_(software_bundle))或者[MEAN](https://en.wikipedia.org/wiki/MEAN_(solution_stack))，又该怎么办？以封装系统为出发点，仍是按照先装系统然再装软件的思路，就永远无法做到一两分钟甚至几秒钟就构造出一个合乎要求的软件运行环境，也决定了LXC不可能形成今天的容器生态的，所以，接下来舞台的聚光灯就打向了Docker身上。
 
-## 容器生态：Docker
+## 封装应用：Docker
 
 2013年宣布开源的Docker毫无疑问是容器发展里程中里程碑式的发明，然而Docker的成功似乎没有太多技术驱动的成分。至少对开源早期的Docker而言，确实没有什么能构成壁垒的技术。它的容器化能力直接来源于LXC，它镜像分层组合的文件系统直接来源于[AUFS](https://en.wikipedia.org/wiki/Aufs)，Docker开源后不久，就有人仅用了一百多行Shell脚本便实现了Docker的核心功能（名为[Bocker](https://github.com/p8952/bocker)，实现了docker build/pull/images/ps/run/exec/logs/commit/rm/rmi等功能）。
 
@@ -100,7 +100,7 @@ Docker除了包装来自Linux内核的特性之外，它的价值还在于：
 
 2015年，在Docker的主导和倡议下，多家公司联合制定了[开放容器交互标准](https://en.wikipedia.org/wiki/Open_Container_Initiative)（Open Container Initiative，OCI），这是一个关于容器格式和运行时的规范文件，其中包含运行时标准（[runtime-spec](https://github.com/opencontainers/runtime-spec/blob/master/spec.md) ）、容器镜像标准（[image-spec](https://github.com/opencontainers/image-spec/blob/master/spec.md)）和镜像分发标准（[distribution-spec](https://github.com/opencontainers/distribution-spec/blob/master/spec.md)，分发标准还未正式发布）。运行时标准定义了应该如何运行一个容器、如何管理容器的状态和生命周期、如何使用操作系统的底层特性（`namespaces`、`cgroup`、`pivot_root`等等）；容器镜像标准规定了容器镜像的格式、配置、元数据的格式，可以理解为对镜像的静态描述；镜像分发标准规定了镜像推送和拉取的网络交互过程。
 
-为了符合OCI标准，Docker推动自身的架构继续演变，首先将libcontainer独立出来，封装重构成[runC](https://github.com/opencontainers/runc)并捐献给了Linux基金会管理，runC是OCI Runtime的首个参考实现，提出了“让标准容器无所不在（Make Standard Containers Available Everywhere）”的口号。为了能够兼容所有符合标准的OCI Runtime实现，Docker进一步重构了Docker Daemon子系统，将其中与运行时交互的部分抽象为[containerd](https://containerd.io/)，这是一个管理容器执行、分发、监控、网络、构建、日志等功能的核心模块，内部会为每个容器运行时创建一个containerd-shim适配进程，默认与runC搭配工作，但也可以切换到其他OCI Runtime实现上。在2016年，Docker把containerd捐献给了CNCF，runC与containerd两个项目的捐赠托管，即带有Docker对开源信念的追求，也带有Docker在众多云计算大厂夹击下自救的无奈，它们将成为未来Docker消亡和存续的伏笔（看到本文末尾你就能理解这句矛盾的话了）。
+为了符合OCI标准，Docker推动自身的架构继续演变，首先将libcontainer独立出来，封装重构成[runC](https://github.com/opencontainers/runc)并捐献给了Linux基金会管理，runC是OCI Runtime的首个参考实现，提出了“让标准容器无所不在（Make Standard Containers Available Everywhere）”的口号。为了能够兼容所有符合标准的OCI Runtime实现，Docker进一步重构了Docker Daemon子系统，将其中与运行时交互的部分抽象为[containerd](https://containerd.io/)，这是一个管理容器执行、分发、监控、网络、构建、日志等功能的核心模块，内部会为每个容器运行时创建一个containerd-shim适配进程，默认与runC搭配工作，但也可以切换到其他OCI Runtime实现上（然而实际并没做到，containerd仍是紧密绑定于runC）。在2016年，Docker把containerd捐献给了CNCF，runC与containerd两个项目的捐赠托管，即带有Docker对开源信念的追求，也带有Docker在众多云计算大厂夹击下自救的无奈，它们将成为未来Docker消亡和存续的伏笔（看到本文末尾你就能理解这句矛盾的话了）。
 
 :::center
 ![](./images/runc.png)
@@ -109,7 +109,7 @@ Docker、containerd和runC的交互关系
 
 以上笔者列举的这些Docker推动的开源与标准化工作，既是对Docker为开源乃至整个软件业做出贡献的赞赏，也是为后面介绍容器编排时，讲述当前容器引擎的混乱关系做的一些铺垫。Docker目前无疑处于容器领域的统治地位，但不仅没到高枕无忧，说是危机四伏都不为过。目前已经有了可见的、足以威胁动摇Docker地位的潜在可能性正在酝酿，风险源于虽然Docker赢得了容器战争，但Docker Swarm却输掉了容器编排战争。从结果回望当初，Docker赢得容器战争有一些偶然，Docker Swarm输掉的编排战争却是必然的。
 
-## 容器编排：Kubernetes
+## 封装集群：Kubernetes
 
 如果说以Docker为代表的容器引擎将软件的发行过程从分发二进制安装包转变为分发虚拟化后的整个运行环境，令应用得以实现跨机器的绿色部署；那以Kubernetes为代表的容器编排框架，就是把大型软件系统运行所依赖的集群环境也进行了虚拟化，令集群得以实现跨数据中心的绿色部署，并能够根据实际情况自动扩缩。
 
@@ -157,4 +157,4 @@ Kubernetes与容器引擎的调用关系
 
 今天，要使用哪一种容器运行时取决于你安装Kubernetes时机器上的容器运行时环境，但对于云计算厂商，譬如国内的[阿里云ACK](https://cn.aliyun.com/product/kubernetes)、[腾讯云TKE](https://cloud.tencent.com/product/tke)等直接提供的Kubernetes容器环境，采用的容器运行时普遍都已是containerd，毕竟运行性能对它们来说就是核心生产力和竞争力。
 
-未来，随着Kubernetes的持续发展壮大，Docker  Engine经历从不可或缺、默认依赖、可选择、直到淘汰是大概率事件，这件事情表面上是Google、RedHat等云计算大厂联手所为，实际淘汰它的是技术发展的潮流趋势，就如同Docker诞生时依赖LXC，到最后用libcontainer取代掉LXC一般。然而我们也该看到事情的另外一面，现在连LXC都还没有挂掉，反倒还发展出了更加专注于与OpenVZ等系统级虚拟化竞争的[LXD](https://linuxcontainers.org/lxd/introduction/)，相信Docker本身也很难彻底消亡的，已经养成习惯的CLI界面，已经形成成熟生态的镜像仓库等都应该会长期存在，只是在容器编排领域，未来的Docker很可能只会以runC和containerd的形式续存下去，毕竟它们最初都出源于Docker之手。
+未来，随着Kubernetes的持续发展壮大，Docker  Engine经历从不可或缺、默认依赖、可选择、直到淘汰是大概率事件，这件事情表面上是Google、RedHat等云计算大厂联手所为，实际淘汰它的是技术发展的潮流趋势，就如同Docker诞生时依赖LXC，到最后用libcontainer取代掉LXC一般。然而我们也该看到事情的另外一面，现在连LXC都还没有挂掉，反倒还发展出了更加专注于与OpenVZ等系统级虚拟化竞争的[LXD](https://linuxcontainers.org/lxd/introduction/)，相信Docker本身也很难彻底消亡的，已经养成习惯的CLI界面，已经形成成熟生态的镜像仓库等都应该会长期存在，只是在容器编排领域，未来的Docker很可能只会以runC和containerd的形式续存下去，毕竟它们最初都源于Docker的血脉。

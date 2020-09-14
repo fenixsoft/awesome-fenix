@@ -72,9 +72,7 @@ Kubernetes给予了我们强大的虚拟化基础设施，这是一把好用的�
   $ kubectl apply -f https://raw.githubusercontent.com/fenixsoft/servicemesh_arch_istio/master/bookstore.yml
   ```
 
-  当所有的Pod都处于正常工作状态后（这个过程一共需要下载几百MB的镜像，尤其是Docker中没有各层基础镜像缓存时，请根据自己的网速保持一定的耐心。未来GraalVM对Spring Cloud的支持更成熟一些后，可以考虑<a href="https://icyfenix.cn/tricks/graalvm/">采用GraalVM来改善</a>这一点）。
-
-  在浏览器访问：[http://localhost](http://localhost)，系统预置了一个用户（user:icyfenix，pw:123456），也可以注册新用户来测试。
+  当所有的Pod都处于正常工作状态后（这个过程一共需要下载几百MB的镜像，尤其是Docker中没有各层基础镜像缓存时，请根据自己的网速保持一定的耐心。未来GraalVM对Spring Cloud的支持更成熟一些后，可以考虑<a href="https://icyfenix.cn/tricks/graalvm/">采用GraalVM来改善</a>这一点），在浏览器访问：[http://localhost](http://localhost)，系统预置了一个用户（user:icyfenix，pw:123456），也可以注册新用户来测试。
 
 - 通过Skaffold在命令行或IDE中以调试方式运行：<br/>这个运行方式与此前调试Kubernetes服务是完全一致的。在本地针对单个服务编码、调试完成后，通过CI/CD流水线部署到Kubernetes中进行集成的。如果只是针对集成测试，这并没有什么问题，但同样的做法应用在开发阶段就不十分不便了，我们不希望每做一处修改都要经过一次CI/CD流程，这将非常耗时且难以调试。<br/>Skaffold是Google在2018年开源的一款加速应用在本地或远程Kubernetes集群中构建、推送、部署和调试的自动化命令行工具，对于Java应用来说，它可以帮助我们做到监视代码变动，自动打包出镜像，将镜像打上动态标签并更新部署到Kubernetes集群，为Java程序注入开放JDWP调试的参数，并根据Kubernetes的服务端口自动在本地生成端口转发。以上都是根据`skaffold.yml`中的配置来进行的，开发时skaffold通过`dev`指令来执行这些配置，具体的操作过程如下所示：
 

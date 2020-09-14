@@ -1,6 +1,6 @@
 # 以容器构建系统
 
-自从Docker提出“以封装应用为中心”的容器发展理念，成功取代了“以封装系统为中心”的LXC以后，一个容器封装一个应用已经成为被广泛认可的最佳实践。大型的分布式系统需要多个应用共同协作，以集群的形式对外提供服务，实现这个目标的过程就被称为容器编排（Container Orchestration）。
+自从Docker提出“以封装应用为中心”的容器发展理念，成功取代了“以封装系统为中心”的LXC以后，一个容器封装一个单进程应用已经成为被广泛认可的最佳实践。然而单体时代过去之后，分布式系统里应用的概念已不再等同于进程，此时的应用需要多个进程共同协作，以集群的形式对外提供服务，以虚拟化方法实现这个目标的过程就被称为容器编排（Container Orchestration）。
 
 容器之间顺畅地交互通讯是协作的核心需求，但容器协作并不仅仅是将容器以高速网络互相连接而已。如何调度容器，如何分配资源，如何扩缩规模，如何最大限度地接管系统中的非功能特性，让业务系统尽可能免受分布式复杂性的困扰都是容器编排框架必须考虑的问题，只有恰当解决了这一系列问题，云原生应用才有可能获得比比传统应用更高的生产力。
 
@@ -93,7 +93,7 @@ Pod是Kubernetes资源层级模型中唯一仅在逻辑上存在、没有物理�
 - 用于描述如何创建、销毁、更新、扩缩Pod，包括：Autoscaling（HPA）、CronJob、DaemonSet、Deployment、Job、Pod、ReplicaSet、StatefulSet
 - 用于配置信息的设置与更新，包括：ConfigMap、Secret
 - 用于持久性地存储文件或者Pod之间的文件共享，包括：Volume、LocalVolume、PersistentVolume、PersistentVolumeClaim、StorageClass
-- 用于维护网络通讯和服务访问的安全，包括：SecurityContext、ServiceAccount、NetworkPolicy
+- 用于维护网络通讯和服务访问的安全，包括：SecurityContext、ServiceAccount、Endpoint、NetworkPolicy
 - 用于定义服务与访问，包括：Ingress、Service、EndpointSlice
 - 用于划分虚拟集群、节点和资源配额，包括：Namespace、Node、ResourceQuota
 
@@ -128,6 +128,6 @@ Deployment滚动更新过程
 
 场景五中最后一种情况，遇到流量压力时，你可以通过手动修改Deployment中的副本数量，或者通过`kubectl scale`命令指定副本数量，促使Kubernetes部署更多的Pod副本来应对压力，然而这种扩容方式不仅需要人工参与，且只靠人类经验来判断需要扩容的副本数量的难以做到精确、及时。为此Kubernetes提供了Autoscaling资源和自动扩缩控制器，能够实现自动根据度量指标（如处理器、内存占用率、用户自定义的度量值等）来设置Deployment（或者ReplicaSet）的期望状态，实现当度量指标出现变化时，系统自动按照“Autoscaling-->Deployment-->ReplicaSet-->Pod”这样的层层变更，最终实现根据度量指标自动扩容缩容。
 
-故障恢复、滚动更新、自动扩缩这些特性，在云原生中时代里常被概括成服务的弹性（Elasticity）与韧性（Resilience），这些资源的操作在Kubernetes中也属于是所有教材资料都会讲到的“基础必修课”。如果你准备学习Kubernetes，切记不要死记硬背地学习每个资源的元数据文件该如何编写、有哪些指令、有哪些操作。应该站在更高层次去理解为什么Kubernetes要设计这些资源和控制器，为什么这些资源和控制器会被设计成这种样子。
+故障恢复、滚动更新、自动扩缩这些特性，在云原生中时代里常被概括成服务的弹性（Elasticity）与韧性（Resilience），这些资源的操作在Kubernetes中也属于是所有教材资料都会讲到的“基础必修课”。如果你准备学习Kubernetes，建议不要死记硬背地学习每个资源的元数据文件该如何编写、有哪些指令、有哪些操作，而是站在更高层次去理解为什么Kubernetes要设计这些资源和控制器，为什么这些资源和控制器会被设计成这种样子。
 
 如果你觉得已经理解了前面的几种资源和控制器的例子，那不妨思考一下：如果我想限制某个Pod持有的最大存储卷数量，应该会如何设计？如果集群中某个Node发生硬件故障，Kubernetes要让调度任务避开这个Node，应该如何设计？如果一旦这个Node重新恢复，Kubernetes要能尽快利用上面的资源，又该如何去设计？只要你真正接受了资源与控制器是贯穿整个Kubernetes的基本理念，即使不去查文档手册，也应该能推想出个大概轮廓。如此以后，当你再去看手册或者源码时，必定能够事半功倍。

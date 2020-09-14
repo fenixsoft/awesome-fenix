@@ -102,7 +102,7 @@ if (process.env.MOCK) {
 
 ## 工程结构
 
-Fenix's BookStore的工程结构完全符合vue.js工程的典型习惯，事实上它在建立时就是通过vue-cli初始化的。此工程的结构与其中各个目录的作用主要如下所示：
+Fenix's Bookstore的工程结构完全符合vue.js工程的典型习惯，事实上它在建立时就是通过vue-cli初始化的。此工程的结构与其中各个目录的作用主要如下所示：
 
 ```
 +---build                           webpack编译配置，该目录的内容一般不做改动

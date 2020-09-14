@@ -330,16 +330,16 @@ module.exports = {
               // '/immutable-infrastructure/schedule/elasticity',
             ]
           },
-          {
-            title: '可扩展设计',
-            path: '/immutable-infrastructure/extension/',
-            collapsable: false,
-            children: [
-              '/immutable-infrastructure/extension/crd',
-              '/immutable-infrastructure/extension/operator',
-              '/immutable-infrastructure/extension/api-server',
-            ]
-          },
+          // {
+          //   title: '可扩展设计',
+          //   path: '/immutable-infrastructure/extension/',
+          //   collapsable: false,
+          //   children: [
+          //     '/immutable-infrastructure/extension/crd',
+          //     '/immutable-infrastructure/extension/operator',
+          //     '/immutable-infrastructure/extension/api-server',
+          //   ]
+          // },
           {
             title: '服务网格',
             path: '/immutable-infrastructure/mesh/',
