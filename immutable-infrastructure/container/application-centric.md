@@ -68,11 +68,11 @@ Helm Hub商店（图片来源[Helm官网](https://helm.sh/)）
 
 Helm提供了应用全生命周期、版本、依赖项的管理能力，同时，Helm还支持额外的扩展插件，能够加入CI/CD或者其他方面的辅助功能，定位已经从单纯的工具升级为应用管理平台。强大的功能让Helm收到了不少支持，有很多应用主动入驻到官方的仓库中。从2018年起，Helm项目被托管到CNFC，成为其中的一个孵化项目。
 
-Helm以模仿Linux包管理器的思路去管理Kubernetes应用，一定程度上是可行的，不过，Linux与Kubernetes中部署应用还是存在一些差别，最重要的一点是在Linux中99%的应用都只会安装一份，而Kubernetes里为了保证可用性，同一个应用部署多份副本才更常见的操作。Helm也允许对同一个Chart包进行多次部署，每次安装它都会产生一个Release，这个Release相当于该Chart的安装实例。对于无状态的服务，只要Release能保证多个服务能够并行运行就已经足够了。但对于有状态的服务来说，服务与特定资源或者服务彼此之间要发生联系，事情就变得复杂起来，Helm无法很好地管理这种有状态的依赖关系，而这个就是要留待Operator解决的痛点了。
+Helm以模仿Linux包管理器的思路去管理Kubernetes应用，一定程度上是可行的，不过，Linux与Kubernetes中部署应用还是存在一些差别，最重要的一点是在Linux中99%的应用都只会安装一份，而Kubernetes里为了保证可用性，同一个应用部署多份副本才是更常见的操作。Helm也允许对同一个Chart包进行多次部署，每次安装它都会产生一个Release，这个Release相当于该Chart的安装实例。对于无状态的服务，只要Release能保证多个服务能够并行运行就已经足够了。但对于有状态的服务来说，服务会与特定资源或者服务彼此之间要产生依赖关系，事情就变得复杂起来，Helm无法很好地管理这种有状态的依赖关系，这个问题就是要留待Operator解决的痛点了。
 
 ## Operator与CRD
 
-[Operator](https://www.redhat.com/zh/topics/containers/what-is-a-kubernetes-operator)不应当称作是一种工具或者系统，它应该算是一种封装、部署和管理Kubernetes应用的解决方案，最早由CoreOS公司（于2018年被RedHat收购）的华人程序员邓洪超所提出。如果上一节“[以容器构建系统](/immutable-infrastructure/container/container-build-system.html)”介绍Kubernetes资源与控制器模式时你没有开小差的话，那么Operator中最核心的理念你其实已经理解了，简单地说，Operator就是通过Kubernetes 1.7开始支持的自定义资源（Custom Resource Definitions，CRD，此前曾经以TPR，即Third Party Resource的形式提供过类似的能力），把应用封装为更高层次的另一种资源，再把Kubernetes的控制器模式从面向于内置资源，扩展到了面向所有自定义资源。以下笔者引用了一段RedHat官方对Operator设计理念的阐述：
+[Operator](https://www.redhat.com/zh/topics/containers/what-is-a-kubernetes-operator)不应当被称作是工具或者系统，它应该算是一种封装、部署和管理Kubernetes应用的方法，尤其是针对最复杂的有状态应用去封装运维能力的解决方案，最早由CoreOS公司（于2018年被RedHat收购）的华人程序员邓洪超所提出。如果上一节“[以容器构建系统](/immutable-infrastructure/container/container-build-system.html)”介绍Kubernetes资源与控制器模式时你没有开小差的话，那么Operator中最核心的理念你其实已经理解了，简单地说，Operator就是通过Kubernetes 1.7开始支持的自定义资源（Custom Resource Definitions，CRD，此前曾经以TPR，即Third Party Resource的形式提供过类似的能力），把应用封装为更高层次的另一种资源，再把Kubernetes的控制器模式从面向于内置资源，扩展到了面向所有自定义资源。以下笔者引用了一段RedHat官方对Operator设计理念的阐述：
 
 :::quote Operator设计理念
 
@@ -84,7 +84,7 @@ Operator是使用自定义资源（CR，笔者注：CR即Custom Resource，是CR
 
 :::
 
-以上这段文字是由RedHat官方撰写和翻译的，准确严谨，对于没接触过Operator的人却并不那么友好，什么叫做“高级指令”？什么叫做“低级操作”？两者之间具体如何转换？为了能够理解这些问题，我们不妨先理解有状态和无状态应用的含义及影响，然后再以一个具体例子来理解Operator所做的工作。
+以上这段文字是由RedHat官方撰写和翻译的，准确严谨，对于没接触过Operator的人却并不那么友好，什么叫做“高级指令”？什么叫做“低级操作”？两者之间具体如何转换？为了能够理解这些问题，我们不妨先理解有状态和无状态应用的含义及影响，然后再来理解Operator所做的工作。
 
 有状态应用（Stateful Application）与无状态应用（Stateless Application）说的是应用程序是否要自己持有其运行所需的数据，如果应用每次执行都跟首次执行一样，不会依赖之前任何操作所遗留下来的痕迹，那它就是无状态的；反之，如果应用推倒重来之后，用户能察觉到该应用已经发生变化，那它就是有状态的。无状态应用在分布式系统中具有非常高的价值，我们都知道分布式中CAP不兼容原理，如果无状态，自然就不必考虑状态一致性，没有了C，A和P便兼得，换而言之，只要资源足够，无状态应用天生就是高可用的。但不幸的是现在的分布式系统中多数基础设施都是有状态的，如缓存、数据库、对象存储、消息队列，等等，只有像Web服务器这类设施属于无状态服务。
 
@@ -94,9 +94,9 @@ Operator是使用自定义资源（CR，笔者注：CR即Custom Resource，是CR
 - **Pod具有稳定的网络名称**：Kubernetes中的Pod都具有唯一的名称，在普通的副本集中这是靠随机字符产生的，而在StatefulSet中管理的Pod，会以带有顺序的编号作为名称，且能够在重启后依然保持不变。。
 - **Pod具有稳定的持久存储**：StatefulSet中的每个Pod都可以拥有自己独立的PersistentVolumeClaim资源。即使Pod被重新调度到其它节点上，它所拥有的持久磁盘也依然会被挂载到该Pod。
 
-如果把ReplicaSet中的Pod比喻为养殖场中的肉猪，那StatefulSet就是被家庭当宠物圈养的荷兰猪，不同的肉猪在食用功能上并没有什么区别，但每只宠物猪都是无独一无二的，有专属于自己的名字、习性与记忆，事实上StatefulSet就曾经有一段时间用的名字就是PetSet。StatefulSet出现以后，Pod解决了Pod重新创建后仍然保留上一次运行状态的问题，不过有状态应用的维护并不仅限于此，譬如对于一套Elasticsearch集群来说，通过StatefulSet只能做到创建集群、删除集群、扩容缩容等基础操作，其他的运维操作，譬如备份恢复数据、创建删除索引、调整平衡策略等操作也很常用，StatefulSet却并不能提供什么帮助。
+如果把ReplicaSet中的Pod比喻为养殖场中的肉猪，那StatefulSet就是被家庭当宠物圈养的荷兰猪，不同的肉猪在食用功能上并没有什么区别，但每只宠物猪都是无独一无二的，有专属于自己的名字、习性与记忆，事实上StatefulSet就曾经有一段时间用的名字就是PetSet。StatefulSet出现以后，Pod就能满足Pod重新创建后仍然保留上一次运行状态的需求，不过有状态应用的维护并不仅限于此，譬如对于一套Elasticsearch集群来说，通过StatefulSet只能做到创建集群、删除集群、扩容缩容等基础操作，其他的运维操作，譬如备份恢复数据、创建删除索引、调整平衡策略等操作也很常用，StatefulSet却并不能提供什么帮助。
 
-为了解释清楚Operator在这个问题上能提供的帮助，笔者举个具体例子来说明：要部署一套Elasticsearch集群，通常要在StatefulSet中定义相当多的细节，譬如服务的端口、Elasticsearch的配置、更新策略、内存大小、JVM参数、环境变量、数据文件位置，等等，为了便于你对Kubernetes的“复杂”有更加直观的体验，咱就奢侈一回，挥霍一点儿版面，将YAML全文贴出如下：
+为了解释清楚Operator在这个问题上能提供的帮助，笔者举个具体例子来说明：要部署一套Elasticsearch集群，通常要在StatefulSet中定义相当多的细节，譬如服务的端口、Elasticsearch的配置、更新策略、内存大小、虚拟机参数、环境变量、数据文件位置，等等，为了便于你对Kubernetes的“复杂”有更加直观的体验，咱就奢侈一回，挥霍一点儿版面，将YAML全文贴出如下：
 
 ```yaml
 apiVersion: v1
@@ -215,7 +215,7 @@ spec:
           storage: 5Gi
 ```
 
-Kubernetes并不知道Elasticsearch是什么东西，所有Kubernetes不知道的信息、不能启发式推断出来的信息，都必须在资源的元数据定义中明确列出。你必须一步一步手把手地“教会”Kubernetes如何部署Elasticsearch，这种形式就是RedHat在Operator设计理念中所说的“低级操作”。
+需要大量的细节配置的根本原因在于Kubernetes并不知道Elasticsearch是什么东西，所有Kubernetes不知道的信息、不能启发式推断出来的信息，都必须在资源的元数据定义中明确列出。你必须一步一步手把手地“教会”Kubernetes如何部署Elasticsearch，这种形式就属于RedHat在Operator设计理念介绍中所说的“低级操作”。
 
 如果我们使用[Elastic.co官方提供的Operator](https://github.com/elastic/cloud-on-k8s)，那就会便捷得多了，Elasticsearch Operator提供了一种`kind: Elasticsearch`的自定义资源，在它的帮助下，你仅需10行代码，将你的意图是“部署三个版本为7.9.1的ES集群节点”说清楚即可，便能实现与前面StatefulSet那一大堆配置相同的效果，如下面代码所示。显然此时Kubernetes已经学会怎样操作了Elasticsearch，知道所有它相关的参数含义与默认值，无需你再手把手地教了，这种就是所谓的“高级指令”。
 
@@ -238,17 +238,17 @@ spec:
 
 Operator将简洁的“高级指令”转化为Kubernetes中实际操作的方法与前面Helm或者Kustomize并不相同。Helm和Kustomize最终仍然是依靠Kubernetes的内置资源来跟Kubernetes打交道的，Operator则是让开发者自己实现一个专门针对该CRD的控制器，在控制器中维护自定义资源的期望状态。譬如当需要更新集群中某个Pod对象的时候，由Operator开发者自己编码实现的控制器完全可以在原地对Pod进行重启，而无需像Deployment那样必须先删除旧Pod，然后再创建新Pod。
 
-使用CRD定义高层次资源，使用配套的控制器来维护期望状态，带来的好处不仅仅是“高级指令”的便捷，而是遵循Kubernetes一贯基于资源与控制器的设计原则的同时，又不必再受制于Kubernetes内置资源的表达能力。只要Operator的开发者愿意编写代码，前面曾经提到那些StatfulSet不能支持的，如备份恢复数据、创建删除索引、调整平衡策略等操作，都完全可以实现出来。
+使用CRD定义高层次资源，使用配套的控制器来维护期望状态，带来的好处不仅仅是“高级指令”的便捷，而是遵循Kubernetes一贯基于资源与控制器的设计原则的同时，又不必再受制于Kubernetes内置资源的表达能力。只要Operator的开发者愿意编写代码，前面曾经提到那些StatfulSet不能支持的能力，如备份恢复数据、创建删除索引、调整平衡策略等操作，都完全可以实现出来。
 
 把运维的操作封装在应用代码上，表面上最大的受益者是运维人员，开发人员要付出更多劳动。然而Operator并没有被开发者抵制，让它变得小众，反而由于代码相对于资源配置的表达能力提升，让开发与运维之间的协作成本降低而备受开发者的好评。Operator变成了近两、三年容器封装应用的一股新潮流，现在很多复杂分布式系统都有了官方或者第三方提供的的Operator（[这里收集了其中一部分](https://github.com/operator-framework/awesome-operators)），RedHat也持续在Operator上面大量投入，推出了简化开发人员编写Operator的[Operator Framework/SDK](https://github.com/operator-framework/operator-sdk)。
 
-目前来看，应对有状态应用的封装运维问题，Operator也许是最可行的方案，但这依然不是一项轻松的工作，譬如[Etcd的Operator](https://github.com/coreos/etcd-operator)，Etcd本身不算特别复杂的应用，Operator实现的功能看起来也挺基础，主要有创建集群、删除集群、扩容缩容、故障转移、滚动更新、备份恢复等，其代码就已经超过一万行了。现在开发Operator的确还相对有些复杂，但是Operator符合技术潮流，顺应软件业界所提倡的DevOps一体化理念，等Operator的开发支持和生态进一步成熟之后，未来会是大有可为的。
+目前来看，应对有状态应用的封装运维问题，Operator也许是最可行的方案，但这依然不是一项轻松的工作，譬如[Etcd的Operator](https://github.com/coreos/etcd-operator)，Etcd本身不算什么特别复杂的应用，Operator实现的功能看起来也挺基础，主要有创建集群、删除集群、扩容缩容、故障转移、滚动更新、备份恢复等，其代码就已经超过一万行了。现在开发Operator的确还是有着相对较高的门槛，通常由开发而非运维人员去完成，但是Operator符合技术潮流，顺应软件业界所提倡的DevOps一体化理念，等Operator的开发支持和生态进一步成熟之后，开发和运维都能从中受益，未来会是大有可为的。
 
 ## 开放应用模型
 
 本节介绍的最后一种应用封装的方案，是阿里云和微软在2019年10月上海QCon大会上联合发布的[开放应用模型](https://oam.dev/)（Open Application Model，OAM），它不仅是中国云计算企业参与制定乃至主导发起的国际技术规范，也是业界首个云原生应用标准定义与架构模型。
 
-开放应用模型思想的核心是如何将开发人员、运维人员与平台人员关注点分离，开发人员关注业务逻辑的实现，运维人员关注程序平稳运行，平台人员关注平台的能力与稳定性，长期让几个角色厮混在同一个All-in-One资源文件里，并不能擦出什么火花，反而把“[YAML Engineer](https://www.stackery.io/blog/stop-yaml-engineering/)”弄成了容器界的嘲讽梗。
+开放应用模型思想的核心是如何将开发人员、运维人员与平台人员关注点分离，开发人员关注业务逻辑的实现，运维人员关注程序平稳运行，平台人员关注基础设施的能力与稳定性，长期让几个角色厮混在同一个All-in-One资源文件里，并不能擦出什么火花，反而将配置工作弄得越来越复杂，将“[YAML Engineer](https://www.stackery.io/blog/stop-yaml-engineering/)”弄成了容器界的嘲讽梗。
 
 开放应用模型把云原生应用定义为“由一组相互关联但又离散独立的组件构成，这些组件实例化在合适的运行时上，由配置来控制行为并共同协作提供统一的功能”。没看明白并没有关系，为了便于跟稍后的概念对应，笔者先把这句话翻译为你更加看**不**明白的另一种形式：
 
@@ -258,7 +258,7 @@ Operator将简洁的“高级指令”转化为Kubernetes中实际操作的方�
 
 :::
 
-然后，笔者通过解析上述所列的核心概念来帮助你理解OAM对应用的定义。这句话里面每一个用英文标注出来的技术名词都是OAM在Kubernetes基础上扩展而来概念，每一个名词都有专门的CRD与之对应，换而言之，它们并非抽象概念，而是可以实际使用的资源类型。这些概念的具体含义是：
+然后，笔者通过解析上述所列的核心概念来帮助你理解OAM对应用的定义。这句话里面每一个用英文标注出来的技术名词都是OAM在Kubernetes基础上扩展而来概念，每一个名词都有专门的CRD与之对应，换而言之，它们并非纯粹的抽象概念，而是可以被实际使用的资源定义。这些概念的具体含义是：
 
 - **服务组件**（Components）：由Component构成应用的思想自SOA以来就屡见不鲜，然而OAM的Component不仅仅是特指构成应用“整体”的一个“部分”，它还有一个重要职责是抽象那些应该由开发人员去关注的元素。譬如应用的名字、自述、容器镜像、运行所需的参数，等等。
 - **工作负荷**（Workload）：Workload决定了应用的运行模式，每个Component都要设定自己的Workload类型，OAM按照“是否可访问、是否可复制、是否长期运行”预定义了六种Workload类型，如下表所示。如有必要还可以通过CRD与Operator去扩展。
@@ -287,4 +287,4 @@ OAM未来能否成功，很大程度上寄希望于云厂商的支持力度，�
 
 ---
 
-**后记**：今天容器圈的发展是一日千里，各种新规范、新技术层出不穷，本节根据人气和代表性，列举了其中最出名的四种，其他笔者未提到的应用封装技术还有[CNAB](https://cnab.io/)、[Armada](https://github.com/airshipit/armada)、[Pulumi](https://www.pulumi.com/)等等。这些封装技术会有一定的重叠之处，但并非都是重复的轮子，实际应用时往往会联合其中多个工具一起使用。应该如何封装应用才是最佳的实践，目前尚且没有定论，但是以应用为中心的理念却已经成为共识。
+**后记**：今天容器圈的发展是一日千里，各种新规范、新技术层出不穷，本节根据人气和代表性，列举了其中最出名的四种，其他笔者未提到的应用封装技术还有[CNAB](https://cnab.io/)、[Armada](https://github.com/airshipit/armada)、[Pulumi](https://www.pulumi.com/)等等。这些封装技术会有一定的重叠之处，但并非都是重复的轮子，实际应用时往往会联合其中多个工具一起使用。应该如何封装应用才是最佳的实践，目前尚且没有定论，但是以应用为中心的理念却已经成为明确的共识。
