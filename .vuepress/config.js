@@ -301,13 +301,12 @@ module.exports = {
             ]
           },
           {
-            title: '容器间网络',
+            title: '✔️ 容器间网络',
             path: '/immutable-infrastructure/network/',
             collapsable: false,
             children: [
               '/immutable-infrastructure/network/linux-vnet',
               '/immutable-infrastructure/network/cni',
-              '/immutable-infrastructure/network/plugin',
             ]
           },
           {
@@ -317,7 +316,6 @@ module.exports = {
             children: [
               '/immutable-infrastructure/storage/dfs',
               '/immutable-infrastructure/storage/csi',
-              '/immutable-infrastructure/storage/storage-plugins'
             ]
           },
           {

@@ -103,22 +103,7 @@ $ sudo cat /etc/fstab_bak | grep -v swap > /etc/fstab
 
 :::
 
-> **额外知识**
->
-> Kubernetes是在Docker之上做容器编排的，为什么它的cgroup驱动会被设计成与Docker的不一致？
->
-> 尽管可能绝大多数的Kubernetes都是使用Docker作为容器配合使用的，但这两者并没有什么绝对绑定的依赖关系，Kubenetes对其管理的容器发布了一套名为”容器运行时接口“（Container Runtime Interface，CRI）的API，这套API在设计上，刻意兼容了”容器开放联盟“（Open Container Initiative，OCI）所制定的容器运行时标准，其他符合OCI标准的容器，同样也是可以与Kubernetes配合工作的，常见的有以下四种：
->
-> * [CRI-O ](https://github.com/kubernetes-incubator/cri-o)：由Kubernetes自己发布的ORI参考实现
-> * [rktlet ](https://github.com/kubernetes-incubator/rktlet)：rkt容器运行时
-> * [Frakti ](https://github.com/kubernetes/frakti)：一种基于Hypervisor的容器运行时
-> * [Docker CRI shim ](https://github.com/kubernetes/kubernetes/tree/release-1.5/pkg/kubelet/dockershim)：支持Docker直接充当CRI适配器
-
 在这里我们要修改Docker或者Kubernetes其中一个的cgroup驱动，以便两者统一。根据官方文档《[CRI installation](https://kubernetes.io/docs/setup/cri/)》中的建议，对于使用systemd作为引导系统的Linux的发行版，使用systemd作为Docker的cgroup驱动程序可以服务器节点在资源紧张的情况表现得更为稳定。
-
-> **额外知识**
->
-> cgroups是Linux内核提供的一种可以限制单个进程或者多个进程所使用资源的机制，可以对cpu，内存等资源实现精细化的控制。
 
 这里选择修改各个节点上Docker的cgroup驱动为systemd，具体操作为编辑（无则新增）/etc/docker/daemon.json文件，加入以下内容即可：
 

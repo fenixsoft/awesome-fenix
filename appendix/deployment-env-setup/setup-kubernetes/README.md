@@ -9,8 +9,6 @@ Kubernetes是一个由Google发起的开源自动化部署，缩放，以及容�
   其他如KubeSphere等在Kubernetes基础上构建的工具均归入此类
 * [使用Minikube在本地单节点部署Kubernetes集群](setup-minikube.md)</br>
   其他如Microk8s等本地环境的工具均归入此类
-* 在Google Kubernetes Engine云原生环境中部署</br>
- 其他如AWS、阿里云、腾讯云等提供的Kubernetes云主机均归入此类
 
 以上集中部署方式都有很明显的针对性，个人开发环境以Minikube最简单，生产环境以Rancher最简单，在云原生环境中，自然是使用环境提供的相应工具。不过笔者推荐首次接触Kubernetes的同学最好还是选择Kubeadm来部署，毕竟这是官方提供的集群管理工具，是相对更底层、基础的方式，充分熟悉了之后再接触其他简化的方式会快速融会贯通。 以上部署方式无需全部阅读，根据自己环境的情况选择其一即可。
 

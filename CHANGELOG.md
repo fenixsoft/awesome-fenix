@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年9月23日
+
+- 完成了“[Linux网络虚拟化](/immutable-infrastructure/network/linux-vnet.html)”章节
+
 ### 2020年9月14日
 
 - 完成了“[应用为中心的封装](/immutable-infrastructure/container/application-centric.html)”章节
