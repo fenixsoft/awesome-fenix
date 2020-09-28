@@ -4,6 +4,11 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年9月28日
+
+- 完成了“[容器网络与生态](/immutable-infrastructure/network/cni.html)”章节
+- 随着这篇文章的更新，整部文档超过了30万字，按计划应该在35万字以内结束。
+
 ### 2020年9月23日
 
 - 完成了“[Linux网络虚拟化](/immutable-infrastructure/network/linux-vnet.html)”章节

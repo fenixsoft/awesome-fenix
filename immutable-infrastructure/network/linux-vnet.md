@@ -204,13 +204,13 @@ QinQ是2011年推出的规范，到现在都并没有特别普及，除了需要
 VXLAN报文结构<br/>（图片来源：[Orchestrating EVPN VXLAN Services with Cisco NSO](https://www.ciscolive.com/c/dam/r/ciscolive/emea/docs/2019/pdf/DEVWKS-1445.pdf)）
 :::
 
-VXLAN对网络架构的要求很低，不需要硬件提供的特别支持，只要三层可达的网络就能部署VXLAN。VXLAN网络的每个边缘入口上布置有一个VTEP（VXLAN Tunnel Endpoints）设备，它既可以是物理设备，也可以是虚拟化设备，负责VXLAN协议报文的封包和解包。[互联网号码分配局](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority)（InternetAssigned Numbers Authority，IANA）专门分配了4789作为VTEP设备的UDP端口。
+VXLAN对网络架构的要求很低，不需要硬件提供的特别支持，只要三层可达的网络就能部署VXLAN。VXLAN网络的每个边缘入口上布置有一个VTEP（VXLAN Tunnel Endpoints）设备，它既可以是物理设备，也可以是虚拟化设备，负责VXLAN协议报文的封包和解包。[互联网号码分配局](https://en.wikipedia.org/wiki/Internet_Assigned_Numbers_Authority)（InternetAssigned Numbers Authority，IANA）专门分配了4789作为VTEP设备的UDP端口（以前Linux VXLAN用的默认端口是8472）。
 
 从Linux Kernel 3.7版本起，Linux系统就开始支持VXLAN。到了3.12版本，Linux对VXLAN的支持已达到完全完备的程度，能够处理单播和组播，能够运行于IPv4和IPv6之上，一台Linux主机经过简单配置之后，便可以把Linux Bridge作为VTEP设备使用。
 
 VXLAN带来了很高的灵活性、扩展性和可管理性，同一套物理网络中可以任意创建多个VXLAN网络，每个VXLAN中接入的设备都仿佛是在一个完全独立的二层局域网中一样，不会受到外部广播的干扰，也很难遭受外部的攻击，这使得VXLAN能够良好地匹配分布式系统的弹性需求。不过，VXLAN也带来了额外的复杂度和性能开销，具体表现在：
 
-- 传输效率的下降，如果你仔细数过前面VXLAN报文结构中UDP、IP、以太帧报文头的字节数，会发现经过VXLAN封装后的报文，报文头部分就有整整占了50 Bytes（VXLAN报文头占8 Bytes，UDP报文头占8 Bytes，IP报文头占20 Bytes，以太帧的MAC头占14 Bytes），而原本只需要14 Bytes而已。以太网的[MTU](https://en.wikipedia.org/wiki/Maximum_transmission_unit)是1500 Bytes，如果是传输大量数据，额外损耗36 Bytes并不算很高的成本，但如果传输的数据本来就只有几个Bytes的话，那传输消耗在报文头上的成本就很高昂了。
+- 传输效率的下降，如果你仔细数过前面VXLAN报文结构中UDP、IP、以太帧报文头的字节数，会发现经过VXLAN封装后的报文，新增加的报文头部分就有整整占了50 Bytes（VXLAN报文头占8 Bytes，UDP报文头占8 Bytes，IP报文头占20 Bytes，以太帧的MAC头占14 Bytes），而原本只需要14 Bytes而已，而且现在这14 Bytes也还在，被封到了最里面的以太帧中。以太网的[MTU](https://en.wikipedia.org/wiki/Maximum_transmission_unit)是1500 Bytes，如果是传输大量数据，额外损耗50 Bytes并不算很高的成本，但如果传输的数据本来就只有几个Bytes的话，那传输消耗在报文头上的成本就很高昂了。
 
 - 传输性能的下降，每个VXLAN报文的封包和解包操作都属于额外的处理过程，尤其是用软件来实现的VTEP，额外的运算资源消耗有时候会成为不可忽略的性能影响因素。
 

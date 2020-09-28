@@ -4,13 +4,13 @@
 
 ## 隔离文件：chroot
 
-容器的起点可以追溯到1979年[Version 7 UNIX](https://en.wikipedia.org/wiki/Version_7_Unix)系统中提供的`chroot`命令，它是英文单词“Change Root”的缩写，功能是当某个进程经过`chroot`操作之后，它的根目录就会被锁定在参数指定的位置，以后它或者它的子进程将不能再访问和操作该目录之外的其他文件。
+容器的起点可以追溯到1979年[Version 7 Unix](https://en.wikipedia.org/wiki/Version_7_Unix)系统中提供的`chroot`命令，它是英文单词“Change Root”的缩写，功能是当某个进程经过`chroot`操作之后，它的根目录就会被锁定在参数指定的位置，以后它或者它的子进程将不能再访问和操作该目录之外的其他文件。
 
 1991年，世界上第一个监控黑客行动的蜜罐程序就是使用`chroot`来实现的，那个参数指定的根目录当时被作者被戏称为“Chroot监狱”（Chroot Jail，黑客突破`chroot`限制的方法就称为Jailbreak）。后来，FreeBSD 4.0系统使用虚拟化技术重新实现了`chroot`命令，用它作为系统中进程沙箱隔离的基础，并将其命名为[FreeBSD jail](https://en.wikipedia.org/wiki/FreeBSD_jail)，再后来，苹果公司又以FreeBSD为基础研发出了举世闻名的iOS操作系统，此时，黑客们就将绕过iOS沙箱机制以root权限任意安装程序的方法称为“越狱”（[Jailbreak](https://zh.wikipedia.org/wiki/Jailbreak)），这些故事都是后话了。
 
 2000年，Linux Kernel 2.3.41版内核引入了`pivot_root`技术来实现文件隔离，`pivot_root`直接切换了[根文件系统](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard)（rootfs），有效地避免`chroot`命令的安全性问题。本文后续提到的容器技术，如LXC、Docker等也都是使用`pivot_root`来实现根文件系统的切换的。
 
-时至今日，`chroot`命令依然活跃在Unix和几乎所有主流的Linux发行版中，同时以命令行工具（[chroot(8)](https://linux.die.net/man/8/linux-user-chroot)）或者系统调用（[chroot(2)](https://linux.die.net/man/2/chroot) ）的形式存在，但无论是`chroot`命令抑或是`pivot_root`，都并不能提供完美的隔离性。按照[Unix的设计哲学](https://en.wikipedia.org/wiki/Everything_is_a_file)（In UNIX, Everything is a File），一切资源都可以视为文件，一切处理都可以视为对文件的操作，隔离了文件系统本该安枕无忧才对。可是，哲学归哲学，现实归现实，从硬件层面暴露的低层次资源，如磁盘、网络、内存、处理器，到经操作系统层面封装的高层次资源，如Unix分时（Unix Time-Sharing，UTS）、进程ID（Process ID，PID）、用户ID（User ID，UID）、进程间通讯（Inter-Process Communication，IPC）都存在大量以非文件形式暴露的操作入口，以`chroot`为代表的文件隔离，仅仅是容器崛起之路的第一步。
+时至今日，`chroot`命令依然活跃在Unix和几乎所有主流的Linux发行版中，同时以命令行工具（[chroot(8)](https://linux.die.net/man/8/linux-user-chroot)）或者系统调用（[chroot(2)](https://linux.die.net/man/2/chroot) ）的形式存在，但无论是`chroot`命令抑或是`pivot_root`，都并不能提供完美的隔离性。按照[Unix的设计哲学](https://en.wikipedia.org/wiki/Everything_is_a_file)（In Unix, Everything is a File），一切资源都可以视为文件，一切处理都可以视为对文件的操作，隔离了文件系统本该安枕无忧才对。可是，哲学归哲学，现实归现实，从硬件层面暴露的低层次资源，如磁盘、网络、内存、处理器，到经操作系统层面封装的高层次资源，如Unix分时（Unix Time-Sharing，UTS）、进程ID（Process ID，PID）、用户ID（User ID，UID）、进程间通讯（Inter-Process Communication，IPC）都存在大量以非文件形式暴露的操作入口，以`chroot`为代表的文件隔离，仅仅是容器崛起之路的第一步。
 
 ## 隔离访问：namespaces
 
@@ -18,7 +18,7 @@
 
 Linux的名称空间是一种由内核直接提供的全局资源封装，是内核针对进程设计的访问隔离机制。进程在一个独立的Linux名称空间中朝系统看去，会觉得自己仿佛就是这方天地的主人，拥有这台Linux主机上的一切资源，不仅文件系统是独立的，还有着独立的PID编号（譬如拥有自己的0号进程，即系统初始化的进程）、UID/GID编号（譬如拥有自己独立的root用户）、网络（譬如完全独立的IP地址、网络栈、防火墙等设置），等等，此时进程的心情简直不能再好了。
 
-Linux的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs)”（一个分布式操作系统，“九号”项目并非代号，操作系统的名字就叫“Plan 9 from Bell Labs”，满满的赛博朋克风格）的启发而设计的，最初的目的依然只是为了隔离文件系统，而非为了什么容器化的实现。这点从2002年发布时只提供了Mount名称空间，并且其构造参数为“CLONE_NEWNS”（即Clone New NameSpace）而非“CLONE_NEWMOUNT”便能看出一些端倪。后来，要求系统隔离其他访问操作的呼声愈发强烈，从2006年起，内核陆续添加了UTS、IPC等名称空间隔离，直到目前最新的Linux Kernel 5.6版内核为止，Linux名称空间支持以下八种资源的隔离（内核的官网[Kernel.org](https://www.kernel.org/)上仍然只列出了[前六种](https://www.kernel.org/doc/html/latest/admin-guide/namespaces/compatibility-list.html)，从Linux的Man命令能查到[全部八种](https://man7.org/linux/man-pages/man7/namespaces.7.html)）：
+Linux的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs)”（一个分布式操作系统，“九号”项目并非代号，操作系统的名字就叫“Plan 9 from Bell Labs”，满满的赛博朋克风格）的启发而设计的，最初的目的依然只是为了隔离文件系统，而非为了什么容器化的实现。这点从2002年发布时只提供了Mount名称空间，并且其构造参数为“CLONE_NEWNS”（即Clone New Namespace）而非“CLONE_NEWMOUNT”便能看出一些端倪。后来，要求系统隔离其他访问操作的呼声愈发强烈，从2006年起，内核陆续添加了UTS、IPC等名称空间隔离，直到目前最新的Linux Kernel 5.6版内核为止，Linux名称空间支持以下八种资源的隔离（内核的官网[Kernel.org](https://www.kernel.org/)上仍然只列出了[前六种](https://www.kernel.org/doc/html/latest/admin-guide/namespaces/compatibility-list.html)，从Linux的Man命令能查到[全部八种](https://man7.org/linux/man-pages/man7/namespaces.7.html)）：
 
 | <div style="width:70px">名称空间</div> | 隔离内容                                                     | <div style="width:50px">内核版本</div> |
 | :------- | ------------------------------------------------------------ | -------- |

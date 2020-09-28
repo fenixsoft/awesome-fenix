@@ -8,7 +8,7 @@
 
 本文中，我们将会分析服务发现的几个关键的子问题，并且探讨、对比时下最常见的用作服务发现的几种形式。首先，第一个问题是“服务发现”具体是指进行过什么操作？这里面其实包含了三个必须的过程：
 
-- **服务的注册**（Service Registration）：当服务启动的时候，它应该通过某些形式（譬如调用API、产生事件消息、在zk/etcd的指定位置记录、存入数据库，等等）将自己的坐标信息通知到服务注册中心，这个过程可能由应用程序来完成（譬如Spring Cloud的@EnableDiscoveryClient注解），也可能有容器框架（譬如Kubernetes）来完成。
+- **服务的注册**（Service Registration）：当服务启动的时候，它应该通过某些形式（譬如调用API、产生事件消息、在ZooKeeper/Etcd的指定位置记录、存入数据库，等等）将自己的坐标信息通知到服务注册中心，这个过程可能由应用程序来完成（譬如Spring Cloud的@EnableDiscoveryClient注解），也可能有容器框架（譬如Kubernetes）来完成。
 - **服务的维护**（Service Maintaining）：尽管服务发现框架通常都有提供下线机制，但并没有什么办法保证每次服务都能[优雅地下线](https://whatis.techtarget.com/definition/graceful-shutdown-and-hard-shutdown)（Graceful Shutdown）而不是由于宕机、断网等原因突然失联。所以服务发现框架必须要自己去保证所维护的服务列表的正确性，以避免告知消费者服务的坐标后，得到的服务却不能使用的尴尬情况。现在的服务发现框架，往往都能支持多种协议（HTTP、TCP等）、多种方式（长连接、心跳、探针、进程状态等）去监控服务是否健康存活，将不健康的服务自动下线。
 - **服务的发现**（Service Discovery）：这里的发现是狭义特指消费者从服务发现框架中，把一个符号（譬如Eureka中的ServiceID、Nacos中的服务名、或者通用的[FDQN](https://en.wikipedia.org/wiki/Fully_qualified_domain_name)）转换为服务实际坐标的过程，这个过程现在一般是通过HTTP API请求或者通过DNS Lookup操作来完成（还有一些相对少用的方式，如Kubernetes也支持注入环境变量）。
 

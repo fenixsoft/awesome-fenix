@@ -12,7 +12,7 @@ There is only one consensus protocol, and that's “Paxos” — all other appro
 
 :::
 
-Paxos是由[Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport)（就是大名鼎鼎的[LaTeX](https://en.wikipedia.org/wiki/LaTeX)中的“La”）提出的一种基于消息传递的协商共识算法，现已是当今分布式系统最重要的理论基础，几乎就是“共识”二字的代名词（这句话是Raft作者在论文中说的）。尽管不像Mike Burrows说的“世界上只有Paxos一种分布式共识算法”那么夸张，但是如果没有Paxos，那后续的Raft、ZAB算法，ZooKeeper、etcd这些分布式协调框架、Hadoop、Consul等在此基础上的各类分布式应用都很可能会延后几年面世。
+Paxos是由[Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport)（就是大名鼎鼎的[LaTeX](https://en.wikipedia.org/wiki/LaTeX)中的“La”）提出的一种基于消息传递的协商共识算法，现已是当今分布式系统最重要的理论基础，几乎就是“共识”二字的代名词（这句话是Raft作者在论文中说的）。尽管不像Mike Burrows说的“世界上只有Paxos一种分布式共识算法”那么夸张，但是如果没有Paxos，那后续的Raft、ZAB算法，ZooKeeper、Etcd这些分布式协调框架、Hadoop、Consul等在此基础上的各类分布式应用都很可能会延后几年面世。
 
 Lamport虚构了一个名为“Paxos”的希腊城邦，这个城邦按照民主制度制定法律，却又不存在一个中心化的专职立法机构，立法靠着“兼职议会”（Part-Time Parliament）来完成，无法保证所有城邦居民都能够及时地了解新的法律提案、也无法保证居民会及时为提案投票。Paxos算法的目标就是让城邦能够在每一位居民都无法承诺一定会及时参与的情况下，依然可以按照少数服从多数的原则，最终达成一致意见（但是并不考虑[拜占庭将军问题](https://en.wikipedia.org/wiki/Byzantine_fault)，即假设信息可能丢失也可能延迟，但不会被错误传递）。
 

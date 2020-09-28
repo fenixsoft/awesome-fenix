@@ -2,7 +2,7 @@
 
 Kubernetes是一个由Google发起的开源自动化部署，缩放，以及容器化管理应用程序的容器编排系统。
 
-部署Kubernetes曾经是一件比较麻烦的事情，kubelet、Api-Server、etcd、controller-manager等每一个组件都需要自己部署，还要创建自签名证书来保证各个组件之间的网络访问。但程序员大概是最爱偷懒最怕麻烦的群体，随着Kubernetes的后续版本不断改进（如提供了自动生成证书、Api-Server等组件改为默认静态Pod部署方式），使得部署和管理Kubernetes集群正在变得越来越简单。目前主流的方式大致有：
+部署Kubernetes曾经是一件比较麻烦的事情，kubelet、Api-Server、Etcd、controller-manager等每一个组件都需要自己部署，还要创建自签名证书来保证各个组件之间的网络访问。但程序员大概是最爱偷懒最怕麻烦的群体，随着Kubernetes的后续版本不断改进（如提供了自动生成证书、Api-Server等组件改为默认静态Pod部署方式），使得部署和管理Kubernetes集群正在变得越来越简单。目前主流的方式大致有：
 
 * [使用Kubeadm部署Kubernetes集群](setup-kubeadm.md)
 * [使用Rancher部署、管理Kubernetes集群](setup-rancher.md)</br>
