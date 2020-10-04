@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年10月4日
+
+- 完成了“[Kubernetes存储设计](/immutable-infrastructure/storage/storage-evolution.html)”章节
+
 ### 2020年9月28日
 
 - 完成了“[容器网络与生态](/immutable-infrastructure/network/cni.html)”章节
@@ -44,7 +48,7 @@ permalink: /changelog
 写了几篇谈理论的务虚文章：
 
 - [向微服务迈进](/methodology/forward-msa/)
-  - [目的：为什么要微服务](/methodology/forward-msa/objective.html)
+  - [目的：微服务的驱动力](/methodology/forward-msa/objective.html)
   - [前提：微服务需要的条件](/methodology/forward-msa/prerequest.html)
   - [边界：微服务的粒度](/methodology/forward-msa/granularity.html)
   - [治理：理解系统复杂性](/methodology/forward-msa/governance.html)

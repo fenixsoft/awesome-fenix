@@ -310,24 +310,25 @@ module.exports = {
             ]
           },
           {
-            title: '分布式共享存储',
+            title: '✔️ 容器持久化存储',
             path: '/immutable-infrastructure/storage/',
             collapsable: false,
             children: [
-              '/immutable-infrastructure/storage/dfs',
+              '/immutable-infrastructure/storage/storage-evolution',
               '/immutable-infrastructure/storage/csi',
             ]
           },
-          {
-            title: '资源调度',
-            path: '/immutable-infrastructure/schedule/',
-            collapsable: false,
-            children: [
-              '/immutable-infrastructure/schedule/hardware-schedule',
-              // '/immutable-infrastructure/schedule/resilience',
-              // '/immutable-infrastructure/schedule/elasticity',
-            ]
-          },
+          '/immutable-infrastructure/schedule/hardware-schedule',
+          // {
+          //   title: '资源调度',
+          //   path: '/immutable-infrastructure/schedule/',
+          //   collapsable: false,
+          //   children: [
+          //     '/immutable-infrastructure/schedule/hardware-schedule',
+          //     // '/immutable-infrastructure/schedule/resilience',
+          //     // '/immutable-infrastructure/schedule/elasticity',
+          //   ]
+          // },
           // {
           //   title: '可扩展设计',
           //   path: '/immutable-infrastructure/extension/',
@@ -366,7 +367,7 @@ module.exports = {
               // '/methodology/forward-msa/measurement',
               // '/methodology/forward-msa/risk',
             ]
-          },{
+          }, {
             title: '架构设计模式',
             collapsable: false,
             children: [
@@ -422,18 +423,22 @@ module.exports = {
               children: [
                 '/appendix/deployment-env-setup/setup-kubernetes/setup-kubeadm',
                 '/appendix/deployment-env-setup/setup-kubernetes/setup-rancher',
-                '/appendix/deployment-env-setup/setup-kubernetes/setup-minikube'
+                '/appendix/deployment-env-setup/setup-kubernetes/setup-minikube',
               ]
             }]
-          }, {
-            title: '运维环境',
-            path: '/appendix/operation-env-setup/',
-            collapsable: false,
-            children: [
-              '/appendix/operation-env-setup/elk-setup',
-              '/appendix/operation-env-setup/prometheus-setup'
-            ]
-          }
+          },
+          '/appendix/istio',
+          '/appendix/operation-env-setup/elk-setup',
+          '/appendix/operation-env-setup/prometheus-setup',
+          // {
+          //   title: '运维环境',
+          //   path: '/appendix/operation-env-setup/',
+          //   collapsable: false,
+          //   children: [
+          //     '/appendix/operation-env-setup/elk-setup',
+          //     '/appendix/operation-env-setup/prometheus-setup'
+          //   ]
+          // }
         ]
       }
     ]

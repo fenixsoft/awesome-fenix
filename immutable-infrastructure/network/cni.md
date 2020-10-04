@@ -64,7 +64,7 @@ CNM与Libnetwork是2015年5月1日发布的，CNI则是在2015年7月发布，�
 -  **路由模式**：路由模式其实也属于Underlay模式的一种特例，这里将它单独作为一种网络实现模式来介绍。相比起Overlay网络，路由模式的主要区别在于它的跨主机通信是直接通过路由转发来实现的，因而无需在不同主机之间做一个隧道封包。这种模式的好处是性能相比Overlay网络有所提升，坏处是路由转发要依赖于底层网络环境的支持，并不是你想做就能做到的。路由网络要求要么所有主机都位于同一个子网之内，都是二层连通的，要么不同二层子网之间由支持[边界网关协议](https://en.wikipedia.org/wiki/Border_Gateway_Protocol)（Border Gateway Protocol，BGP）的路由相连，并且网络插件也同样支持BGP协议去修改路由表。<br/>上一节介绍Linux网络基础知识时，笔者提到过Linux下不需要专门的虚拟路由，因为Linux本身就具备路由的功能。路由模式就是依赖Linux之上的路由协议，将路由表分发到子网的每一台物理主机之中，这样当跨主机访问容器时，Linux主机可以根据自己的路由表得知该容器存在于哪台物理主机之中，从而直接将数据包转发过去，避免了VXLAN的封包解包而导致的性能降低。 常见的路由网络有Flannel（HostGateway模式）、Calico（BGP模式）等等。<br/>以Flannel-HostGateway为例，Flannel通过在各个节点上运行的Flannel Agent（Flanneld）将容器网络的路由信息设置到主机的路由表上，这样一来，所有的物理主机都拥有整个容器网络的路由数据，容器间的数据包可以被Linux主机直接转发，通信效率与裸机直连都相差无几，不过由于Flannel Agent只能修改它运行主机上的路由表，一旦主机之间隔了其他路由设备，譬如路由器或者三层交换机，这个包就会在路由设备上被丢掉，要解决这种问题就必须依靠BGP路由和Calico-BGP这类支持标准BGP协议修改路由表的网络插件共同协作才行。
 -  **Underlay模式**：这里的Underlay模式特指让容器和宿主机处于同一网络，两者拥有相同的地位的网络方案。Underlay网络要求容器的网络接口能够直接与底层网络进行通讯，因此该模式是直接依赖于虚拟化设备与底层网络能力的。常见的Underlay网络插件有MACVLAN、[SR-IOV](https://en.wikipedia.org/wiki/Single-root_input/output_virtualization)（Single Root I/O Virtualization）等等。<br/>对于真正的大型数据中心、大型系统，Underlay模式是最有发展潜力的网络模式。这种方案能够最大限度地利用硬件的能力，往往有着最优秀的性能表现。但也是由于它直接依赖于硬件与底层网络环境，必须根据软、硬件情况来进行部署，难以做到Overlay网络那样开箱即用的灵活性<br/>以SR-IOV为例，SR-IOV是一种将[PCIe](https://en.wikipedia.org/wiki/PCI_Express)设备共享给虚拟机使用的硬件虚拟化标准，目前用在网络设备上应用比较多，理论上也可以支持其他的PCIe硬件。通过SR-IOV能够让硬件在虚拟机上实现独立的内存地址、中断和DMA流，而无需虚拟机管理系统的介入。对于容器系统来说，SR-IOV的价值是可以直接在硬件层面虚拟多张网卡，并且以硬件直通（Pass-Through）的形式交付给容器使用。但是SR-IOV直通部署起来通常都较为繁琐，现在容器用的SR-IOV方案不少是使用MACVTAP来对SR-IOV网卡进行转接的，MACVTAP提升了SR-IOV的易用性，但是这种转接又会带来额外的性能损失，并不一定会比其他网络方案有更好的表现。
 
-了解过CNI插件的大致的实现原理与分类后，相信你的下一个问题就是哪种CNI网络最好？在如何选择合适的CNI插件？选择CNI网络插件主要有三方面的考量因素，首先必须是你系统所处的环境是支持的，这点在前面已经有针对性地介绍过。第二、第三个因素就是性能与功能方面是否合乎你的要求。
+了解过CNI插件的大致的实现原理与分类后，相信你的下一个问题就是哪种CNI网络最好？如何选择合适的CNI插件？选择CNI网络插件主要有三方面的考量因素，首先必须是你系统所处的环境是支持的，这点在前面已经有针对性地介绍过。第二、第三个因素就是性能与功能方面是否合乎你的要求。
 
 性能方面，笔者引用一组测试数据供你参考。这些数据来自于2020年8月刊登在IETF的论文《[Considerations for Benchmarking Network Performance in Containerized Infrastructures](https://tools.ietf.org/id/draft-dcn-bmwg-containerized-infra-01.html)》，此文中测试了不同CNI插件在[裸金属服务器](https://en.wikipedia.org/wiki/BareMetal)之间（BMP to BMP，Bare Metal Pod）、虚拟机之间（VMP to VMP，Virtual Machine Pod）、以及裸金属服务器与虚拟机之间（BMP to VMP）的本地网络和跨主机网络的通讯表现。囿于篇幅，这里只列出最具代表性的是裸金属服务器之间的跨主机通讯，其结果如下图所示：
 
@@ -76,6 +76,6 @@ CNM与Libnetwork是2015年5月1日发布的，CNI则是在2015年7月发布，�
 64 Bytes - 8K Bytes中UDP延迟时间（结果越低，性能越好）
 :::
 
-从测试结果可见，MACVLAN和SR-IOV这样的Underlay网络插件的吞吐量最高、延迟最低，仅从网络性能上看它们是最优秀的，相对而言Flannel-VXLAN这样的Overlay网络插件，其吞吐量只有MACVLAN和SR-IOV的70%左右，延迟更是高了两至三倍之多。Overlay为了易用性、灵活性所付出的代价还是不小的，但是对于那些不以网络I/O为性能瓶颈的系统而言，这样的代价并非不可接受，就看你心中如何权衡了。
+从测试结果可见，MACVLAN和SR-IOV这样的Underlay网络插件的吞吐量最高、延迟最低，仅从网络性能上看它们是最优秀的，相对而言Flannel-VXLAN这样的Overlay网络插件，其吞吐量只有MACVLAN和SR-IOV的70%左右，延迟更是高了两至三倍之多。Overlay为了易用性、灵活性所付出的代价还是不小的，但是对于那些不以网络I/O为性能瓶颈的系统而言，这样的代价并非一定不可接受，就看你心中如何权衡取舍。
 
-功能方面的问题就比较简单了，完全取决于你得需求是否能够满足。对于容器编排系统来说，网络并非孤立的功能模块，只提供网络通讯就可以的，譬如Kubernetes的NetworkPolicy资源是用于描述“两个Pod之间是否可以访问”这类ACL策略。但它不属于CNI的范畴，因此不是每个CNI插件都会支持NetworkPolicy的声明，如果有这方面的需求，就应该放弃Flannel，去选择Calico、Weave等插件。类似的其他功能上的选择还有很多，笔者就不再列举了。
+功能方面的问题就比较简单了，完全取决于你的需求是否能够满足。对于容器编排系统来说，网络并非孤立的功能模块，只提供网络通讯就可以的，譬如Kubernetes的NetworkPolicy资源是用于描述“两个Pod之间是否可以访问”这类ACL策略。但它不属于CNI的范畴，因此不是每个CNI插件都会支持NetworkPolicy的声明，如果有这方面的需求，就应该放弃Flannel，去选择Calico、Weave等插件。类似的其他功能上的选择的例子还有很多，笔者不再一一列举。
