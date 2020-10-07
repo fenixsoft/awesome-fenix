@@ -95,9 +95,17 @@ spec:
 
 ## Static Provisioning
 
-从操作系统里继承下来的Volume概念，在Docker和Kubernetes中继续按照一致的逻辑延伸拓展，这种有传承的概念通常会显得清晰易懂，没有歧义。如果仅用Volume就解决所有问题，Kubernetes的存储便不会如此繁琐，可惜的是容器编排系统里仅仅有Volume并不能够满足全部的需要，核心矛盾是Volume的生命周期与Pod相同，一旦Pod被销毁，Volume也会随之而去。对于无状态应用，这很合理，但对于有状态应用，譬如数据库之类的应用便是完全不可接受的，谁也不会希望数据库的Pod崩溃重启之后便会自动丢失掉全部资料。
+从操作系统里继承下来的Volume概念，在Docker和Kubernetes中继续按照一致的逻辑延伸拓展，这种有传承的概念通常会显得清晰易懂，没有歧义。如果仅用Volume就解决所有问题，Kubernetes的存储便不会如此繁琐，可惜的是容器编排系统里仅仅有Volume并不能够满足全部的需要，核心矛盾是Volume的生命周期与Pod相同，一旦Pod被销毁，Volume也会随之而去。对于无状态应用，这很合理，但对于有状态应用，譬如数据库之类的应用就对此完全不可接受，谁也不会希望数据库的Pod崩溃重启之后便会自动丢失掉全部资料。
 
 于是Kubernetes再次对Volume做了进一步的延伸，派生出了PersistentVolume的概念，从“Persistent”这个单词就能够顾名思义，它是指能够将数据进行持久化存储的一种资源对象。PersistentVolume可以独立于Pod存在，生命周期与Pod无关，因此也决定了PersistentVolume不会依附于某一个主机节点上，你看前面表格中“Persistent”一列里基本都是网络或者云服务存储就是很好的印证。
+
+::: quote 额外知识：Local PersistentVolume
+
+对于部署在云端数据中心的系统，通过网络访问同一个可用区中的远程存储，速度是完全可以接受的。但对于私有部署的系统，基于性能考虑，使用本地存储往往会更为常见。
+
+考虑到这样的实际需求，从1.10版起，Kubernetes开始支持[Local PersistentVolume](https://kubernetes.io/blog/2019/04/04/kubernetes-1.14-local-persistent-volumes-ga/)，这是一种将一整块本地磁盘作为PersistentVolume供容器使用的专用方案。专用方案就是字面意思，它并不适用于全部应用，Local PersistentVolume只是针对以磁盘I/O为瓶颈的特定应用的解决方案，副作用十分明显：由于不能保证这种本地磁盘在每个节点中都一定存在，所以Kubernetes在调度时就必须考虑到PersistentVolume分布情况，只能把使用了Local PersistentVolume的Pod调度到有这种PersistentVolume的节点上。调度器中专门有个叫做[Volume Binding Mode](https://kubernetes.io/docs/concepts/storage/storage-classes/#volume-binding-mode)的模式来支持这项处理，尽管如此，一旦使用了Local PersistentVolume，无疑是会限制Pod的可调度范围。
+
+:::
 
 :::center
 ![](./images/v-pv.png)
@@ -106,7 +114,7 @@ Volume与PersistentVolume
 
 将PersistentVolume与Pod分离开来后，就需要专门考虑它该如何被Pod使用。原本在Pod中引用其他资源是常有的事，要么直接通过资源名称直接引用，要么通过[标签选择器](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/)（Selectors）间接引用。但是类似的方法在这里却并不妥当，请想一下“Pod该使用何种存储”这件事情，应该是系统管理员（运维人员）说的算，还是由用户（开发人员）说的算？合理的答案是他们一起说的才算，因为只有开发能准确评估Pod运行需要消耗多大的存储空间，只有运维能清楚知道当前系统可以使用的存储设备状况，为了让他们得以各自提供自己擅长的信息，Kubernetes又增加了PersistentVolumeClaim资源。下面Kubernetes官方给出的概念定义也特别强调了PersistentVolume是由管理员（运维人员）负责维护的，用户（开发人员）通过PersistentVolumeClaim来匹配到合乎需求的PersistentVolume：
 
-:::quote Persistent Volume & PersistentVolumeClaim 
+:::quote PersistentVolume & PersistentVolumeClaim 
 
 A PersistentVolume （PV） is a piece of storage in the cluster that has been provisioned **by an administrator**. <br/>A PersistentVolumeClaim （PVC） is a request for storage **by a user**. 
 
@@ -216,7 +224,7 @@ Kubernetes对PersistentVolumeClaim与PersistentVolume撮合的结果是产生一
 StorageClass运作过程（图片来自《[Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action)》）
 :::
 
-Dynamic Provisioning与Static Provisioning并不是各有用途的互补设计，而是对同一个问题先后出现的两种解决方案。你完全可以只用Dynamic Provisioning来实现所有的存储需求，包括那些不需要动态分配的场景，譬如之前例子里使用HostPath在本地静态分配存储，便可以用指定`no-provisioner`作为Provisioner的StorageClass来代替，譬如以下例子所示：
+Dynamic Provisioning与Static Provisioning并不是各有用途的互补设计，而是对同一个问题先后出现的两种解决方案。你完全可以只用Dynamic Provisioning来实现所有的Static Provisioning能够实现的存储需求，包括那些不需要动态分配的场景，譬如之前例子里使用HostPath在本地静态分配存储，便可以用指定`no-provisioner`作为Provisioner的StorageClass，使用Local Persistent Volume来代替，譬如以下例子所示：
 
 ```yaml
 apiVersion: storage.k8s.io/v1
@@ -229,4 +237,4 @@ volumeBindingMode: WaitForFirstConsumer
 
 使用Dynamic Provisioning来分配存储由很多优点，不仅省去了管理员的人工操作的中间层，也不再需要将PersistentVolume这样的概念暴露给最终用户，因为Dynamic Provisioning里的PersistentVolume只是处理过程的中间产物，用户不再需要接触和理解它，只需要知道由PersistentVolumeClaim去描述存储需求，由StorageClass去满足存储需求即可。只描述意图而不关心具体处理过程是声明式编程的精髓，也是流程自动化的必要保障。由Dynamic Provisioning来分配存储还能获得更高的可管理性，譬如前面提到的回收策略，当Volume跟随Pod一同被销毁时，以前经常会配置回收策略为Recycle来回收空间，即让系统自动执行`rm -rf /volume/*`命令，这种方式往往过于粗暴，遇到更精细的管理需求，譬如“删除到回收站”或者“粉碎式彻底删除”这样的功能实现起来就很麻烦。而Dynamic Provisioning中由于有Provisioner的存在，如何创建、如何回收都是由Provisioner的代码所管理的，这就带来了更高的灵活性。现在Kubernetes官方已经明确建议废弃掉Recycle策略，如有这类需求就改由Dynamic Provisioning去实现了。
 
-不过笔者相信，从Kubernetes发布到现在，直至目前可见的将来，Kubernetes都还将会把Static Provisioning作为用户分配存储的一种主要方案供用户选择，即使这已经不是最佳的设计，而同样是对历史现实的兼容。
+不过笔者相信，从Kubernetes发布到现在，直至目前可见的将来，Kubernetes都还将会把Static Provisioning作为用户分配存储的一种主要方案供用户选择，即使这已经不是最佳的设计，更多的是对历史与现实的一种兼容。

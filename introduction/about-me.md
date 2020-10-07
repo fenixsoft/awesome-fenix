@@ -1,6 +1,12 @@
 # 关于作者
 
-<font size=5><b>周志明　</b></font>[github](https://github.com/fenixsoft)、[weibo](https://weibo.com/icyfenix)、[email](mailto:icyfenix@gmail.com)
+<font size=5><b>周志明　</b></font>
+<span style="top: 4px; position: relative; float:right">
+<a href="https://github.com/fenixsoft"> <img src="./images/github-brands.svg" style="width:22px; display:inline-block" /></a> 
+<a href="https://weibo.com/icyfenix"> <img src="./images/weibo-brands.svg" style="width:24px; display:inline-block; padding-left: 6px; top: 2px; position: relative; " /></a>
+<a href="mailto:icyfenix@gmail.com"> <img src="./images/mail-bulk-solid.svg" style="width:22px; display:inline-block; padding-left: 6px;  top: -1px; position: relative;" /></a>
+</span>
+
 
 - 80后程序员<br/>
   职业是上市公司的高级管理人员；兴趣永远是当一名纯粹的程序员。<br/>工作中主要从事大型企业级软件的研发；业余里对计算机科学相关的多个领域都有持续跟进。
@@ -22,7 +28,7 @@
   - [腾讯云最有价值技术专家（TVP）](https://cloud.tencent.com/tvp/132)
   - [阿里云最有价值技术专家（MVP）](https://mvp.aliyun.com/mvp/detail/487)
   - [华为云最有价值技术专家（MVP）](https://developer.huaweicloud.com/mvp)
-  - [InfoQ.CN专栏撰稿人](https://www.infoq.cn/profile/1278833/publish)、[极客时间布道师](https://time.geekbang.org/)
+  - [IBM DeveloperWorks撰稿人]()、[InfoQ.CN专栏撰稿人](https://www.infoq.cn/profile/1278833/publish)、[极客时间布道师](https://time.geekbang.org/)
 
 <br/>
 

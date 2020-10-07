@@ -72,6 +72,7 @@ module.exports = {
       md.use(require('markdown-it-ins'));
       md.use(require('markdown-it-figure'));
       md.use(require('markdown-it-smartarrows'));
+      md.use(require('markdown-it-fontawesome'));
     }
   },
   themeConfig: {
@@ -367,24 +368,25 @@ module.exports = {
               // '/methodology/forward-msa/measurement',
               // '/methodology/forward-msa/risk',
             ]
-          }, {
-            title: '架构设计模式',
-            collapsable: false,
-            children: [
-              {
-                title: '✔️ 事件驱动架构',
-                path: '/methodology/pattern/events/',
-                collapsable: false,
-                children: [
-                  '/methodology/pattern/events/es',
-                  '/methodology/pattern/events/cqrs',
-                  '/methodology/pattern/events/cep',
-                ]
-              },
-              '/methodology/pattern/afk',
-              '/methodology/pattern/orchestration',
-            ]
-          },
+          }
+          // , {
+          //   title: '架构设计模式',
+          //   collapsable: false,
+          //   children: [
+          //     {
+          //       title: '✔️ 事件驱动架构',
+          //       path: '/methodology/pattern/events/',
+          //       collapsable: false,
+          //       children: [
+          //         '/methodology/pattern/events/es',
+          //         '/methodology/pattern/events/cqrs',
+          //         '/methodology/pattern/events/cep',
+          //       ]
+          //     },
+          //     '/methodology/pattern/afk',
+          //     '/methodology/pattern/orchestration',
+          //   ]
+          // },
         ]
       }, {
         title: '专题随笔',
