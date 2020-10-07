@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年10月7日
+
+- 完成了“[容器存储与生态](/immutable-infrastructure/storage/csi.html)”章节
+
 ### 2020年10月4日
 
 - 完成了“[Kubernetes存储设计](/immutable-infrastructure/storage/storage-evolution.html)”章节
