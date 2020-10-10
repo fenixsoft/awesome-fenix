@@ -55,8 +55,6 @@ Netfilter允许在同一个钩子处注册多个回调函数，因此向钩子�
 
 这些行为本来能够被挂载到Netfilter钩子的回调链上，但iptables又抽象 了一层，不是把行为与链直接挂钩，而是根据这些底层操作的目的总结为更高层次的规则。举个具体例子，假设你挂载规则目的是实现网络地址转换（NAT），那就要对符合某种特征的流量（譬如来源于某个网段、从某张网卡发送出去）、在某个钩子上（譬如做SNAT通常在POSTROUTING，做DNAT通常在PREROUTING）进行MASQUERADE行为，这样具有相同目的的规则，就应该放到一起形成规则表，才便于管理。iptables内置了五张不可扩展的规则表（其中security表并不常用，很多资料只计算了前四张表），如下所列：
 
-、数据包过滤、修改数据包IP头信息等，形成了五张规则表（security表不常用，很多资料只计算前四张表），如下：
-
 1. raw表：用于去除数据包上的[连接追踪机制](https://en.wikipedia.org/wiki/Netfilter#Connection_tracking)（Connection Tracking）。
 2. mangle表：用于修改数据包的报文头信息，如服务类型（Type Of Service，TOS）、生存周期（Time To Live，TTL）以及为数据包设置Mark标记，典型的应用是链路的服务质量管理（Quality Of Service，QoS）。
 3. nat表：用于修改数据包的源或者目的地址等信息，典型的应用是网络地址转换。

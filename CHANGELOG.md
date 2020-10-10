@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年10月10日
+
+- 完成了“[资源与调度](/immutable-infrastructure/schedule/hardware-schedule.html)”章节
+
 ### 2020年10月7日
 
 - 完成了“[容器存储与生态](/immutable-infrastructure/storage/csi.html)”章节

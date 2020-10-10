@@ -226,7 +226,7 @@ $ kubectl taint nodes --all node-role.kubernetes.io/master-
 ![](./images/kubernetes-setup-completed.png)
 :::
 
-## 调整NodePort范围<Badge text="可选" type="warning"/>
+## 调整NodePort范围 <Badge text="可选" type="warning"/>
 
 Kubernetes默认的NodePort范围为30000-32767，为了方便使用低端口，可能需要修改此范围，这需要调整Api-Server的启动参数，具体操作如下（如过是高可用部署，需要对每一个Master节点进行修改）：
 

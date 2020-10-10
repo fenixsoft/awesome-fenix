@@ -64,7 +64,7 @@
           }
           return page;
         }
-        return totalPage(this.$themeConfig.sidebar);
+        return totalPage(this.$themeConfig.sidebar) + 2;
       },
     }
   }
