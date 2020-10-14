@@ -129,7 +129,7 @@ Clusters and their workloads keep growing, and since the scheduler’s workload 
 
 :::
 
-针对以上问题，Google在论文《[Omega: Flexible, Scalable Schedulers for Large Compute Clusters](https://static.googleusercontent.com/media/research.google.com/zh-CN//pubs/archive/41684.pdf)》里总结了自身的经验，并参考了当时Mesos和Hadoop on Demand（HOD）的实现，提出了一种乐观并发（Optimistic Concurrency）的、共享状态（Shared State）的双循环调度机制。这种调度机制后来不仅应用在Google的Omega系统（Borg的下一代集群管理系统 ）中，也同样被Kubernetes继承了下来，它整体的工作流程图下图所示：
+针对以上问题，Google在论文《[Omega: Flexible, Scalable Schedulers for Large Compute Clusters](https://static.googleusercontent.com/media/research.google.com/zh-CN//pubs/archive/41684.pdf)》里总结了自身的经验，并参考了当时Mesos和Hadoop on Demand（HOD）的实现，提出了一种共享状态（Shared State）的双循环调度机制。这种调度机制后来不仅应用在Google的Omega系统（Borg的下一代集群管理系统 ）中，也同样被Kubernetes继承了下来，它整体的工作流程图下图所示：
 
 :::center
 ![context](./images/2loop.png)
@@ -162,7 +162,7 @@ score = 10 - variance(cpuFraction,memoryFraction,volumeFraction)×10
 
 公式中三种Fraction的含义是Pod请求的资源除以节点上的可用资源，variance函数的作用是计算各种资源之间的差距，差距越大，函数值越大。由此可知BalancedResourceAllocation规则的意图是希望调度完成后，所有节点里各种资源分配均衡的，避免节点上出现诸如CPU被大量分配、而内存大量剩余的尴尬状况。Kubernetes内置的其他的评分规则还有ImageLocalityPriority、NodeAffinityPriority、TaintTolerationPriority等等，笔者就不再逐一解释了。
 
-经过Predicate的筛选、Priorities的评分之后，调度器已经选出了调度的最终目标节点，最后一步是通知目标节点的kubelet可以去创建Pod了。调度器并不会直接与kubelet通讯来创建Pod，它只需要把待调度的Pod的nodeName字段更新为目标节点即可，kubelet本身会监视该值的变化。不过，从调度器在Etcd中更新nodeName，到kubelet从Etcd中检测到变化，再执行Admit操作二次确认调度可行性，最后到Pod开始实际创建，这个过程可能会持续一段不短的时间，如果一直等待调度最终完成，势必会显著影响调度器的效率。实际上Kubernetes调度器采用了乐观并发（Optimistic Concurrency）的策略，它会同步地更新调度缓存中Pod的nodeName字段，异步地更新Etcd中Pod的nodeName字段，这个操作被称为绑定（Bind）。如果最终调度成功了，那Etcd与调度缓存中的信息最终必定会保持一致，否则，如果调度失败了，那将由Informer来根据Pod的变动，重新同步回调度缓存中，以便促使另外一次调度的开始。
+经过Predicate的筛选、Priorities的评分之后，调度器已经选出了调度的最终目标节点，最后一步是通知目标节点的kubelet可以去创建Pod了。调度器并不会直接与kubelet通讯来创建Pod，它只需要把待调度的Pod的nodeName字段更新为目标节点即可，kubelet本身会监视该值的变化。不过，从调度器在Etcd中更新nodeName，到kubelet从Etcd中检测到变化，再执行Admit操作二次确认调度可行性，最后到Pod开始实际创建，这个过程可能会持续一段不短的时间，如果一直等待调度最终完成，势必会显著影响调度器的效率。实际上Kubernetes调度器采用了乐观绑定（Optimistic Binding）的策略，它会同步地更新调度缓存中Pod的nodeName字段，异步地更新Etcd中Pod的nodeName字段，这个操作被称为绑定（Binding）。如果最终调度成功了，那Etcd与调度缓存中的信息最终必定会保持一致，否则，如果调度失败了，那将由Informer来根据Pod的变动，重新同步回调度缓存中，以便促使另外一次调度的开始。
 
 最后，请注意笔者在这一个部分的小标题用的是“**默认**调度器”，目的是强调以上行为仅是Kubernetes默认的行为。对调度过程的大部分行为，你都可以通过Scheduler Framework暴露的接口来进行扩展和自定义，如下图所示，绿色的部分就是Scheduler Framework暴露的扩展点。由于Scheduler Framework属于Kubernetes内部的扩展机制（通过Go语言的Plugin机制来实现的，需静态编译），通用性与本章提到的其他扩展机制（CRI、CNI、CSI那些）不能相提并论，所以笔者仅在这里简单地介绍，不多赘述了。
 

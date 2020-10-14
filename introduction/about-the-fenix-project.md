@@ -10,9 +10,11 @@ The Phoenix Project
 
 在软件工程里，任何产品的研发，只要时间尺度足够长，人就总会疏忽犯错，代码就总会携有缺陷，电脑就总会宕机崩溃，网络就总会堵塞中断……如果一项工程需要大量的人员，共同去研发某个大规模的软件产品，并使其分布在网络中大量的服务器节点中同时运行，随着项目规模的增大、运作时间变长，其必然会受到墨菲定律的无情打击。
 
-> **Murphy's Law**：
->
-> Anything that can go wrong will go wrong —— 如果事情可能出错就总会出错
+:::quote 墨菲定律（Murphy's Law）
+Anything that can go wrong will go wrong.<br/>如果事情可能出错就总会出错。
+:::right
+——  [Nevil Maskelyne](https://en.wikipedia.org/wiki/Nevil_Maskelyne_(magician))，1908
+:::
 
 为了得到高质量的软件产品，我们是应该把精力更多地集中在提升其中每一个人员、过程、产出物的能力和质量上，还是该把更多精力放在整体流程和架构上？
 

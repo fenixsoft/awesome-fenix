@@ -341,13 +341,12 @@ module.exports = {
           //   ]
           // },
           {
-            title: '服务网格',
+            title: '✔️ 服务网格',
             path: '/immutable-infrastructure/mesh/',
             collapsable: false,
             children: [
-              '/immutable-infrastructure/mesh/mesh-impl',
-              '/immutable-infrastructure/mesh/xds',
-              '/immutable-infrastructure/mesh/envoy',
+              '/immutable-infrastructure/mesh/communication',
+              '/immutable-infrastructure/mesh/smi',
             ]
           },
         ]

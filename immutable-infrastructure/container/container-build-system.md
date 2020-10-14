@@ -53,7 +53,7 @@ Pod存在的另外一个基本职责是实现原子性调度，如果容器编�
 
 两个关联的协作任务必须一起调度的需求在容器出现之前就存在已久，譬如在传统的[并发系统](https://en.wikipedia.org/wiki/Concurrency_(computer_science))的调度中，如果两个线程或者进程是紧密依赖的，单独给谁分配处理时间、而另一个被挂起都会导致不能工作，如此就有了[协同调度](https://en.wikipedia.org/wiki/Coscheduling)（Coscheduling）的概念，以保证一组紧密联系的任务能够被同时分配资源。如果我们在容器编排中仍然坚持将容器视为调度的最小粒度，那对容器运行所需资源的需求声明就要设定在容器上，这样集群每个节点剩余资源越紧张，单个无法容纳全部协同容器的概率就越大，协同的容器被分配到不同节点的可能性就越高。
 
-协同调度是很麻烦的，实现起来要么很低效，譬如Apache Mesos的Resource Hoarding调度策略，就要等所有需要调度的任务都完备后才会开始分配资源；要么就会实现得很复杂。但是如果将运行资源的需求声明定义在Pod上，直接以Pod为最小的原子单位来实现调度的话，由于Pod之间绝不存在超亲密的协同关系，只通过网络非亲密地协作，那就根本没有协同的说法，自然也不需要考虑复杂的调度了（Kubernetes的调度还是相对较为复杂的，具体过程可参见“[资源与调度](/immutable-infrastructure/schedule/hardware-schedule.html)”）。
+协同调度是很麻烦的，实现起来要么很低效，譬如Apache Mesos的Resource Hoarding调度策略，就要等所有需要调度的任务都完备后才会开始分配资源；要么就会实现得很复杂，譬如Google就曾针对Borg的下一代Omega系统发表过论文《[Omega: Flexible, Scalable Schedulers for Large Compute Clusters](https://research.google.com/pubs/archive/41684.pdf)》介绍它如何使用通过乐观并发（Optimistic Concurrency）、冲突回滚的方式做到高效率，也高度复杂的协同调度。但是如果将运行资源的需求声明定义在Pod上，直接以Pod为最小的原子单位来实现调度的话，由于Pod之间不存在超亲密的协同关系，只通过网络非亲密地协作，那就根本没有协同的说法，自然也不需要考虑复杂的调度了，关于Kubernetes的具体调度实现，会在“[资源与调度](/immutable-infrastructure/schedule/hardware-schedule.html)”中更详细地介绍。
 
 :::center
 ![](./images/pods.png)
