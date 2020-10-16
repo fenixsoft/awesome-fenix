@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年10月16日
+
+- 完成了“[透明通讯的涅槃](/immutable-infrastructure/mesh/communication.html)”章节。<br/>一年前，此文档刚开篇不久，我写下“[原始分布式时代](/architecture/architect-history/primitive-distribution.html)”和“[远程服务调用](/architect-perspective/general-architecture/api-style/rpc.html)”就设想过要以这一篇去结尾。
+
 ### 2020年10月10日
 
 - 完成了“[资源与调度](/immutable-infrastructure/schedule/hardware-schedule.html)”章节
@@ -137,3 +141,8 @@ permalink: /changelog
 
 - 完成“[服务架构演进史](/architecture/architect-history/)”章节。
 - 查了Git文档是在2019年12月23日创建的，今天在[微博](https://weibo.com/1887642490/J072HfNbO?from=page_1035051887642490_profile&wvr=6&mod=weibotime&type=comment)上开始小范围公开。
+
+### 2019年12月23日
+
+- 此文档第一次Git提交：[Initialize repository](https://github.com/fenixsoft/awesome-fenix/commit/814cbb032a9377987503f08e8b6a3ea560419659)
+
