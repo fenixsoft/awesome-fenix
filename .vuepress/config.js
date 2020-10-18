@@ -120,7 +120,7 @@ module.exports = {
         link: 'https://raw.githubusercontent.com/fenixsoft/awesome-fenix/gh-pages/pdf/the-fenix-project.pdf',
         target: "_blank"
       },
-      {text: '讨论区', link: '/board', target: "_self"}
+      {text: '讨论区', link: '/board/', target: "_self"}
     ],
     sidebar: [
       {
