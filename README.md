@@ -14,7 +14,7 @@
     <a href="https://travis-ci.com/fenixsoft/awesome-fenix" target="_blank" style="display:inline-block" class="not-print"><img src="https://api.travis-ci.com/fenixsoft/awesome-fenix.svg?branch=master" alt="Travis-CI"></a>
     <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/License-Apache.svg" alt="License"></a>
     <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/DocLicense-CC-red.svg" alt="Document License"></a>
-    <a href="/summary"  style="display:inline-block"><words type='badge' chapter='/'/></a>
+    <a href="/summary/"  style="display:inline-block"><words type='badge' chapter='/'/></a>
     <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/Author-IcyFenix-blue.svg" alt="About Author"></a>
 	<PublishInfos />
 </p>
@@ -41,7 +41,7 @@
 
 根据“使用”的所指含义的不同，笔者列举以下几种情况：
 
-- **在线阅读**：本文档在线阅读地址为：[https://icyfenix.cn](https://icyfenix.cn)。<br/>网站由 [GitHub Pages](https://pages.github.com/) 提供网站存储空间；由 [Travis-CI](https://travis-ci.com/fenixsoft/awesome-fenix) 提供的持续集成服务实时把 Git 仓库的 Markdown 文档编译同步至网站；由[腾讯云 CDN](https://cloud.tencent.com/product/cdn) 提供国内访问的缓存支持。
+- **在线阅读**：本文档在线阅读地址为：[https://icyfenix.cn](https://icyfenix.cn)。<br/>网站由 [GitHub Pages](https://pages.github.com/) 提供网站存储空间；由 [Travis-CI](https://travis-ci.com/fenixsoft/awesome-fenix) 提供的持续集成服务实时把 Git 仓库的 Markdown 文档编译同步至网站。
 
 - **离线阅读**：
 

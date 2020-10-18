@@ -4,6 +4,12 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年10月18日
+
+- 整部文档所有计划的内容均已完成，全文合计 <words type='span' chapter='/' /> 字。
+- 预计文档的**音频版本**预计会在11月份[极客时间](https://time.geekbang.org/)中，以免费公益课程的形式公开，感谢极客邦的编辑及配音主播。
+- 预计文档的**图书版本**预计会在明年2月左右，由机械工业出版社出版。
+
 ### 2020年10月16日
 
 - 完成了“[透明通讯的涅槃](/immutable-infrastructure/mesh/communication.html)”章节。<br/>一年前，此文档刚开篇不久，我写下“[原始分布式时代](/architecture/architect-history/primitive-distribution.html)”和“[远程服务调用](/architect-perspective/general-architecture/api-style/rpc.html)”就设想过要以这一篇去结尾。

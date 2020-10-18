@@ -147,7 +147,7 @@ module.exports = {
             ]
           },
           {
-            title: '✔️ 技术演示工程',
+            title: '技术演示工程',
             collapsable: false,
             path: '/exploration/projects/',
             children: [
@@ -164,7 +164,7 @@ module.exports = {
         collapsable: false,
         children: [
           {
-            title: '✔️ 服务架构演进史',
+            title: '服务架构演进史',
             path: '/architecture/architect-history/',
             collapsable: false,
             children: [
@@ -182,7 +182,7 @@ module.exports = {
         collapsable: false,
         children: [
           {
-            title: '✔️ 远程访问',
+            title: '远程访问',
             collapsable: false,
             path: '/architect-perspective/general-architecture/api-style/',
             children: [
@@ -192,7 +192,7 @@ module.exports = {
             ]
           },
           {
-            title: '✔️ 事务处理',
+            title: '事务处理',
             collapsable: false,
             path: '/architect-perspective/general-architecture/transaction/',
             children: [
@@ -203,7 +203,7 @@ module.exports = {
             ]
           },
           {
-            title: '✔️ 透明多级分流系统',
+            title: '透明多级分流系统',
             collapsable: false,
             path: '/architect-perspective/general-architecture/diversion-system/',
             children: [
@@ -217,7 +217,7 @@ module.exports = {
             ]
           },
           {
-            title: '✔️ 安全架构',
+            title: '安全架构',
             collapsable: false,
             path: '/architect-perspective/general-architecture/system-security/',
             children: [
@@ -236,7 +236,7 @@ module.exports = {
         collapsable: false,
         children: [
           {
-            title: '✔️ 分布式共识算法',
+            title: '分布式共识算法',
             path: '/distribution/consensus/',
             collapsable: false,
             children: [
@@ -246,7 +246,7 @@ module.exports = {
             ]
           },
           {
-            title: '✔️ 从类库到服务',
+            title: '从类库到服务',
             path: '/distribution/connect/',
             collapsable: false,
             children: [
@@ -258,7 +258,7 @@ module.exports = {
             ]
           },
           {
-            title: '✔️ 服务与流量治理',
+            title: '服务与流量治理',
             path: '/distribution/traffic-management/',
             collapsable: false,
             children: [
@@ -267,7 +267,7 @@ module.exports = {
             ]
           },
           {
-            title: '✔️ 可靠通讯',
+            title: '可靠通讯',
             path: '/distribution/secure/',
             collapsable: false,
             children: [
@@ -276,7 +276,7 @@ module.exports = {
             ]
           },
           {
-            title: '✔️ 可观测性',
+            title: '可观测性',
             path: '/distribution/observability/',
             collapsable: false,
             children: [
@@ -292,7 +292,7 @@ module.exports = {
         children: [
           '/immutable-infrastructure/msa-to-cn',
           {
-            title: '✔️ 虚拟化容器',
+            title: '虚拟化容器',
             path: '/immutable-infrastructure/container/',
             collapsable: false,
             children: [
@@ -302,7 +302,7 @@ module.exports = {
             ]
           },
           {
-            title: '✔️ 容器间网络',
+            title: '容器间网络',
             path: '/immutable-infrastructure/network/',
             collapsable: false,
             children: [
@@ -311,7 +311,7 @@ module.exports = {
             ]
           },
           {
-            title: '✔️ 容器持久化存储',
+            title: '容器持久化存储',
             path: '/immutable-infrastructure/storage/',
             collapsable: false,
             children: [
@@ -341,12 +341,12 @@ module.exports = {
           //   ]
           // },
           {
-            title: '✔️ 服务网格',
+            title: '服务网格',
             path: '/immutable-infrastructure/mesh/',
             collapsable: false,
             children: [
               '/immutable-infrastructure/mesh/communication',
-              '/immutable-infrastructure/mesh/smi',
+              '/immutable-infrastructure/mesh/ecosystems',
             ]
           },
         ]
@@ -356,7 +356,7 @@ module.exports = {
 
         children: [
           {
-            title: '✔️ 向微服务迈进',
+            title: '向微服务迈进',
             path: '/methodology/forward-msa/',
             collapsable: false,
             children: [
@@ -373,7 +373,7 @@ module.exports = {
           //   collapsable: false,
           //   children: [
           //     {
-          //       title: '✔️ 事件驱动架构',
+          //       title: '事件驱动架构',
           //       path: '/methodology/pattern/events/',
           //       collapsable: false,
           //       children: [
@@ -392,7 +392,7 @@ module.exports = {
         collapsable: false,
         children: [
           {
-            title: '✔️ Graal VM',
+            title: 'Graal VM',
             collapsable: false,
             path: '/tricks/graalvm/',
             children: [
@@ -415,11 +415,11 @@ module.exports = {
           // '/appendix/continuous-integration',
           // '/appendix/gated-launch',
           {
-            title: '✔️ 部署环境',
+            title: '部署环境',
             path: '/appendix/deployment-env-setup/',
             collapsable: false,
             children: ['/appendix/deployment-env-setup/setup-docker', {
-              title: '✔️ 部署Kubernetes集群',
+              title: '部署Kubernetes集群',
               path: '/appendix/deployment-env-setup/setup-kubernetes/',
               children: [
                 '/appendix/deployment-env-setup/setup-kubernetes/setup-kubeadm',
