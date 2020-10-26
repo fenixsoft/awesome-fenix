@@ -8,7 +8,7 @@ Simplicity of both the interface and the implementation are more important than 
 
 :::right 
 
-—— [Richard P. Gabriel](https://en.wikipedia.org/wiki/Richard_P._Gabriel)，[The Rise of 'Worse is Better](https://en.wikipedia.org/wiki/Worse_is_better)，1991
+—— [Richard P. Gabriel](https://en.wikipedia.org/wiki/Richard_P._Gabriel)，[The Rise of 'Worse is Better'](https://en.wikipedia.org/wiki/Worse_is_better)，1991
 
 :::
 

@@ -182,7 +182,7 @@ module.exports = {
         collapsable: false,
         children: [
           {
-            title: '远程访问',
+            title: '访问远程服务',
             collapsable: false,
             path: '/architect-perspective/general-architecture/api-style/',
             children: [
