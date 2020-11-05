@@ -31,7 +31,6 @@ public void buyBook(PaymentBill bill) {
         businessTransaction.rollback();
 	}
 }
-
 ```
 
 代码上能看出程序的目的是要做三次事务提交，但实际上代码并不能这样写，试想一下，如果在businessTransaction.commit()中出现错误，代码转到catch块中执行，此时userTransaction和warehouseTransaction已经完成提交，再去调用rollback()方法已经无济于事，这将导致一部分数据被提交，另一部分被回滚，整个事务的一致性也就无法保证了。为了解决这个问题，XA将事务提交拆分成为两阶段过程：

@@ -217,7 +217,7 @@ module.exports = {
             ]
           },
           {
-            title: '安全架构',
+            title: '架构安全性',
             collapsable: false,
             path: '/architect-perspective/general-architecture/system-security/',
             children: [

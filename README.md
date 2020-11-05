@@ -41,7 +41,7 @@
 
 根据“使用”的所指含义的不同，笔者列举以下几种情况：
 
-- **在线阅读**：本文档在线阅读地址为：[https://icyfenix.cn](https://icyfenix.cn)。<br/>网站由 [GitHub Pages](https://pages.github.com/) 提供网站存储空间；由 [Travis-CI](https://travis-ci.com/fenixsoft/awesome-fenix) 提供的持续集成服务实时把 Git 仓库的 Markdown 文档编译同步至网站。
+- **在线阅读**：本文档在线阅读地址为：[https://icyfenix.cn](https://icyfenix.cn)。<br/>网站由 [GitHub Pages](https://pages.github.com/) 提供网站存储空间；由 [Travis-CI](https://travis-ci.com/fenixsoft/awesome-fenix) 提供的持续集成服务实时把 Git 仓库的 Markdown 文档编译同步至网站，并推送至 CDN 提供国内的访问。
 
 - **离线阅读**：
 
