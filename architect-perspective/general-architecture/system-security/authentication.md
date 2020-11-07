@@ -70,7 +70,7 @@ WWW-Authenticate: Basic realm="example from icyfenix.cn"
 HTTP Basic Authentication
 :::
 
-用户在对话框中输入密码信息，譬如输入用户名`cyfenix`，密码`123456`，浏览器会将字符串`icyfenix:123456`编码为`aWN5ZmVuaXg6MTIzNDU2`，然后发送给服务端，HTTP请求如下所示：
+用户在对话框中输入密码信息，譬如输入用户名`icyfenix`，密码`123456`，浏览器会将字符串`icyfenix:123456`编码为`aWN5ZmVuaXg6MTIzNDU2`，然后发送给服务端，HTTP请求如下所示：
 
 ```http
 GET /admin HTTP/1.1
