@@ -258,7 +258,7 @@ module.exports = {
             ]
           },
           {
-            title: '服务与流量治理',
+            title: '流量治理',
             path: '/distribution/traffic-management/',
             collapsable: false,
             children: [
