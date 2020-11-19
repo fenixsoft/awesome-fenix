@@ -23,7 +23,7 @@
 
 ## 这是什么？
 
-这是一部以“架构师应该掌握哪些架构知识”为叙事主线的开源文档，是一幅帮助开发人员整理现代软件架构各条分支中繁多知识点的技能地图。文章《<a href="https://icyfenix.cn/introduction/about-the-fenix-project.html">什么是“The Fenix Project”</a>》详细阐述了这部文档的主旨、目标与名字的来由，文章《<a href="https://icyfenix.cn/exploration/guide/quick-start.html">如何开始</a>》简述了文档每章讨论的主要话题与内容详略分布，供阅前参考。
+这是一部以“如何构筑一套可靠的分布式大型软件系统”为叙事主线的开源文档，是一幅帮助开发人员整理现代软件架构各条分支中繁多知识点的技能地图。文章《<a href="https://icyfenix.cn/introduction/about-the-fenix-project.html">什么是“The Fenix Project”</a>》详细阐述了这部文档的主旨、目标与名字的来由，文章《<a href="https://icyfenix.cn/exploration/guide/quick-start.html">如何开始</a>》简述了文档每章讨论的主要话题与内容详略分布，供阅前参考。
 
 笔者出于以下目的，撰写这部文档：
 
@@ -41,7 +41,7 @@
 
 根据“使用”的所指含义的不同，笔者列举以下几种情况：
 
-- **在线阅读**：本文档在线阅读地址为：[https://icyfenix.cn](https://icyfenix.cn)。<br/>网站由 [GitHub Pages](https://pages.github.com/) 提供网站存储空间；由 [Travis-CI](https://travis-ci.com/fenixsoft/awesome-fenix) 提供的持续集成服务实时把 Git 仓库的 Markdown 文档编译同步至网站，并推送至 CDN 提供国内的访问。
+- **在线阅读**：本文档在线阅读地址为：[https://icyfenix.cn](https://icyfenix.cn)。<br/>网站由 [GitHub Pages](https://pages.github.com/) 提供网站存储空间；由 [Travis-CI](https://travis-ci.com/fenixsoft/awesome-fenix) 提供的持续集成服务实时把 Git 仓库的 Markdown 文档编译同步至网站，并推送至 CDN，提供国内的访问加速。
 
 - **离线阅读**：
 
