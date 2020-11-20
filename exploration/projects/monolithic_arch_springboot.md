@@ -75,7 +75,7 @@
 
 ## 技术组件
 
-Fenix's Bookstore单体架构后端尽可能采用标准的技术组件进行构建，不依赖与具体的实现，包括：
+Fenix's Bookstore单体架构后端尽可能采用标准的技术组件进行构建，不依赖于具体的实现，包括：
 
 - [JSR 370：Java API for RESTful Web Services 2.1](https://jcp.org/en/jsr/detail?id=370)（JAX-RS 2.1）<br/>RESTFul服务方面，采用的实现为Jersey 2，亦可替换为Apache CXF、RESTeasy、WebSphere、WebLogic等
 
