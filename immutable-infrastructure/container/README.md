@@ -12,7 +12,7 @@
 
 [指令集架构](https://en.wikipedia.org/wiki/Instruction_set_architecture)（Instruction Set Architecture，ISA）是计算机体系结构中与程序设计有关的部分，包含了基本数据类型，指令集，寄存器，寻址模式，存储体系，中断，异常处理以及外部I/O。指令集架构包含一系列的Opcode操作码（即通常所说的机器语言），以及由特定处理器执行的基本命令。
 
-[应用二进制接口](https://en.wikipedia.org/wiki/Application_binary_interface)（Application Binary Interface，ABI）是应用程序与操作系统之间或其他依赖库之间的低级接口。ABI涵盖了各种底层细节，如数据类型的宽度大小、对象的布局、接口调用约定等等。ABI不同于应用程序接口（Application Programming Interface，API），API定义的是源代码和库之间的接口，因此同样的代码可以在支持这个API的任何系统中编译，而ABI允许编译好的目标代码在使用兼容ABI的系统中无需改动就能直接运行。
+[应用二进制接口](https://en.wikipedia.org/wiki/Application_binary_interface)（Application Binary Interface，ABI）是应用程序与操作系统之间或其他依赖库之间的低级接口。ABI涵盖了各种底层细节，如数据类型的宽度大小、对象的布局、接口调用约定等等。ABI不同于[应用程序接口](https://en.wikipedia.org/wiki/API)（Application Programming Interface，API），API定义的是源代码和库之间的接口，因此同样的代码可以在支持这个API的任何系统中编译，而ABI允许编译好的目标代码在使用兼容ABI的系统中无需改动就能直接运行。
 
 :::
 
