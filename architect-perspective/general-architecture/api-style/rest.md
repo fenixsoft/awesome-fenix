@@ -1,6 +1,6 @@
 # REST设计风格
 
-很多人会拿REST与RPC互相比较优劣，其实，REST无论是思想上、概念上、还是使用范围上与RPC都不尽相同，充其量只算是有一些相似，应用会有一部分重合之处，但本质上并不是同一类型的东西。
+很多人会拿REST与RPC互相比较，其实，REST无论是在思想上、概念上，还是使用范围上，与RPC都不尽相同，充其量只能算是有一些相似，应用会有一部分重合之处，但本质上并不是同一类型的东西。
 
 REST与RPC在思想上差异的核心是抽象的目标不一样，既面向过程的编程思想与面向资源的编程思想两者之间的区别。面向过程编程、面向对象编程大家想必听说过，但什么是面向资源编程？这个问题等介绍完REST的特征之后我们再回头细说。
 
@@ -25,12 +25,15 @@ REST与RPC在思想上差异的核心是抽象的目标不一样，既面向过�
 HTTP中使用的“超文本”（Hypertext）一词是美国社会学家Theodor Holm Nelson在1967年于《[Brief Words on the Hypertext](https://archive.org/details/SelectedPapers1977)》一文里提出的，下面引用的是他本人在1992年修正后的定义：
 
 ::: quote Hypertext
-By now the word "hypertext" has become generally accepted for branching and responding text, but the corresponding word "hypermedia", meaning complexes of branching and responding graphics, movies and sound – as well as text – is much less used. Instead they use the strange term "interactive multimedia": this is four syllables longer, and does not express the idea of extending hypertext.
+By now the word "hypertext" has become generally accepted for branching and responding text, but the corresponding word "hypermedia", meaning complexes of branching and responding graphics, movies and sound – as well as text – is much less used.
+
+现在，"超文本 "一词已被普遍接受，它指的是能够进行分支判断和差异响应的文本，相应地， "超媒体 "一词指的是能够进行分支判断和差异响应的图形、电影和声音（也包括文本）的复合体。
+
 ::: right
 —— Theodor Holm Nelson [ Literary Machines](https://en.wikipedia.org/wiki/Literary_Machines), 1992
 :::
 
-以上定义描述的“超文本（或超媒体，Hypermedia）”是一种“能够对操作进行判断和响应的文本（或声音、图像等）”，这个概念在上世纪60年代提出时应该还属于科幻的范畴，但是今天大众已经完全接受了它，互联网中一段文字可以点击、可以触发脚本执行、可以调用服务端，这一切已毫不稀奇。那我们继续尝试从“超文本”或者“超媒体”的含义来理解什么是“表征”以及REST中其他关键概念，笔者使用一个具体事例来将其描述如下：
+以上定义描述的“超文本（或超媒体，Hypermedia）”是一种“能够对操作进行判断和响应的文本（或声音、图像等）”，这个概念在上世纪60年代提出时应该还属于科幻的范畴，但是今天大众已经完全接受了它，互联网中一段文字可以点击、可以触发脚本执行、可以调用服务端，这一切已毫不稀奇。下面我们继续尝试从“超文本”或者“超媒体”的含义来理解什么是“表征”以及REST中其他关键概念，这里使用一个具体事例将其描述如下。
 
 - **资源**（Resource）：譬如你现在正在阅读一篇名为《REST设计风格》的文章，这篇文章的内容本身（你可以将其理解为其蕴含的信息、数据）我们称之为“资源”。无论你是购买的书籍、是在浏览器看的网页、是打印出来看的文稿、是在电脑屏幕上阅读抑或是手机上浏览，尽管呈现的样子各不相同，但其中的信息是不变的，你所阅读的仍是同一份“资源”。
 
@@ -40,7 +43,7 @@ By now the word "hypertext" has become generally accepted for branching and resp
 
 - **转移**（Transfer）：l 无论状态是由服务端还是客户端来提供的，“取下一篇文章”这个行为逻辑必然只能由服务端来提供，因为只有服务端拥有该资源及其表征形式。服务器通过某种方式，把“用户当前阅读的文章”转变成“下一篇文章”，这就被称为“表征状态转移”。
 
-通过“阅读文章”这个例子，笔者对资源等概念进行通俗的释义，你应该能够理解REST所说的“表征状态转移”的含义了。借着这个故事的上下文状态，笔者再继续介绍几个现在不涉及但稍后要用到的概念名词：
+通过“阅读文章”这个例子，笔者对资源等概念进行通俗的释义，你应该能够理解REST所说的“表征状态转移”的含义了。借着这个故事的上下文状态，笔者再继续介绍几个现在不涉及但稍后要用到的概念名词。
 
 - **统一接口**（Uniform Interface）：上面说的服务器“通过某种方式”让表征状态发生转移，具体是什么方式？如果你真的是用浏览器阅读本文电子版的话，请把本文滚动到结尾处，右下角有下一篇文章的URI超链接地址，这是服务端渲染这篇文章时就预置好的，点击它让页面跳转到下一篇，就是所谓“某种方式”的其中一种方式。任何人都不会对点击超链接网页会出现跳转感到奇怪，但你细想一下，URI的含义是统一资源标识符，是一个名词，如何能表达出“转移”动作的含义呢？答案是HTTP协议中已经提前约定好了一套“统一接口”，它包括：GET、HEAD、POST、PUT、DELETE、TRACE、OPTIONS七种基本操作，任何一个支持HTTP协议的服务器都会遵守这套规定，对特定的URI采取这些操作，服务器就会触发相应的表征状态转移。
 
@@ -48,11 +51,11 @@ By now the word "hypertext" has become generally accepted for branching and resp
 
 - **自描述消息**（Self-Descriptive Messages）：由于资源的表征可能存在多种不同形态，在消息中应当有明确的信息来告知客户端该消息的类型以及应如何处理这条消息。一种被广泛采用的自描述方法是在名为“Content-Type”的HTTP Header中标识出[互联网媒体类型](https://en.wikipedia.org/wiki/Media_type)（MIME type），譬如“Content-Type : application/json; charset=utf-8”，则说明该资源会以JSON的格式来返回，请使用UTF-8字符集进行处理。
 
-除了以上列出的这些看名字不容易弄懂的概念外，理解REST过程中还有一个常见的误区值得注意，Fielding提出REST时所谈论的范围是“架构风格与网络的软件架构设计”（Architectural Styles and Design of Network-based Software Architectures），而不是现在被人们所狭义理解的一种“远程服务设计风格”，这两者的范围差别就好比本书所谈论的话题“软件架构”与本章谈论话题“访问远程服务”的关系那样，前者是后者的一个很大的超集，尽管基于本节的主题和多数人的关注点考虑，我们确实是会以“远程服务设计风格”作为讨论的重点，但至少应该说明清楚它们范围上的差别。
+除了以上列出的这些看名字不容易弄懂的概念外，在理解REST的过程中，还有一个常见的误区值得注意，Fielding提出REST时所谈论的范围是“架构风格与网络的软件架构设计”（Architectural Styles and Design of Network-based Software Architectures），而不是现在被人们所狭义理解的一种“远程服务设计风格”，这两者的范围差别就好比本书所谈论的话题“软件架构”与本章谈论话题“访问远程服务”的关系那样，前者是后者的一个很大的超集，尽管基于本节的主题和多数人的关注点考虑，我们确实是会以“远程服务设计风格”作为讨论的重点，但至少应该说明清楚它们范围上的差别。
 
 ## RESTful的系统
 
-如果你已经理解了上面这些概念，我们就可以开始讨论面向资源的编程思想与Fielding所提出的几个具体的软件架构设计原则了。Fielding认为，一套理想的、完全满足REST的系统应该满足以下六大原则：
+如果你已经理解了上面这些概念，我们就可以开始讨论面向资源的编程思想与Fielding所提出的几个具体的软件架构设计原则了。Fielding认为，一套理想的、完全满足REST的系统应该满足以下六大原则。
 
 1. **服务端与客户端分离**（Client-Server）<br/>将用户界面所关注的逻辑和数据存储所关注的逻辑分离开来，有助于提高用户界面的跨平台的可移植性，这一点正越来越受到广大开发者所认可，以前完全基于服务端控制和渲染（如JSF这类）框架实际用户已甚少，而在服务端进行界面控制（Controller），通过服务端或者客户端的模版渲染引擎来进行界面渲染的框架（如Struts、SpringMVC这类）也受到了颇大的冲击。这一点主要推动力量与REST可能关系并不大，前端技术（从ES规范，到语言实现，到前端框架等）的近年来的高速发展，使得前端表达能力大幅度加强才是真正的幕后推手。由于前端的日渐强势，现在还流行起由前端代码反过来驱动服务端进行渲染的SSR（Server-Side Rendering）技术，在Serverless、SEO等场景中已经占领了一块领地。
 2. **无状态**（Stateless）<br/>无状态是REST的一条核心原则，部分开发者在做服务接口规划时，觉得REST风格的服务怎么设计都感觉别扭，很有可能的一种原因是在服务端持有着比较重的状态。REST希望服务器不要去负责维护状态，每一次从客户端发送的请求中，应包括所有的必要的上下文信息，会话信息也由客户端负责保存维护，服务端依据客户端传递的状态来执行业务处理逻辑，驱动整个应用的状态变迁。客户端承担状态维护职责以后，会产生一些新的问题，譬如身份认证、授权等可信问题，它们都应有针对性的解决方案（这部分内容可参见“[安全架构](../system-security)”的内容）。<br/>但必须承认的现状是，目前大多数的系统都达不到这个要求，往往越复杂、越大型的系统越是如此。服务端无状态可以在分布式计算中获得非常高价值的好处，但大型系统的上下文状态数量完全可能膨胀到让客户端在每次请求时提供变得不切实际的程度，在服务端的内存、会话、数据库或者缓存等地方持有一定的状态成为一种是事实上存在，并将长期存在、被广泛使用的主流的方案。
@@ -94,7 +97,7 @@ REST提出以资源为主体进行服务设计的风格，能为它带来不少�
 
 前面我们花费大量篇幅讨论了REST的思想、概念和指导原则等理论方面的内容，在这个小节里，我们将把重心放在实践上，把目光从整个软件架构设计进一步聚焦到REST接口设计上，以切合本节的题目“REST设计风格”，也顺带填了前面埋下的“如何评价服务是否RESTful”的坑。
 
-《[RESTful Web APIs](https://book.douban.com/subject/22139962/)》和《[RESTful Web Services](https://book.douban.com/subject/2054201/)》的作者Leonard Richardson曾提出过一个衡量“服务有多么REST”的Richardson成熟度模型（[Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html)），便于那些原本不使用REST的系统，能够逐步地导入REST。Richardson将服务接口“REST的程度”从低到高，分为0至4级：
+《[RESTful Web APIs](https://book.douban.com/subject/22139962/)》和《[RESTful Web Services](https://book.douban.com/subject/2054201/)》的作者Leonard Richardson曾提出过一个衡量“服务有多么REST”的Richardson成熟度模型（[Richardson Maturity Model](https://martinfowler.com/articles/richardsonMaturityModel.html)），便于那些原本不使用REST的系统，能够逐步地导入REST。Richardson将服务接口“REST的程度”从低到高，分为0至3级：
 
 0. The Swamp of [Plain Old XML](https://en.wikipedia.org/wiki/Plain_Old_XML)：完全不REST。另外，关于Plain Old XML这说法，SOAP表示[感觉有被冒犯到](https://baike.baidu.com/item/%E6%84%9F%E8%A7%89%E6%9C%89%E8%A2%AB%E5%86%92%E7%8A%AF%E5%88%B0)。
 1. Resources：开始引入资源的概念。
@@ -301,4 +304,4 @@ HTTP/1.1 200 OK
 
 - **REST没有传输可靠性支持**<br/>是的，并没有。在HTTP中你发送出去一个请求，通常会收到一个与之相对的响应，譬如HTTP/1.1 200 OK或者HTTP/1.1 404 Not Found诸如此类的。但如果你没有收到任何响应，那就无法确定消息到底是没有发送出去，抑或是没有从服务端返回回来，这其中的关键差别是服务端到底是否被触发了某些处理？应对传输可靠性最简单粗暴的做法是把消息再重发一遍。这种简单处理能够成立的前提是服务应具有[幂等性](https://zh.wikipedia.org/wiki/%E5%86%AA%E7%AD%89)（Idempotency），即服务被重复执行多次的效果与执行一次是相等的。HTTP协议要求GET、PUT和DELETE应具有幂等性，我们把REST服务映射到这些方法时，也应当保证幂等性。对于POST方法，曾经有过一些专门的提案（如[POE](https://tools.ietf.org/html/draft-nottingham-http-poe-00)，POST Once Exactly），但并未得到IETF的通过。对于POST的重复提交，浏览器会出现相应警告，如Chrome中“确认重新提交表单”的提示，对于服务端，就应该做预校验，如果发现可能重复，返回HTTP/1.1 425 Too Early。另，Web Service中有[WS-ReliableMessaging](https://en.wikipedia.org/wiki/WS-ReliableMessaging)功能协议用于支持消息可靠投递。类似的，由于REST没有采用额外的Wire Protocol，所以不仅是事务、可靠传输这些功能，一定还可以在WS-*协议中找到很多REST不支持的特性。
 
-- **REST缺乏对资源进行“部分”和“批量”的处理能力**<br />这个观点笔者是认同的，这很可能是未来面向资源的思想和API设计风格的发展方向。REST开创了面向资源的服务风格，却肯定仍并不完美。以HTTP协议为基础给REST带来了极大的便捷（不需要额外协议，不需要重复解决一堆基础网络问题，等等），但也是HTTP本身成了束缚REST的无形牢笼。这里仍通过具体例子来解释REST这方面的局限性：譬如你仅仅想获得某个用户的姓名，RPC风格中可以设计一个“getUsernameById”的服务，返回一个字符串，尽管这种服务的通用性实在称不上“设计”二字，但确实可以工作；而REST风格中你将向服务端请求整个用户对象，然后丢弃掉返回的结果中该用户除用户名外的其他属性，这便是一种Overfetching。REST的应对手段是通过位于中间节点或客户端缓存来缓解这种问题，但此缺陷的本质是由于HTTP协议完全没有对请求资源的结构化描述能力（但有非结构化的部分内容获取能力，即今天多用于端点续传的[Range Header](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Range_requests)），所以返回资源的哪些内容、以什么数据类型返回等等，都不可能得到协议层面的支持，要做你就只能自己在GET方法的Endpoint上设计各种参数来实现。而另外一方面，与此相对的缺陷是对资源的批量操作的支持，有时候我们不得不为此而专门设计一些抽象的资源才能应对。譬如你准备把某个用户的名字增加一个“VIP”前缀，提交一个PUT请求修改这个用户的名称即可，而你要给1000个用户加VIP时，如果真的去调用1000次PUT，浏览器会回应你HTTP/1.1 429 Too Many Requests，老板则会揍你一顿。此时，你就不得不先创建一个（如名为“VIP-Modify-Task”）任务资源，把1000个用户的ID交给这个任务，最后驱动任务进入执行状态。又譬如你去网店买东西，下单、冻结库存、支付、加积分、扣减库存这一系列步骤会涉及到多个资源的变化，你可能面临不得不创建一种“事务”的抽象资源，或者用某种具体的资源（譬如“结算单”）贯穿这个过程的始终，每次操作其他资源时都带着事务或者结算单的ID。HTTP协议由于本身的无状态性，会相对不适应（并非不能够）处理这类业务场景。<br/>解决以上这几类问题，目前看起来一种理论上较优秀的解决方案是[GraphQL](https://graphql.cn/)，这是由Facebook提出并开源的一种面向资源API的数据查询语言，如同SQL一样，挂了个“查询语言”的名字，但其实CRUD都做。比起依赖HTTP无协议的REST，GraphQL可以说是另一种“有协议”的、更彻底的面向资源的服务方式。然而凡事都有两面，离开了HTTP，它又面临着几乎所有RPC框架所遇到的那个如何推广交互接口的问题。
+- **REST缺乏对资源进行“部分”和“批量”的处理能力**<br />这个观点笔者是认同的，这很可能是未来面向资源的思想和API设计风格的发展方向。REST开创了面向资源的服务风格，却肯定仍并不完美。以HTTP协议为基础给REST带来了极大的便捷（不需要额外协议，不需要重复解决一堆基础网络问题，等等），但也是HTTP本身成了束缚REST的无形牢笼。这里仍通过具体例子来解释REST这方面的局限性：譬如你仅仅想获得某个用户的姓名，RPC风格中可以设计一个“getUsernameById”的服务，返回一个字符串，尽管这种服务的通用性实在称不上“设计”二字，但确实可以工作；而REST风格中你将向服务端请求整个用户对象，然后丢弃掉返回的结果中该用户除用户名外的其他属性，这便是一种Overfetching。REST的应对手段是通过位于中间节点或客户端缓存来缓解这种问题，但此缺陷的本质是由于HTTP协议完全没有对请求资源的结构化描述能力（但有非结构化的部分内容获取能力，即今天多用于端点续传的[Range Header](https://developer.mozilla.org/zh-CN/docs/Web/HTTP/Range_requests)），所以返回资源的哪些内容、以什么数据类型返回等等，都不可能得到协议层面的支持，要做你就只能自己在GET方法的Endpoint上设计各种参数来实现。而另外一方面，与此相对的缺陷是对资源的批量操作的支持，有时候我们不得不为此而专门设计一些抽象的资源才能应对。譬如你准备把某个用户的名字增加一个“VIP”前缀，提交一个PUT请求修改这个用户的名称即可，而你要给1000个用户加VIP时，如果真的去调用1000次PUT，浏览器会回应你HTTP/1.1 429 Too Many Requests，老板则会揍你一顿。此时，你就不得不先创建一个（如名为“VIP-Modify-Task”）任务资源，把1000个用户的ID交给这个任务，最后驱动任务进入执行状态。又譬如你去网店买东西，下单、冻结库存、支付、加积分、扣减库存这一系列步骤会涉及到多个资源的变化，你可能面临不得不创建一种“事务”的抽象资源，或者用某种具体的资源（譬如“结算单”）贯穿这个过程的始终，每次操作其他资源时都带着事务或者结算单的ID。HTTP协议由于本身的无状态性，会相对不适应（并非不能够）处理这类业务场景。<br/>目前，一种理论上较优秀的可以解决以上这几类问题的方案是[GraphQL](https://graphql.cn/)，这是由Facebook提出并开源的一种面向资源API的数据查询语言，如同SQL一样，挂了个“查询语言”的名字，但其实CRUD都做。比起依赖HTTP无协议的REST，GraphQL可以说是另一种“有协议”的、更彻底地面向资源的服务方式。然而凡事都有两面，离开了HTTP，它又面临着几乎所有RPC框架所遇到的那个如何推广交互接口的问题。

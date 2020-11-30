@@ -51,20 +51,20 @@ Java支持提前编译最大的困难在于它是一门动态链接的语言，�
 - 有一些功能，像反射这样的基础特性是不可能妥协的，折衷的解决办法是由用户在编译期，以配置文件或者编译器参数的形式，明确告知编译器程序代码中有哪些方法是只通过反射来访问的，编译器将方法的添加到静态编译的范畴之中。同理，所有使用到动态代理也的地方，也必须在事先列明，在编译期就将动态代理的字节码全部生成出来。其他所有无法通过程序指针分析（Points-To Analysis）得到的信息，譬如程序中用到的资源、配置文件等等，也必须照此处理。
 - 另一些功能，如动态生成字节码也十分常用，但用户自己也往往无法得知那些动态字节码的具体信息，就只能由用到CGLib、javassist等库的程序去妥协放弃。在Java世界中也许最典型的场景就是Spring用CGLib来进行类增强，默认情况下，每一个Spring管理的Bean都要用到CGLib。从Spring Framework 5.2开始增加了`@proxyBeanMethods`注解来排除对CGLib的依赖，仅使用标准的动态代理去增强类。
 
-2019年起，Pivotal的Spring团队与Oracle Labs的GraalVM团队共同孵化了Spring GraalVM Native项目，这个目前仍处于Alpha状态的项目，能够让程序先以传统方式运行（启动）一次，自动化地找出程序中的反射、动态代理的代码，代替用户向编译器提供绝大部分所需的信息，并能将允许启动时初始化的Bean在编译期就启动起来，直接绕过Spring程序启动最慢的阶段，从启动到初始化完毕，耗时不到0.1秒。
+2019年起，Pivotal的Spring团队与Oracle Labs的GraalVM团队共同孵化了Spring GraalVM Native项目，这个目前仍处于Experimental / Alpha状态的项目，能够让程序先以传统方式运行（启动）一次，自动化地找出程序中的反射、动态代理的代码，代替用户向编译器提供绝大部分所需的信息，并能将允许启动时初始化的Bean在编译期就启动起来，直接绕过Spring程序启动最慢的阶段，从启动到初始化完毕，耗时不到0.1秒。
 
 :::center
 ![](./images/startup.png)
-Spring Boot Startup Time 
+Spring Boot Startup Time（[数据来源](https://www.infoq.com/presentations/spring-boot-graalvm/)）
 :::
 
 以原生方式运行后，缩短启动时间的效果立竿见影，起码会有了数十倍的改善，程序容量和内存消耗也有一定程度的下降。不过至少目前而言，程序的运行效率还是要弱于传统基于Java虚拟机的方式，虽然即时编译器有运行时间的压力，但是由于可以进行基于假设的激进优化和运行时性能度量的制导优化，使得即时编译器的效果仍好于提前编译器，这方面需要GraalVM编译器团队的进一步努力，也需要从语言改进上入手，让Java变得更适合被编译器优化。
 
 ### Project Valhalla 
 
-Java语言上可感知的语法变化，多数来自于Amber项目，它的项目目标是持续优化语言生产力，近期（JDK 15、16）会有很多来自这个项目的特性，如Records、Sealed Class、Pattern Matching、Raw String Literals等实装到生产环境。然而语法不仅与编码效率相关，与运行效率也有很大关系。“程序=代码+数据”这个提法至少在衡量运行效率上是合适的，无论是托管语言还是原生语言，最终产物都是处理器执行的指令流和内存存储的数据，Java、.NET、C、C++、Golang、Rust等各种语言谁更快，取决于特定场景下，编译器生成指令流的优化效果，以及数据在内存中的布局结构。
+Java语言上可感知的语法变化，多数来自于[Amber项目](https://openjdk.java.net/projects/amber/)，它的项目目标是持续优化语言生产力，近期（JDK 15、16）会有很多来自这个项目的特性，如Records、Sealed Class、Pattern Matching、Raw String Literals等实装到生产环境。然而语法不仅与编码效率相关，与运行效率也有很大关系。“程序=代码+数据”这个提法至少在衡量运行效率上是合适的，无论是托管语言还是原生语言，最终产物都是处理器执行的指令流和内存存储的数据，Java、.NET、C、C++、Golang、Rust等各种语言谁更快，取决于特定场景下，编译器生成指令流的优化效果，以及数据在内存中的布局结构。
 
-Java的即时编译器的优化效果拔群，但是由于Java“一切皆为对象”的前提假设，导致在处理一系列不同类型的小对象时，内存访问性能非常拉垮，这点是Java在游戏、图形处理等领域一直难有建树的重要制约因素，也是Java建立Valhalla项目的目标初衷。这里举个例子来说明此问题，如果我想描述空间里面若干条线段的集合，在Java中定义的结构会是这样的：
+Java的即时编译器的优化效果拔群，但是由于Java“一切皆为对象”的前提假设，导致在处理一系列不同类型的小对象时，内存访问性能非常拉垮，这点是Java在游戏、图形处理等领域一直难有建树的重要制约因素，也是Java建立[Valhalla项目](https://wiki.openjdk.java.net/display/valhalla/Main)的目标初衷。这里举个例子来说明此问题，如果我想描述空间里面若干条线段的集合，在Java中定义的结构会是这样的：
 
 ```java
 public record Point(float x, float y, float z) {}
@@ -118,11 +118,11 @@ try (var executor = Executors.newThreadExecutor(factory)) {
 } // blocks and waits
 ```
 
-但是在结构化并发的支持下，只有两个并行启动的任务线程都结束之后，才会继续向下执行，很好地以同步的编码风格，来解决异步的执行问题，事实上，“Code as sync，Work as async”正是Loom简化并发编程的核心理念。
+但是在结构化并发的支持下，只有两个并行启动的任务线程都结束之后，才会继续向下执行，很好地以同步的编码风格，来解决异步的执行问题，事实上，“Code like sync，Work like async”正是Loom简化并发编程的核心理念。
 
 ### Project Portola
 
-Portola项目的目标是将OpenJDK向Alpine Linux移植。Alpine Linux是许多Docker容器首选的基础镜像，因为它只有不到5 MB大小，比起其他Cent OS、Debain等动辄一百多MB的发行版来说，更适合用于容器环境。不过Alpine Linux为了瘦身，默认是用[musl](https://en.wikipedia.org/wiki/Musl)作为C标准库的，而非传统的[glibc](https://en.wikipedia.org/wiki/GNU_C_Library)（GNU C library），因此要以Alpine Linux为基础制作OpenJDK镜像，必须先安装glibc，此时基础镜像大约12 MB。Portola计划将OpenJDK的上游代码移植到musl，并通过兼容性测试。使用Portola制作的标准Java SE 13镜像仅有41 MB，不仅远低于Cent OS的OpenJDK（大约396 MB），也要比官方的slim版（约200 MB）要小得多。
+Portola项目的目标是将OpenJDK向Alpine Linux移植。Alpine Linux是许多Docker容器首选的基础镜像，因为它只有5 MB大小，比起其他Cent OS、Debain等动辄一百多MB的发行版来说，更适合用于容器环境。不过Alpine Linux为了瘦身，默认是用[musl](https://en.wikipedia.org/wiki/Musl)作为C标准库的，而非传统的[glibc](https://en.wikipedia.org/wiki/GNU_C_Library)（GNU C library），因此要以Alpine Linux为基础制作OpenJDK镜像，必须先安装glibc，此时基础镜像大约12 MB。Portola计划将OpenJDK的上游代码移植到musl，并通过兼容性测试。使用Portola制作的标准Java SE 13镜像仅有41 MB，不仅远低于Cent OS的OpenJDK（大约396 MB），也要比官方的slim版（约200 MB）要小得多。
 
 ```bash
 $ sudo docker build .
