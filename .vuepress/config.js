@@ -311,7 +311,7 @@ module.exports = {
             ]
           },
           {
-            title: '容器持久化存储',
+            title: '持久化存储',
             path: '/immutable-infrastructure/storage/',
             collapsable: false,
             children: [
