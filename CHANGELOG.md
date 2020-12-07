@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2020年12月7日
+
+- QCon2020主题演讲：[云原生时代，Java的危与机](/tricks/2020/java-crisis/qcon.html)
+
 ### 2020年11月18日
 
 - 文档在极客时间上的音频公开课：[构筑可靠的大型软件系统](https://time.geekbang.org/opencourse/intro/100064201)。

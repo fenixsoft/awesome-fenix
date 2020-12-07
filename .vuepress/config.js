@@ -388,23 +388,27 @@ module.exports = {
           // },
         ]
       }, {
-        title: '专题随笔',
+        title: '随笔文章',
         collapsable: false,
         children: [
           {
-            title: 'Graal VM',
+            title: '2020年',
             collapsable: false,
-            path: '/tricks/graalvm/',
             children: [
-              '/tricks/graalvm/graal-compiler',
-              '/tricks/graalvm/substratevm',
-              '/tricks/graalvm/graalvm-native',
-              '/tricks/graalvm/spring-over-graal',
+              {
+                title: 'Graal VM',
+                collapsable: false,
+                path: '/tricks/2020/graalvm/',
+                children: [
+                  '/tricks/2020/graalvm/graal-compiler',
+                  '/tricks/2020/graalvm/substratevm',
+                  '/tricks/2020/graalvm/graalvm-native',
+                  '/tricks/2020/graalvm/spring-over-graal',
+                ]
+              },
+              '/tricks/2020/java-crisis/qcon',
             ]
           },
-          // '/tricks/responsive-programming',
-          // '/tricks/lambda-stream',
-          // '/tricks/aio'
         ]
       }
       , {
