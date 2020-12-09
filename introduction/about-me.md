@@ -40,5 +40,6 @@
     <slide><img src="./images/icyfenix.jpg" /></slide>
     <slide><img src="./images/icyfenix2.jpg" /></slide>
     <slide><img src="./images/icyfenix3.jpg" /></slide>
+    <slide><img src="./images/icyfenix4.jpg" /></slide>
 </swiper>
 :::
