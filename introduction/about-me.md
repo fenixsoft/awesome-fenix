@@ -36,8 +36,9 @@
 <br/>
 
 :::not-print
-
-<center>
-<img src="./images/icyfenix.jpg"></img>
-</center>
+<swiper :autoPlay='false'  :showIndicator='true' >
+    <slide><img src="./images/icyfenix.jpg" /></slide>
+    <slide><img src="./images/icyfenix2.jpg" /></slide>
+    <slide><img src="./images/icyfenix3.jpg" /></slide>
+</swiper>
 :::
