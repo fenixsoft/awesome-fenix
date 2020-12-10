@@ -1,6 +1,6 @@
 <template>
     <section class="wh_content" @touchmove="fn">
-        <div :class="className" class="wh_swiper" @touchstart="s" @touchmove="m" @touchend="e">
+        <div :class="className" class="wh_swiper" @touchstart="s" @touchmove="m" @touchend="e" @click="nextSlide">
             <slot/>
         </div>
 
@@ -59,6 +59,13 @@
                     this.setTime()
                 }
             }, 50)
+
+            window.onresize = () => {
+              this._width = document.querySelector('.' + this.className).offsetWidth
+              this.dom.transform = `translate3d(${this._width * -1}px, 0px, 0px)`
+              this.dom['-webkit-transform'] = `translate3d(${this._width * -1}px, 0px, 0px)`
+              this.dom['-ms-transform'] = `translate3d(${this._width * -1}px, 0px, 0px)`
+            }
 
         },
         methods: {
@@ -201,8 +208,8 @@
 
     .wh_indicator_item {
         display: inline-block;
-        width: 8px;
-        height: 8px;
+        width: 12px;
+        height: 12px;
         margin: 1px 7px;
         cursor: pointer;
         border-radius: 100%;
