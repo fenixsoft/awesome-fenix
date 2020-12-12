@@ -22,7 +22,7 @@
 
 无服务架构（Serverless）与微服务架构本身没有继承替代关系，它们并不是同一种层次的架构，无服务的云函数可以作为微服务的一种实现方式，甚至可能是未来很主流的实现方式。在这部文档中我们的话题主要还是聚焦在如何解决分布式架构下的种种问题，相对而言无服务架构并非重点，不过为保证架构演进的完整性，笔者仍然建立了无服务架构的简单演示工程。
 
-不过，由于无服务架构原理上就决定了它对程序的启动性能十分敏感，这天生就不利于Java程序，尤其不利于Spring这类启动时组装的CDI框架。因此基于Java的程序，除非使用<a href="https://icyfenix.cn/tricks/2020/graalvm/substratevm.html>GraalVM做提前编译</a>、将Spring的大部分Bean提前初始化，或者迁移至[Quarkus](https://quarkus.io/)这以原生程序为目标的框架上，否则是很难实际用于生产的。
+不过，由于无服务架构原理上就决定了它对程序的启动性能十分敏感，这天生就不利于Java程序，尤其不利于Spring这类启动时组装的CDI框架。因此基于Java的程序，除非使用<a href="https://icyfenix.cn/tricks/2020/graalvm/substratevm.html">GraalVM做提前编译</a>、将Spring的大部分Bean提前初始化，或者迁移至[Quarkus](https://quarkus.io/)这以原生程序为目标的框架上，否则是很难实际用于生产的。
 
 ## 运行程序
 
