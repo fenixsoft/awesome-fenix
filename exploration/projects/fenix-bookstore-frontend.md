@@ -15,41 +15,33 @@
 
 如果你此时并不曾了解过什么是“The Fenix Project”，建议先阅读<a href="https://icyfenix.cn/introduction/about-the-fenix-project.html">这部分内容</a>。
 
-Fenix‘s Bookstore的主要目的是展示不同的后端技术架构，相对而言，前端并非其重点。不过，前端的页面是比起后端各种服务来要直观得多，能让使用者更容易理解我们将要做的是一件什么事情。假设你是一名驾驶初学者，合理的学习路径肯定应该是把汽车发动，然后慢慢行驶起来，而不是马上从“引擎动力原理”、“变速箱构造”入手去设法深刻地了解一台汽车。所以，先来运行程序，看看最终的效果是什么样子吧。
+Fenix's Bookstore的主要目的是展示不同的后端技术架构，相对而言，前端并非其重点。不过，前端的页面是比起后端各种服务来要直观得多，能让使用者更容易理解我们将要做的是一件什么事情。假设你是一名驾驶初学者，合理的学习路径肯定应该是把汽车发动，然后慢慢行驶起来，而不是马上从“引擎动力原理”、“变速箱构造”入手去设法深刻地了解一台汽车。所以，先来运行程序，看看最终的效果是什么样子吧。
 
 ## 运行程序
 
 以下几种途径，可以马上浏览最终的效果：
 
-- 从互联网已部署（由[Travis-CI](https://travis-ci.com/)提供支持）的网站（由[GitHub Pages](https://pages.github.com/)提供主机，由腾讯云CDN提供国内加速）访问：
-
-> 直接在浏览器访问：[http://bookstore.icyfenix.cn/](http://bookstore.icyfenix.cn/)
-
+- 从互联网已部署（由[Travis-CI](https://travis-ci.com/)提供支持）的网站（由[GitHub Pages](https://pages.github.com/)提供主机），直接在浏览器访问：  [http://bookstore.icyfenix.cn/](http://bookstore.icyfenix.cn/)。
 - 通过Docker容器方式运行：
-
-> ```bash
-> $ docker run -d -p 80:80 --name bookstore icyfenix/bookstore:frontend 
-> ```
->
-> 然后在浏览器访问：[http://localhost](http://localhost)
-
+   ```bash
+   $ docker run -d -p 80:80 --name bookstore icyfenix/bookstore:frontend 
+   ```
+   然后在浏览器访问：[http://localhost](http://localhost)
 - 通过Git上的源码，以开发模式运行：
->```bash
-># 克隆获取源码
-> $ git clone https://github.com/fenixsoft/fenix-bookstore-frontend.git
-> 
-> # 进入工程根目录
-> $ cd fenix-bookstore-frontend
-> 
-> # 安装工程依赖
-> $ npm install
-> 
-> # 以开发模式运行，地址为localhost:8080
-> $ npm run dev
-> ```
-> 
-> 然后在浏览器访问：[http://localhost:8080](http://localhost:8080)
->
+  ```bash
+  # 克隆获取源码
+   $ git clone https://github.com/fenixsoft/fenix-bookstore-frontend.git
+   
+   # 进入工程根目录
+   $ cd fenix-bookstore-frontend
+   
+   # 安装工程依赖
+   $ npm install
+   
+   # 以开发模式运行，地址为localhost:8080
+   $ npm run dev
+   ```
+   然后在浏览器访问：[http://localhost:8080](http://localhost:8080)
 
 <GitHubWrapper>
 <p align="center">
@@ -85,7 +77,7 @@ $ npm run build --report
 
 同样出于前后端分离的目的，理论上后端通常只应当依据约定的服务协议（接口定位、访问传输方式、参数及模型结构、服务水平协议等）提供服务，并以此为依据进行不依赖前端的独立测试，最终集成时使用的是编译后的前端产品。
 
-不过，在开发期就进行的前后端联合在现今许多企业之中仍是主流形式，由一个人“全栈式”地开发某个功能时更是如此，因此，当要在开发模式中进行联调时，需要修改项目根目录下的main.js文件，使其**不**导入Mock.js，即如下代码所示的条件语句判断为假
+不过，在开发期就进行的前后端联合在现今许多企业之中仍是主流形式，由一个人“全栈式”地开发某个功能时更是如此，因此，当要在开发模式中进行联调时，需要修改项目根目录下的main.js文件，使其**不**导入Mock.js，即如下代码所示的条件语句判断为假：
 
 ```javascript
 /**

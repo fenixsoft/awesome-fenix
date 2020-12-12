@@ -22,6 +22,8 @@
 
 无服务架构（Serverless）与微服务架构本身没有继承替代关系，它们并不是同一种层次的架构，无服务的云函数可以作为微服务的一种实现方式，甚至可能是未来很主流的实现方式。在这部文档中我们的话题主要还是聚焦在如何解决分布式架构下的种种问题，相对而言无服务架构并非重点，不过为保证架构演进的完整性，笔者仍然建立了无服务架构的简单演示工程。
 
+不过，由于无服务架构原理上就决定了它对程序的启动性能十分敏感，这天生就不利于Java程序，尤其不利于Spring这类启动时组装的CDI框架。因此基于Java的程序，除非使用[GraalVM做提前编译](http://localhost:8080/tricks/2020/graalvm/substratevm.html)、将Spring的大部分Bean提前初始化，或者迁移至[Quarkus](https://quarkus.io/)这以原生程序为目标的框架上，否则是很难实际用于生产的。
+
 ## 运行程序
 
 Serverless架构的Fenix's Bookstore基于[亚马逊AWS Lambda](https://amazonaws-china.com/cn/lambda/)平台运行，这是最早商用，也是目前全球规模最大的Serverless运行平台。从2018年开始，中国的主流云服务厂商，如阿里云、腾讯云都推出了各自的Serverless云计算环境，如需在这些平台上运行Fenix's Bookstore，应根据平台提供的Java SDK对StreamLambdaHandler的代码进行少许调整。
@@ -78,7 +80,7 @@ Serverless架构的Fenix's Bookstore基于[亚马逊AWS Lambda](https://amazonaw
   Serverless: Removing old service artifacts from S3...
   ```
 
-  访问输出结果中的地址（譬如上面显示的https://cc1oj8hirl.execute-api.us-east-1.amazonaws.com/dev/）即可浏览结果。<br/>需要注意，由于Serverless对响应速度的要求本来就较高，与Java本身就运行方式就多少存在矛盾（笔者在GraalVM的“[向原生迈进](/tricks/graalvm/substratevm.html)”一文有详细解释），所以不建议再采用HSQLDB数据库作来运行程序了，每次冷启动都重置一次数据库本身也并不合理。代码中有提供MySQL的Schema，建议采用AWS RDB MySQL/MariaDB作为数据库来运行。
+  访问输出结果中的地址（譬如上面显示的https://cc1oj8hirl.execute-api.us-east-1.amazonaws.com/dev/）即可浏览结果。<br/>需要注意，由于Serverless对响应速度的要求本来就较高，所以不建议再采用HSQLDB数据库作来运行程序了，每次冷启动都重置一次数据库本身也并不合理。代码中有提供MySQL的Schema，建议采用AWS RDB MySQL/MariaDB作为数据库来运行。
 
 ## 协议
 
