@@ -32,7 +32,7 @@ Serverless架构的Fenix's Bookstore基于[亚马逊AWS Lambda](https://amazonaw
 
 - 通过AWS SAM（Serverless Application Model） Local在本地运行：<br/>AWS CLI中附有SAM CLI，但是版本较旧，可通过[如下地址](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-sam-cli-install.html)安装最新版本的SAM CLI。另外，SAM需要Docker运行环境支持，可参考[此处](/appendix/deployment-env-setup/setup-docker.html)部署。<br/>首先编译应用出二进制包，执行以下标准Maven打包命令即可：<br/>
 
-  ```
+  ```bash
   $ mvn clean package
   ```
 
@@ -52,7 +52,7 @@ Serverless架构的Fenix's Bookstore基于[亚马逊AWS Lambda](https://amazonaw
 
   此时Serverless CLI会自动将ZIP文件上传至AWS S3，然后生成对应的Layers和API Gateway，运行结果如下所示：
 
-  ```
+  ```bash
   $ sls deploy
   Serverless: Packaging service...
   Serverless: Uploading CloudFormation file to S3...
