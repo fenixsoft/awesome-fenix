@@ -68,7 +68,7 @@ HTTP2的多路复用（[图片来源](https://hpbn.co/http2)）
 
 - Header的传输成本在Ajax（尤其是只返回少量数据的请求）请求中可能是比重很大的开销，但在图片、样式、脚本这些静态资源的请求中，通常并不占主要。
 - 在HTTP/2中Header压缩的原理是基于字典编码的信息复用，简而言之是同一个连接上产生的请求和响应越多，动态字典积累得越全，头部压缩效果也就越好。所以HTTP/2是单域名单连接的机制，合并资源和域名分片反而对性能提升不利。
-- 与HTTP/1.x相反，HTTP/2本身反而变得更适合传输小资源了，譬如传输1000张10K的小图，HTTP/2要比HTTP/1.x快，但传输10张1000K的大图，则应该HTTP/1.x会更快。这一方面是TCP连接数量（相当于多点下载）的影响，更多的是由于TCP协议[可靠传输机制](https://en.wikipedia.org/wiki/Transmission_Control_Protocol#Reliable_transmission)导致的，一个错误的TCP包会导致所有的流都必须等待这个包重传成功，这个问题就是HTTP/3.0要解决的目标了。因此，把小文件合并成大文件，在HTTP/2下是毫无好处的。
+- 与HTTP/1.x相反，HTTP/2本身反而变得更适合传输小资源了，譬如传输1000张10K的小图，HTTP/2要比HTTP/1.x快，但传输10张1000K的大图，则应该HTTP/1.x会更快。这一方面是TCP连接数量（相当于多点下载）的影响，更多的是由于TCP协议[可靠传输机制](https://en.wikipedia.org/wiki/Transmission_Control_Protocol#Reliable_transmission)导致的，一个错误的TCP包会导致所有的流都必须等待这个包重传成功，这个问题就是HTTP/3要解决的目标了。因此，把小文件合并成大文件，在HTTP/2下是毫无好处的。
 
 ## 传输压缩
 
