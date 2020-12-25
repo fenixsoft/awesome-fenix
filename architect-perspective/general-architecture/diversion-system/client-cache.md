@@ -76,7 +76,7 @@ HTTP的强制缓存对一致性处理策略就如它的名字一样，显得十�
   ```http
   HTTP/1.1 304 Not Modified
   Cache-Control: public, max-age=600
-  Last-Modified: Wed, 8 Apr 2020 15:31:30 GMT
+  ETag: "28c3f612-ceb0-4ddc-ae35-791ca840c5fa"
   ```
   
   如果此时服务端发现资源的唯一标识有变动，就会返回200/OK的完整响应，在消息体中包含最新的资源，如下所示：
@@ -84,7 +84,7 @@ HTTP的强制缓存对一致性处理策略就如它的名字一样，显得十�
   ``` http
   HTTP/1.1 200 OK
   Cache-Control: public, max-age=600
-  Last-Modified: Wed, 8 Apr 2020 15:31:30 GMT
+  ETag: "28c3f612-ceb0-4ddc-ae35-791ca840c5fa"
   
   Content
   ```

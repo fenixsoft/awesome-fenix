@@ -2,7 +2,7 @@
 
 :::tip 视频公开课
 
-本节笔者有公开课介绍：[《GraalVM：云原生时代的Java》](/tricks/graalvm/video)
+本节笔者有公开课介绍：[《GraalVM：云原生时代的Java》](/2020/tricks/graalvm/video)
 
 :::
 
