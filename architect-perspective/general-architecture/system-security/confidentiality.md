@@ -65,7 +65,7 @@
    client_hash = BCrypt(MD5(password) + salt)  // MFfTW3uNI4eqhwDkG7HP9p2mzEUu/r2
    ```
 
-6. 只需防御被拖库后针对固定盐值的批量彩虹表攻击。具体做法是为每一个密码（指客户端传来的哈希值）产生一个随机的盐值。笔者建议采用“[密码学安全伪随机数生成器](https://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator)”（Cryptographically Secure Pseudo-Random Number Generator，CSPRNG）来生成一个长度与哈希值相等的随机字符串。对于Java语言，从Java SE 7起提供了java.security.SecureRandom类，用于支持CSPRNG字符串生成。
+6. 只需防御被拖库后针对固定盐值的批量彩虹表攻击。具体做法是为每一个密码（指客户端传来的哈希值）产生一个随机的盐值。笔者建议采用“[密码学安全伪随机数生成器](https://en.wikipedia.org/wiki/Cryptographically_secure_pseudorandom_number_generator)”（Cryptographically Secure Pseudo-Random Number Generator，CSPRNG）来生成一个长度与哈希值长度相等的随机字符串。对于Java语言，从Java SE 7起提供了java.security.SecureRandom类，用于支持CSPRNG字符串生成。
 
    ```java
    SecureRandom random = new SecureRandom();
