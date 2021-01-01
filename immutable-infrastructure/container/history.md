@@ -25,7 +25,7 @@ Linux的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia.
 | Mount    | 隔离文件系统，功能上大致可以类比`chroot`                    | 2.4.19   |
 | UTS      | 隔离主机的[Hostname](https://en.wikipedia.org/wiki/Hostname)、[Domain names](https://en.wikipedia.org/wiki/Domain_name) | 2.6.19   |
 | IPC      | 隔离进程间通信的渠道（详见“[远程服务调用](/architect-perspective/general-architecture/api-style/rpc.html)”中对IPC的介绍） | 2.6.19   |
-| PID      | 隔离进程编号，无法看到其他名称空间中的PID，意味着无法其他进程产生影响 | 2.6.24   |
+| PID      | 隔离进程编号，无法看到其他名称空间中的PID，意味着无法对其他进程产生影响 | 2.6.24   |
 | Network  | 隔离网络资源，如网卡、网络栈、IP地址、端口，等等             | 2.6.29   |
 | User     | 隔离用户和用户组                                             | 3.8      |
 | Cgroup   | 隔离`cgourps`信息，进程有自己的`cgroups`的根目录视图（在/proc/self/cgroup不会看到整个系统的信息）。`cgroups`的话题很重要，稍后笔者会安排一整节来介绍 | 4.6      |
