@@ -33,7 +33,7 @@
   - [腾讯云最有价值技术专家（TVP）](https://cloud.tencent.com/tvp/132)
   - [华为云最有价值技术专家（MVP）](https://developer.huaweicloud.com/mvp/member)
   - [IBM DeveloperWorks撰稿人]()、[InfoQ.CN专栏撰稿人](https://www.infoq.cn/profile/CD59DD20F93F11/publish)
-  - [极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[QCon全球开发者大会明星讲师](https://qcon.infoq.cn/2020/shenzhen/presentation/2991)
+  - [极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[QCon全球开发者大会明星讲师](https://qcon.infoq.cn/2020/shenzhen/)
 
 <br/>
 
