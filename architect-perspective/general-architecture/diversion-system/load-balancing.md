@@ -62,16 +62,16 @@
 
 ## 网络层负载均衡
 
-根据OSI七层模型，在第三层网络层传输的单位是分组数据包（Packets），这是一种在[分组交换网络](https://en.wikipedia.org/wiki/Packet_switching)（Packet Switching Network，PSN）中传输的结构化数据单位。以IP协议为例，一个IP数据包由Headers和Payload两部分组成， Headers长度固定为64 Bytes，其中包括了24 Bytes的固定数据和最长不超过40 Bytes的可选数据组成。按照IPv4标准，一个典型的分组数据包的Headers部分具有如下表所示的结构：
+根据OSI七层模型，在第三层网络层传输的单位是分组数据包（Packets），这是一种在[分组交换网络](https://en.wikipedia.org/wiki/Packet_switching)（Packet Switching Network，PSN）中传输的结构化数据单位。以IP协议为例，一个IP数据包由Headers和Payload两部分组成， Headers长度最大为64 Bytes，其中包括了20 Bytes的固定数据和最长不超过40 Bytes的可选的额外设置组成。按照IPv4标准，一个典型的分组数据包的Headers部分具有如下表所示的结构：
 
 | 长度        | 存储信息                                                     |
 | ----------- | ------------------------------------------------------------ |
 | 0-4 Bytes   | 版本号（4 Bits）、首部长度（4 Bits）、分区类型（8 Bits)、总长度（16 Bits） |
 | 5-8 Bytes   | 报文计数标识（16 Bits）、标志位（4 Bits）、片偏移（12 Bits） |
 | 9-12 Bytes  | TTL生存时间（8 Bits）、上层协议代号（8 Bits）、首部校验和（16 Bits） |
-| 13-20 Bytes | 源地址（32 Bits）                                            |
-| 21-24 Bytes | 目标地址（32 Bits）                                          |
-| 25-64 Bytes | 可选字段和空白填充                                           |
+| 13-16 Bytes | 源地址（32 Bits）                                            |
+| 17-20 Bytes | 目标地址（32 Bits）                                          |
+| 20-64 Bytes | 可选字段                                                     |
 
 本节中对于表格中其他信息也无需过多关注，只要知道在IP分组数据包的Headers带有源和目标的IP地址即可。源和目标IP地址代表了数据是从分组交换网络中哪台机器发送到哪台机器的，我们就可以沿用与二层改写MAC地址相似的思路，通过改变这里面的IP地址来实现数据包的转发。具体有两种常见的修改方式：第一种是保持原来的数据包不变，新创建一个数据包，把原来数据包的Headers和Payload整体作为另一个新的数据包的Payload，在这个新数据包的Headers中写入真实服务器的IP作为目标地址，然后把它发送出去。经过三层交换机的转发，真实服务器收到数据包后，必须在接收入口处设计一个针对性的拆包机制，把由负载均衡器自动添加的那层Headers扔掉，还原出原来的数据包来进行使用。这样，真实服务器就同样拿到了一个原本不是发给它（目标IP不是它）的数据包，达到了流量转发的目的。那时候还没有流行起“禁止套娃”的梗，所以设计者给这种“套娃式”的传输起名叫做“[IP隧道](https://en.wikipedia.org/wiki/IP_tunnel)”（IP Tunnel）传输，也还是相当的形象。
 

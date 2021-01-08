@@ -86,7 +86,7 @@ SELECT count(1) FROM books WHERE price < 100					/* 时间顺序：3，事务：
 
 ```sql
 SELECT * FROM books WHERE id = 1;   						/* 时间顺序：1，事务： T1 */
-UPDATE books SET price = 110 WHERE ID = 1; COMMIT;			/* 时间顺序：2，事务： T2 */
+UPDATE books SET price = 110 WHERE id = 1; COMMIT;			/* 时间顺序：2，事务： T2 */
 SELECT * FROM books WHERE id = 1; COMMIT;   				/* 时间顺序：3，事务： T1 */
 ```
 
@@ -97,7 +97,7 @@ SELECT * FROM books WHERE id = 1; COMMIT;   				/* 时间顺序：3，事务： 
 ```sql
 SELECT * FROM books WHERE id = 1;   						/* 时间顺序：1，事务： T1 */
 /* 注意没有COMMIT */
-UPDATE books SET price = 90 WHERE ID = 1;					/* 时间顺序：2，事务： T2 */
+UPDATE books SET price = 90 WHERE id = 1;					/* 时间顺序：2，事务： T2 */
 /* 这条SELECT模拟购书的操作的逻辑 */
 SELECT * FROM books WHERE id = 1;			  				/* 时间顺序：3，事务： T1 */
 ROLLBACK;			  										/* 时间顺序：4，事务： T2 */
