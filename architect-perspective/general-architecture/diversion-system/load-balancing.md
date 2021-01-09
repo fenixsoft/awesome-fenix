@@ -62,7 +62,7 @@
 
 ## 网络层负载均衡
 
-根据OSI七层模型，在第三层网络层传输的单位是分组数据包（Packets），这是一种在[分组交换网络](https://en.wikipedia.org/wiki/Packet_switching)（Packet Switching Network，PSN）中传输的结构化数据单位。以IP协议为例，一个IP数据包由Headers和Payload两部分组成， Headers长度最大为64 Bytes，其中包括了20 Bytes的固定数据和最长不超过40 Bytes的可选的额外设置组成。按照IPv4标准，一个典型的分组数据包的Headers部分具有如下表所示的结构：
+根据OSI七层模型，在第三层网络层传输的单位是分组数据包（Packets），这是一种在[分组交换网络](https://en.wikipedia.org/wiki/Packet_switching)（Packet Switching Network，PSN）中传输的结构化数据单位。以IP协议为例，一个IP数据包由Headers和Payload两部分组成， Headers长度最大为60 Bytes，其中包括了20 Bytes的固定数据和最长不超过40 Bytes的可选的额外设置组成。按照IPv4标准，一个典型的分组数据包的Headers部分具有如下表所示的结构：
 
 | 长度        | 存储信息                                                     |
 | ----------- | ------------------------------------------------------------ |
