@@ -73,7 +73,7 @@
    random.nextBytes(server_salt);   // tq2pdxrblkbgp8vt8kbdpmzdh1w8bex
    ```
 
-6. 将动态盐值混入客户端传来的哈希值再做一次哈希，产生出最终的密文，并和上一步随机生成的盐值一起写入到同一条数据库记录中。由于慢哈希算法占用大量处理器资源，笔者并不推荐在服务端中采用。不过，如果你阅读了Fenix's Bookstore的源码，会发现这步依然采用了Spring Security 5中的`BcryptPasswordEncoder`，但是请注意它默认构造函数中的Cost参数值为-1，实际只进行了2^-1^=1次计算，所以不会对服务端造成额外的压力。此外，代码中并未显式传入CSPRNG生成的盐值，这是因为`BCryptPasswordEncoder`本身就会自动调用CSPRNG产生盐值，并将该盐值输出在结果的前32位之中，因此也无须专门在数据库中设计存储盐值字段。这个过程以伪代码表示如下：
+6. 将动态盐值混入客户端传来的哈希值再做一次哈希，产生出最终的密文，并和上一步随机生成的盐值一起写入到同一条数据库记录中。由于慢哈希算法占用大量处理器资源，笔者并不推荐在服务端中采用。不过，如果你阅读了Fenix's Bookstore的源码，会发现这步依然采用了Spring Security 5中的`BcryptPasswordEncoder`，但是请注意它默认构造函数中的Cost参数值为-1，经转换后实际只进行了2^10^=1024次计算，并不会对服务端造成太大的压力。此外，代码中并未显式传入CSPRNG生成的盐值，这是因为`BCryptPasswordEncoder`本身就会自动调用CSPRNG产生盐值，并将该盐值输出在结果的前32位之中，因此也无须专门在数据库中设计存储盐值字段。这个过程以伪代码表示如下：
 
    ```java
    server_hash = SHA256(client_hash + server_salt);  // 55b4b5815c216cf80599990e781cd8974a1e384d49fbde7776d096e1dd436f67
