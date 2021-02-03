@@ -8,12 +8,12 @@
 
 人们研究分布式架构，最初是由于单台机器的性能无法满足系统的运行需要，尽管在后来架构演进过程中，容错能力、技术异构、职责划分等各方面因素都成为架构需要考虑的问题，但其中获得更好性能的需求在架构设计中依然占很大的比重。对软件研发而言，不去做分布式无疑才是最简单的，如果单台服务器的性能可以是无限的，那架构演进的结果肯定会与今天有很大的差别，分布式也好，容器化也好，微服务也好，恐怕都未必会如期出现，最起码不必一定是像今天这个样子。
 
-绝对意义上的无限性能必然是不存在的，但在云计算落地已有十年时间的今日，相对意义的无限性能已经成为了现实。在工业界，2012年，[Iron.io公司](https://www.iron.io/)率先提出了“无服务”（Serverless，应该翻译为“无服务器”才合适，但现在称“无服务”已形成习惯了）的概念，2014年开始，亚马逊发布了名为Lambda的商业化无服务应用，并在后续的几年里逐步的到开发者认可，发展成目前世界上最大的无服务的运行平台；到了2018年，中国的阿里云、腾讯云等厂商也开始跟进，发布了旗下的无服务的产品，“无服务”已成了近期技术圈里的“新网红”之一。
+绝对意义上的无限性能必然是不存在的，但在云计算落地已有十年时间的今日，相对意义的无限性能已经成为了现实。在工业界，2012年，[Iron.io公司](https://www.iron.io/)率先提出了“无服务”（Serverless，应该翻译为“无服务器”才合适，但现在称“无服务”已形成习惯了）的概念，2014年开始，亚马逊发布了名为Lambda的商业化无服务应用，并在后续的几年里逐步得到开发者认可，发展成目前世界上最大的无服务的运行平台；到了2018年，中国的阿里云、腾讯云等厂商也开始跟进，发布了旗下的无服务的产品，“无服务”已成了近期技术圈里的“新网红”之一。
 
 在学术界，2009年，云计算概念刚提出的早期，UC Berkeley大学曾发表的论文《[Above the Clouds: A Berkeley View of Cloud Computing](https://www2.eecs.berkeley.edu/Pubs/TechRpts/2009/EECS-2009-28.pdf)》，文中预言的云计算的价值、演进和普及在过去的十年里一一得到验证。十年之后的2019年，UC Berkeley的第二篇有着相同命名风格的论文《[Cloud Programming Simplified: A Berkeley View on Serverless Computing](https://arxiv.org/abs/1902.03383)》发表，再次预言未来“无服务将会发展成为未来云计算的主要形式”，由此来看，“无服务”也同样是被主流学术界所认可的发展方向之一。
 
 > We predict that serverless computing will grow to dominate the future of cloud computing
-> 
+>
 > 我们预测无服务将会发展成为未来云计算的主要形式
 >
 >:::right
@@ -40,12 +40,12 @@
 对于架构演进的未来发展，2014年，Martin Fowler与James Lewis在《[Microservices](https://martinfowler.com/articles/microservices.html)》的结束语中曾写到，他们对于微服务日后能否被大范围地推广，最多只能持有谨慎的乐观，在无服务方兴未艾的今天，与那时微服务的情况十分相近，笔者对无服务日后的推广同样持谨慎乐观的态度。软件开发的最大挑战就在于只能在不完备的信息下决定当前要处理的问题。时至今日，依然很难预想在架构演进之路的前方，微服务和无服务之后还会出现何种形式的架构风格，但这也契合了图灵的那句名言：尽管目光所及之处，只是不远的前方，即使如此，依然可以看到那里有许多值得去完成的工作在等待我们。
 
 > We can only see a short distance ahead, but we can see plenty there that needs to be done.
-> 
+>
 > 尽管目光所及之处，只是不远的前方，即使如此，依然可以看到那里有许多值得去完成的工作在等待我们。
-> 
+>
 > :::right
-> 
+>
 > —— [Alan Turing](https://en.wikipedia.org/wiki/Alan_Turing)，[Computing Machinery and Intelligence](https://en.wikipedia.org/wiki/Computing_Machinery_and_Intelligence)，1950
-> 
+>
 > :::
 
