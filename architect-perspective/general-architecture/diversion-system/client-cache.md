@@ -42,7 +42,7 @@ HTTP的强制缓存对一致性处理的策略就如它的名字一样，十分�
   - **public**和**private**：指明是否涉及到用户身份的私有资源，如果是public，着可以被代理、CDN等缓存，如果是private，着只能由用户的客户端进行私有缓存。
   - **no-cache**和**no-store**：no-cache指明该资源不应该被缓存，哪怕是同一个会话中对同一个URL地址的请求，也必须从服务端获取，令强制缓存完全失效，但此时下一节中的协商缓存机制依然是生效的；no-store不强制会话中相同URL资源的重复获取，但禁止浏览器、CDN等以任何形式保存该资源。
   - **no-transform**：禁止资源被任何形式地修改。譬如，某些CDN、透明代理支持自动GZip压缩图片或文本，以提升网络性能，而no-transform就禁止了这样的行为，它要求Content-Encoding、Content-Range、Content-Type均不允许进行任何形式的修改。
-  - **min-fresh**和**only-if-cached**：这两个参数是仅用于客户端的请求Header。min-fresh后续跟随一个以秒为单位的数字，用于建议服务器能返回一个不少于该时间的缓存资源（即包含max-age且不少于min-fresh的数字）。only-if-cached表示要求客户端要求不发送网络请求，只使用缓存来进行响应，若缓存不能命中，就直接返回503/Service Unavailable错误。
+  - **min-fresh**和**only-if-cached**：这两个参数是仅用于客户端的请求Header。min-fresh后续跟随一个以秒为单位的数字，用于建议服务器能返回一个不少于该时间的缓存资源（即包含max-age且不少于min-fresh的数字）。only-if-cached表示客户端要求不必给它发送资源的具体内容，此时客户端就仅能使用事先缓存的资源来进行响应，若缓存不能命中，就直接返回503/Service Unavailable错误。
   - **must-revalidate**和**proxy-revalidate**：must-revalidate表示在资源过期后，一定需要从服务器中进行获取，即超过了max-age的时间后，就等同于no-cache的行为，proxy-revalidate用于提示代理、CDN等设备资源过期后的缓存行为，除对象不同外，语义与must-revalidate完全一致。
 
 ## 协商缓存

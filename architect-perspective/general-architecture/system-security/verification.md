@@ -47,7 +47,7 @@
 据笔者所知，国内的项目使用Bean Validation的并不少见，但多数程序员都只使用到它的Built-In Constraint来做一些与业务逻辑无关的通用校验，即下面这堆注解，含义基本上看类名就能明白
 
 ```java
-@Null、@NotNull、@AssertTrue、@AssertFalse、@Min、@Max、@DecimalMin、@DecimalMax、@Negative、@NegativeOrZero、@Positive、@PositiveOrZeor、@Szie、@Digits、@Pass、@PassOrPresent、@Future、@FutureOrPresent、@Pattern、@NotEmpty、@NotBlank、@Email
+@Null、@NotNull、@AssertTrue、@AssertFalse、@Min、@Max、@DecimalMin、@DecimalMax、@Negative、@NegativeOrZero、@Positive、@PositiveOrZeor、@Szie、@Digits、@Pass、@PastOrPresent、@Future、@FutureOrPresent、@Pattern、@NotEmpty、@NotBlank、@Email
 ```
 
 但是与业务相关的校验往往才是最复杂的校验，将简单的校验交给Bean Validation，而把复杂的校验留给自己，这简直是买椟还珠故事的程序员版本。其实以Bean Validation的标准方式来做才对业务校验是非常优雅的，以Fenix's Bookstore的在用户资源上的两个方法为例：
