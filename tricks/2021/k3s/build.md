@@ -60,3 +60,5 @@ make
 ```
 
 ## 调试
+
+k3s的All-In-One包的入口是`cmd/k3s/main.go`，这里的作用就是自动在一个临时目录（默认为`/var/lib/rancher/k3s`）中，解压出所有运行所需的命令，然后通过`stageAndRun()`方法在子进程中调用。
