@@ -6,11 +6,11 @@
 
 ![](./images/mon.png)
 
-Windows系统的任务管理器界面
+图10-8 Windows系统的任务管理器界面
 
 :::
 
-如果你人生经历比较平淡，没有驾驶航母的经验，甚至连一颗卫星或者导弹都没有发射过，那就只好打开电脑，按`CTRL`+`ALT`+`DEL`呼出任务管理器，看看上面这个熟悉的界面，它也是一个非常具有代表性的度量系统。
+如果你人生经历比较平淡，没有驾驶航母的经验，甚至连一颗卫星或者导弹都没有发射过，那就只好打开电脑，按`CTRL`+`ALT`+`DEL`呼出任务管理器，看看上面图10-8这个熟悉的界面，它也是一个非常具有代表性的度量系统。
 
 度量总体上可分为客户端的指标收集、服务端的存储查询以及终端的监控预警三个相对独立的过程，每个过程在系统中一般也会设置对应的组件来实现，你不妨现在先翻到下面，看一眼Prometheus的组件流程图作为例子，图中在Prometheus Server左边的部分都属于客户端过程，右边的部分就属于终端过程。
 
@@ -27,16 +27,16 @@ Windows系统的任务管理器界面
 - **采样点分位图度量器**（Quantile Summary）：分位图是统计学中通过比较各分位数的分布情况的工具，用于验证实际值与理论值的差距，评估理论值与实际值之间的拟合度。譬如，我们说“高考成绩一般符合正态分布”，这句话的意思是：高考成绩高低分的人数都较少，中等成绩的较多，将人数按不同分数段统计，得出的统计结果一般能够与正态分布的曲线较好地拟合。
 - 除了以上常见的度量器之外，还有Timer、Set、Fast Compass、Cluster Histogram等其他各种度量器，采用不同的度量系统，支持度量器类型的范围肯定会有差别，譬如Prometheus支持了上面提到五种度量器中的Counter、Gauge、Histogram和Summary四种。
 
-对于“如何将这些指标告诉服务端”这个问题，通常有两种解决方案：**拉取式采集**（Pull-Based Metrics Collection）和**推送式采集**（Push-Based Metrics Collection）。所谓Pull是指度量系统主动从目标系统中拉取指标，相对地，Push就是由目标系统主动向度量系统推送指标。这两种方式并没有绝对的好坏优劣，以前很多老牌的度量系统，如[Ganglia](https://en.wikipedia.org/wiki/Ganglia_(software))、[Graphite](https://graphiteapp.org/)、[StatsD](https://github.com/statsd/statsd)等是基于Push的，而以Prometheus、[Datadog](https://www.datadoghq.com/pricing/)、[Collectd](https://en.wikipedia.org/wiki/Collectd)为代表的另一派度量系统则青睐Pull式采集（Prometheus官方解释[选择Pull的原因](https://prometheus.io/docs/introduction/faq/#why-do-you-pull-rather-than-push?)）。Push还是Pull的权衡，不仅仅在度量中才有，所有涉及到客户端和服务端通讯的场景，都会涉及到该谁主动的问题，上一节中讲的追踪系统也是如此。
+对于“如何将这些指标告诉服务端”这个问题，通常有两种解决方案：**拉取式采集**（Pull-Based Metrics Collection）和**推送式采集**（Push-Based Metrics Collection）。所谓Pull是指度量系统主动从目标系统中拉取指标，相对地，Push就是由目标系统主动向度量系统推送指标。这两种方式并没有绝对的好坏优劣，以前很多老牌的度量系统，如[Ganglia](https://en.wikipedia.org/wiki/Ganglia_(software))、[Graphite](https://graphiteapp.org/)、[StatsD](https://github.com/statsd/statsd)等是基于Push的，而以Prometheus、[Datadog](https://www.datadoghq.com/pricing/)、[Collectd](https://en.wikipedia.org/wiki/Collectd)为代表的另一派度量系统则青睐Pull式采集（Prometheus官方解释[选择Pull的原因](https://prometheus.io/docs/introduction/faq/#why-do-you-pull-rather-than-push?)）。Push还是Pull的权衡，不仅仅在度量中才有，所有涉及客户端和服务端通讯的场景，都会涉及该谁主动的问题，上一节中讲的追踪系统也是如此。
 
 
 
 :::center
 ![](./images/prometheus_architecture.png)
-Prometheus组件流程图（图片来自[Prometheus官网](https://github.com/prometheus/prometheus)）
+图10-9 Prometheus组件流程图（图片来自[Prometheus官网](https://github.com/prometheus/prometheus)）
 :::
 
-一般来说，度量系统只会支持其中一种指标采集方式，因为度量系统的网络连接数量，以及对应的线程或者协程数可能非常庞大，如何采集指标将直接影响到整个度量系统的架构设计。Prometheus基于Pull架构的同时还能够有限度地兼容Push式采集，是因为它有Push Gateway的存在，如上图所示，这是一个位于Prometheus Server外部的相对独立的中介模块，将外部推送来的指标放到Push Gateway中暂存，然后再等候Prometheus Server从Push Gateway中去拉取。Prometheus设计Push Gateway的本意是为了解决Pull的一些固有缺陷，譬如目标系统位于内网，通过NAT访问外网，外网的Prometheus是无法主动连接目标系统的，这就只能由目标系统主动推送数据；又譬如某些小型短生命周期服务，可能还等不及Prometheus来拉取，服务就已经结束运行了，因此也只能由服务自己Push来保证度量的及时和准确。
+一般来说，度量系统只会支持其中一种指标采集方式，因为度量系统的网络连接数量，以及对应的线程或者协程数可能非常庞大，如何采集指标将直接影响到整个度量系统的架构设计。Prometheus基于Pull架构的同时还能够有限度地兼容Push式采集，是因为它有Push Gateway的存在，如图10-9所示，这是一个位于Prometheus Server外部的相对独立的中介模块，将外部推送来的指标放到Push Gateway中暂存，然后再等候Prometheus Server从Push Gateway中去拉取。Prometheus设计Push Gateway的本意是为了解决Pull的一些固有缺陷，譬如目标系统位于内网，通过NAT访问外网，外网的Prometheus是无法主动连接目标系统的，这就只能由目标系统主动推送数据；又譬如某些小型短生命周期服务，可能还等不及Prometheus来拉取，服务就已经结束运行了，因此也只能由服务自己Push来保证度量的及时和准确。
 
 由推和拉决定该谁主动以后，另一个问题是指标应该以怎样的网络访问协议、取数接口、数据结构来获取？如同计算机科学中其他这类的问题类似，一贯的解决方向是“定义规范”，应该由行业组织和主流厂商一起协商出专门用于度量的协议，目标系统按照协议与度量系统交互。譬如，网络管理中的[SNMP](https://en.wikipedia.org/wiki/Simple_Network_Management_Protocol)、Windows硬件的[WMI](https://en.wikipedia.org/wiki/Windows_Management_Instrumentation)、以及此前提到的Java的[JMX](https://en.wikipedia.org/wiki/Java_Management_Extensions)都属于这种思路的产物。但是，定义标准这个办法在度量领域中就不是那么有效，上述列举的度量协议，只在特定的一块小块领域上流行过。原因一方面是业务系统要使用这些协议并不容易，你可以想像一下，让订单金额存到SNMP中，让Golang的系统把指标放到JMX Bean里，即便技术上可行，这也不像是正常程序员会干的事；另一方面，度量系统又不会甘心局限于某个领域，成为某项业务的附属品。度量面向的是广义上的信息系统，横跨存储（日志、文件、数据库）、通讯（消息、网络）、中间件（HTTP服务、API服务），直到系统本身的业务指标，甚至还会包括度量系统本身（部署两个独立的Prometheus互相监控是很常见的）。所以，上面这些度量协议其实都没有成为最正确答案的希望。
 
@@ -44,7 +44,13 @@ Prometheus组件流程图（图片来自[Prometheus官网](https://github.com/pr
 
 Exporter是Prometheus提出的概念，它是目标应用的代表，既可以独立运行，也可以与应用运行在同一个进程中，只要集成Prometheus的Client Library便可。Exporter以HTTP协议（Prometheus在2.0版本之前支持过Protocol Buffer，目前已不再支持）返回符合Prometheus格式要求的文本数据给Prometheus服务器。
 
-得益于Prometheus的良好社区生态，现在已经有大量各种用途的Exporter，让Prometheus的监控范围几乎能涵盖所有用户所关心的目标，如下表所示。绝大多数用户都只需要针对自己系统业务方面的度量指标编写Exporter即可。
+得益于Prometheus的良好社区生态，现在已经有大量各种用途的Exporter，让Prometheus的监控范围几乎能涵盖所有用户所关心的目标，如表10-2所示。绝大多数用户都只需要针对自己系统业务方面的度量指标编写Exporter即可。
+
+:::center
+
+表10-2 常用Exporter
+
+:::
 
 | 范围     | 常用Exporter                                                 |
 | -------- | ------------------------------------------------------------ |
@@ -104,7 +110,7 @@ Exporter是Prometheus提出的概念，它是目标应用的代表，既可以�
 - 设置激进的数据保留策略，譬如根据过期时间（TTL）自动删除相关数据以节省存储空间，同时提高查询性能。对于普通数据库来说，数据会存储一段时间后被自动删除是不可想象的。
 - 对数据进行再采样（Resampling）以节省空间，譬如最近几天的数据可能需要精确到秒，而查询一个月前的时，只需要精确到天，查询一年前的数据，只要精确到周就够了，这样将数据重新采样汇总就可以极大节省了存储空间。
 
-时序数据库中甚至还有一种并不罕见却更加极端的形式，叫做[轮替型数据库](https://en.wikipedia.org/wiki/RRDtool)（Round Robin Database，RRD），以环形缓冲（在“[服务端缓存](/architect-perspective/general-architecture/diversion-system/cache-middleware.html)”一节介绍过）的思路实现，只能存储固定数量的最新数据，超期或超过容量的数据就会被轮替覆盖，因此也有着固定的数据库容量，却能接受无限量的数据输入。
+时序数据库中甚至还有一种并不罕见却更加极端的形式，叫作[轮替型数据库](https://en.wikipedia.org/wiki/RRDtool)（Round Robin Database，RRD），以环形缓冲（在“[服务端缓存](/architect-perspective/general-architecture/diversion-system/cache-middleware.html)”一节介绍过）的思路实现，只能存储固定数量的最新数据，超期或超过容量的数据就会被轮替覆盖，因此也有着固定的数据库容量，却能接受无限量的数据输入。
 
 Prometheus服务端自己就内置了一个强大时序数据库实现，“强大”并非客气，近几年它在[DB-Engines](https://db-engines.com/en/ranking/time+series+dbms)的排名中不断提升，目前已经跃居时序数据库排行榜的前三。该时序数据库提供了名为PromQL的数据查询语言，能对时序数据进行丰富的查询、聚合以及逻辑运算。某些时序库（如排名第一的[InfluxDB](https://en.wikipedia.org/wiki/InfluxDB)）也会提供类SQL风格查询，但PromQL不是，它是一套完全由Prometheus自己定制的数据查询[DSL](https://en.wikipedia.org/wiki/Domain-specific_language)，写起来风格有点像带运算与函数支持的CSS选择器。譬如要查找网站`icyfenix.cn`访问人数，会是如下写法：
 

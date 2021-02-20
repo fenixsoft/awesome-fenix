@@ -1,6 +1,6 @@
 # 容器的崛起
 
-容器的最初的目的不是为了部署软件，而是为了隔离计算机中的各类资源，以便降低软件开发、测试阶段可能产生的误操作风险，或者专门充当[蜜罐](https://en.wikipedia.org/wiki/Honeypot_(computing))，吸引黑客的攻击，以便监视黑客的行为。
+容器的最初的目的不是为了部署软件，而是为了隔离计算机中的各类资源，以便降低软件开发、测试阶段可能产生的误操作风险，或者专门充当[蜜罐](https://en.wikipedia.org/wiki/Honeypot_(computing))，吸引黑客的攻击，以便监视黑客的行为。下面，笔者将以容器发展历史为线索，介绍容器技术在不同历史阶段中的主要关注点。
 
 ## 隔离文件：chroot
 
@@ -18,7 +18,13 @@
 
 Linux的名称空间是一种由内核直接提供的全局资源封装，是内核针对进程设计的访问隔离机制。进程在一个独立的Linux名称空间中朝系统看去，会觉得自己仿佛就是这方天地的主人，拥有这台Linux主机上的一切资源，不仅文件系统是独立的，还有着独立的PID编号（譬如拥有自己的0号进程，即系统初始化的进程）、UID/GID编号（譬如拥有自己独立的root用户）、网络（譬如完全独立的IP地址、网络栈、防火墙等设置），等等，此时进程的心情简直不能再好了。
 
-Linux的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs)”（一个分布式操作系统，“九号”项目并非代号，操作系统的名字就叫“Plan 9 from Bell Labs”，充满了赛博朋克风格）的启发而设计的，最初的目的依然只是为了隔离文件系统，而非为了什么容器化的实现。这点从2002年发布时只提供了Mount名称空间，并且其构造参数为“CLONE_NEWNS”（即Clone New Namespace的缩写）而非“CLONE_NEWMOUNT”便能看出一些端倪。后来，要求系统隔离其他访问操作的呼声愈发强烈，从2006年起，内核陆续添加了UTS、IPC等名称空间隔离，直到目前最新的Linux Kernel 5.6版内核为止，Linux名称空间支持以下八种资源的隔离（内核的官网[Kernel.org](https://www.kernel.org/)上仍然只列出了[前六种](https://www.kernel.org/doc/html/latest/admin-guide/namespaces/compatibility-list.html)，从Linux的Man命令能查到[全部八种](https://man7.org/linux/man-pages/man7/namespaces.7.html)）：
+Linux的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs)”（一个分布式操作系统，“九号”项目并非代号，操作系统的名字就叫“Plan 9 from Bell Labs”，充满了赛博朋克风格）的启发而设计的，最初的目的依然只是为了隔离文件系统，而非为了什么容器化的实现。这点从2002年发布时只提供了Mount名称空间，并且其构造参数为“CLONE_NEWNS”（即Clone New Namespace的缩写）而非“CLONE_NEWMOUNT”便能看出一些端倪。后来，要求系统隔离其他访问操作的呼声愈发强烈，从2006年起，内核陆续添加了UTS、IPC等名称空间隔离，直到目前最新的Linux Kernel 5.6版内核为止，Linux名称空间支持以下八种资源的隔离（内核的官网[Kernel.org](https://www.kernel.org/)上仍然只列出了[前六种](https://www.kernel.org/doc/html/latest/admin-guide/namespaces/compatibility-list.html)，从Linux的Man命令能查到[全部八种](https://man7.org/linux/man-pages/man7/namespaces.7.html)）。
+
+:::center
+
+表11-1 Linux名称空间支持以下八种资源的隔离
+
+:::
 
 | <div style="width:70px">名称空间</div> | 隔离内容                                                     | <div style="width:50px">内核版本</div> |
 | :------- | ------------------------------------------------------------ | -------- |
@@ -37,7 +43,13 @@ Linux的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia.
 
 如果要让一台物理计算机中的各个进程看起来像独享整台虚拟计算机的话，不仅要隔离各自进程的访问操作，还必须能独立控制分配给各个进程的资源使用配额，不然的话，一个进程发生了内存溢出或者占满了处理器，其他进程就莫名其妙地被牵连挂起，这样肯定算不上是完美的隔离。
 
-Linux系统解决以上问题的方案是[控制群组](https://en.wikipedia.org/wiki/Cgroups)（Control Groups，目前常用的简写为`cgroups`），它与名称空间一样都是直接由内核提供的功能，用于隔离或者说分配并限制某个进程组能够使用的资源配额，资源配额包括处理器时间、内存大小、磁盘I/O速度，等等，具体可以参见下表所列：
+Linux系统解决以上问题的方案是[控制群组](https://en.wikipedia.org/wiki/Cgroups)（Control Groups，目前常用的简写为`cgroups`），它与名称空间一样都是直接由内核提供的功能，用于隔离或者说分配并限制某个进程组能够使用的资源配额，资源配额包括处理器时间、内存大小、磁盘I/O速度，等等，具体可以参见表11-2所示。
+
+:::center
+
+表11-2 Linux控制群组子系统
+
+:::
 
 | 控制组子系统 | 功能                                                         |
 | ------------ | ------------------------------------------------------------ |
@@ -53,7 +65,7 @@ Linux系统解决以上问题的方案是[控制群组](https://en.wikipedia.org
 | hugetlb      | 主要针对于HugeTLB系统进行限制。                              |
 | perf_event   | 允许Perf工具基于`cgroups`分组做性能监测。                    |
 
-`cgroups`项目最早是由Google的工程师（主要是Paul Menage和Rohit Seth）在2006年发起的，当时取的名字就叫做“进程容器”（Process Containers），不过“容器”（Container）这个名词的定义在那时候尚不如今天清晰，不同场景中常有不同所指，为避免混乱，2007年这个项目才被重命名为`cgroups`，在2008年合并到2.6.24版的内核后正式对外发布，这一阶段的`cgroups`被称为“第一代`cgroups`”。2016年3月发布的Linux Kernel 4.5中，搭载了由Facebook工程师（主要是Tejun Heo）重新编写的“第二代`cgroups`”，其关键改进是支持[Unified Hierarchy](https://www.kernel.org/doc/Documentation/cgroup-v2.txt)，使得管理员能更加清晰精确地控制资源的层级关系。目前这两个版本的`cgroups`在Linux内核代码中是并存的，稍后介绍的Docker暂时仅支持第一代的`cgroups`。
+`cgroups`项目最早是由Google的工程师（主要是Paul Menage和Rohit Seth）在2006年发起的，当时取的名字就叫作“进程容器”（Process Containers），不过“容器”（Container）这个名词的定义在那时候尚不如今天清晰，不同场景中常有不同所指，为避免混乱，2007年这个项目才被重命名为`cgroups`，在2008年合并到2.6.24版的内核后正式对外发布，这一阶段的`cgroups`被称为“第一代`cgroups`”。2016年3月发布的Linux Kernel 4.5中，搭载了由Facebook工程师（主要是Tejun Heo）重新编写的“第二代`cgroups`”，其关键改进是支持[Unified Hierarchy](https://www.kernel.org/doc/Documentation/cgroup-v2.txt)，使得管理员能更加清晰精确地控制资源的层级关系。目前这两个版本的`cgroups`在Linux内核代码中是并存的，稍后介绍的Docker暂时仅支持第一代的`cgroups`。
 
 ## 封装系统：LXC
 
@@ -93,7 +105,7 @@ Docker除了包装来自Linux内核的特性之外，它的价值还在于：
 
 :::center
 ![](./images/docker.jpg)
-受到广泛认可的Docker<br/>以上是Docker开源一年后（截至2014年12月）获得的成绩，图片来自[Docker官网](https://www.docker.com/company/aboutus/)
+图11-1 受到广泛认可的Docker<br/>以上是Docker开源一年后（截至2014年12月）获得的成绩，图片来自[Docker官网](https://www.docker.com/company/aboutus/)
 :::
 
 从开源到现在也只过了短短数年时间，Docker已成为软件开发、测试、分发、部署等各个环节都难以或缺的基础支撑，自身的架构也发生了相当大的改变，Docker被分解为由Docker Client、Docker Daemon、Docker Registry、Docker Container等子系统，以及Graph、Driver、libcontainer等各司其职的模块组成，此时再说一百多行脚本能实现Docker核心功能，再说Docker没有太高的技术含量，就已经不再合适了。
@@ -106,7 +118,7 @@ Docker除了包装来自Linux内核的特性之外，它的价值还在于：
 
 :::center
 ![](./images/runc.png)
-Docker、containerd和runC的交互关系
+图11-2 Docker、containerd和runC的交互关系
 :::
 
 以上笔者列举的这些Docker推动的开源与标准化工作，既是对Docker为开源乃至整个软件业做出贡献的赞赏，也是为后面介绍容器编排时，讲述当前容器引擎的混乱关系做的前置铺垫。Docker目前无疑在容器领域具有统治地位，但统治的稳固程度不仅没到高枕无忧，说是危机四伏都不为过。目前已经有了可见的、足以威胁动摇Docker地位的潜在可能性正在酝酿，风险源于虽然Docker赢得了容器战争，但Docker Swarm却输掉了容器编排战争。从结果回望当初，Docker赢得容器战争有一些偶然，Docker Swarm输掉的编排战争却是必然的。
@@ -125,7 +137,7 @@ Kubernetes的成功与Docker的成功并不相同，Docker靠的是优秀的理�
 
 :::center
 ![](./images/kubernetes.png)
-Kubernetes与容器引擎的调用关系
+图11-3 Kubernetes与容器引擎的调用关系
 :::
 
 Kubernetes与Docker两者的关系十分微妙，把握住两者关系的变化过程，是理解Kubernetes架构演变与CRI、OCI规范的良好线索。在Kubernetes开源的早期，它是完全依赖且绑定Docker的，并没有过多考虑够日后有使用其他容器引擎的可能性。直至Kubernetes 1.5之前，Kubernetes 管理容器的方式都是通过内部的DockerManager向Docker Engine以HTTP方式发送指令，通过Docker来操作镜像的增删改查的，如上图最右边线路的箭头所示（图中的kubelet是集群节点中的代理程序，负责与管理集群的Master通信，其他节点的含义在后文介绍到时都会有解释）。将这个阶段Kubernetes与容器引擎的调用关系捋直，并结合上一节提到的Docker捐献containerd与runC后重构的调用，完整的调用链条如下所示：

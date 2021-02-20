@@ -6,11 +6,11 @@
 
 ## 追踪与跨度
 
-为了有效地进行分布式追踪，Dapper提出了“追踪”与“跨度”两个概念。从客户端发起请求抵达系统的边界开始，记录请求流经的每一个服务，直到到向客户端返回响应为止，这整个过程就称为一次“追踪”（Trace，为了不产生混淆，后文就直接使用英文Trace来指代了）。由于每次Trace都可能会调用数量不定、坐标不定的多个服务，为了能够记录具体调用了哪些服务，以及调用的顺序、开始时点、执行时长等信息，每次开始调用服务前都要先埋入一个调用记录，这个记录称为一个“跨度”（Span）。Span的数据结构应该足够简单，以便于能放在日志或者网络协议的报文头里；也应该足够完备，起码应含有时间戳、起止时间、Trace的的ID、当前Span的ID、父Span的ID等能够满足追踪需要的信息。每一次Trace实际上都是由若干个有顺序、有层级关系的Span所组成一颗“追踪树”（Trace Tree），如下图所示。
+为了有效地进行分布式追踪，Dapper提出了“追踪”与“跨度”两个概念。从客户端发起请求抵达系统的边界开始，记录请求流经的每一个服务，直到到向客户端返回响应为止，这整个过程就称为一次“追踪”（Trace，为了不产生混淆，后文就直接使用英文Trace来指代了）。由于每次Trace都可能会调用数量不定、坐标不定的多个服务，为了能够记录具体调用了哪些服务，以及调用的顺序、开始时点、执行时长等信息，每次开始调用服务前都要先埋入一个调用记录，这个记录称为一个“跨度”（Span）。Span的数据结构应该足够简单，以便于能放在日志或者网络协议的报文头里；也应该足够完备，起码应含有时间戳、起止时间、Trace的的ID、当前Span的ID、父Span的ID等能够满足追踪需要的信息。每一次Trace实际上都是由若干个有顺序、有层级关系的Span所组成一颗“追踪树”（Trace Tree），如图10-5所示。
 
 :::center
 ![](./images/spans.png)
-Trace和Spans（图片来源于[Dapper论文](https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/papers/dapper-2010-1.pdf)）
+图10-5 Trace和Spans（图片来源于[Dapper论文](https://static.googleusercontent.com/media/research.google.com/zh-CN//archive/papers/dapper-2010-1.pdf)）
 :::
 
 从目标来看，链路追踪的目的是为排查故障和分析性能提供数据支持，系统对外提供服务的过程中，持续地接受请求并处理响应，同时持续地生成Trace，按次序整理好Trace中每一个Span所记录的调用关系，便能绘制出一幅系统的服务调用拓扑图。根据拓扑图中Span记录的时间信息和响应结果（正常或异常返回）就可以定位到缓慢或者出错的服务；将Trace与历史记录进行对比统计，就可以从系统整体层面分析服务性能，定位性能优化的目标。
@@ -47,9 +47,9 @@ Trace和Spans（图片来源于[Dapper论文](https://static.googleusercontent.c
 - 基于服务的追踪是目前最为常见的追踪实现方式，被Zipkin、SkyWalking、Pinpoint等主流追踪系统广泛采用。服务追踪的实现思路是通过某些手段给目标应用注入追踪探针（Probe），针对Java应用一般就是通过Java Agent注入的。探针在结构上可视为一个寄生在目标服务身上的小型微服务系统，它一般会有自己专用的服务注册、心跳检测等功能，有专门的数据收集协议，把从目标系统中监控得到的服务调用信息，通过另一次独立的HTTP或者RPC请求发送给追踪系统。因此，基于服务的追踪会比基于日志的追踪消耗更多的资源，也有更强的侵入性，换来的收益是追踪的精确性与稳定性都有所保证，不必再依靠日志归集来传输追踪数据。<br/>下面是一张Pinpoint的追踪效果截图，从图中可以看到参数、变量等相当详细方法级调用信息。笔者在上一节“[日志分析](/distribution/observability/logging.html)”里把“打印追踪诊断信息”列为反模式，如果需要诊断需要方法参数、返回值、上下文信息，或者方法调用耗时这类数据，通过追踪系统来实现是比通过日志系统实现更加恰当的解决方案。
   :::center
   ![](./images/pinpoint.png)
-  Pinpoint的追踪截图（图片来自网络）
+  图10-6 Pinpoint的追踪截图（图片来自网络）
   :::
-  也必须说明清楚，像上图中Pinpoint这种详细程度的追踪对应用系统的性能压力是相当大的，一般仅在除错时开启，而且Pinpoint本身就是比较重负载的系统（运行它必须先维护一套HBase），这严重制约了它的适用范围，目前服务追踪的其中一个发展趋势是轻量化，国产的SkyWalking正是这方面的佼佼者。
+  也必须说明清楚，像图10-6中Pinpoint这种详细程度的追踪对应用系统的性能压力是相当大的，一般仅在除错时开启，而且Pinpoint本身就是比较重负载的系统（运行它必须先维护一套HBase），这严重制约了它的适用范围，目前服务追踪的其中一个发展趋势是轻量化，国产的SkyWalking正是这方面的佼佼者。
   
 - 基于边车代理的追踪是服务网格的专属方案，也是最理想的分布式追踪模型，它对应用完全透明，无论是日志还是服务本身都不会有任何变化；它与程序语言无关，无论应用采用什么编程语言实现，只要它还是通过网络（HTTP或者gRPC）来访问服务就可以被追踪到；它有自己独立的数据通道，追踪数据通过控制平面进行上报，避免了追踪对程序通信或者日志归集的依赖和干扰，保证了最佳的精确性。如果要说这种追踪实现方式还有什么缺点的话，那就是服务网格现在还不够普及，未来随着云原生的发展，相信它会成为追踪系统的主流实现方式之一。还有就是边车代理本身的对应用透明的工作原理决定了它只能实现服务调用层面的追踪，像上面Pinpoint截图那样本地方法调用级别的追踪诊断是做不到的。<br/>现在市场占有率最高的边车代理[Envoy](https://www.envoyproxy.io/)就提供了相对完善的追踪功能，但没有提供自己的界面端和存储端，所以Envoy和Sleuth一样都属于狭义的追踪系统，需要配合专门的UI与存储来使用，现在SkyWalking、Zipkin、[Jaeger](https://www.jaegertracing.io/)、[LightStep Tracing](https://lightstep.com/products/)等系统都可以接受来自于Envoy的追踪数据，充当它的界面端。
 
@@ -59,14 +59,14 @@ Trace和Spans（图片来源于[Dapper论文](https://static.googleusercontent.c
 
 为了推进追踪领域的产品的标准化，2016年11月，CNCF技术委员会接受了OpenTracing作为基金会第三个项目。OpenTracing是一套与平台无关、与厂商无关、与语言无关的追踪协议规范，只要遵循OpenTracing规范，任何公司的追踪探针、存储、界面都可以随时切换，也可以相互搭配使用。
 
-操作层面，OpenTracing只是制定了一个很薄的标准化层，位于应用程序与追踪系统之间，这样探针与追踪系统就可以不是同一个厂商的产品，只要它们都支持OpenTracing协议即可互相通讯。此外，OpenTracing还规定了微服务之间发生调用时，应该如何传递Span信息（OpenTracing Payload），以上这些都如下图绿色部分所示。
+操作层面，OpenTracing只是制定了一个很薄的标准化层，位于应用程序与追踪系统之间，这样探针与追踪系统就可以不是同一个厂商的产品，只要它们都支持OpenTracing协议即可互相通讯。此外，OpenTracing还规定了微服务之间发生调用时，应该如何传递Span信息（OpenTracing Payload），以上这些都如图10-7绿色部分所示。
 
 :::center
 ![](./images/opentracing.png)
-符合OpenTracing的软件架构（[图片来源](https://medium.com/opentracing/towards-turnkey-distributed-tracing-5f4297d1736)）
+图10-7 符合OpenTracing的软件架构（[图片来源](https://medium.com/opentracing/towards-turnkey-distributed-tracing-5f4297d1736)）
 :::
 
-OpenTracing规范公布后，几乎所有业界有名的追踪系统，譬如Zipkin、Jaeger、SkyWalking等都很快宣布支持OpenTracing，但谁也没想到的是，Google自己却在此时出来表示反对，并提出了与OpenTracing目标类似的OpenCensus规范，随后又得到了巨头Microsoft的支持和参与。OpenCensus不仅涉及到追踪，还把指标度量也纳入进来；内容上不仅涉及到规范制定，还把数据采集的探针和收集器都一起以SDK（目前支持五种语言）的形式提供出来。
+OpenTracing规范公布后，几乎所有业界有名的追踪系统，譬如Zipkin、Jaeger、SkyWalking等都很快宣布支持OpenTracing，但谁也没想到的是，Google自己却在此时出来表示反对，并提出了与OpenTracing目标类似的OpenCensus规范，随后又得到了巨头Microsoft的支持和参与。OpenCensus不仅涉及追踪，还把指标度量也纳入进来；内容上不仅涉及规范制定，还把数据采集的探针和收集器都一起以SDK（目前支持五种语言）的形式提供出来。
 
 OpenTracing和OpenCensus迅速形成了可观测性的两大阵营，一边是在这方面深耕多年的众多老牌APM系统厂商，另一边是分布式追踪概念的提出者Google，以及与Google同样庞大的Microsoft。对追踪系统的规范化工作，并没有平息厂商竞争的混乱，反倒是把水搅得更加浑了。
 

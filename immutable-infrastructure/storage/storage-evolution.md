@@ -23,11 +23,11 @@ Kubernete在规划持久化存储能力的时候，依然遵循着它的一贯�
 
 Mount和Volume都是来源自操作系统的常用术语，Mount是动词，表示将某个外部存储挂载到系统中，Volume是名词，表示物理存储的逻辑抽象，目的是为物理存储提供有弹性的分割方式。容器源于对操作系统层的虚拟化，为了满足容器内生成数据的外部存储需求，也很自然地会将Mount和Volume的概念延拓至容器中。我们去了解容器存储的发展，不妨就以Docker的Mount操作为起始点。
 
-目前，Docker内建支持了三种挂载类型，分别是Bind（`--mount type=bind`）、Volume（`--mount type=volume`）和tmpfs（`--mount type=tmpfs`），如下图所示。其中tmpfs用于在内存中读写临时数据，与本节主要讨论的对象持久化存储并不相符，所以后面我们只着重关注Bind和Volume两种挂载类型。
+目前，Docker内建支持了三种挂载类型，分别是Bind（`--mount type=bind`）、Volume（`--mount type=volume`）和tmpfs（`--mount type=tmpfs`），如图13-1所示。其中tmpfs用于在内存中读写临时数据，与本节主要讨论的对象持久化存储并不相符，所以后面我们只着重关注Bind和Volume两种挂载类型。
 
 :::center
 ![](./images/types-of-mounts.png)
-Docker的三种挂载类型（图片来自[Docker官网文档](https://docs.docker.com/storage/)）
+图13-1 Docker的三种挂载类型（图片来自[Docker官网文档](https://docs.docker.com/storage/)）
 :::
 
 Bind Mount是Docker最早提供的（发布时就支持）挂载类型，作用是把宿主机的某个目录（或文件）挂载到容器的指定目录（或文件）下，譬如以下命令中参数`-v`表达的意思就是将外部的HTML文档挂到Nginx容器的默认网站根目录下：
@@ -44,18 +44,18 @@ docker run --mount type=bind,source=/icyfenix/html,destination=/usr/share/nginx/
 
 从Bind Mount到Volume Mount，实质是容器发展过程中对存储抽象能力提升的外在表现。从“Bind”这个名字，以及Bind Mount的实际功能可以合理地推测，Docker最初认为“Volume”就只是一种“外部宿主机的磁盘存储到内部容器存储的映射关系”，但后来眉头一皱发现事情并没有那么简单：存储的位置并不局限只在外部宿主机、存储的介质并不局限只是物理磁盘、存储的管理也并不局限只有映射关系。
 
-譬如，Bind Mount只能让容器与本地宿主机之间建立了某个目录的映射，如果想要在不同宿主机上的容器共享同一份存储，就必须先把共享存储挂载到每一台宿主机操作系统的某个目录下，然后才能逐个挂载到容器内使用，这种跨宿主机共享存储的场景如下图所示。
+譬如，Bind Mount只能让容器与本地宿主机之间建立了某个目录的映射，如果想要在不同宿主机上的容器共享同一份存储，就必须先把共享存储挂载到每一台宿主机操作系统的某个目录下，然后才能逐个挂载到容器内使用，这种跨宿主机共享存储的场景如图13-2所示。
 
 :::center
 ![](./images/volume.png)
-跨主机的共享存储需求（图片来自[Docker官网文档](https://docs.docker.com/storage/volumes/)）
+图13-2 跨主机的共享存储需求（图片来自[Docker官网文档](https://docs.docker.com/storage/volumes/)）
 :::
 
 这种存储范围超越了宿主机的共享存储，配置过程却要涉及到大量与宿主机环境相关的操作，只能由管理员人工去完成，不仅烦琐，而且每台宿主机环境的差异导致还很难自动化。
 
 又譬如即便只考虑单台宿主机的情况，基于可管理性的需求，Docker也完全有支持Volume Mount的必要。Bind Mount的设计里，Docker只有容器的控制权，存放容器生产数据的主机目录是完全独立的，与Docker没有任何关系，既不受Docker保护，也不受Docker管理。数据很容易被其他进程访问到，甚至是被修改和删除。如果用户想对挂载的目录进行备份、迁移等管理运维操作，也只能在Docker之外靠管理员人工进行，这都增加了数据安全与操作意外的风险。因此，Docker希望能有一种抽象的资源来代表在宿主机或网络中存储的区域，以便让Docker能管理这些资源，由此就很自然地联想到了操作系统里Volume的概念。
 
-最后，提出Volume最核心的一个目的是为了提升Docker对不同存储介质的支撑能力，这同时也是为了减轻Docker本身的工作量。存储并不是仅有挂载在宿主机上的物理存储这一种介质，云计算时代，网络存储渐成数据中心的主流选择，不同的网络存储有各自的协议和交互接口，而且并非所有存储系统都适合先挂载到操作系统，然后再挂载到容器的，如果Docker想要越过操作系统去支持挂载某种存储系统，首先必须要知道该如何访问它，然后才能将容器中的读写操作自动转移到该位置。Docker把解决如何访问存储的功能模块称为存储驱动（Storage Driver）。通过`docker info`命令，你能查看到当前Docker所支持的存储驱动。虽然Docker已经内置了市面上主流的OverlayFS驱动，譬如Overlay、Overlay2、AUFS、BTRFS、ZFS，等等，但面对云计算的快速发展迭代，仅靠Docker自己来支持全部云计算厂商的存储系统是完全不现实的，为此，Docker提出了与Storage Driver相对应的Volume Driver（卷驱动）的概念。用户可以通过`docker plugin install`命令安装[外部的卷驱动](https://docs.docker.com/engine/extend/legacy_plugins/)，并在创建Volume时指定一个与其存储系统相匹配的卷驱动，譬如希望数据存储在AWS Elastic Block Store上，就找一个AWS EBS的驱动，如果想存储在Azure File Storage上，也是找一个对应的Azure File Storage驱动即可。如果创建Volume时不指定卷驱动，那默认就是local类型，在Volume中存放的数据会存储在宿主机的`/var/lib/docker/volumes/`目录之中。
+最后，提出Volume最核心的一个目的是为了提升Docker对不同存储介质的支撑能力，这同时也是为了减轻Docker本身的工作量。存储并不是仅有挂载在宿主机上的物理存储这一种介质，云计算时代，网络存储渐成数据中心的主流选择，不同的网络存储有各自的协议和交互接口，而且并非所有存储系统都适合先挂载到操作系统，然后再挂载到容器的，如果Docker想要越过操作系统去支持挂载某种存储系统，首先必须要知道该如何访问它，然后才能将容器中的读写操作自动转移到该位置。Docker把解决如何访问存储的功能模块称为存储驱动（Storage Driver）。通过`docker info`命令，你能查看到当前Docker所支持的存储驱动。虽然Docker已经内置了市面上主流的OverlayFS驱动，譬如Overlay、Overlay2、AUFS、BTRFS、ZFS，等等，但面对云计算的快速迭代，仅靠Docker自己来支持全部云计算厂商的存储系统是完全不现实的，为此，Docker提出了与Storage Driver相对应的Volume Driver（卷驱动）的概念。用户可以通过`docker plugin install`命令安装[外部的卷驱动](https://docs.docker.com/engine/extend/legacy_plugins/)，并在创建Volume时指定一个与其存储系统相匹配的卷驱动，譬如希望数据存储在AWS Elastic Block Store上，就找一个AWS EBS的驱动，如果想存储在Azure File Storage上，也是找一个对应的Azure File Storage驱动即可。如果创建Volume时不指定卷驱动，那默认就是local类型，在Volume中存放的数据会存储在宿主机的`/var/lib/docker/volumes/`目录之中。
 
 ## Static Provisioning
 
@@ -63,11 +63,11 @@ docker run --mount type=bind,source=/icyfenix/html,destination=/usr/share/nginx/
 
 普通Volume的设计目标不是为了持久地保存数据，而是为同一个Pod中多个容器提供可共享的存储资源，因此Volume具有十分明确的生命周期——与挂载它的Pod相同的生命周期，这意味着尽管普通Volume不具备持久化的存储能力，但至少比Pod中运行的任何容器的存活期都更长，Pod中不同的容器能共享相同的普通Volume，当容器重新启动时，普通Volume中的数据也会能够得到保留。当然，一旦整个Pod被销毁，普通Volume也将不复存在，数据在逻辑上也会被销毁掉，至于实质上会否会真正删除数据，就取决于存储驱动具体是如何实现Unmount、Detach、Delete接口的，由于本节的主题为“持久化存储”，所以无持久化能力的普通Volume就不再展开了。
 
-从操作系统里传承下来的Volume概念，在Docker和Kubernetes中继续按照一致的逻辑延伸拓展，只不过Kubernetes为将其与普通Volume区别开来，专门取了PersistentVolume这个名字，你可以从下图中直观地看出普通Volume、PersistentVolume和Pod之间的关系差异。
+从操作系统里传承下来的Volume概念，在Docker和Kubernetes中继续按照一致的逻辑延伸拓展，只不过Kubernetes为将其与普通Volume区别开来，专门取了PersistentVolume这个名字，你可以从从图13-3中直观地看出普通Volume、PersistentVolume和Pod之间的关系差异。
 
 :::center
 ![](./images/v-pv.png)
-普通Volume与PersistentVolume的差别
+图13-3 普通Volume与PersistentVolume的差别
 :::
 
 从“Persistent”这个单词就能顾名思义，PersistentVolume是指能够将数据进行持久化存储的一种资源对象，它可以独立于Pod存在，生命周期与Pod无关，因此也决定了PersistentVolume不应该依附于任何一个宿主机节点，否则必然会对Pod调度产生干扰限制。前面表13-1中“Persistent”一列里看到的都是网络存储便是很好的印证。
@@ -133,11 +133,11 @@ PersistentVolume是Volume这个抽象概念的具象化表现，通俗地说就�
    ```
    以上YAML中声明了要求容量不得小于5GB，必须支持RWO的访问模式。
 4. Kubernetes创建Pod的过程中，会根据系统中PersistentVolume与PersistentVolumeClaim的供需关系对两者进行撮合，如果系统中存在满足PersistentVolumeClaim声明中要求能力的PersistentVolume则撮合成功，将它们绑定。如果撮合不成功，Pod就不会被继续创建，直至系统中出现新的或让出空闲的PersistentVolume资源。
-5. 以上几步都顺利完成的话，意味着Pod的存储需求得到满足，继续Pod的创建过程，整个过程如下图所示。
+5. 以上几步都顺利完成的话，意味着Pod的存储需求得到满足，继续Pod的创建过程，整个过程如图13-4所示。
 
 :::center
 ![](./images/pv-pvc.png)
-PersistentVolumeClaim与PersistentVolume运作过程（图片来自《[Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action)》）
+图13-4 PersistentVolumeClaim与PersistentVolume运作过程（图片来自《[Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action)》）
 :::
 
 Kubernetes对PersistentVolumeClaim与PersistentVolume撮合的结果是产生一对一的绑定关系，“一对一”的意思是PersistentVolume一旦绑定在某个PersistentVolumeClaim上，直到释放以前都会被这个PersistentVolumeClaim所独占，不能再与其他PersistentVolumeClaim进行绑定。这意味着即使PersistentVolumeClaim申请的存储空间比PersistentVolume能够提供的要少，依然要求整个存储空间都为该PersistentVolumeClaim所用，这有可能会造成资源的浪费。譬如，某个PersistentVolumeClaim要求3GB的存储容量，当前Kubernetes手上只剩下一个5GB的PersistentVolume了，此时Kubernetes只好将这个PersistentVolume与申请资源的PersistentVolumeClaim进行绑定，平白浪费了2GB空间。假设后续有另一个PersistentVolumeClaim申请2GB的存储空间，那它也只能等待管理员分配新的PersistentVolume，或者有其他PersistentVolume被回收之后才被能成功分配。
@@ -178,11 +178,11 @@ Kubernetes对PersistentVolumeClaim与PersistentVolume撮合的结果是产生一
    ```
 4. 如果PersistentVolumeClaim中要求的StorageClass及它用到的Provisioner均是可用的话，那这个StorageClass就会接管掉原本由Kubernetes撮合PersistentVolume与PersistentVolumeClaim的操作，按照PersistentVolumeClaim中声明的存储需求，自动产生出满足该需求的PersistentVolume描述信息，并发送给Provisioner处理。
 5. Provisioner接收到StorageClass发来的创建PersistentVolume请求后，会操作其背后存储系统去分配空间，如果分配成功，就生成并返回符合要求的PersistentVolume给Pod使用。
-6. 以上几步都顺利完成的话，意味着Pod的存储需求得到满足，继续Pod的创建过程，整个过程如下图所示。
+6. 以上几步都顺利完成的话，意味着Pod的存储需求得到满足，继续Pod的创建过程，整个过程如图13-5所示。
 
 :::center
 ![](./images/storage-class.png)
-StorageClass运作过程（图片来自《[Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action)》）
+图13-5 StorageClass运作过程（图片来自《[Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action)》）
 :::
 
 Dynamic Provisioning与Static Provisioning并不是各有用途的互补设计，而是对同一个问题先后出现的两种解决方案。你完全可以只用Dynamic Provisioning来实现所有的Static Provisioning能够实现的存储需求，包括那些不需要动态分配的场景，甚至之前例子里使用HostPath在本地静态分配存储，都可以指定`no-provisioner`作为Provisioner的StorageClass，以Local Persistent Volume来代替，譬如以下例子所示：

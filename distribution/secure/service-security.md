@@ -12,7 +12,7 @@
 
 零信任网络里不存在默认的信任关系，一切服务调用、资源访问成功与否，均需以调用者与提供者间已建立的信任关系为前提。此前我们曾讨论过，真实世界里，能够达成信任的基本途径不外乎基于共同私密信息的信任和基于权威公证人的信任两种；网络世界里，因为客户端和服务端之间一般没有什么共同私密信息，所以真正能采用的就只能是基于权威公证人的信任，它有个标准的名字：[公开密钥基础设施](https://en.wikipedia.org/wiki/Public_key_infrastructure)（Public Key Infrastructure，PKI）。
 
-PKI是构建[传输安全层](https://en.wikipedia.org/wiki/Transport_Layer_Security)（Transport Layer Security，TLS）的必要基础。在任何网络设施都不可信任的假设前提下，无论是DNS服务器、代理服务器、负载均衡器还是路由器，传输路径上的每一个节点都有可能监听或者篡改通讯双方传输的信息。要保证通讯过程不受到中间人攻击的威胁，启用TLS对传输通道本身进行加密，让发送者发出的内容只有接受者可以解密是唯一具备可行性的方案。建立TLS传输，说起来似乎不复杂，只要在部署服务器时预置好[CA根证书](/architect-perspective/general-architecture/system-security/transport-security.html#数字证书)，以后用该CA为部署的服务签发TLS证书便是。但落到实际操作上，这事情就属于典型的“必须集中在基础设施中自动进行的安全策略实施点”，面对数量庞大且能够自动扩缩的服务节点，依赖运维人员手工去部署和轮换根证书必定是难以为继的。除了随服务节点动态扩缩而来的运维压力外，微服务中TLS认证的频次也显著高于传统的应用，比起公众互联网中主流单向的TLS认证，在零信任网络中，往往要启用[双向TLS认证](https://en.wikipedia.org/wiki/Mutual_authentication)（Mutual TLS Authentication，常简写为mTLS），即不仅要确认服务端的身份，还需要确认调用者的身份。
+PKI是构建[传输安全层](https://en.wikipedia.org/wiki/Transport_Layer_Security)（Transport Layer Security，TLS）的必要基础。在任何网络设施都不可信任的假设前提下，无论是DNS服务器、代理服务器、负载均衡器还是路由器，传输路径上的每一个节点都有可能监听或者篡改通信双方传输的信息。要保证通信过程不受到中间人攻击的威胁，启用TLS对传输通道本身进行加密，让发送者发出的内容只有接受者可以解密是唯一具备可行性的方案。建立TLS传输，说起来似乎不复杂，只要在部署服务器时预置好[CA根证书](/architect-perspective/general-architecture/system-security/transport-security.html#数字证书)，以后用该CA为部署的服务签发TLS证书便是。但落到实际操作上，这事情就属于典型的“必须集中在基础设施中自动进行的安全策略实施点”，面对数量庞大且能够自动扩缩的服务节点，依赖运维人员手工去部署和轮换根证书必定是难以为继的。除了随服务节点动态扩缩而来的运维压力外，微服务中TLS认证的频次也显著高于传统的应用，比起公众互联网中主流单向的TLS认证，在零信任网络中，往往要启用[双向TLS认证](https://en.wikipedia.org/wiki/Mutual_authentication)（Mutual TLS Authentication，常简写为mTLS），即不仅要确认服务端的身份，还需要确认调用者的身份。
 
 - **单向TLS认证**：只需要服务端提供证书，客户端通过服务端证书验证服务器的身份，但服务器并不验证客户端的身份。单向TLS用于公开的服务，即任何客户端都被允许连接到服务进行访问，它保护的重点是客户端免遭冒牌服务器的欺骗。
 

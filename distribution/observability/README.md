@@ -2,11 +2,11 @@
 
 随着分布式架构渐成主流，[可观测性](https://en.wikipedia.org/wiki/Observability)（Observability）一词也日益频繁地被人提起。最初，它与[可控制性](https://en.wikipedia.org/wiki/Controllability)（Controllability）一起，是由匈牙利数学家Rudolf E. Kálmán针对线性动态控制系统提出的一组对偶属性，原本的含义是“可以由其外部输出推断其内部状态的程度”。
 
-在学术界，虽然“可观测性”这个名词是近几年才从控制理论中借用的舶来概念，不过其内容实际在计算机科学中已有多年的实践积累。学术界一般会将可观测性分解为三个更具体方向进行研究，分别是：[日志收集](/distribution/observability/logging.html)、[链路追踪](/distribution/observability/tracing.html)和[聚合度量](/distribution/observability/metrics.html)，这三个方向各有侧重，又不是完全独立，它们天然就有重合或者可以结合之处，2017年的分布式追踪峰会（2017 Distributed Tracing Summit）结束后，Peter Bourgon撰写了总结文章《[Metrics, Tracing, and Logging](https://peter.bourgon.org/blog/2017/02/21/metrics-tracing-and-logging.html)》系统地阐述了这三者的定义、特征，以及它们之间的关系与差异，受到了业界的广泛认可。
+在学术界，虽然“可观测性”这个名词是近几年才从控制理论中借用的舶来概念，不过其内容实际在计算机科学中已有多年的实践积累。学术界一般会将可观测性分解为三个更具体方向进行研究，分别是：[事件日志](/distribution/observability/logging.html)、[链路追踪](/distribution/observability/tracing.html)和[聚合度量](/distribution/observability/metrics.html)，这三个方向各有侧重，又不是完全独立，它们天然就有重合或者可以结合之处，2017年的分布式追踪峰会（2017 Distributed Tracing Summit）结束后，Peter Bourgon撰写了总结文章《[Metrics, Tracing, and Logging](https://peter.bourgon.org/blog/2017/02/21/metrics-tracing-and-logging.html)》系统地阐述了这三者的定义、特征，以及它们之间的关系与差异，受到了业界的广泛认可。
 
 :::center
 ![](./images/mtl.png)
-日志、追踪、度量的目标与结合（[图片来源](https://peter.bourgon.org/blog/2017/02/21/metrics-tracing-and-logging.html)）
+图10-1 日志、追踪、度量的目标与结合（[图片来源](https://peter.bourgon.org/blog/2017/02/21/metrics-tracing-and-logging.html)）
 :::
 
 假如你平时只开发单体系统，从未接触过分布式系统的观测工作，那看到日志、追踪和度量，很有可能只会对日志这一项感到熟悉，其他两项会相对陌生。然而按照Peter Bourgon给出的定义来看，尽管分布式系统中追踪和度量必要性和复杂程度确实比单体系统时要更高，但是在单体时代，你肯定也已经接触过以上全部三项的工作，只是并未意识到而已，笔者将它们的特征转述如下：
@@ -29,10 +29,11 @@ Kubernetes是CNCF第一个孵化成功的项目，Prometheus是CNCF第二个孵�
 
 :::center
 ![](./images/cncf.png)
-日志、追踪、度量的相关产品（[图片来源](https://landscape.cncf.io/)）
+图10-2 日志、追踪、度量的相关产品（[图片来源](https://landscape.cncf.io/)）
 :::
 
-上图是[CNCF Interactive Landscape](https://landscape.cncf.io/)中列出的日志、追踪、度量领域的著名产品，其实这里很多不同领域的产品是跨界的，譬如ELK可以通过Metricbeat来实现度量的功能，Apache SkyWalking的探针就有同时支持度量和追踪两方面的数据来源，由[OpenTracing](https://opentracing.io/)进化而来[OpenTelemetry](https://opentelemetry.io/)更是融合了日志、追踪、度量三者所长，有望成为三者兼备的统一可观测性解决方案。本章后面的讲解，也会扣紧每个领域中最具有统治性产品来进行介绍。
+图10-2是[CNCF Interactive Landscape](https://landscape.cncf.io/)中列出的日志、追踪、度量领域的著名产品，其实这里很多不同领域的产品是跨界的，譬如ELK可以通过Metricbeat来实现度量的功能，Apache SkyWalking的探针就有同时支持度量和追踪两方面的数据来源，由[OpenTracing](https://opentracing.io/)进化而来[OpenTelemetry](https://opentelemetry.io/)更是融合了日志、追踪、度量三者所长，有望成为三者兼备的统一可观测性解决方案。本章后面的讲解，也会扣紧每个领域中最具有统治性产品来进行介绍。
 
 
 
+图10-2 

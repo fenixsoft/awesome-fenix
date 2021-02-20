@@ -6,7 +6,7 @@
 
 :::center
 ![](./images/eco.png)
-SMI规范与UDPA规范
+图15-10 SMI规范与UDPA规范
 :::
 
 服务网格的实质上是数据平面产品与控制平面产品的集合，所以在规范制订方面，很自然地也分成了两类：SMI规范提供了外部环境（实际上就是Kubernetes）与控制平面交互的标准，使得Kubernetes及在其之上的应用能够无缝地切换各种服务网格产品。UDPA规范则提供了控制平面与数据平面交互的标准，使得服务网格产品能够灵活地搭配不同的边车代理，针对不同场景的需求，发挥各款边车代理的功能或者性能优势。这两个规范并没有重叠，它们的关系与在容器运行时中介绍到的CRI和OCI规范之间的关系颇有些相似。
@@ -25,7 +25,7 @@ SMI与Kubernetes是彻底绑定的，规范的落地执行完全依靠在Kuberne
 
 :::center
 ![](./images/smi.png)
-SMI规范的参与者
+图15-11 SMI规范的参与者
 :::
 
 讲述了SMI的背景与价值，笔者再简要介绍一下SMI的主要内容。目前（[v0.5版本](https://github.com/servicemeshinterface/smi-spec/blob/master/SPEC_LATEST_STABLE.md)）的SMI规范包括四方面的API构成，分别是：
@@ -45,10 +45,10 @@ SMI规范的参与者
 
 :::center
 ![](./images/udpa.png)
-UDPA规范与xDS协议融合时间表（[图片来源](https://envoycon2019.sched.com/event/UxwL/the-universal-dataplane-api-udpa-envoys-next-generation-apis-harvey-tuch-google)）
+图15-12 UDPA规范与xDS协议融合时间表（[图片来源](https://envoycon2019.sched.com/event/UxwL/the-universal-dataplane-api-udpa-envoys-next-generation-apis-harvey-tuch-google)）
 :::
 
-上图是笔者在Harvey Tuch演讲PPT中截取的UDPA与xDS的融合时间表，在演讲中Harvey Tuch还提到了xDS协议的演进节奏会定为每年推出一个大版本、每个版本从发布到淘汰起要经历Alpha、Stable、Deprecated、Removed四个阶段、每个阶段持续一年时间，简单地说就是每个大版本xDS在被淘汰前会有三年的固定生命周期。基于UDPA的xDS v4 API原本计划会在2020年发布，进入Alpha阶段，不过，笔者写下这段文字的时间是2020年的10月中旬，已经可以肯定地说上面所列的计划必然破产，因为从目前公开的资料看来，UDPA仍然处于早期设计阶段，距离完备都尚有一段很长的路程，所以基于UDPA的xDS v4在2020年是铁定出不来了。
+图15-12是笔者在Harvey Tuch演讲PPT中截取的UDPA与xDS的融合时间表，在演讲中Harvey Tuch还提到了xDS协议的演进节奏会定为每年推出一个大版本、每个版本从发布到淘汰起要经历Alpha、Stable、Deprecated、Removed四个阶段、每个阶段持续一年时间，简单地说就是每个大版本xDS在被淘汰前会有三年的固定生命周期。基于UDPA的xDS v4 API原本计划会在2020年发布，进入Alpha阶段，不过，笔者写下这段文字的时间是2020年的10月中旬，已经可以肯定地说上面所列的计划必然破产，因为从目前公开的资料看来，UDPA仍然处于早期设计阶段，距离完备都尚有一段很长的路程，所以基于UDPA的xDS v4在2020年是铁定出不来了。
 
 在规范内容方面，由于UDPA连Alpha状态都还未能达到，目前公开的资料还很少。从GitHub和Google文档上能找到部分设计原型文件来看，UDAP的主要内容会分为传输协议（UDPA-TP，TransPort）和数据模型（UDPA-DM，Data Model）两部分，这两部分是独立设计的，以后完全有可能会出现不同的数据模型共用同一套传输协议的可能性。
 
