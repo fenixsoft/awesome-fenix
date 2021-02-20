@@ -204,7 +204,7 @@ In computer hypertext, a fragment identifier is a string of characters that refe
 
 > http://bookstore.icyfenix.cn/#/detail/1
 
-后面的`/detail/1`便是Fragment，这个语法是在[RFC 3986](https://tools.ietf.org/html/rfc3986)中定义的，RFC 3986中解释了Fragment是用于客户端定位的URI从属资源，譬如HTML中就可以使用Fragment来做文档内的跳转而不会发起服务端请求，你现在可以点击一下这篇文章左边菜单中的几个子标题，看看浏览器地址栏的变化。此外，RFC 3986还规定了如果浏览器对一个带有Fragment的地址发出Ajax请求，那Fragment是不会跟随请求被发送到服务端的，只能在客户端通过Script脚本来读取。所以隐式授权巧妙地利用这个特性，尽最大努力地避免了令牌从操作代理到第三方服务之间的链路存在被攻击而泄漏出去的可能性。至于认证服务器到到操作代理之间的这一段链路的安全，则只能通过TLS（即HTTPS）来保证没有中间不会受到攻击了，我们可以要求认证服务器必须都是启用HTTPS的，但无法要求第三方应用同样都支持HTTPS。
+后面的`/detail/1`便是Fragment，这个语法是在[RFC 3986](https://tools.ietf.org/html/rfc3986)中定义的，RFC 3986中解释了Fragment是用于客户端定位的URI从属资源，譬如HTML中就可以使用Fragment来做文档内的跳转而不会发起服务端请求，你现在可以点击一下这篇文章左边菜单中的几个子标题，看看浏览器地址栏的变化。此外，RFC 3986还规定了如果浏览器对一个带有Fragment的地址发出Ajax请求，那Fragment是不会跟随请求被发送到服务端的，只能在客户端通过Script脚本来读取。所以隐式授权巧妙地利用这个特性，尽最大努力地避免了令牌从操作代理到第三方服务之间的链路存在被攻击而泄漏出去的可能性。至于认证服务器到到操作代理之间的这一段链路的安全，则只能通过TLS（即HTTPS）来保证中间不会受到攻击了，我们可以要求认证服务器必须都是启用HTTPS的，但无法要求第三方应用同样都支持HTTPS。
 
 ### 密码模式
 
