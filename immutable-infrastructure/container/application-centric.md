@@ -65,7 +65,7 @@ Repository仓库用于实现Chart的搜索与下载服务，Helm社区维护了�
 
 :::center
 ![](./images/helm-hub.png)
-Helm Hub商店（图片来自[Helm官网](https://helm.sh/)）
+图11-7 Helm Hub商店（图片来自[Helm官网](https://helm.sh/)）
 :::
 
 Helm提供了应用全生命周期、版本、依赖项的管理能力，同时，Helm还支持额外的扩展插件，能够加入CI/CD或者其他方面的辅助功能，这样的定位已经从单纯的工具升级到应用管理平台了。强大的功能让Helm收到了不少支持，有很多应用主动入驻到官方的仓库中。从2018年起，Helm项目被托管到CNFC，成为其中的一个孵化项目。

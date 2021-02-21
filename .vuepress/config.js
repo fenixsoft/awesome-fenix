@@ -54,7 +54,8 @@ module.exports = {
           title: '「Comment」<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>',
           body: '<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>',
           distractionFreeMode: false,
-          pagerDirection: 'last'
+          pagerDirection: 'last',
+          proxy: 'https://netnr-proxy.cloudno.de/https://github.com/login/oauth/access_token'
         }
       }
     ],
