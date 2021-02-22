@@ -23,21 +23,21 @@ CAP定理（Consistency、Availability、Partition Tolerance Theorem），也称
 
 <mermaid style="margin: -15px 0 -30px 0;">
 graph TB
-	User("最终用户")-->Store("Fenix's Bookstore") 
+	User("最终用户")-->Store("Fenix's Bookstore")
 	Store-->Warehouse("仓库服务集群")
 	Store-->Business("商家服务集群")
 	Store-->Account("账号服务集群")
-    subgraph 
+    subgraph
     Warehouse-.->Warehouse1("仓库节点1")
     Warehouse-.->Warehouse2("仓库节点2")
     Warehouse-->WarehouseN("仓库节点N")
     end
-    subgraph 
+    subgraph
     Business-.->Business1("商家节点1")
     Business-->Business2("商家节点2")
     Business-.->BusinessN("商家节点N")
     end
-    subgraph 
+    subgraph
     Account-->Account1("账号节点1")
     Account-.->Account2("账号节点2")
     Account-.->AccountN("账号节点N")
@@ -117,7 +117,7 @@ sequenceDiagram
 
 TCC是另一种常见的分布式事务机制，它是“Try-Confirm-Cancel”三个单词的缩写，是由数据库专家Pat Helland在2007年撰写的论文《[Life beyond Distributed Transactions: An Apostate’s Opinion](https://www-db.cs.wisc.edu/cidr/cidr2007/papers/cidr07p15.pdf)》中提出。
 
-前面介绍的可靠消息队列虽然能保证最终的结果是相对可靠的，过程也足够简单（相对于TCC来说），但整个过程完全没有任何隔离性可言，有一些业务中隔离性是无关紧要的，但有一些业务中缺乏隔离性就会带来许多麻烦。譬如在本章的场景事例中，缺乏隔离性会带来的一个显而易见的问题便是“超售”：完全有可能两个客户在短时间内都成功购买了同一件商品，而且他们各自购买的数量都不超过目前的库存，但他们购买的数量之和却超过了库存。如果这件事情处于刚性事务，且隔离级别足够的情况下是可以完全避免的，譬如，以上场景就需要“可重复读”（Repeatable Read）的隔离剂别，以保证后面提交的事务会因为无法获得锁而导致失败，但用可靠消息队列就无法保证这一点，这部分属于数据库本地事务方面的知识，可以参考前面的讲解。如果业务需要隔离，那架构师通常就应该重点考虑TCC方案，该方案天生适合用于需要强隔离性的分布式事务中。
+前面介绍的可靠消息队列虽然能保证最终的结果是相对可靠的，过程也足够简单（相对于TCC来说），但整个过程完全没有任何隔离性可言，有一些业务中隔离性是无关紧要的，但有一些业务中缺乏隔离性就会带来许多麻烦。譬如在本章的场景事例中，缺乏隔离性会带来的一个显而易见的问题便是“超售”：完全有可能两个客户在短时间内都成功购买了同一件商品，而且他们各自购买的数量都不超过目前的库存，但他们购买的数量之和却超过了库存。如果这件事情处于刚性事务，且隔离级别足够的情况下是可以完全避免的，譬如，以上场景就需要“可重复读”（Repeatable Read）的隔离级别，以保证后面提交的事务会因为无法获得锁而导致失败，但用可靠消息队列就无法保证这一点，这部分属于数据库本地事务方面的知识，可以参考前面的讲解。如果业务需要隔离，那架构师通常就应该重点考虑TCC方案，该方案天生适合用于需要强隔离性的分布式事务中。
 
 在具体实现上，TCC较为烦琐，它是一种业务侵入式较强的事务方案，要求业务处理过程必须拆分为“预留业务资源”和“确认/释放消费资源”两个子过程。如同TCC的名字所示，它分为以下三个阶段。
 
