@@ -55,7 +55,8 @@ module.exports = {
           body: '<%- window.location.origin + (frontmatter.to.path || window.location.pathname) %>',
           distractionFreeMode: false,
           pagerDirection: 'last',
-          proxy: 'https://netnr-proxy.cloudno.de/https://github.com/login/oauth/access_token'
+          // proxy: 'https://netnr-proxy.cloudno.de/https://github.com/login/oauth/access_token'
+          proxy: 'https://fenixsoft-cors.herokuapp.com/https://github.com/login/oauth/access_token'
         }
       }
     ],
