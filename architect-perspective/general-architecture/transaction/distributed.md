@@ -27,17 +27,17 @@ graph TB
 	Store-->Warehouse("仓库服务集群")
 	Store-->Business("商家服务集群")
 	Store-->Account("账号服务集群")
-    subgraph
+    subgraph  
     Warehouse-.->Warehouse1("仓库节点1")
     Warehouse-.->Warehouse2("仓库节点2")
     Warehouse-->WarehouseN("仓库节点N")
     end
-    subgraph
+    subgraph  
     Business-.->Business1("商家节点1")
     Business-->Business2("商家节点2")
     Business-.->BusinessN("商家节点N")
     end
-    subgraph
+    subgraph  
     Account-->Account1("账号节点1")
     Account-.->Account2("账号节点2")
     Account-.->AccountN("账号节点N")
