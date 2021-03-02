@@ -4,7 +4,7 @@
       <a :href="editLink" target="_blank" rel="noopener noreferrer">{{ editLinkText }}</a>
       <OutboundLink/>
     </div>
-    <div class="git-hub-star" v-if="showGitStart">
+    <div class="git-hub-star" v-if="showGitStar">
       <span class="prefix" v-if="pageWords > 0">
         Kudos to
         <github-button href="https://github.com/fenixsoft/awesome-fenix" data-icon="octicon-star" data-show-count="true"
@@ -15,7 +15,7 @@
 
       </span>
     </div>
-    <div v-if="lastUpdated" class="last-updated">
+    <div v-if="lastUpdated" class="last-updated" v-if="showGitStar">
       <span class="prefix" v-if="pageWords > 0">总字数:</span>
       <span class="words" v-if="pageWords > 0">{{ pageWords.toLocaleString() }}</span>
       <span class="prefix" v-if="pageWords > 0">字　</span>
@@ -78,7 +78,7 @@
         return null
       },
 
-      showGitStart() {
+      showGitStar() {
         return !this.$frontmatter.githubStar && this.$frontmatter.githubStar !== false
       },
 
