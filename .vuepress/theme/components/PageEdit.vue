@@ -4,7 +4,7 @@
       <a :href="editLink" target="_blank" rel="noopener noreferrer">{{ editLinkText }}</a>
       <OutboundLink/>
     </div>
-    <div class="git-hub-star">
+    <div class="git-hub-star" v-if="showGitStart">
       <span class="prefix" v-if="pageWords > 0">
         Kudos to
         <github-button href="https://github.com/fenixsoft/awesome-fenix" data-icon="octicon-star" data-show-count="true"
@@ -76,6 +76,10 @@
           )
         }
         return null
+      },
+
+      showGitStart() {
+        return !this.$frontmatter.githubStar && this.$frontmatter.githubStar !== false
       },
 
       editLinkText() {
