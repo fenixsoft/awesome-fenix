@@ -4,6 +4,12 @@ permalink: /changelog
 
 # 更新日志
 
+### 2021年3月17日
+
+- 看到[JetBrains Projector](https://blog.jetbrains.com/blog/2021/03/11/projector-is-out/)正式发布了，对于重度依赖轻薄本甚至是Pad做终端的开发人员来说，是VSC Remote外的另一个选择。我在它的基础上做了个**一条命令**建立OpenJDK调试IDE的懒人包：
+  - [OpenJDK with CLion懒人包](/tricks/2021/openjdk-for-dummies/)
+  - [https://github.com/fenixsoft/openjdk-for-dummies](https://github.com/fenixsoft/openjdk-for-dummies)
+
 ### 2021年2月24日
 
 - 修复了Gitalk无法登录留言的问题。</br>Gitalk默认的Github [CORS代理](https://github.com/fenixsoft/cors-anywhere)不再免费提供服务了，目前使用[Heroku](https://www.heroku.com/)的免费Dyno（一种Serverless实例）额度作为CORS代理，半个小时内没有访问会自动终止进程，冷启动需要一点时间，受此影响评论登录功能可能偶尔会有点慢。

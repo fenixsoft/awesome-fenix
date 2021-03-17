@@ -412,6 +412,13 @@ module.exports = {
               '/tricks/2020/java-crisis/qcon',
             ]
           },
+          {
+            title: '2021年',
+            collapsable: false,
+            children: [
+              '/tricks/2021/openjdk-for-dummies/',
+            ]
+          },
         ]
       }
       , {
