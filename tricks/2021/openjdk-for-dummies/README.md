@@ -10,7 +10,7 @@
     ```bash
     docker run -it --rm -p 8887:8887 icyfenix/openjdk-clion:latest
     ```
-    此镜像支持Linux、Windows、WSL2、MacOS等宿主环境，不过编译结果于宿主环境无关，输出的都是Linux-Server-64 Bits的OpenJDK，如需调整，可参见“编译镜像”一节。
+    此镜像支持Linux、Windows、WSL2、MacOS等宿主环境，不过编译结果与宿主环境无关，编译输出均是Linux-Server-64 Bits的OpenJDK，如需调整，可参见“编译镜像”一节。
     出于OpenJDK编译本身[资源需求](https://hg.openjdk.java.net/jdk/jdk/raw-file/tip/doc/building.html#build-hardware-requirements)，此容器要求可使用的资源至少应为2 Cores、4 GB RAM、6 GB Disk。
 
 2. 容器启动后，在浏览器中打开[http://localhost:8887](http://localhost:8887)，出现如下界面：
@@ -41,7 +41,7 @@
 
     - 调试自己的Java代码。
       笔者在`/playgrounds`中预置了一个Helloworld Class供测试之用，倘若你跟踪HotSpot的目的是想解决学习工作中预见的真实问题，那可以把你自己的Class或者Jar文件映射到容器中进行调试，譬如：
-        ```
+        ```bash
       docker run -it --rm -p 8887:8887 -v JAVA-APP-PATH:/home/projector-user/playgrounds icyfenix/openjdk-clion:latest
         ```
 
@@ -73,19 +73,19 @@
 
 - 希望变更内置的JDK源码的版本。JDK的源码是通过`clone-core.sh`文件下载的，可以通过修改此文件中JDK的GitHub地址来切换不同的版本，如下：
 
-  ```
+  ```bash
   git clone https://github.com/openjdk/jdk15.git ../jdk-source
   ```
 
 - 希望采用不同的编译配置，譬如编译32 Bits版本，譬如交叉编译出其他系统的JDK版本、譬如建立Fast Debug、Release等其他编译配置项等。这些信息定义在`Dockerfile`的`configure`中，你可以调整此行的参数来实现：
 
-  ```
+  ```bash
   ./configure --with-boot-jdk=/usr/lib/jvm/openjdk-15-jdk --with-debug-level=slowdebug --disable-warnings-as-errors --build=x86_64-unknown-linux-gnu --host=x86_64-unknown-linux-gnu --with-version-opt=icyfenix.cn
   ```
 
 - 希望切换IDE版本、加入其他辅助软件或者IDE Plugins。CLion IDE的下载地址`build-container.sh`之中，你可以在[这里](https://github.com/JetBrains/projector-installer/blob/master/projector_installer/compatible_ide.json)找到其他兼容的IDE列表，更换其中的下载地址即可。
 
-  ```
+  ```bash
   downloadUrl=${2:-https://download.jetbrains.com/cpp/CLion-2020.3.2.tar.gz}
   ```
 
@@ -94,9 +94,9 @@
 ## 其他
 
 - 如果打算使用此镜像用作实际工作环境，建议采用JetBrains专门提供的PWA外壳（[Projector Luancher](https://github.com/JetBrains/projector-client/releases)）来代替Chrome、Safari浏览器。否则在浏览器中写代码总会遇到一些冲突问题，譬如查找代码`Ctrl+F`却弹出了浏览器的搜索框等。
-- 如果你打算以iPad作为编码客户端，那服务器就不能使用SSL（仅能用HTTP，不能用HTTPS），因为iPad不支持Self-Signed WebSockets。
+- 如果你打算以iPad作为编码客户端，那服务器就不能使用SSL（仅能用HTTP，不能用HTTPS），因为iPad不支持[Self-Signed](https://en.wikipedia.org/wiki/Self-signed_certificate) WebSockets。
 - 如果响应好的话，后续笔者可能会再做一些别的复杂环境，譬如Kubernetes（应该会是K3S）配GoLand之类的源码IDE镜像。
-- 镜像压缩后有2.08 GB，Keep Patient。<span style="color:#EEE">好吧，看到这里也很有耐心了，我开放了一个公众服务，不想下载的话可先体验：<a href="http://icyfenix.work:8887" style="color:#EEE">http://icyfenix.work:8887</a>，但不保证长期可用，且仅按编译JDK的最低要求分配的资源，速度堪忧。</span>
+- 镜像压缩后有2.08 GB，Keep Patient。
 
 ## 协议
 
