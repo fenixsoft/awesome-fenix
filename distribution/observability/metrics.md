@@ -107,7 +107,7 @@ Exporter是Prometheus提出的概念，它是目标应用的代表，既可以�
 写操作，时序数据通常只是追加，很少删改或者根本不允许删改。针对数据热点只集中在近期数据、多写少读、几乎不删改、数据只顺序追加这些特点，时序数据库被允许做出很激进的存储、访问和保留策略（Retention Policies）：
 
 - 以[日志结构的合并树](https://en.wikipedia.org/wiki/Log-structured_merge-tree)（Log Structured Merge Tree，LSM-Tree）代替传统关系型数据库中的[B+Tree](https://en.wikipedia.org/wiki/B%2B_tree)作为存储结构，LSM适合的应用场景就是写多读少，且几乎不删改的数据。
-- 设置激进的数据保留策略，譬如根据过期时间（TTL）自动删除相关数据以节省存储空间，同时提高查询性能。对于普通数据库来说，数据会存储一段时间后被自动删除是不可想象的。
+- 设置激进的数据保留策略，譬如根据过期时间（TTL）自动删除相关数据以节省存储空间，同时提高查询性能。对于普通数据库来说，数据会存储一段时间后就会被自动删除这种事情是不可想象的。
 - 对数据进行再采样（Resampling）以节省空间，譬如最近几天的数据可能需要精确到秒，而查询一个月前的时，只需要精确到天，查询一年前的数据，只要精确到周就够了，这样将数据重新采样汇总就可以极大节省了存储空间。
 
 时序数据库中甚至还有一种并不罕见却更加极端的形式，叫作[轮替型数据库](https://en.wikipedia.org/wiki/RRDtool)（Round Robin Database，RRD），以环形缓冲（在“[服务端缓存](/architect-perspective/general-architecture/diversion-system/cache-middleware.html)”一节介绍过）的思路实现，只能存储固定数量的最新数据，超期或超过容量的数据就会被轮替覆盖，因此也有着固定的数据库容量，却能接受无限量的数据输入。

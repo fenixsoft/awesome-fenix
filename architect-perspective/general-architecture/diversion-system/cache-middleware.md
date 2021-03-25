@@ -30,7 +30,7 @@
 
 进一步说，如果只比较吞吐量，完全不去考虑命中率、淘汰策略、缓存统计、过期失效等功能该如何实现，那也不必选择，JDK 8改进之后的ConcurrentHashMap基本上就是你能找到的吞吐量最高的缓存容器了。可是很多场景里，以上提及的功能至少有部分一两项是必须的，不可能完全不考虑，这才涉及到不同缓存方案的权衡问题。
 
-根据Caffeine给出的一组目前业界主流进程内缓存实现方案，包括有Caffeine、ConcurrentLinkedHashMap、LinkedHashMap、Guava Cache、Ehcache和Infinispan Embedded的对比，从它们在8线程、75%读操作、25%写操作下的吞吐量表现[Benchmarks](https://github.com/ben-manes/caffeine/wiki/Benchmarks?spm=a2c4e.10696291.0.0.319f19a4dRjjn6#read-100-1)来看，各种缓存组件库的性能差异还是十分明显的，最高与最低的相差了足有一个数量级，具体如图4-12所示。
+根据Caffeine给出的一组目前业界主流进程内缓存实现方案，包括有Caffeine、ConcurrentLinkedHashMap、LinkedHashMap、Guava Cache、Ehcache和Infinispan Embedded的对比，从[Benchmarks](https://github.com/ben-manes/caffeine/wiki/Benchmarks?spm=a2c4e.10696291.0.0.319f19a4dRjjn6#read-100-1)中体现出的它们在8线程、75%读操作、25%写操作下的吞吐量来看，各种缓存组件库的性能差异还是十分明显的，最高与最低的相差了足有一个数量级，具体如图4-12所示。
 :::center
 ![](./images/readwrite.png)
 图4-12  8线程、75%读、25%写的吞吐量比较（图片来自[Caffeine](https://github.com/ben-manes/caffeine/wiki/Benchmarks)）

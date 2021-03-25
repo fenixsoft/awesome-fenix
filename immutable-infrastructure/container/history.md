@@ -10,7 +10,7 @@
 
 2000年，Linux Kernel 2.3.41版内核引入了`pivot_root`技术来实现文件隔离，`pivot_root`直接切换了[根文件系统](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard)（rootfs），有效地避免了`chroot`命令可能出现的安全性漏洞。本文后续提到的容器技术，如LXC、Docker等也都是优先使用`pivot_root`来实现根文件系统切换的。
 
-时至今日，`chroot`命令依然活跃在UNIX系统与几乎所有主流的Linux发行版中，同时以命令行工具（[chroot(8)](https://linux.die.net/man/8/linux-user-chroot)）或者系统调用（[chroot(2)](https://linux.die.net/man/2/chroot) ）的形式存在，但无论是`chroot`命令抑或是`pivot_root`，都并不能提供完美的隔离性。原本按照UNIX的设计哲学，[一切资源都可以视为文件](https://en.wikipedia.org/wiki/Everything_is_a_file)（In UNIX，Everything is a File），一切处理都可以视为对文件的操作，理论上隔离了文件系统本该就安枕无忧才对。可是哲学归哲学，现实归现实，从硬件层面暴露的低层次资源，如磁盘、网络、内存、处理器，到经操作系统层面封装的高层次资源，如UNIX分时（UNIX Time-Sharing，UTS）、进程ID（Process ID，PID）、用户ID（User ID，UID）、进程间通信（Inter-Process Communication，IPC）都存在大量以非文件形式暴露的操作入口，因此，以`chroot`为代表的文件隔离，仅仅是容器崛起之路的起点而已。
+时至今日，`chroot`命令依然活跃在UNIX系统与几乎所有主流的Linux发行版中，同时以命令行工具（[chroot(8)](https://linux.die.net/man/8/linux-user-chroot)）或者系统调用（[chroot(2)](https://linux.die.net/man/2/chroot) ）的形式存在，但无论是`chroot`命令抑或是`pivot_root`，都并不能提供完美的隔离性。原本按照UNIX的设计哲学，[一切资源都可以视为文件](https://en.wikipedia.org/wiki/Everything_is_a_file)（In UNIX，Everything is a File），一切处理都可以视为对文件的操作，理论上，只要隔离了文件系统，一切资源都应该被自动隔离才对。可是哲学归哲学，现实归现实，从硬件层面暴露的低层次资源，如磁盘、网络、内存、处理器，到经操作系统层面封装的高层次资源，如UNIX分时（UNIX Time-Sharing，UTS）、进程ID（Process ID，PID）、用户ID（User ID，UID）、进程间通信（Inter-Process Communication，IPC）都存在大量以非文件形式暴露的操作入口，因此，以`chroot`为代表的文件隔离，仅仅是容器崛起之路的起点而已。
 
 ## 隔离访问：namespaces
 
@@ -65,7 +65,7 @@ Linux系统解决以上问题的方案是[控制群组](https://en.wikipedia.org
 | hugetlb      | 主要针对于HugeTLB系统进行限制。                              |
 | perf_event   | 允许Perf工具基于`cgroups`分组做性能监测。                    |
 
-`cgroups`项目最早是由Google的工程师（主要是Paul Menage和Rohit Seth）在2006年发起的，当时取的名字就叫作“进程容器”（Process Containers），不过“容器”（Container）这个名词的定义在那时候尚不如今天清晰，不同场景中常有不同所指，为避免混乱，2007年这个项目才被重命名为`cgroups`，在2008年合并到2.6.24版的内核后正式对外发布，这一阶段的`cgroups`被称为“第一代`cgroups`”。2016年3月发布的Linux Kernel 4.5中，搭载了由Facebook工程师（主要是Tejun Heo）重新编写的“第二代`cgroups`”，其关键改进是支持[Unified Hierarchy](https://www.kernel.org/doc/Documentation/cgroup-v2.txt)，使得管理员能更加清晰精确地控制资源的层级关系。目前这两个版本的`cgroups`在Linux内核代码中是并存的，稍后介绍的Docker暂时仅支持第一代的`cgroups`。
+`cgroups`项目最早是由Google的工程师（主要是Paul Menage和Rohit Seth）在2006年发起的，当时取的名字就叫作“进程容器”（Process Containers），不过“容器”（Container）这个名词的定义在那时候尚不如今天清晰，不同场景中常有不同所指，为避免混乱，2007年这个项目才被重命名为`cgroups`，在2008年合并到2.6.24版的内核后正式对外发布，这一阶段的`cgroups`被称为“第一代`cgroups`”。2016年3月发布的Linux Kernel 4.5中，搭载了由Facebook工程师（主要是Tejun Heo）重新编写的“第二代`cgroups`”，其关键改进是支持统一层级管理（[Unified Hierarchy](https://www.kernel.org/doc/Documentation/cgroup-v2.txt)），使得管理员能更加清晰精确地控制资源的层级关系。目前这两个版本的`cgroups`在Linux内核代码中是并存的，稍后介绍的Docker暂时仅支持第一代的`cgroups`。
 
 ## 封装系统：LXC
 
@@ -93,7 +93,7 @@ Docker除了包装来自Linux内核的特性之外，它的价值还在于：
 - **多版本支持**：Docker支持像Git一样管理容器的连续版本，进行检查版本间差异、提交或者回滚等操作。从历史记录中你可以查看到该容器是如何一步一步构建成的，并且只增量上传或下载新版本中变更的部分。
 - **组件重用**：Docker允许将任何现有容器作为基础镜像来使用，以此构建出更加专业的镜像。
 - **共享**：Docker拥有公共的镜像仓库，成千上万的Docker用户在上面上传了自己的镜像，同时也使用他人上传的镜像。
-- **工具生态**：Docker开放了一套可自动化和自行扩展的接口，在此之上有可以实现很多工具来扩展其功能，譬如容器编排、管理界面、持续集成等等。
+- **工具生态**：Docker开放了一套可自动化和自行扩展的接口，在此之上，还有很多工具来扩展其功能，譬如容器编排、管理界面、持续集成等等。
 
 :::right
 
