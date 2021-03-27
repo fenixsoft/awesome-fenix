@@ -12,9 +12,10 @@ permalink: /resume
 
 <center style="line-height: 24px; color: #666; font-size: 14px; word-break: keep-all;">
 18826210400 | <a href="icyfenix@gmail.com">icyfenix@gmail.com</a> | 1983年 | 广东省（深圳、广州、珠海、东莞）<br/>
-企业级系统、云计算、云原生基础设施、互联网应用、架构设计、团队管理、技术布道<br/>
+企业级应用、技术平台、云原生基础设施、互联网应用、架构设计、技术布道<br/>
 <a href="https://icyfenix.cn" target="_blank">https://icyfenix.cn</a> | <a href="https://github.com/fenixsoft" target="_blank">https://github.com/fenixsoft</a> | <a href="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/introduction/_private/resume.pdf">PDF</a><br/>
 </center>
+
 
 
 
@@ -27,14 +28,14 @@ permalink: /resume
 ### 资深技术专家
 
 - 有大型系统研发、大型团队管理的经验。
-  - 企业级（ToB/ToG）产品线的技术负责人，主导项目的可行性评估、技术选型、架构设计、核心功能实现等工作，从技术角度带领团队持续提升整体研发的质量和效率。
-  - 十五年企业级应用研发经验，系统部署应用于电力能源、党政务、军工、高端装备制造等核心领域，为央企管理着中国近五分之一的国有资产。
+  - 企业级（ToB/ToG）产品线的技术负责人，主导项目的可行性评估、技术选型、架构设计、核心功能实现等工作；领导产品线1000余名开发者，从技术角度持续提升整体研发的质量和效率。
+  - 十五年企业级应用研发经验，产品已部署应用于国内的电力能源、党政务、军工、高端装备制造等核心领域，为央企管理着中国近五分之一的国有资产。
 - 有扎实的技术功底。
   - 对Java技术体系有全面的认知，具有辽阔的视野和格局，从编译优化、规模并发、内存模型等原理性知识，到以Spring框架族为代表的主流应用工具均有过系统性的探索。以Java技术体系和开源组件为基础，构建了公司的两代技术平台，是第二代平台后期的主要负责人和第三代平台的主要奠基人。
-  - 对Java虚拟机各子系统的原理、设计、实现及发展有深刻的理解。撰写的《[深入理解Java虚拟机](https://book.douban.com/subject/34907497/)》目前是国内编程语言领域最具影响的书籍之一，十年更新3版，重印40余次，销量超35万册，并受邀担任《[Java虚拟机规范](https://book.douban.com/subject/25792515/)》中文版译者。
-  - 对编程有发自内心的热爱，年均GitHub提交1000+。对Java以外的其他技术体系，如ECMAScript、.NET C#、Golang等亦有涉猎；对计算机科学相关的多个领域，如编程语言设计、编译原理、计算机体系结构、容器虚拟化等方面都有持续跟进。
+  - 对Java虚拟机各子系统的原理、设计、实现及发展有深刻的理解。撰写的《[深入理解Java虚拟机](https://book.douban.com/subject/34907497/)》目前是国内编程语言领域最具影响的书籍之一，十年更新3版，重印40余次，销售码洋3000余万。
+  - 对编程发自内心的热爱，从未脱离技术一线，年均GitHub提交1000+。对Java以外的其他技术体系，如ECMAScript、.NET C#、Golang等亦有涉猎；对计算机科学相关的多个领域，如编程语言设计、编译原理、计算机体系结构、容器虚拟化等方面都有持续跟进。
 - 有云原生、微服务、无服务等架构设计能力。
-  - 熟悉分布式的系统设计原理；熟悉Monolithic、SOA、Microservices、ServiceMesh、Serverless等架构风格；熟悉远程服务访问、缓存、安全架构、负载均衡、容错流控、分布式事务等技术实现；熟悉Docker、Kubernetes、Istio等基础设施的应用。
+  - 主导过传统大型系统向微服务、云原生及国产技术栈方向的迁移演进；熟悉分布式的系统设计原理；熟悉Monolithic、SOA、Microservices、ServiceMesh、Serverless等架构风格；熟悉远程服务访问、缓存、安全架构、负载均衡、容错流控、分布式事务等技术实现；熟悉Docker、Kubernetes、Istio等基础设施的应用。
   - 获国内三大云计算厂商颁发最具价值技术专家认证：[阿里云最有价值技术专家（MVP）](https://mvp.aliyun.com/mvp/detail/487)、[腾讯云最有价值技术专家（TVP）](https://cloud.tencent.com/tvp/132)、[华为云最有价值技术专家（MVP）](https://developer.huaweicloud.com/mvp/member)。
 - 有行业影响力。
   - 作为外部专家，受邀为华为、阿里等知名企业提供内训与咨询。
@@ -51,7 +52,7 @@ permalink: /resume
 ### 计算机作家
 
 - 优秀的归纳总结和文字写作能力，十年间出版了8部技术专著，撰写过2部开源文档，口碑和销量均得到业内认可，其中四本书在豆瓣上获得了9.0分或以上的评价。
-  - 2021年 《[凤凰架构：构筑可靠的大型软件系统]()》（计划2021年5月出版）
+  - 2021年 《[凤凰架构：构筑可靠的大型软件系统]()》（2021年5月出版）
   - 2020年 《[软件架构探索：The Fenix Project](https://icyfenix.cn/)》 （开源文档）
   - 2019年 《[深入理解Java虚拟机：JVM高级特性与最佳实践（第三版）](https://book.douban.com/subject/34907497/)》（评分 9.5）
   - 2018年 《[智慧的疆界：从图灵机到人工智能](https://book.douban.com/subject/30379536/)》（评分 9.1）
