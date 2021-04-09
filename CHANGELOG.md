@@ -4,9 +4,13 @@ permalink: /changelog
 
 # 更新日志
 
+### 2021年4月9日
+
+- 为极客时间课程写的结语：[程序员之路](/tricks/2021/geekbang.html)
+
 ### 2021年3月17日
 
-- 看到[JetBrains Projector](https://blog.jetbrains.com/blog/2021/03/11/projector-is-out/)正式发布了，对于重度依赖轻薄本甚至是Pad做终端的开发人员来说，是VSC Remote外的另一个选择。我在它的基础上做了个**一条命令**建立OpenJDK调试IDE的懒人包：
+- 看到[JetBrains Projector](https://blog.jetbrains.com/blog/2021/03/11/projector-is-out/)正式发布了，对于重度依赖轻薄本甚至是Pad做终端的开发人员来说，是VSC Remote外的另一个选择，正好在它的基础上做了个**一条命令**建立OpenJDK调试IDE的懒人包：
   - [OpenJDK with CLion懒人包](/tricks/2021/openjdk-for-dummies/)
   - [https://github.com/fenixsoft/openjdk-for-dummies](https://github.com/fenixsoft/openjdk-for-dummies)
 

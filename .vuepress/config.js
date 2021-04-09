@@ -417,6 +417,7 @@ module.exports = {
             collapsable: false,
             children: [
               '/tricks/2021/openjdk-for-dummies/',
+              '/tricks/2021/geekbang.md',
             ]
           },
         ]
