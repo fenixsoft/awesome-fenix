@@ -5,7 +5,7 @@
 本小节内容是由这些工程的README.md文件同步而来，由于未经过持续集成工具自动处理，所以可能有偶尔更新不一致的情况，如可能，建议到这些项目的GitHub页面上查看最新情况。
 
 - 文档工程：
-  - 软件架构探索：[https://icyfenix.cn](https://icyfenix.cn)
+  - 凤凰架构：[https://icyfenix.cn](https://icyfenix.cn)
   - Vuepress支持的文档工程：[https://github.com/fenixsoft/awesome-fenix](https://github.com/fenixsoft/awesome-fenix)
 - 前端工程：
   - Mock.js支持的纯前端演示：[https://bookstore.icyfenix.cn](https://bookstore.icyfenix.cn)

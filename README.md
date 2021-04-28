@@ -71,7 +71,7 @@
 - **运行技术演示工程**：笔者专门在探索起步中的“<a href="https://icyfenix.cn/exploration/projects/">技术演示工程</a>”详细介绍了配套工程的使用方法，如果你对构建运行环境也有所疑问，在附录中的“<a href="https://icyfenix.cn/appendix/deployment-env-setup/">环境依赖</a>”部分也已包括了详细的环境搭建步骤。此外，这些配套工程也均有使用 Travis-CI 提供的持续集成服务，自动输出到 Docker 镜像库，如果你只关心运行效果，或只想了解部分运维方面的知识，可以直接运行 Docker 镜像而无需关心代码部分。你可以通过下面所列的地址，查看到本文档所有工程代码和在线演示的地址：
 
   - 文档工程：
-    - 软件架构探索：[https://icyfenix.cn](https://icyfenix.cn)
+    - 凤凰架构：[https://icyfenix.cn](https://icyfenix.cn)
     - Vuepress 支持的文档工程：[https://github.com/fenixsoft/awesome-fenix](https://github.com/fenixsoft/awesome-fenix)
   - 前端工程：
     - Mock.js 支持的纯前端演示：[https://bookstore.icyfenix.cn](https://bookstore.icyfenix.cn)
