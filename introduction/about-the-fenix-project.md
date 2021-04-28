@@ -1,4 +1,4 @@
-# 什么是“The Fenix Project”
+# 什么是“凤凰架构”
 
 “Phoenix”这个词东方人不常用，但在西方的软件工程读物——尤其是关于Agile、DevOps话题的作品中时常出现。软件工程小说《[The Phoenix Project](https://book.douban.com/subject/20644908/)》讲述了徘徊在死亡边缘的Phoenix项目在精益方法下浴火重生的故事；马丁·福勒（Martin Fowler）对《[Continuous Delivery](https://book.douban.com/subject/4327796/)》的诠释里，曾多次提到“[Phoenix Server](https://martinfowler.com/bliki/PhoenixServer.html)”（取其能够“涅槃重生”之意）与“[Snowflake Server](https://martinfowler.com/bliki/SnowflakeServer.html)”（取其“世界上没有相同的两片雪花”之意）的优劣比对。也许是东西方的文化的差异，尽管有“失败是成功之母”这样的谚语，但我们东方人的骨子里更注重的还是一次把事做对做好，尽量别出乱子；而西方人则要“更看得开”一些，把出错看做正常甚至是必须的发展过程，只要出了问题能够兜底使其重回正轨便好。
 
@@ -46,7 +46,7 @@ Anything that can go wrong will go wrong.<br/>如果事情可能出错就总会�
 
 流水不腐，有老朽，有消亡，有重生，有更迭才是生态运行的合理规律。请设想一下，如果你的系统中每个部件都符合“Phoenix”的特性，哪怕其中某些部件采用了由极不靠谱的人员所开发的极不靠谱程序代码，哪怕存有严重的内存泄漏问题，最多只能服务三分钟就一定会崩溃。而即便这样，只要在整体架构设计有恰当的、自动化的错误熔断、服务淘汰和重建的机制，在系统外部来观察，整体上仍然有可能表现出稳定和健壮的服务能力。
 
-## The Fenix Project
+## 凤凰架构
 
 在企业软件开发的历史中，一项新技术发布时，常有伴以该技术开发的”宠物店（PetStore）”作为演示的传统（如[J2EE PetStore](https://www.oracle.com/technetwork/java/petstore1-3-1-02-139690.html)、[.NET PetShop](https://archive.codeplex.com/?p=petshopmvc)、[Spring PetClinic](https://github.com/spring-projects/spring-petclinic)等等）。作为不同架构风格的演示时，笔者本也希望能遵循此传统，却无奈从来没养过宠物，遂改行开了书店（Fenix's Bookstore），里面出售了几本笔者撰写过的书籍，算是夹带一点私货，同时也避免了使用素材时可能的版权问题。
 
@@ -54,5 +54,5 @@ Anything that can go wrong will go wrong.<br/>如果事情可能出错就总会�
 
 也算是缘分，网名“IcyFenix”在二十多年前我的中学时代开始使用，最初它是来源于暴雪公司的即时战略游戏《星际争霸》的Protoss英雄[Fenix](https://starcraft.fandom.com/wiki/Fenix)——如名字所预示的那样，他曾经是Zealot，牺牲后以Dragoon的形式重生，带领Protoss与刀锋女王Kerrigan继续抗争。尽管中学时期我已经笃定自己未来肯定会从事信息技术相关的工作，但显然不可能预计到二十年后我会写下这些文字。
 
-所以，既然我们要开始一段关于“Phoenix”的代码与故事，那便叫它“The Fenix Project”，如何？
+所以，既然我们要开始一段关于“Phoenix”的架构讨论与代码实践，那便叫它“凤凰架构”，如何？
 

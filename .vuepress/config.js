@@ -1,6 +1,6 @@
 module.exports = {
-  title: '软件架构探索：The Fenix Project',
-  description: '现代软件架构探索',
+  title: '凤凰架构',
+  description: '​构筑可靠的大型分布式系统',
   head: [
     ['link', {rel: 'shortcut icon', type: "image/x-icon", href: `/favicon.ico`}]
   ],
