@@ -135,7 +135,8 @@ module.exports = {
         collapsable: false,
         children: [
           '/introduction/about-me',
-          '/introduction/about-the-fenix-project'
+          '/introduction/about-book',
+          '/introduction/about-the-fenix-project',
         ]
       }, {
         title: '探索起步',
