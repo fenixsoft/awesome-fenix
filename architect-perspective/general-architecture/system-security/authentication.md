@@ -1,4 +1,4 @@
-# 认证 
+# 认证
 
 ::: tip 认证（Authentication）
 
@@ -47,7 +47,7 @@ HTTP认证框架提出认证方案是希望能把认证“要产生身份凭证�
 
 <mermaid style="margin-bottom: 0px">
 sequenceDiagram
-	客户端->>+服务端: GET /admin 
+	客户端->>+服务端: GET /admin
 	服务端-->>-客户端: 401 Unauthorized （WWW-Authenticate）
 	客户端->>客户端: Ask user
 	客户端->>+服务端: GET /admin（Authorization）
@@ -129,7 +129,7 @@ WebAuthn规范涵盖了“注册”与“认证”两大流程，先来介绍注
 
 <mermaid style="margin-bottom: 0px">
 sequenceDiagram
-    用户->>+浏览器: 访问登陆页面 
+    用户->>+浏览器: 访问登陆页面
     浏览器->>+服务器: HTTP Request
     服务器-->>-浏览器: HTTP Response
     浏览器->>-用户: 登陆页面
@@ -161,7 +161,7 @@ sequenceDiagram
 
 WebAuthn采用非对称加密的公钥、私钥替代传统的密码，这是非常理想的认证方案，私钥是保密的，只有验证器需要知道它，连用户本人都不需要知道，也就没有人为泄漏的可能；公钥是公开的，可以被任何人看到或存储。公钥可用于验证私钥生成的签名，但不能用来签名，除了得知私钥外，没有其他途径能够生成可被公钥验证为有效的签名，这样服务器就可以通过公钥是否能够解密来判断最终用户的身份是否合法。
 
-WebAuthn还一揽子地解决了传统密码在网络传输上的风险，在“[保密](/architect-perspective/general-architecture/system-security/confidentiality.html)”一节中我们会讲到无论密码是否客户端进行加密、如何加密，对防御中间人攻击来说都是没有意义的。更值得夸赞的是WebAuthn为登录过程带来极大的便捷性，不仅注册和验证的用户体验十分优秀，而且彻底避免了用户在一个网站上泄漏密码，所有使用相同密码的网站都收到攻击的问题，这个优点使得用户无须再为每个网站想不同的密码。
+WebAuthn还一揽子地解决了传统密码在网络传输上的风险，在“[保密](/architect-perspective/general-architecture/system-security/confidentiality.html)”一节中我们会讲到无论密码是否客户端进行加密、如何加密，对防御中间人攻击来说都是没有意义的。更值得夸赞的是WebAuthn为登录过程带来极大的便捷性，不仅注册和验证的用户体验十分优秀，而且彻底避免了用户在一个网站上泄漏密码，所有使用相同密码的网站都受到攻击的问题，这个优点使得用户无须再为每个网站想不同的密码。
 
 当前的WebAuthn还很年轻，普及率暂时还很有限，但笔者相信几年之内它必定会发展成Web认证的主流方式，被大多数网站和系统所支持。
 

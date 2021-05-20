@@ -23,7 +23,7 @@ public static void main(String[] args) {
 
 1. **传递方法参数**：将字符串`helloworld`的引用地址压栈。
 2. **确定方法版本**：根据`println()`方法的签名，确定其执行版本。这其实并不是一个简单的过程，不论是编译时静态解析也好，是运行时动态分派也好，总之必须根据某些语言规范中明确定义原则，找到明确的`Callee`，“明确”是指唯一的一个`Callee`，或者有严格优先级的多个`Callee`，譬如不同的重载版本。笔者曾在《[深入理解Java虚拟机](https://book.douban.com/subject/34907497/)》中用一整章篇幅介绍该过程，有兴趣的读者可以参考，这里就不赘述了。
-3.  **执行被调方法**：从栈中弹出`Parameter`的值或引用，以此为输入，执行`Callee`内部的逻辑；这里我们只关心方法如何调用的，不关心方法内部具体是如何执行的。 
+3.  **执行被调方法**：从栈中弹出`Parameter`的值或引用，以此为输入，执行`Callee`内部的逻辑；这里我们只关心方法如何调用的，不关心方法内部具体是如何执行的。
 4. **返回执行结果**：将`Callee`的执行结果压栈，并将程序的指令流恢复到`Call Site`的下一条指令，继续向下执行。
 
 我们再来考虑如果`println()`方法不在当前进程的内存地址空间中，会发生什么问题。不难想到，此时至少面临两个直接的障碍：首先，第一步和第四步所做的传递参数、传回结果都依赖于栈内存的帮助，如果`Caller`与`Callee`分属不同的进程，就不会拥有相同的栈内存，将参数在`Caller`进程的内存中压栈，对于Callee进程的执行毫无意义。其次，第二步的的方法版本选择依赖于语言规则的定义，如果`Caller`与`Callee`不是同一种语言实现的程序，方法版本选择就将是一项模糊的不可知行为。
@@ -31,9 +31,9 @@ public static void main(String[] args) {
 为了简化讨论，我们暂时忽略第二个障碍，假设`Caller`与`Callee`是使用同一种语言实现的，先来解决两个进程之间如何交换数据的问题，这件事情在计算机科学中被称为“[进程间通信](https://en.wikipedia.org/wiki/Inter-process_communication)”（Inter-Process Communication，IPC）。可以考虑的办法有以下几种。
 
 - **管道**（Pipe）或者**具名管道**（Named Pipe）：管道类似于两个进程间的桥梁，可通过管道在进程间传递少量的字符流或字节流。普通管道只用于有亲缘关系进程（由一个进程启动的另外一个进程）间的通信，具名管道摆脱了普通管道没有名字的限制，除具有管道所有的功能外，它还允许无亲缘关系进程间的通信。管道典型的应用就是命令行中的`|`操作符，譬如：
-  
+
   ```bash
-  ps -ef | grep java 
+  ps -ef | grep java
   ```
   `ps`与`grep`都有独立的进程，以上命令就通过管道操作符`|`将`ps`命令的标准输出连接到`grep`命令的标准输入上。
 - **信号**（Signal）：信号用于通知目标进程有某种事件发生，除了用于进程间通信外，进程还可以发送信号给进程自身。信号的典型应用是`kill`命令，譬如：
@@ -77,7 +77,7 @@ public static void main(String[] args) {
 在20世纪80年代初期，传奇的[施乐Palo Alto研究中心](https://en.wikipedia.org/wiki/PARC_(company))发布了基于Cedar语言的RPC框架Lupine，并实现了世界上第一个基于RPC的商业应用Courier，这里施乐PARC所定义的“远程服务调用”的概念就是完全符合以上对RPC的结论的，所以，尽管此前已经有用其他名词指代“调用远程服务”这种操作，一般仍认为RPC的概念最早是由施乐公司所提出的。
 
 :::quote 额外知识：首次提出远程服务调用的定义
-Remote procedure call is the synchronous language-level transfer of control between programs in disjoint address spaces whose primary communication medium is a narrow channel. 
+Remote procedure call is the synchronous language-level transfer of control between programs in disjoint address spaces whose primary communication medium is a narrow channel.
 
 远程服务调用是指位于互不重合的内存地址空间中的两个程序，在语言层面上，以同步的方式使用带宽有限的信道来传输程序控制信息。
 
@@ -93,7 +93,7 @@ Remote procedure call is the synchronous language-level transfer of control betw
 
 20世纪80年代中后期，惠普和Apollo提出了[网络运算架构](https://en.wikipedia.org/wiki/Network_Computing_System)（Network Computing Architecture，NCA）的设想，并随后在[DCE项目](https://en.wikipedia.org/wiki/Distributed_Computing_Environment)中将其发展成在UNIX系统下的远程服务调用框架[DCE/RPC](https://zh.wikipedia.org/wiki/DCE/RPC)，笔者曾经在“[原始分布式时代](/architecture/architect-history/primitive-distribution.html)”中介绍过DEC，这是历史上第一次对分布式有组织的探索尝试，由于DEC本身是基于UNIX操作系统的，所以DEC/RPC通常也仅适合于UNIX系统程序之间使用（微软COM/DCOM的前身[MS RPC](https://en.wikipedia.org/wiki/Microsoft_RPC)算是DCE的一种变体版本，如果把这些派生版算进去的话就要普适一些）。在1988年，Sun Microsystems起草并向[互联网工程任务组](https://en.wikipedia.org/wiki/Internet_Engineering_Task_Force)（Internet Engineering Task Force，IETF）提交了[RFC 1050](https://tools.ietf.org/html/rfc1050)规范，此规范中设计了一套面向于广域网或混合网络环境的、基于TCP/IP的、支持C语言的RPC协议，后被称为[ONC RPC](https://en.wikipedia.org/wiki/Open_Network_Computing_Remote_Procedure_Call)（Open Network Computing RPC，也被称为Sun RPC），这两套RPC协议就算是如今各种RPC协议和框架的鼻祖了，从它们开始，直至接下来这几十年来所有流行过的RPC协议，都不外乎变着花样使用各种手段来解决以下三个基本问题：
 
-- **如何表示数据**：这里数据包括了传递给方法的参数，以及方法执行后的返回值。无论是将参数传递给另外一个进程，还是从另外一个进程中取回执行结果，都涉及到它们应该如何表示。进程内的方法调用，使用程序语言预置的和程序员自定义的数据类型，就很容易解决数据表示问题，远程方法调用则完全可能面临交互双方各自使用不同程序语言的情况；即使只支持一种程序语言RPC协议，在不同硬件指令集、不同操作系统下，同样的数据类型也完全可能有不一样表现细节，譬如数据宽度、字节序的差异等等。有效的做法是将交互双方所涉及的数据转换为某种事先约定好的中立数据流格式来进行传输，将数据流转换回不同语言中对应的数据类型来进行使用，这个过程说起来拗口，但相信大家一定很熟悉，就是序列化与反序列化。每种RPC协议都应该要有对应的序列化协议，譬如：
+- **如何表示数据**：这里数据包括了传递给方法的参数，以及方法执行后的返回值。无论是将参数传递给另外一个进程，还是从另外一个进程中取回执行结果，都涉及到它们应该如何表示。进程内的方法调用，使用程序语言预置的和程序员自定义的数据类型，就很容易解决数据表示问题，远程方法调用则完全可能面临交互双方各自使用不同程序语言的情况；即使只支持一种程序语言的RPC协议，在不同硬件指令集、不同操作系统下，同样的数据类型也完全可能有不一样表现细节，譬如数据宽度、字节序的差异等等。有效的做法是将交互双方所涉及的数据转换为某种事先约定好的中立数据流格式来进行传输，将数据流转换回不同语言中对应的数据类型来进行使用，这个过程说起来拗口，但相信大家一定很熟悉，就是序列化与反序列化。每种RPC协议都应该要有对应的序列化协议，譬如：
   - ONC RPC的[External Data Representation](https://en.wikipedia.org/wiki/External_Data_Representation) （XDR）
   - CORBA的[Common Data Representation](https://en.wikipedia.org/wiki/Common_Data_Representation)（CDR）
   - Java RMI的[Java Object Serialization Stream Protocol](https://docs.oracle.com/javase/8/docs/platform/serialization/spec/protocol.html#a10258)

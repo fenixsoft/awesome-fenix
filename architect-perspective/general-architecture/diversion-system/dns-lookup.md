@@ -32,9 +32,9 @@ DNS系统多级分流的设计使得DNS系统能够经受住全球网络流量�
 专门有一种被称为“[DNS预取](https://en.wikipedia.org/wiki/Link_prefetching)”（DNS Prefetching）的前端优化手段用来避免这类问题：如果网站后续要使用来自于其他域的资源，那就在网页加载时生成一个link请求，促使浏览器提前对该域名进行预解释，譬如下面代码所示：
 
 ```html
-<link rel="dns-prefetch" href="//domain.not-icyfenx.cn">  
+<link rel="dns-prefetch" href="//domain.not-icyfenx.cn">
 ```
 
 而另一种可能更严重的缺陷是DNS的分级查询意味着每一级都有可能受到中间人攻击的威胁，产生被劫持的风险。要攻陷位于递归链条顶层的（譬如根域名服务器，cn权威服务器）服务器和链路是非常困难的，它们都有很专业的安全防护措施。但很多位于递归链底层或者来自本地运营商的Local DNS服务器的安全防护则相对松懈，甚至不少地区的运行商自己就会主动进行劫持，专门返回一个错的IP，通过在这个IP上代理用户请求，以便给特定类型的资源（主要是HTML）注入广告，以此牟利。
 
-为此，最近几年出现了另一种新的DNS工作模式：[HTTPDNS](https://en.wikipedia.org/wiki/DNS_over_HTTPS)（也称为DNS over HTTPS，DoH）。它将原本的DNS解析服务开放为一个基于HTTPS协议的查询服务，替代基于UDP传输协议的DNS域名解析，通过程序代替操作系统直接从权威DNS或者可靠Local DNS获取解析数据，从而绕过传统Local DNS。这种做法的好处是完全免去了“中间商赚差价”的环节，不再惧怕底层的域名劫持，能够有效避免Local DNS不可靠导致的域名生效缓慢、来源IP不准确、产生的智能线路切换错误等问题。
+为此，最近几年出现了另一种新的DNS工作模式：[HTTPDNS](https://en.wikipedia.org/wiki/DNS_over_HTTPS)（也称为DNS over HTTPS，DoH）。它将原本的DNS解析服务开放为一个基于HTTPS协议的查询服务，替代基于UDP传输协议的DNS域名解析，通过程序代替操作系统直接从权威DNS或者可靠的Local DNS获取解析数据，从而绕过传统Local DNS。这种做法的好处是完全免去了“中间商赚差价”的环节，不再惧怕底层的域名劫持，能够有效避免Local DNS不可靠导致的域名生效缓慢、来源IP不准确、产生的智能线路切换错误等问题。

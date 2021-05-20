@@ -6,7 +6,7 @@
 
 :::
 
-在第五章“[架构安全性](/architect-perspective/general-architecture/system-security/)”里，我们了解过那些跟具体架构形式无关的、业界主流的安全概念和技术标准（稍后就会频繁用到的TLS、JWT、OAuth 2等概念）；上一节“[零信任网络](/distribution/secure/zero-trust.html)”里，我们探讨了与微服务运作特点相适应的零信任安全模型。本节里，我们将从实践和编码的角度出发，介绍在前微服务时代（[以Spring Cloud为例](https://github.com/fenixsoft/microservice_arch_springcloud)）和云原生时代（[以Kubernetes with Istio为例](https://github.com/fenixsoft/servicemesh_arch_istio)）分别是如何实现安全传输、认证和授权的，通过这两者的对比，探讨在微服务架构下，应如何将业界的安全技术标准引入并实际落地，实现零信任网络下安全的服务访问。
+在第五章“[架构安全性](/architect-perspective/general-architecture/system-security/)”里，我们了解过那些跟具体架构形式无关的、业界主流的安全概念和技术标准（稍后就会频繁用到的TLS、JWT、OAuth 2等概念）；上一节“[零信任网络](/distribution/secure/zero-trust.html)”里，我们探讨了与微服务运作特点相适应的零信任安全模型。本节里，我们将从实践和编码的角度出发，介绍在前微服务时代（[以Spring Cloud为例](https://github.com/fenixsoft/microservice_arch_springcloud)）和云原生时代（[以Istio over Kubernetes为例](https://github.com/fenixsoft/servicemesh_arch_istio)）分别是如何实现安全传输、认证和授权的，通过这两者的对比，探讨在微服务架构下，应如何将业界的安全技术标准引入并实际落地，实现零信任网络下安全的服务访问。
 
 ## 建立信任
 
@@ -68,7 +68,7 @@ public ClientCredentialsResourceDetails clientCredentialsResourceDetails() {
 }
 ```
 
-由于每一个微服务都同时具有服务端和客户端两种身份，既消费其他服务，也提供服务供别人消费，所以这些代码在每个微服务中都应有包含（放在公共infrastructure工程里）。Spring Security提供的过滤器会自动拦截请求，驱动认证、授权检查的执行，申请和验证JWT令牌等操作无论在开发期对程序员，还是运行期对用户都能做到相对透明。尽管如此，以上做法仍然是一种应用层面的、不加密传输的解决方案。前文提到在零信任网络中，面对可能的中间人攻击，TLS是唯一可行的办法，言下之意是即使应用层的认证能一定程度上保护服务不被身份不明的客户端越权调用，但对传输过程中内容被监听、篡改、以及被攻击者在传输途中拿到JWT令牌后去再冒认调用者身份调用其他服务都是无法防御的。简而言之，这种方案不适用于零信任安全模型，只能在默认内网节点间具备信任关系的边界安全模型上才能良好工作。
+由于每一个微服务都同时具有服务端和客户端两种身份，既消费其他服务，也提供服务供别人消费，所以这些代码在每个微服务中都应有包含（放在公共infrastructure工程里）。Spring Security提供的过滤器会自动拦截请求、驱动认证、授权检查的执行，申请和验证JWT令牌等操作无论在开发期对程序员，还是运行期对用户都能做到相对透明。尽管如此，以上做法仍然是一种应用层面的、不加密传输的解决方案。前文提到在零信任网络中，面对可能的中间人攻击，TLS是唯一可行的办法，言下之意是即使应用层的认证能一定程度上保护服务不被身份不明的客户端越权调用，但对传输过程中内容被监听、篡改、以及被攻击者在传输途中拿到JWT令牌后去再冒认调用者身份调用其他服务都是无法防御的。简而言之，这种方案不适用于零信任安全模型，只能在默认内网节点间具备信任关系的边界安全模型上才能良好工作。
 
 ### 用户认证
 

@@ -6,7 +6,7 @@
 
 <mermaid style="margin: -15px 0 -40px 0">
 graph LR
-	User("用户账户") --> Proxy("交易服务器") 
+	User("用户账户") --> Proxy("交易服务器")
 	Business("商家账户") --> Proxy
 	Warehouse("商品仓库") --> Proxy
 	Proxy --> Database("数据库 ")
@@ -20,5 +20,5 @@ graph LR
 
 在日常开发中，上述方案还存在一类更为常见的变种形式：使用消息队列服务器的来代替交易服务器，用户、商家、仓库的服务操作业务时，通过消息将所有对数据库的改动传送到消息队列服务器，通过消息的消费者来统一处理，实现由本地事务保障的持久化操作。这被称作“[单个数据库的消息驱动更新](https://www.infoworld.com/article/2077963/distributed-transactions-in-spring--with-and-without-xa.html)”（Message-Driven Update of a Single Database）。
 
-“共享事务”的提法和这里所列的两种处理方式在实际应用中并不常见，鲜有采用这种方式的成功案例，能够查询到的资料几乎都发源于十余年前Spring的核心开发者[Dave Syer](https://spring.io/team/dsyer)撰写的文章《[Distributed Transactions in Spring, with and without XA](https://www.infoworld.com/article/2077963/distributed-transactions-in-spring--with-and-without-xa.html)》。笔者把共享事务列为本章四种事务类型之一只是为了叙述逻辑的完备，尽管拆分微服务后仍然共享数据库的情况在现实中并不少见，但笔者个人不赞同将共享事务作为一种常规的解决方案来考量。
+“共享事务”的提法和这里所列的两种处理方式在实际应用中并不值得提倡，鲜有采用这种方式的成功案例，能够查询到的资料几乎都发源于十余年前Spring的核心开发者[Dave Syer](https://spring.io/team/dsyer)撰写的文章《[Distributed Transactions in Spring, with and without XA](https://www.infoworld.com/article/2077963/distributed-transactions-in-spring--with-and-without-xa.html)》。笔者把共享事务列为本章四种事务类型之一只是为了叙述逻辑的完备，尽管拆分微服务后仍然共享数据库的情况在现实中并不少见，但笔者个人不赞同将共享事务作为一种常规的解决方案来考量。
 

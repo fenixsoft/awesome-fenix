@@ -25,7 +25,7 @@ permalink: /changelog
 
 ### 2020年11月18日
 
-- 文档在极客时间上的音频公开课：[构筑可靠的大型软件系统](https://time.geekbang.org/opencourse/intro/100064201)。
+- 文档在极客时间上的音频公开课：[构建可靠的大型分布式系统](https://time.geekbang.org/opencourse/intro/100064201)。
 
 ### 2020年10月18日
 

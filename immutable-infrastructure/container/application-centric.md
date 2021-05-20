@@ -248,7 +248,7 @@ Operator将简洁的高级指令转化为Kubernetes中具体操作的方法，�
 
 使用CRD定义高层次资源、使用配套的控制器来维护期望状态，带来的好处不仅仅是“高级指令”的便捷，而是遵循Kubernetes一贯基于资源与控制器的设计原则的同时，又不必再受制于Kubernetes内置资源的表达能力。只要Operator的开发者愿意编写代码，前面曾经提到那些StatfulSet不能支持的能力，如备份恢复数据、创建删除索引、调整平衡策略等操作，都完全可以实现出来。
 
-把运维的操作封装在程序代码上，表面看最大的受益者是运维人员，开发人员要为此付出更多劳动。然而Operator并没有被开发者抵制，让它变得小众，反而由于代码相对于资源配置的表达能力提升，让开发与运维之间的协作成本降低而备受开发者的好评。Operator变成了近两、三年容器封装应用的一股新潮流，现在很多复杂分布式系统都有了官方或者第三方提供的Operator（[这里收集了一部分](https://github.com/operator-framework/awesome-operators)）。RedHat公司也持续在Operator上面大量投入，推出了简化开发人员编写Operator的[Operator Framework/SDK](https://github.com/operator-framework/operator-sdk)。
+把运维的操作封装在程序代码上，表面看最大的受益者是运维人员，开发人员要为此付出更多劳动。然而Operator并没有受到开发人员的抵制，让它变得小众，反而由于代码相对于资源配置的表达能力提升，让开发与运维之间的协作成本降低而备受开发者的好评。Operator变成了近两、三年容器封装应用的一股新潮流，现在很多复杂分布式系统都有了官方或者第三方提供的Operator（[这里收集了一部分](https://github.com/operator-framework/awesome-operators)）。RedHat公司也持续在Operator上面大量投入，推出了简化开发人员编写Operator的[Operator Framework/SDK](https://github.com/operator-framework/operator-sdk)。
 
 目前看来，应对有状态应用的封装运维，Operator也许是最有可行性的方案，但这依然不是一项轻松的工作。以[Etcd的Operator](https://github.com/coreos/etcd-operator)为例，Etcd本身不算什么特别复杂的应用，Operator实现的功能看起来也相当基础，主要有创建集群、删除集群、扩容缩容、故障转移、滚动更新、备份恢复等功能，其代码就已经超过一万行了。现在开发Operator的确还是有着相对较高的门槛，通常由专业的平台开发者而非业务开发或者运维人员去完成，但是Operator符合技术潮流，顺应软件业界所提倡的DevOps一体化理念，等Operator的支持和生态进一步成熟之后，开发和运维都能从中受益，未来应该能成长为一种应用封装的主流形式。
 

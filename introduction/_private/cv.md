@@ -45,7 +45,7 @@ permalink: /resume
 ### 计算机作家
 
 - 有优秀的归纳总结和文字写作能力，十年间出版了8部技术专著，撰写过2部开源文档，口碑和销量均得到业内认可，其中四本书在豆瓣上获得了9.0分或以上的评价。
-  - 2021年 《[凤凰架构：构筑可靠的大型软件系统](https://icyfenix.cn/introduction/about-book.html)》（2021年6月出版）
+  - 2021年 《[凤凰架构：构建可靠的大型软件系统](https://icyfenix.cn/introduction/about-book.html)》（2021年6月出版）
   - 2020年 《[软件架构探索：The Fenix Project](https://icyfenix.cn/)》 （开源文档）
   - 2019年 《[深入理解Java虚拟机：JVM高级特性与最佳实践（第三版）](https://book.douban.com/subject/34907497/)》（评分 9.5）
   - 2018年 《[智慧的疆界：从图灵机到人工智能](https://book.douban.com/subject/30379536/)》（评分 9.1）
