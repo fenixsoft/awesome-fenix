@@ -6,7 +6,7 @@ permalink: /changelog
 
 ### 2021年5月24日
 
-- 关于纸质书的[介绍页面](/introduction/about-book.html)
+- 增加了纸质书的[介绍页面](/introduction/about-book.html)
 
 ### 2021年4月9日
 
