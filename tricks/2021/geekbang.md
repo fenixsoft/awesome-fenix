@@ -2,7 +2,7 @@
 
 :::tip 音频公开课
 
-本文是为[极客时间架构公开课](https://time.geekbang.org/opencourse/intro/100064201)撰写的结束语：[《程序员之路》](https://time.geekbang.org/opencourse/intro/100064201)
+本文是为[极客时间架构公开课](https://time.geekbang.org/opencourse/intro/100064201)撰写的结束语：[《程序员之路》](https://time.geekbang.org/column/article/369228)
 
 :::
 

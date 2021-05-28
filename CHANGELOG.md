@@ -4,6 +4,10 @@ permalink: /changelog
 
 # 更新日志
 
+### 2021年5月24日
+
+- 关于纸质书的[介绍页面](/introduction/about-book.html)
+
 ### 2021年4月9日
 
 - 为极客时间课程写的结语：[程序员之路](/tricks/2021/geekbang.html)
