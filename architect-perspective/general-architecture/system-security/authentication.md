@@ -109,7 +109,7 @@ IETF为HTTP认证框架设计了可插拔（Pluggable）的认证方案，原本
 
 2019年3月，万维网联盟（World Wide Web Consortium，W3C）批准了由[FIDO](https://fidoalliance.org/)（Fast IDentity Online，一个安全、开放、防钓鱼、无密码认证标准的联盟）领导起草的世界首份Web内容认证的标准“[WebAuthn](https://webauthn.io/)”（在这节里，我们只讨论WebAuthn，不会涉及CTAP、U2F和UAF），这里也许又有一些思维严谨的读者会感到矛盾与奇怪，不是才说了Web表单长什么样、要不要验证码、登录表单是否在客户端校验等等是十分具体的需求，不太可能定义在规范上的吗？确实如此，所以WebAuthn彻底抛弃了传统的密码登录方式，改为直接采用生物识别（指纹、人脸、虹膜、声纹）或者实体密钥（以USB、蓝牙、NFC连接的物理密钥容器）来作为身份凭证，从根本上消灭了用户输入错误产生的校验需求和防止机器人模拟产生的验证码需求等问题，甚至可以省掉表单界面，所以这个规范不关注界面该是什么样子、要不要验证码、是否要前端校验这些问题。
 
-由于WebAuthn相对复杂，在阅读下面内容之前，如果你的设备和环境允许，建议先在[GitHub网站的2FA认证功能](https://github.blog/2019-08-21-github-supports-webauthn-for-security-keys/)中实际体验一下如何通过WebAuthn完成两段式登录，再继续阅读后面的内容。硬件方面，要求用带有TouchBar的MacBook，或者其他支持指纹、FaceID验证的手机（目前在售的移动设备基本都带有生物识别装置）。软件方面，直至iOS 13.6，iPhone和iPad仍未支持WebAuthn，但Android和Mac OS系统中的Chrome，以及Windows的Edge浏览器都已经可以正常使用WebAuthn了。图5-3展示了使用WebAuthn登录不同浏览器的操作界面。
+由于WebAuthn相对复杂，在阅读下面内容之前，如果你的设备和环境允许，建议先在[GitHub网站的2FA认证功能](https://github.blog/2019-08-21-github-supports-webauthn-for-security-keys/)中实际体验一下如何通过WebAuthn完成两段式登录，再继续阅读后面的内容。硬件方面，要求用带有Touch ID的MacBook，或者其他支持指纹、FaceID验证的手机（目前在售的移动设备基本都带有生物识别装置）。软件方面，直至iOS 13.6，iPhone和iPad仍未支持WebAuthn，但Android和Mac OS系统中的Chrome，以及Windows的Edge浏览器都已经可以正常使用WebAuthn了。图5-3展示了使用WebAuthn登录不同浏览器的操作界面。
 
 :::center
 ![](./images/webauthen.png)
@@ -120,7 +120,7 @@ WebAuthn规范涵盖了“注册”与“认证”两大流程，先来介绍注
 
 1. 用户进入系统的注册页面，这个页面的格式、内容和用户注册时需要填写的信息均不包含在WebAuthn标准的定义范围内。
 2. 当用户填写完信息，点击“提交注册信息”的按钮后，服务端先暂存用户提交的数据，生成一个随机字符串（规范中称为Challenge）和用户的UserID（在规范中称作凭证ID），返回给客户端。
-3. 客户端的WebAuthn API接收到Challenge和UserID，把这些信息发送给验证器（Authenticator），验证器可理解为用户设备上TouchBar、FaceID、实体密钥等认证设备的统一接口。
+3. 客户端的WebAuthn API接收到Challenge和UserID，把这些信息发送给验证器（Authenticator），验证器可理解为用户设备上TouchID、FaceID、实体密钥等认证设备的统一接口。
 4. 验证器提示用户进行验证，如果支持多种认证设备，还会提示用户选择一个想要使用的设备。验证的结果是生成一个密钥对（公钥和私钥），由验证器存储私钥、用户信息以及当前的域名。然后使用私钥对Challenge进行签名，并将签名结果、UserID和公钥一起返回客户端。
 5. 浏览器将验证器返回的结果转发给服务器。
 6. 服务器核验信息，检查UserID与之前发送的是否一致，并用公钥解密后得到的结果与之前发送的Challenge相比较，一致即表明注册通过，由服务端存储该UserID对应的公钥。
