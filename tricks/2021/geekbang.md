@@ -6,9 +6,9 @@
 
 :::
 
-先感谢你与我一同学完了这部60余讲、30多万字的课程，经过这几个月时间的对微服务、分布式、云原生等话题的学习讨论，估计现在听到这些词汇你也挺累了。在结束语中，我们来聊一点与技术相关，又不局限于具体技术的话题。
+先感谢你与我一同学完了这部 60 余讲、30 多万字的课程，经过这几个月时间的对微服务、分布式、云原生等话题的学习讨论，估计现在听到这些词汇你也挺累了。在结束语中，我们来聊一点与技术相关，又不局限于具体技术的话题。
 
-原本编辑小姐姐是给了我一篇名为《架构之路没有终点》的命题作文，我想“架构之路”或许多少有一点狭隘，因为并不见得这门课程每一位同学现在或者将来就会成为架构师，但我相信收听这们课程的同学，现在、将来或者至少过去曾经是一名程序员，所以，我们还是来聊一聊“程序员之路”吧。 
+原本编辑小姐姐是给了我一篇名为《架构之路没有终点》的命题作文，我想“架构之路”或许多少有一点狭隘，因为并不见得这门课程每一位同学现在或者将来就会成为架构师，但我相信收听这们课程的同学，现在、将来或者至少过去曾经是一名程序员，所以，我们还是来聊一聊“程序员之路”吧。
 
 ## 程序员的发展观
 
@@ -28,7 +28,7 @@
 
 久而久之，你对代码、技术、产品状态与团队研发状态的理解，渐渐和团队成员产生了偏差错位，丧失了细节上给予指导的能力，丧失了专业问题上提出接地气解决方案的能力，只能在无法“Show me the code”短期难以校验对错的大战略方向提意见，在会议、流程及团队管理措施上下功夫，在职业经理人式的宣讲与汇报上寻找存在感，此刻，你便从团队的导师变成了管理者，最终你与团队的关系，从携手并肩奋斗的伙伴，完全演变成只能靠公司制度与管理职位的权力来维系雇佣关系。
 
-:::quote 《架构整洁之道》，第15章
+:::quote 《架构整洁之道》，第 15 章
 Software architects are the best programmers, and they continue to take programming tasks. Software architects may not write as much code as other programmers do, but they continue to engage in programming tasks. They do this because they cannot do their jobs properly if they are not experiencing the problems that they are creating for the rest of the programmers.
 
 软件架构师本身就是最好的程序员，他们会一直编写代码，虽然可能不会像其他程序员输出的代码量那样多，但是只有持续地编程，才能确保他们遇见其他程序员所面对的问题，体会其他程序员心中的感受，因此如果不编程，他们亦将无法胜任软件架构这项工作。
@@ -36,12 +36,11 @@ Software architects are the best programmers, and they continue to take programm
 —— [Robert C. Martin](https://en.wikipedia.org/wiki/Robert_C._Martin), 《[Clean Architecture](https://book.douban.com/subject/30333919/)》, 2018
 :::
 
-我很清楚在目前的IT业界，只有少量极客文化浓厚的公司会允许少量高端程序员以“[独立贡献者](https://www.indeed.com/career-advice/finding-a-job/what-is-an-individual-contributor)（Individual Contributor）”的角色做到高端的职位，绝大多数企业都还是“技而优则仕”，去做管理或者做战略方向的务虚工作，往往是由屁股决定的问题而非由脑袋决定的问题。
+我很清楚在目前的 IT 业界，只有少量极客文化浓厚的公司会允许少量高端程序员以“[独立贡献者](https://www.indeed.com/career-advice/finding-a-job/what-is-an-individual-contributor)（Individual Contributor）”的角色做到高端的职位，绝大多数企业都还是“技而优则仕”，去做管理或者做战略方向的务虚工作，往往是由屁股决定的问题而非由脑袋决定的问题。
 
 我也相信假如能够轻松地做好技术，没有人愿意随便放弃。我所听过的离开技术一线最常见的原因是“年纪大了，时间不够用了”或要“聚焦精力去做管理了”。对这种现象我的看法是：确实很难轻松地做好技术，但是做在好技术工作的前提下，却有可能较为轻松地做好架构和管理工作。
 
 我自己也是一名架构师和管理者，在作自我介绍的场合，用的头衔却从来都是“[兼职一些管理工作的程序员](https://time.geekbang.org/opencourse/detail/100067401)”，这是一种人设标签。如果你问我为什么管理几十人、几百人的团队的同时，还能抽出时间去编码、去写作、去关注具体的细节与技术的潮流发展，我会理所当然地回答“因为我是一名程序员”啊。这句话的第一层意思是，我是程序员，去编码是天经地义的。另一层意思是，我是程序员，与一群最讲道理、最直来直往、最不需要琢磨小心思的程序员协同工作，管理才不需要耗费太多的精力，因此“兼职管理”才是可行的。
-
 
 ## 程序员的价值观
 
