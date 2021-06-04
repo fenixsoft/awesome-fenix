@@ -6,7 +6,7 @@
 
 kube-apiserver在Kubernetes Control Panel中的作用是管理资源，管理的含义是开放出一系列的[Kubernetes API](https://kubernetes.io/docs/concepts/overview/kubernetes-api/)，提供对资源的操作提供认证、授权、CRUD等接口，供Agent和其他组件使用。可以认为是各个模块的数据交互和通信的枢纽。
 
-这些接口的变动最终都会存储到后端的Etcd中（K3S中默认是被Kind代理的SQLIte），kube-apiserver是Kubernetes中直接与Etcd打交道的组件。
+这些接口的变动最终都会存储到后端的 Etcd 中（K3S中默认是被Kind代理的SQLIte），kube-apiserver是Kubernetes中直接与Etcd打交道的组件。
 
 在kube-apiserver中，API资源一共有四类，分别是：
 

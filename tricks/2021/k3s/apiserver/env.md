@@ -75,7 +75,7 @@
 
    5. 启动Agent，转入`pkg/agent/run.go::Run()`，详见“[K3S启动Agent的环境准备]()”
 
-3. 启动服务器的环境准备：`pkg/server/server.go::StartServer()`，这里要包括Etcd（或基于Kine包装的代替品）、APIServer等一系列服务。
+3. 启动服务器的环境准备：`pkg/server/server.go::StartServer()`，这里要包括 Etcd（或基于Kine包装的代替品）、APIServer等一系列服务。
 
    1. 建立临时目录，以及设定对K3S管理的地址加入NOPROXY环境变量，避免受外部代理的干扰
 
