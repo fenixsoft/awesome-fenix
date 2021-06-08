@@ -11,7 +11,7 @@
 
 JTA 原本是 Java EE 中的技术，一般情况下应该由 JBoss、WebSphere、WebLogic 这些 Java EE 容器来提供支持，但现在[Bittronix](https://web.archive.org/web/20100414140721/http://docs.codehaus.org/display/BTM/Home)、[Atomikos](http://www.atomikos.com/Main/TransactionsEssentials)和[JBossTM](http://www.jboss.org/jbosstm)（以前叫 Arjuna）都以 JAR 包的形式实现了 JTA 的接口，称为 JOTM（Java Open Transaction Manager），使得我们能够在 Tomcat、Jetty 这样的 Java SE 环境下也能使用 JTA。
 
-现在，我们对本章的[场景事例](/architect-perspective/general-architecture/transaction/)做另外一种假设：如果书店的用户、商家、仓库分别处于不同的数据库中，其他条件仍与之前相同，那情况会发生什么变化呢？加入你平时以声明式事务来编码，那它与本地事务看起来可能没什么区别，都是标个`@Transactional`注解而已，但如果以编程式事务来实现的话，就能在写法上看出差异，伪代码如下所示：
+现在，我们对本章的[场景事例](/architect-perspective/general-architecture/transaction/)做另外一种假设：如果书店的用户、商家、仓库分别处于不同的数据库中，其他条件仍与之前相同，那情况会发生什么变化呢？假如你平时以声明式事务来编码，那它与本地事务看起来可能没什么区别，都是标个`@Transactional`注解而已，但如果以编程式事务来实现的话，就能在写法上看出差异，伪代码如下所示：
 
 ```java
 public void buyBook(PaymentBill bill) {
