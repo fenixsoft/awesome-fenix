@@ -1,5 +1,3 @@
-# 凤凰架构：构建可靠的大型分布式系统
-
 <GitHubWrapper>
 <p align="center">
 	<br/>
