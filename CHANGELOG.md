@@ -4,6 +4,11 @@ permalink: /changelog
 
 # 更新日志
 
+### 2021 年 6 月 17 日
+
+- 将储备的运维Shell脚本用Golang重新实现了一下，整理成了一个开源项目：[Fenix-CLI](/tricks/2021/fenix-cli)
+  - Fenix-CLI是一个云原生运行环境命令行客户端，目标是替代Kubernetes的`kubectl`、Docker的`docker cli`和Istio的`istioctl`命令行工具，提供具备一致性的、便捷的交互式的操作环境。
+
 ### 2021 年 5 月 24 日
 
 - 增加了纸质书的[介绍页面](/introduction/about-book.html)
