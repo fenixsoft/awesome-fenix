@@ -4,10 +4,16 @@ permalink: /changelog
 
 # 更新日志
 
+### 2021年6月21日
+
+- 更新了《[凤凰架构：构建可靠的大型分布式系统](/introduction/about-book.html)》的纸质书的[豆瓣评价](https://book.douban.com/subject/35492898/)，以及在[京东](https://search.jd.com/Search?keyword=%E5%87%A4%E5%87%B0%E6%9E%B6%E6%9E%84)、[当当](http://search.dangdang.com/?key=%B7%EF%BB%CB%BC%DC%B9%B9&)等网店的销售连接。
+- 衷心感谢在本书撰写过程中，各位读者在本站的建议、意见、讨论、勘误指正与鼓励支持。
+
 ### 2021 年 6 月 17 日
 
-- 将储备的运维Shell脚本用Golang重新实现了一下，整理成了一个开源项目：[Fenix-CLI](/tricks/2021/fenix-cli)
+- 发布一个开源项目：[Fenix-CLI](/tricks/2021/fenix-cli)
   - Fenix-CLI是一个云原生运行环境命令行客户端，目标是替代Kubernetes的`kubectl`、Docker的`docker cli`和Istio的`istioctl`命令行工具，提供具备一致性的、便捷的交互式的操作环境。
+  - https://github.com/fenixsoft/fenix-cli
 
 ### 2021 年 5 月 24 日
 

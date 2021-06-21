@@ -39,7 +39,7 @@ HTTP 的强制缓存对一致性处理的策略就如它的名字一样，十分
   Cache-Control 在客户端的请求 Header 或服务器的响应 Header 中都可以存在，它定义了一系列的参数，且允许自行扩展（即不在标准 RFC 协议中，由浏览器自行支持的参数），其标准的参数主要包括有：
 
   - **max-age**和**s-maxage**：max-age 后面跟随一个以秒为单位的数字，表明相对于请求时间（在 Date Header 中会注明请求时间）多少秒以内缓存是有效的，资源不需要重新从服务器中获取。相对时间避免了 Expires 中采用的绝对时间可能受客户端时钟影响的问题。s-maxage 中的“s”是“Share”的缩写，意味“共享缓存”的有效时间，即允许被 CDN、代理等持有的缓存有效时间，用于提示 CDN 这类服务器应在何时让缓存失效。
-  - **public**和**private**：指明是否涉及到用户身份的私有资源，如果是 public，着可以被代理、CDN 等缓存，如果是 private，着只能由用户的客户端进行私有缓存。
+  - **public**和**private**：指明是否涉及到用户身份的私有资源，如果是 public，则可以被代理、CDN 等缓存，如果是 private，则只能由用户的客户端进行私有缓存。
   - **no-cache**和**no-store**：no-cache 指明该资源不应该被缓存，哪怕是同一个会话中对同一个 URL 地址的请求，也必须从服务端获取，令强制缓存完全失效，但此时下一节中的协商缓存机制依然是生效的；no-store 不强制会话中相同 URL 资源的重复获取，但禁止浏览器、CDN 等以任何形式保存该资源。
   - **no-transform**：禁止资源被任何形式地修改。譬如，某些 CDN、透明代理支持自动 GZip 压缩图片或文本，以提升网络性能，而 no-transform 就禁止了这样的行为，它要求 Content-Encoding、Content-Range、Content-Type 均不允许进行任何形式的修改。
   - **min-fresh**和**only-if-cached**：这两个参数是仅用于客户端的请求 Header。min-fresh 后续跟随一个以秒为单位的数字，用于建议服务器能返回一个不少于该时间的缓存资源（即包含 max-age 且不少于 min-fresh 的数字）。only-if-cached 表示客户端要求不必给它发送资源的具体内容，此时客户端就仅能使用事先缓存的资源来进行响应，若缓存不能命中，就直接返回 503/Service Unavailable 错误。
@@ -85,7 +85,7 @@ HTTP 的强制缓存对一致性处理的策略就如它的名字一样，十分
   HTTP/1.1 200 OK
   Cache-Control: public, max-age=600
   ETag: "28c3f612-ceb0-4ddc-ae35-791ca840c5fa"
-
+  
   Content
   ```
 

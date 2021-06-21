@@ -167,12 +167,21 @@ $ sudo systemctl enable kubelet
 接下来使用 su 直接切换到 root 用户（而不是使用 sudo），然后使用以下命令开始部署：
 
 ```bash
-$ kubeadm init --kubernetes-version v1.17.3 --pod-network-cidr=10.244.0.0/16
+$ kubeadm init \
+  --pod-network-cidr=10.244.0.0/16 \
+  --kubernetes-version v1.17.3 \
+  --control-plane-endpoint <USE_DOMAIN_NOT_IP>
 ```
 
-这里使用`--kubernetes-version`参数（要注意版本号与 kubelet 一致）的原因与前面预拉取是一样的，避免额外的网络访问；另外一个参数`--pod-network-cidr`着在稍后介绍完 CNI 网络插件时会去说明。
+这里解释一下使用这几个参数的原因：
 
-当看到下面信息之后，说明集群主节点已经安装完毕了。
+`--kubernetes-version`参数（要注意版本号与 kubelet 一致）的目的是与前面预拉取是一样的，避免额外的网络访问去查询版本号；如果能够科学上网，不需要加这个参数。
+
+`--pod-network-cidr`参数是给Flannel网络做网段划分使用的，着在稍后介绍完 CNI 网络插件时会去说明。
+
+`--control-plane-endpoint`参数是控制面的地址，强烈建议使用一个域名代替直接的IP地址来建立Kubernetes集群。因为CA证书直接与地址相关，Kubernetes中诸多配置（配置文件、ConfigMap资源）也直接存储了这个地址，一旦更换IP，要想要不重置集群，手工换起来异常麻烦。所以最好使用hostname（仅限单节点实验）或者dns name。
+
+命令执行完毕，当看到下面信息之后，说明集群主节点已经安装完毕了。
 
 :::center
 ![](./images/kubernetes-initialized.png)

@@ -1,6 +1,9 @@
 # Fenix-CLI：交互式云原生客户端
 
-<a href="https://travis-ci.com/fenixsoft/awesome-fenix" target="_blank" style="display:inline-block" class="not-print"><img src="https://api.travis-ci.com/fenixsoft/awesome-fenix.svg?branch=master" alt="Travis-CI"></a> <a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/Author-IcyFenix-blue.svg" alt="About Author"></a> <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/License-Apache.svg" alt="License"></a> <a href="https://github.com/fenixsoft/fenix-cli/releases" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/Release-v1.svg" alt="License"></a>
+<a href="https://travis-ci.com/fenixsoft/fenix-cli" target="_blank" style="display:inline-block" class="not-print"><img src="https://api.travis-ci.com/fenixsoft/fenix-cli.svg?branch=main" alt="Travis-CI"></a>
+<a href="https://icyfenix.cn/introduction/about-me.html" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/Author-IcyFenix-blue.svg" alt="About Author"></a>
+<a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/License-Apache.svg" alt="License"></a>
+<a href="https://github.com/fenixsoft/fenix-cli/releases" target="_blank" style="display:inline-block"><img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/Release-v1.svg" alt="License"></a>
 
 Fenix-CLI是一款交互式的云原生运行环境客户端，目标是取代Docker的`docker cli`、Kubernetes的`kubectl`以及Istio的`istioctl`等命令行工具，提供具备操作一致性、具有额外指令增强、支持智能感知的交互式的终端界面。
 
@@ -53,10 +56,18 @@ Fenix-CLI是一款交互式的云原生运行环境客户端，目标是取代Do
 - 自动安装：通过以下脚本，自动安装最新版的Fenix-CLI：
 
    ```bash
-   curl -L https://icyfenix.cn/fenix-cli/dl.sh | sh -
+   curl -sL https://icyfenix.cn/fenix-cli/dl.sh | sh -
    ```
 
 - 手动安装：如需其他版本，可在[GitHub Release](https://github.com/fenixsoft/fenix-cli/releases)页面获取Fenix-CLI的可执行文件。
+
+- 使用：安装后输入`fenix-cli`进行使用
+
+   ```bash
+   fenix-cli
+   ```
+
+- Fenix-CLI仅支持Linux操作系统
 
 ## 规划
 
