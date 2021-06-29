@@ -37,7 +37,7 @@
 
 ## 数据链路层负载均衡
 
-参考上面 OSI 模型的表格，数据链路层传输的内容是数据帧（Frame），譬如以常见的太网帧、ADSL 宽带的 PPP 帧等。我们讨论的具体上下文里，目标必定就是以太网帧了，按照[IEEE 802.3](https://en.wikipedia.org/wiki/IEEE_802.3)标准，最典型的 1500 Bytes MTU 的以太网帧结构如表 4-2 所示。
+参考上面 OSI 模型的表格，数据链路层传输的内容是数据帧（Frame），譬如常见的以太网帧、ADSL 宽带的 PPP 帧等。我们讨论的具体上下文里，目标必定就是以太网帧了，按照[IEEE 802.3](https://en.wikipedia.org/wiki/IEEE_802.3)标准，最典型的 1500 Bytes MTU 的以太网帧结构如表 4-2 所示。
 
 :::center
 
