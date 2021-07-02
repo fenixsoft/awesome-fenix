@@ -32,7 +32,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
-          folder: vuepress/dist
+          folder: .vuepress/dist
 
       - name: Refresh CDN
         run: npm run deoply:refresh-cdn
