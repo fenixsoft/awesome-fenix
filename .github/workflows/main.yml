@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ./awesome-fenix
+        working-directory: /home/runner/work/awesome-fenix/awesome-fenix
     strategy:
       matrix:
         node-version: [14.x]
