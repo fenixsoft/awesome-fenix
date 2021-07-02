@@ -27,11 +27,6 @@ jobs:
           npm install
           npm run build
           echo "icyfenix.cn" >> .vuepress/dist/CNAME
-          sudo apt-get update
-          sudo apt-get -y install xfonts-utils fonts-droid-fallback xfonts-intl-asian
-          sudo cp .vuepress/font/*.* /usr/share/fonts/truetype/
-          sudo mkfontscale && mkfontdir && fc-cache
-          npm run export
 
       - name: Deploy Github-Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
