@@ -9,9 +9,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: /home/runner/work/awesome-fenix/awesome-fenix
     strategy:
       matrix:
         node-version: [14.x]
@@ -28,11 +25,10 @@ jobs:
         run: |
           export TZ='Asia/Shanghai'
           npm install
-          echo "icyfenix.cn" >> .vuepress/dist/CNAME
-          echo "Starting to Export PDF..."
+          echo "icyfenix.cn" >> /home/runner/work/awesome-fenix/awesome-fenix/.vuepress/dist/CNAME
           sudo apt-get update
           sudo apt-get -y install xfonts-utils fonts-droid-fallback xfonts-intl-asian
-          sudo cp .vuepress/font/*.* /usr/share/fonts/truetype/
+          sudo cp /home/runner/work/awesome-fenix/awesome-fenix/.vuepress/font/*.* /usr/share/fonts/truetype/
           sudo mkfontscale && mkfontdir && fc-cache
           npm run export
 
