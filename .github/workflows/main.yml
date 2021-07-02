@@ -1,0 +1,39 @@
+name: Generate Github-Pages from markdown files
+
+on:
+  push:
+    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: export TZ='Asia/Shanghai'
+      - run: npm install
+      - run: echo "icyfenix.cn" >> .vuepress/dist/CNAME
+        # 以下为编译PDF，耗时较长，可以考虑注释掉，手工触发
+      - run: echo "Starting to Export PDF..."
+      - run: sudo apt-get update
+      - run: sudo apt-get -y install xfonts-utils fonts-droid-fallback xfonts-intl-asian
+      - run: sudo cp .vuepress/font/*.* /usr/share/fonts/truetype/
+      - run: sudo mkfontscale && mkfontdir && fc-cache
+      - run: npm run export
+      - name: Deploy Github-Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: vuepress/dist
+      - name: Refresh CDN
+        run: npm run deoply:refresh-cdn
