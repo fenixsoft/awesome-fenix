@@ -150,7 +150,7 @@ CDN 获取源站资源的过程被称为“内容分发”，“内容分发网�
 - 状态缓存：第一节介绍客户端缓存时简要提到了状态缓存，CDN 不仅可以缓存源站的资源，还可以缓存源站的状态，譬如源站的 301/302 转向就可以缓存起来让客户端直接跳转、还可以通过 CDN 开启[HSTS](https://es.wikipedia.org/wiki/HTTP_Strict_Transport_Security)、可以通过 CDN 进行[OCSP 装订](https://zh.wikipedia.org/wiki/OCSP%E8%A3%85%E8%AE%A2)加速 SSL 证书访问，等等。有一些情况下甚至可以配置 CDN 对任意状态码（譬如 404）进行一定时间的缓存，以减轻源站压力，但这个操作应当慎重，在网站状态发生改变时去及时刷新缓存。
 - 修改资源：CDN 可以在返回资源给用户的时候修改它的任何内容，以实现不同的目的。譬如，可以对源站未压缩的资源自动压缩并修改 Content-Encoding，以节省用户的网络带宽消耗、可以对源站未启用客户端缓存的内容加上缓存 Header，自动启用客户端缓存，可以修改[CORS](https://developer.mozilla.org/zh-CN/docs/Glossary/CORS)的相关 Header，将源站不支持跨域的资源提供跨域能力，等等。
 - 访问控制：CDN 可以实现 IP 黑/白名单功能，根据不同的来访 IP 提供不同的响应结果，根据 IP 的访问流量来实现 QoS 控制、根据 HTTP 的 Referer 来实现防盗链，等等。
-- 注入功能：CDN 可以在不修改源站代码的前提下，为源站注入各种功能，为源站注入各种功能，图 4-7 是国际 CDN 巨头 CloudFlare 提供的 Google Analytics、PACE、Hardenize 等第三方应用，在 CDN 下均能做到无须修改源站任何代码即可使用。
+- 注入功能：CDN 可以在不修改源站代码的前提下，为源站注入各种功能，图 4-7 是国际 CDN 巨头 CloudFlare 提供的 Google Analytics、PACE、Hardenize 等第三方应用，在 CDN 下均能做到无须修改源站任何代码即可使用。
   :::center
   ![](./images/cloudflare.gif)
   图 4-7 CloudFlare 提供的第三方应用
