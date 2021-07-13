@@ -81,7 +81,8 @@
     },
     methods: {
       checkUpdate: function (page) {
-        return page.update <= Math.max(this.updateDays, this.showDays);
+        return false
+        //return page.update <= Math.max(this.updateDays, this.showDays);
       },
       getTitle: function (page) {
         try {
