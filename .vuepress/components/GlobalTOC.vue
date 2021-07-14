@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="level===0" class="updateInfo not-print">
+    <!-- div v-if="level===0" class="updateInfo not-print">
       标记显示出
       <select style="height: 23px;" v-model="updateDays">
         <option value="0" selected>当天</option>
@@ -11,7 +11,7 @@
         <option value="99999">全部</option>
       </select>
       内更新的内容
-    </div>
+    </div -->
     <ol>
       <li v-for="page in information">
         <span v-if="page.links != null">
