@@ -13,7 +13,7 @@ permalink: /changelog
 
 - 发布一个开源项目：[Fenix-CLI](/tricks/2021/fenix-cli)
   - Fenix-CLI是一个云原生运行环境命令行客户端，目标是替代Kubernetes的`kubectl`、Docker的`docker cli`和Istio的`istioctl`命令行工具，提供具备一致性的、便捷的交互式的操作环境。
-  - https://github.com/fenixsoft/fenix-cli
+  - [https://github.com/fenixsoft/fenix-cli](https://github.com/fenixsoft/fenix-cli)
 
 ### 2021 年 5 月 24 日
 

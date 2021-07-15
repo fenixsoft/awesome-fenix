@@ -136,7 +136,7 @@ HTTP/1.1 200 OK
 得到了医生空闲的结果后，我觉得 14:00 的时间比较合适，于是进行预约确认，并提交了我的基本信息：
 
 ```http
-POST /appointmentService?action=comfirm HTTP/1.1
+POST /appointmentService?action=confirm HTTP/1.1
 
 {
 	appointment: {date: "2020-03-04", start:"14:00", doctor: "mjones"},
