@@ -1,6 +1,6 @@
 module.exports = {
   title: '凤凰架构',
-  description: '​构筑可靠的大型分布式系统',
+  description: '构建可靠的大型分布式系统',
   head: [
     ['link', {rel: 'shortcut icon', type: "image/x-icon", href: `/favicon.ico`}]
   ],
@@ -45,6 +45,7 @@ module.exports = {
         choosen: 'gitalk',
         options: {
           clientID: 'acf59fc06b2cf691903d',
+          // 如果你对"clientSecret"有疑问,可以参考 http://icyfenix.cn/architect-perspective/general-architecture/system-security/authorization.html#oauth2
           clientSecret: '4cbf25bbf327f1164627d2ab43263b07b14c54fe',
           repo: 'awesome-fenix',
           owner: 'fenixsoft',
