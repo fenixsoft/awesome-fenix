@@ -131,7 +131,7 @@ Clusters and their workloads keep growing, and since the scheduler’s workload 
 图 14-1 状态共享的双循环
 :::
 
-状态共享的双循环”中第一个控制循环可被称为“Informer Loop”，它是一系列[Informer](https://godoc.org/k8s.io/client-go/informers)的集合，这些 Informer 持续监视 Etcd 中与调度相关资源（主要是 Pod 和 Node）的变化情况，一旦 Pod、Node 等资源出现变动，就会触发对应 Informer 的 Handler。Informer Loop 的职责是根据 Etcd 中的资源变化去更新调度队列（Priority Queue）和调度缓存（Scheduler Cache）中的信息，譬如当有新 Pod 生成，就将其入队（Enqueue）到调度队列中，如有必要，还会根据优先级触发上一节提到的插队和抢占操作。又譬如有新的节点加入集群，或者已有节点资源信息发生变动，Informer 也会将这些信息更新同步到调度缓存之中。
+状态共享的双循环中第一个控制循环可被称为“Informer Loop”，它是一系列[Informer](https://godoc.org/k8s.io/client-go/informers)的集合，这些 Informer 持续监视 Etcd 中与调度相关资源（主要是 Pod 和 Node）的变化情况，一旦 Pod、Node 等资源出现变动，就会触发对应 Informer 的 Handler。Informer Loop 的职责是根据 Etcd 中的资源变化去更新调度队列（Priority Queue）和调度缓存（Scheduler Cache）中的信息，譬如当有新 Pod 生成，就将其入队（Enqueue）到调度队列中，如有必要，还会根据优先级触发上一节提到的插队和抢占操作。又譬如有新的节点加入集群，或者已有节点资源信息发生变动，Informer 也会将这些信息更新同步到调度缓存之中。
 
 另一个控制循环可被称为“Scheduler Loop”，它的核心逻辑是不停地将调度队列中的 Pod 出队（Pop），然后使用 Predicate 算法进行节点选择。Predicate 本质上是一组节点过滤器（Filter），它根据预设的过滤策略来筛选节点，Kubernetes 中默认有三种过滤策略，分别是：
 
