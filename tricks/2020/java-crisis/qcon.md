@@ -95,7 +95,7 @@ Object Identity / Memory Layout
 
 :::
 
-编译器的确在努力减少内存访问，从 JDK 6 起，HotSpot 的即时编译器就尝试通过[逃逸分析](https://en.wikipedia.org/wiki/Escape_analysis)来做标量替换（Scalar Replacement）和栈上分配（Stack Allocations）优化，基本原理是如果能通过分析，得知一个对象不会传递到方法之外，那就不需要真实地在对中创建完整的对象布局，完全可以绕过对象标识符，将它拆散为基本的原生数据类型来创建，甚至是直接在栈内存中分配空间（HotSpot 并没有这样做），方法执行完毕后随着栈帧一起销毁掉。
+编译器的确在努力减少内存访问，从 JDK 6 起，HotSpot 的即时编译器就尝试通过[逃逸分析](https://en.wikipedia.org/wiki/Escape_analysis)来做标量替换（Scalar Replacement）和栈上分配（Stack Allocations）优化，基本原理是如果能通过分析，得知一个对象不会传递到方法之外，那就不需要真实地在内存中创建完整的对象布局，完全可以绕过对象标识符，将它拆散为基本的原生数据类型来创建，甚至是直接在栈内存中分配空间（HotSpot 并没有这样做），方法执行完毕后随着栈帧一起销毁掉。
 
 不过，逃逸分析是一种[过程间优化](https://en.wikipedia.org/wiki/Interprocedural_optimization)（Interprocedural Optimization），非常耗时，也很难处理那些理论有可能但实际不存在的情况。相同的问题在 C、C++中却并不存在，上面场景中，程序员只要将 Point 和 Line 都定义为 struct 即可，C#中也有 struct，是依靠.NET 的值类型（Value Type）来实现的，Valhalla 项目的核心改进就是提供类似的值类型支持，提供一个新的关键字（inline），让用户可以在不需要向方法外部暴露对象、不需要多态性支持、不需要将对象用作同步锁的场合中，将类标识为值类型，此时编译器就能够绕过对象标识符，以平坦的、紧凑的方式去为对象分配内存。
 

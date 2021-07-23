@@ -23,9 +23,9 @@ RBAC 模型在业界中有多种说法，其中以美国 George Mason 大学信�
 
 <mermaid>
 graph LR
-    User("用户（User）") --隶属--> Role("角色（Role）") 
-    Role --拥有-->Permission("许可（Permission）") 
-    Permission --操作-->Resource("资源（Resource）") 
+    User("用户（User）") --隶属--> Role("角色（Role）")
+    Role --拥有-->Permission("许可（Permission）")
+    Permission --操作-->Resource("资源（Resource）")
 </mermaid>
 
 :::center
@@ -56,11 +56,11 @@ RBAC 还允许对不同角色之间定义关联与约束，进一步强化它的
 
 <mermaid>
 graph LR
-    User("用户（User）") --隶属--> Role("角色（Role）") 
+    User("用户（User）") --隶属--> Role("角色（Role）")
     User --赋予--> Authority("权限（Authority）")
-    Role --拥有-->Permission("许可（Permission）") 
+    Role --拥有-->Permission("许可（Permission）")
     Authority --拥有--> Permission
-    Permission --操作-->Resource("资源（Resource）") 
+    Permission --操作-->Resource("资源（Resource）")
 </mermaid>
 
 :::center
@@ -136,7 +136,7 @@ sequenceDiagram
 	操作代理 ->> 第三方应用: 转向回调地址
 	第三方应用 ->>+ 授权服务器: 将授权码发回给授权服务器，换取访问令牌
 	授权服务器 -->>- 第三方应用: 给予访问令牌
-	opt  资源访问过程 
+	opt  资源访问过程
 		第三方应用 ->>+ 资源服务器: 提供访问令牌
 		资源服务器 -->>- 第三方应用: 提供返回资源
 		第三方应用 -->> 资源所有者: 返回对资源的处理给用户
@@ -188,7 +188,7 @@ sequenceDiagram
 
 :::
 
-在时序图所示的交互过程里，隐式模式与授权码模式的显著区别是授权服务器在得到用户授权后，直接返回了访问令牌，这显著地降低了安全性，但 OAuth2 仍然努力尽可能地做到相对安全，譬如在前面提到的隐私授权中，尽管不需要用到服务端，但仍然需要在注册时提供回调域名，此时会要求该域名与接受令牌的服务处于同一个域内。此外，同样基于安全考虑，在隐私模式中明确禁止发放刷新令牌。
+在时序图所示的交互过程里，隐式模式与授权码模式的显著区别是授权服务器在得到用户授权后，直接返回了访问令牌，这显著地降低了安全性，但 OAuth2 仍然努力尽可能地做到相对安全，譬如在前面提到的隐私授权中，尽管不需要用到服务端，但仍然需要在注册时提供回调域名，此时会要求该域名与接受令牌的服务处于同一个域内。此外，同样基于安全考虑，在隐式模式中明确禁止发放刷新令牌。
 
 还有一点，在 RFC 6749 对隐式授权的描述中，特别强调了令牌必须是“通过 Fragment 带回”的。部分对超文本协议没有了解的读者，可能还根本不知道[Fragment](https://en.wikipedia.org/wiki/URI_fragment)是个什么东西？
 
