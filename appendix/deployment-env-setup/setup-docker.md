@@ -157,7 +157,7 @@ $ sudo systemctl restart docker
  Main PID: 21151 (code=exited, status=1/FAILURE)
 ```
 
-如果是，修改 daemon.json 后重新启动即可。另，关闭 systemd 服务的方法是：
+如果是，修改 daemon.json 后重新启动即可。另外，关闭 systemd 服务的方法是：
 
 ```bash
 $ sudo systemctl stop docker
