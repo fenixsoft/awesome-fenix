@@ -12,9 +12,9 @@ permalink: /resume
 <center style="margin-top: 0"><h1>周志明 Felix</h1></center>
 
 <center style="line-height: 24px; color: #666; font-size: 14px; word-break: keep-all;">
-18826210400 | <a href="icyfenix@gmail.com">icyfenix@gmail.com</a> | 1983年 | 广东省（深圳、广州、珠海、东莞）<br/>
+<a href="icyfenix@gmail.com">icyfenix@gmail.com</a> | 1983年 | 广东省（深圳、广州、珠海、东莞）<br/>
 企业级应用、开发平台、云原生基础设施、互联网应用、架构设计、技术布道<br/>
-<a href="https://icyfenix.cn" target="_blank">https://icyfenix.cn</a> | <a href="https://github.com/fenixsoft" target="_blank">https://github.com/fenixsoft</a> | <a href="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/introduction/_private/resume.pdf">PDF</a><br/>
+<a href="https://icyfenix.cn" target="_blank">https://icyfenix.cn</a> | <a href="https://github.com/fenixsoft" target="_blank">https://github.com/fenixsoft</a>
 </center>
 
 ## 个人总结
@@ -65,27 +65,25 @@ permalink: /resume
 
 ## 工作经历
 
+### 华为技术限公司
+
+<p style="display:block; height: 24px; line-height: 24px; color: #666; font-size: 14px;">
+<span style="float:right">2021年7月  至今</span>
+<span style="float:left">质量与流程IT - 首席架构师（21级）</span>
+</p>
+<p style="clear: both;">
+华为技术有限公司是全球领先的信息与通信技术（ICT）解决方案供应商，2020年排名《财富》世界500强第49位。华为的产品和解决方案已经应用于全球170多个国家，服务全球运营商50强中的45家及全球1/3的人口。
+</p>
+
 ### 远光软件股份有限公司
 
 <p style="display:block; height: 24px; line-height: 24px; color: #666; font-size: 14px;">
-<span style="float:right">2006年-至今</span>
+<span style="float:right">2006年1月-2021年7月</span>
 <span style="float:left">副总经理，研究院院长（汇报对象为公司总裁）</span>
 </p>
 <p style="clear: both;">
-远光软件是国务院国资委控股的信息技术服务提供商，2006年于深交所上市（SZ:002063），规模约5000人，主营业务为面向大型集团企业的管理信息系统。<br/>我毕业进入公司后，曾担任过程序员、开发经理、研发部部门经理、设计部部门经理、平台部部门经理，现担任企业级产品线技术副总，兼任公司研究院院长。曾参与过多个国家级大型央企的信息化项目，负责研发过程中的管理和技术工作，并直接参与核心模块的开发和关键问题的解决。这些项目已累计为公司创造了逾百亿元收入，占全司历年总营收的75%以上，令集团企业信息化业务成为公司的核心业务。企业快速发展的同时，自身也在研发团队管理和技术研究面积累了丰富的实践经验。我参与的部分代表性的项目列举如下：
+远光软件是国务院国资委控股的信息技术服务提供商，2006年于深交所上市（SZ:002063），规模约5000人，主营业务为面向大型集团企业的管理信息系统。<br/>我毕业进入公司后，曾担任过程序员、开发经理、研发部部门经理、设计部部门经理、平台部部门经理，现担任企业级产品线技术副总，兼任公司研究院院长。曾参与过多个国家级大型央企的信息化项目，负责研发过程中的管理和技术工作，并直接参与核心模块的开发和关键问题的解决。这些项目已累计为公司创造了逾百亿元收入，占全司历年总营收的75%以上，令集团企业信息化业务成为公司的核心业务。企业快速发展的同时，自身也在研发团队管理和技术研究面积累了丰富的实践经验。
 </p>
-
-- 技术平台：
-  - [远光企业云（ECP）平台](https://www.ygsoft.com/Cloud/ECPPlatform.html)，2014-2018 年，为公司第三代技术平台，时任平台部总经理，是该平台的主要奠基人。ECP 平台是基于 Java、Spring Cloud、Netflix OSS 技术栈，运行于 Kubernetes 的 aPaaS 平台，为业务专家、技术专家提供一致的低代码开发环境与 DevOps 支持，为大型企业级系统在云计算、微服务环境下提供基础技术基座。
-  - [远光 GAP 开发平台]()，2008-2014 年，为公司第二代技术平台，时任开发经理，负责平台页面设计器（基于 JSF）和工作流引擎（分别基于 XPDL 和 BPMN）的研发。GAP 平台是基于 Java EE 技术栈，以 SOA 为设计思想的技术平台。
-- 企业信息系统：
-  - [国家电网公司 SG186/SGERP 工程](http://www.sgcio.com/interview/guandian/3505.html)-财务管控项目，2008-2014 年，期间历任开发经理、研发部副总、总经理。作为项目的主要技术负责人之一，负责项目整体的技术架构、两级部署架构的设计工作，带领技术团队，参与重难点问题的突破。
-  - [南方电网公司数字南网](https://shupeidian.bjx.com.cn/html/20190718/993684.shtml)-电网管理平台（计划财务域），2019-进行中，时任集团管理产品线技术副总，负责引导公司主要业务线的产品向云计算、微服务和国产化转型，向腾讯云（TSF）、阿里云（EDAS）和华为云（CSE）环境迁移。
-- 党务政务：
-  - [粤港澳湾区货物区块链跨境物流溯源管理系统](http://gdstc.gd.gov.cn/attachment/0/402/402305/3094436.pdf)，2020-进行中，为广东省资助的 2020 年度粤港澳科技合作项目，由澳门科技大学与远光软件联合承接，时任澳门科大-远光软件联合实验室主任，负责项目管理、合作方关系协调与产品开发工作。
-  - [九三学社"社员之家"平台](https://www.ygsoft.com/contents/news/1273.html)，2017-2019 年，时任电子党建事业部总经理，为产品第一负责人，曾代表公司向全国政协副主席、全国人大副委员长、九三学社中央主席、副主席等领导人汇报项目进展工作。
-- 其他：
-  - 在高端装备、军工、智慧能源、数字社会等领域也有不同程度的参与。
 
 ## 教育经历
 
