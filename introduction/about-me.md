@@ -12,9 +12,9 @@
 <hr style="height: 1px;  top: -14px; position: relative;" />
 
 - 程序员<br/>
-  职业是上市公司的高级管理人员，实际是一名兼职一些管理与研究工作的程序员。<br/>工作中主要从事大型企业级软件的研发；业余里对计算机科学相关的多个领域都有持续跟进。
+  兼职一些管理与研究工作的程序员，工作中主要从事大型企业级软件的研发；业余里对计算机科学相关的多个领域都有持续跟进。
 
-- 研究员<br/>理学博士，远光软件研究院院长，澳门科大-远光人工智能联合实验室主任，研究方向为机器学习自动化特征选择。
+- 研究员<br/>理学博士，曾担任远光软件研究院院长，澳门科大-远光人工智能联合实验室主任，研究方向为机器学习自动化特征选择。
 
 - 计算机技术作家<br/>出版过八部计算机技术书籍，撰写过两部开源文档，口碑和销量均得到业内认可。其中五本书在[豆瓣](https://www.douban.com/)上获得了 9.0 分及以上的评价，“深入理解 Java 虚拟机”系列重印超过 45 次，销量逾 35 万册。
   - 2021 年 《[凤凰架构：构建可靠的大型分布式系统](https://icyfenix.cn/introduction/about-book.html)》（豆瓣 9.6）
@@ -33,7 +33,7 @@
   - [腾讯云最有价值技术专家（TVP）](https://cloud.tencent.com/tvp/132)
   - [华为云最有价值技术专家（MVP）](https://developer.huaweicloud.com/mvp/member)
   - [IBM DeveloperWorks 撰稿人]()、[InfoQ.CN 专栏撰稿人](https://www.infoq.cn/profile/CD59DD20F93F11/publish)
-  - [极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[华章 25 周年公益课程讲师](https://xie.infoq.cn/article/36ec9efa0697377af0d043b1e)、[QCon 全球开发者大会明星讲师](https://qcon.infoq.cn/2020/shenzhen/)
+  - [极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[华章 25 周年公益课程讲师](https://xie.infoq.cn/article/36ec9efa0697377af0d043b1e)、[QCon 全球软件开发大会明星讲师](https://qcon.infoq.cn/2020/shenzhen/)
 
 <br/>
 
