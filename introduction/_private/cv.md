@@ -13,7 +13,7 @@ permalink: /resume
 
 <center style="line-height: 24px; color: #666; font-size: 14px; word-break: keep-all;">
 <a href="icyfenix@gmail.com">icyfenix@gmail.com</a> | 1983年 | 广东省（深圳、广州、珠海、东莞）<br/>
-企业级应用、开发平台、云原生基础设施、互联网应用、架构设计、技术布道<br/>
+企业级应用、开发平台、云原生基础设施、互联网应用、架构设setup-kubeadm.html计、技术布道<br/>
 <a href="https://icyfenix.cn" target="_blank">https://icyfenix.cn</a> | <a href="https://github.com/fenixsoft" target="_blank">https://github.com/fenixsoft</a>
 </center>
 

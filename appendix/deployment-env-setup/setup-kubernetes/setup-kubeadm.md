@@ -94,12 +94,6 @@ $ sudo cat /etc/fstab_bak | grep -v swap > /etc/fstab
 
 其次，由于 Kubernetes 与 Docker 默认的 cgroup（资源控制组）驱动程序并不一致，Kubernetes 默认为`systemd`，而 Docker 默认为`cgroupfs`。
 
-::: warning 更新信息
-
-从 1.18 开始，Kubernetes 默认的 cgroup 驱动已经[默认修改](https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/install-kubeadm/#configure-cgroup-driver-used-by-kubelet-on-control-plane-node)成`cgroupfs`了，这时候再进行改动反而又会不一致
-
-:::
-
 在这里我们要修改 Docker 或者 Kubernetes 其中一个的 cgroup 驱动，以便两者统一。根据官方文档《[CRI installation](https://kubernetes.io/docs/setup/cri/)》中的建议，对于使用 systemd 作为引导系统的 Linux 的发行版，使用 systemd 作为 Docker 的 cgroup 驱动程序可以服务器节点在资源紧张的情况表现得更为稳定。
 
 这里选择修改各个节点上 Docker 的 cgroup 驱动为`systemd`，具体操作为编辑（无则新增）`/etc/docker/daemon.json`文件，加入以下内容即可：
@@ -142,7 +136,7 @@ k8s.gcr.io/coredns:1.6.5
 
 这里必须使用`--kubernetes-version`参数指定具体版本，因为尽管每个版本需要的镜像信息在本地是有存储的，但如果不加的话，Kubernetes 将向远程 GCR 仓库查询最新的版本号，会因网络无法访问而导致问题。但加版本号的时候切记不能照抄上面的命令中的“v1.17.3”，应该与你安装的 kubelet 版本保持一致，否则在初始化集群控制平面的时候会提示控制平面版本与 kubectl 版本不符。
 
-得到这些镜像名称和 tag 后，可以从[DockerHub](https://hub.docker.com)上找存有相同镜像的仓库来拉取，至于具体哪些公开仓库有，考虑到以后阅读本文时 Kubernetes 的版本应该会有所差别，所以需要自行到网站上查询一下。笔者比较常用的是一个名为“anjia0532”的仓库，有机器人自动跟官方同步，相对比较及时。
+得到这些镜像名称和 tag 后，可以从[DockerHub](https://hub.docker.com)上找存有相同镜像的仓库来拉取，至于具体哪些公开仓库有，考虑到以后阅读本文时 Kubernetes 的版本应该会有所差别，所以需要自行到DockerHub网站上查询一下。
 
 ```bash
 #以k8s.gcr.io/coredns:1.6.5为例，每个镜像都要这样处理一次
@@ -170,7 +164,7 @@ $ sudo systemctl enable kubelet
 $ kubeadm init \
   --pod-network-cidr=10.244.0.0/16 \
   --kubernetes-version v1.17.3 \
-  --control-plane-endpoint <USE_DOMAIN_NOT_IP>
+  --apiserver-advertise-address <NET_INTERFACE_IP>
 ```
 
 这里解释一下使用这几个参数的原因：
@@ -179,7 +173,7 @@ $ kubeadm init \
 
 `--pod-network-cidr`参数是给Flannel网络做网段划分使用的，着在稍后介绍完 CNI 网络插件时会去说明。
 
-`--control-plane-endpoint`参数是控制面的地址，强烈建议使用一个域名代替直接的IP地址来建立Kubernetes集群。因为CA证书直接与地址相关，Kubernetes中诸多配置（配置文件、ConfigMap资源）也直接存储了这个地址，一旦更换IP，要想要不重置集群，手工换起来异常麻烦。所以最好使用hostname（仅限单节点实验）或者dns name。
+`--apiserver-advertise-address`参数是APIServer的IP地址，如果有多张物理网卡，建议指定明确的IP地址来建立Kubernetes集群。因为CA证书直接与地址相关，Kubernetes中诸多配置（配置文件、ConfigMap资源）也直接存储了这个地址，一旦更换IP，要想要不重置集群，手工换起来异常麻烦。
 
 命令执行完毕，当看到下面信息之后，说明集群主节点已经安装完毕了。
 
