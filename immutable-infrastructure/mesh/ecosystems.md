@@ -39,7 +39,7 @@ SMI 与 Kubernetes 是彻底绑定的，规范的落地执行完全依靠在 Kub
 
 ## 通用数据面 API
 
-同样是 2019 年 5 月，CNCF 创立了一个名为“通用数据平面 API 工作组”（Universal Data Plane API Working Group，UDPA-WG）的组织，工作目标是制定类似于软件定义网络中 OpenFlow 协议的数据平面交互标准。工作组的名字被敲定的那一刻，就已经决定了所产出的标准名字必定叫“通用数据平面 API”（Universal Data Plane API，UDPA）。
+同样是 2019 年 5 月，CNCF 创立了一个名为“通用数据平面 API 工作组”（Universal Data Plane API Working Group，UDAP-WG）的组织，工作目标是制定类似于软件定义网络中 OpenFlow 协议的数据平面交互标准。工作组的名字被敲定的那一刻，就已经决定了所产出的标准名字必定叫“通用数据平面 API”（Universal Data Plane API，UDPA）。
 
 如果不纠结于是否足够标准、是否由足够权威组织来制定的话，上一节介绍数据平面时提到的 Envoy xDS 协议族其实就已经完全满足了控制平面与数据平面交互的需要。事实上，Envoy 正是 UDPA-WG 工作组的主要成员，在 2019 年 11 月的 EnvoyCon 大会上，Envoy 的核心开发者、UDPA 的负责人之一，来自 Google 公司的 Harvey Tuch 做了一场以“[The Universal Dataplane API：Envoy’s Next Generation APIs](https://envoycon2019.sched.com/event/UxwL/the-universal-dataplane-api-udpa-envoys-next-generation-apis-harvey-tuch-google)”为题的演讲，详细而清晰地说明了 xDS 与 UDAP 之间的关系：UDAP 的研发就是基于 xDS 的经验为基础的，在未来 xDS 将逐渐向 UDPA 靠拢，最终将基于 UDPA 来实现。
 
@@ -48,9 +48,9 @@ SMI 与 Kubernetes 是彻底绑定的，规范的落地执行完全依靠在 Kub
 图 15-12 UDPA 规范与 xDS 协议融合时间表（[图片来源](https://envoycon2019.sched.com/event/UxwL/the-universal-dataplane-api-udpa-envoys-next-generation-apis-harvey-tuch-google)）
 :::
 
-图 15-12 是笔者在 Harvey Tuch 演讲 PPT 中截取的 UDPA 与 xDS 的融合时间表，在演讲中 Harvey Tuch 还提到了 xDS 协议的演进节奏会定为每年推出一个大版本、每个版本从发布到淘汰起要经历 Alpha、Stable、Deprecated、Removed 四个阶段、每个阶段持续一年时间，简单地说就是每个大版本 xDS 在被淘汰前会有三年的固定生命周期。基于 UDPA 的 xDS v4 API 原本计划会在 2020 年发布，进入 Alpha 阶段，不过，笔者写下这段文字的时间是 2020 年的 10 月中旬，已经可以肯定地说上面所列的计划必然破产，因为从目前公开的资料看来，UDPA 仍然处于早期设计阶段，距离完备都尚有一段很长的路程，所以基于 UDPA 的 xDS v4 在 2020 年是铁定出不来了。
+图 15-12 是笔者在 Harvey Tuch 演讲 PPT 中截取的 UDAP 与 xDS 的融合时间表，在演讲中 Harvey Tuch 还提到了 xDS 协议的演进节奏会定为每年推出一个大版本、每个版本从发布到淘汰起要经历 Alpha、Stable、Deprecated、Removed 四个阶段、每个阶段持续一年时间，简单地说就是每个大版本 xDS 在被淘汰前会有三年的固定生命周期。基于 UDPA 的 xDS v4 API 原本计划会在 2020 年发布，进入 Alpha 阶段，不过，笔者写下这段文字的时间是 2020 年的 10 月中旬，已经可以肯定地说上面所列的计划必然破产，因为从目前公开的资料看来，UDPA 仍然处于早期设计阶段，距离完备都尚有一段很长的路程，所以基于 UDPA 的 xDS v4 在 2020 年是铁定出不来了。
 
-在规范内容方面，由于 UDPA 连 Alpha 状态都还未能达到，目前公开的资料还很少。从 GitHub 和 Google 文档上能找到部分设计原型文件来看，UDAP 的主要内容会分为传输协议（UDPA-TP，TransPort）和数据模型（UDPA-DM，Data Model）两部分，这两部分是独立设计的，以后完全有可能会出现不同的数据模型共用同一套传输协议的可能性。
+在规范内容方面，由于 UDAP 连 Alpha 状态都还未能达到，目前公开的资料还很少。从 GitHub 和 Google 文档上能找到部分设计原型文件来看，UDAP 的主要内容会分为传输协议（UDPA-TP，TransPort）和数据模型（UDPA-DM，Data Model）两部分，这两部分是独立设计的，以后完全有可能会出现不同的数据模型共用同一套传输协议的可能性。
 
 ## 服务网格生态
 
