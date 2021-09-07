@@ -52,7 +52,7 @@ RBAC 还允许对不同角色之间定义关联与约束，进一步强化它的
 
 与此相对，水平权限即数据权限管理起来则要困难许多。譬如用户 A、B 都属于同一个角色，但它们各自在系统中产生的数据完全有可能是私有的，A 访问或删除了 B 的数据也照样属于越权。一般来说，数据权限是很难抽象与通用的，仅在角色层面控制并不能满足全部业务的需要，很多时候只能具体到用户，甚至要具体管理到发生数据的某一行、某一列之上，因此数据权限基本只能由信息系统自主来来完成，并不存在能放之四海皆准的通用数据权限框架。
 
-本书后面章节中的“重要角色”Kubernetes 完全遵循 RBAC 了来进行服务访问控制，Fenix's Bookstore 所使用的 Spring Security 也参考了（但并没有完全遵循）RBAC 来设计它的访问控制功能。Spring Security 的设计里，用户和角色都可以拥有权限，譬如在它的 HttpSecurity 接口就同时有着 hasRole()和 hasAuthority()方法，可能刚接触的程序员会疑惑，混淆它们之间的关系。Spring Security 的访问控制模型如图 5-6 所示，可与前面 RBAC 的关系图对比一下。
+本书后面章节中的“重要角色”Kubernetes 完全遵循了 RBAC 来进行服务访问控制，Fenix's Bookstore 所使用的 Spring Security 也参考了（但并没有完全遵循）RBAC 来设计它的访问控制功能。Spring Security 的设计里，用户和角色都可以拥有权限，譬如在它的 HttpSecurity 接口就同时有着 hasRole()和 hasAuthority()方法，可能刚接触的程序员会疑惑，混淆它们之间的关系。Spring Security 的访问控制模型如图 5-6 所示，可与前面 RBAC 的关系图对比一下。
 
 <mermaid>
 graph LR
