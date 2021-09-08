@@ -46,10 +46,9 @@
 <slide><img src="./images/icyfenix4.jpg" /></slide>
 </swiper>
 :::
-<br/>
----
 
-- 招聘、内推<br/>
+:::tip 招聘&内推
   对大型软件架构、云原生、实时大数据、企业级软件研发感兴趣的同学，欢迎投简历至：felix.zhouzhiming[at]huawei[dot]com。<br/>
   团队气氛、水平都很好，对标范围华为18-22级，正编非OD。
+:::
 

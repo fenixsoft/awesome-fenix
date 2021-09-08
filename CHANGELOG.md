@@ -4,6 +4,12 @@ permalink: /changelog
 
 # 更新日志
 
+### 2021年9月8日
+
+- 招聘&内推
+  - 对大型软件架构、云原生、实时大数据、企业级软件研发感兴趣的同学，欢迎投简历至：felix.zhouzhiming[at]huawei[dot]com。
+  - 团队气氛、水平都很好，对标范围华为18-22级，正编非OD。
+
 ### 2021年6月21日
 
 - 更新了《[凤凰架构：构建可靠的大型分布式系统](/introduction/about-book.html)》的纸质书的[豆瓣评价](https://book.douban.com/subject/35492898/)，以及在[京东](https://search.jd.com/Search?keyword=%E5%87%A4%E5%87%B0%E6%9E%B6%E6%9E%84)、[当当](http://search.dangdang.com/?key=%B7%EF%BB%CB%BC%DC%B9%B9&)等网店的销售连接。
