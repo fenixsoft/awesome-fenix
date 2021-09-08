@@ -107,7 +107,7 @@ PersistentVolume 是 Volume 这个抽象概念的具象化表现，通俗地说�
      capacity:
        storage: 5Gi                          # 最大容量为5GB
      accessModes:
-       - ReadWriteOnce                       # 访问模式为RXO
+       - ReadWriteOnce                       # 访问模式为RWO
      persistentVolumeReclaimPolicy: Retain	  # 回收策略是Retain
      nfs:                                    # 存储驱动是NFS
        path: /html
@@ -126,7 +126,7 @@ PersistentVolume 是 Volume 这个抽象概念的具象化表现，通俗地说�
      name: nginx-html-claim
    spec:
      accessModes:
-       - ReadWriteOnce    # 支持RXO访问模式
+       - ReadWriteOnce    # 支持RWO访问模式
      resources:
        requests:
          storage: 5Gi     # 最小容量5GB
