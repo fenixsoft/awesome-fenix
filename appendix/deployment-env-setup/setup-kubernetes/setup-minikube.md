@@ -46,7 +46,7 @@ $ minikube start --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minik
 | MacOS    | Parallels Desktop | parallels  |
 | MacOS    | VMware Fusion     | vmware     |
 
-特别需要提一下的是如果读者使用的并非物理机器，而是云主机环境——现在流行将其成为“裸金属”（Bare Metal）服务器，那在上面很可能是无法再部署虚拟机环境的，这时候应该将 vm-drvier 参数设为 none。也可以使用以下命令设置虚拟机驱动的默认值：
+特别需要提一下的是如果读者使用的并非物理机器，而是云主机环境——现在流行将其称为“裸金属”（Bare Metal）服务器，那在上面很可能是无法再部署虚拟机环境的，这时候应该将 vm-drvier 参数设为 none。也可以使用以下命令设置虚拟机驱动的默认值：
 
 ```bash
 $ minikube config set vm-driver none
