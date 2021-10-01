@@ -4,7 +4,7 @@
 
 本地事务是最基础的一种事务解决方案，只适用于单个服务使用单个数据源的场景。从应用角度看，它是直接依赖于数据源本身提供的事务能力来工作的，在程序代码层面，最多只能对事务接口做一层标准化的包装（如 JDBC 接口），并不能深入参与到事务的运作过程当中，事务的开启、终止、提交、回滚、嵌套、设置隔离级别，乃至与应用代码贴近的事务传播方式，全部都要依赖底层数据源的支持才能工作，这一点与后续介绍的 XA、TCC、SAGA 等主要靠应用程序代码来实现的事务有着十分明显的区别。举个例子，假设你的代码调用了 JDBC 中的`Transaction::rollback()`方法，方法的成功执行也并不一定代表事务就已经被成功回滚，如果数据表采用的引擎是[MyISAM](https://en.wikipedia.org/wiki/MyISAM)，那`rollback()`方法便是一项没有意义的空操作。因此，我们要想深入地讨论本地事务，便不得不越过应用代码的层次，去了解一些数据库本身的事务实现原理，弄明白传统数据库管理系统是如何通过 ACID 来实现事务的。
 
-如今研究事务的实现原理，必定会追溯到[ARIES](https://en.wikipedia.org/wiki/Algorithms_for_Recovery_and_Isolation_Exploiting_Semantics)理论（Algorithms for Recovery and Isolation Exploiting Semantics，ARIES），直接翻译过来是“基于语义的恢复与隔离算法”，起这拗口的名字肯定多少也有些想拼凑“ARIES”这单词目的，跟 ACID 差不多的恶趣味。
+如今研究事务的实现原理，必定会追溯到[ARIES](https://en.wikipedia.org/wiki/Algorithms_for_Recovery_and_Isolation_Exploiting_Semantics)理论（Algorithms for Recovery and Isolation Exploiting Semantics，ARIES），直接翻译过来是“基于语义的恢复与隔离算法”，起这拗口的名字肯定多少也有些想拼凑“ARIES”这单词的目的，跟 ACID 差不多的恶趣味。
 
 ARIES 是现代数据库的基础理论，就算不能称所有的数据库都实现了 ARIES，至少也可以称现代的主流关系型数据库（Oracle、MS SQLServer、MySQL/InnoDB、IBM DB2、PostgreSQL，等等）在事务实现上都深受该理论的影响。在 20 世纪 90 年代，[IBM Almaden 研究院](http://www.research.ibm.com/labs/almaden/)总结了研发原型数据库系统“IBM System R”的经验，发表了 ARIES 理论中最主要的三篇论文，其中《[ARIES: A Transaction Recovery Method Supporting Fine-Granularity Locking and Partial Rollbacks Using Write-Ahead Logging](https://cs.stanford.edu/people/chrismre/cs345/rl/aries.pdf)》着重解决了 ACID 的其中两个属性：原子性（A）和持久性（D）在算法层面上应当如何实现。而另一篇《[ARIES/KVL: A Key-Value Locking Method for Concurrency Control of Multiaction Transactions Operating on B-Tree Indexes](http://vldb.org/conf/1990/P392.PDF)》则是现代数据库隔离性（I）奠基式的文章，下面，我们先从原子性和持久性说起。
 
