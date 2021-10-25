@@ -12,7 +12,7 @@ There is only one consensus protocol, and that's “Paxos” — all other appro
 
 :::
 
-Paxos 是由[Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport)（就是大名鼎鼎的[LaTeX](https://en.wikipedia.org/wiki/LaTeX)中的“La”）提出的一种基于消息传递的协商共识算法，现已是当今分布式系统最重要的理论基础，几乎就是“共识”二字的代名词。这个极高的评价出自于提出 Raft 算法的[论文](https://web.stanford.edu/~ouster/cgi-bin/papers/raft-atc14)，更是显分量十足。虽然笔者认为并没有 Mike Burrows 说的“世界上只有 Paxos 一种分布式共识算法”那么夸张，但是如果没有 Paxos，那后续的 Raft、ZAB 等算法，ZooKeeper、Etcd 这些分布式协调框架、Hadoop、Consul 这些在此基础上的各类分布式应用都很可能会延后好几年面世。
+Paxos 是由[Leslie Lamport](https://en.wikipedia.org/wiki/Leslie_Lamport)（就是大名鼎鼎的[LaTeX](https://en.wikipedia.org/wiki/LaTeX)中的“La”）提出的一种基于消息传递的协商共识算法，现已是当今分布式系统最重要的理论基础，几乎就是“共识”二字的代名词。这个极高的评价出自于提出 Raft 算法的[论文](https://web.stanford.edu/~ouster/cgi-bin/papers/raft-atc14)，更是显得分量十足。虽然笔者认为并没有 Mike Burrows 说的“世界上只有 Paxos 一种分布式共识算法”那么夸张，但是如果没有 Paxos，那后续的 Raft、ZAB 等算法，ZooKeeper、Etcd 这些分布式协调框架、Hadoop、Consul 这些在此基础上的各类分布式应用都很可能会延后好几年面世。
 
 ## Paxos 的诞生
 
