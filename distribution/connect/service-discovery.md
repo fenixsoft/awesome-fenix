@@ -1,6 +1,6 @@
 # 服务发现
 
-类库封装被大规模使用，令计算机实现了通过位于不同模块的方法调用来组装复用指令序列，打开了软件达到更大规模一扇大门。无论是编译期链接的 C、C++语言，抑或是运行期链接的 Java 语言，都要通过[链接器](<https://en.wikipedia.org/wiki/Linker_(computing)>)（Linker）将代码里的[符号引用](https://en.wikipedia.org/wiki/Debug_symbol)转换为模块入口或进程内存地址的直接引用。而服务化的普及，令软件系统得以通过分布于网络中不同机器的互相协作来复用功能，这是软件发展规模的第二次飞跃，此时，如何确定目标方法的确切位置，便是与编译链接有着等同意义的研究课题，解决该问题的过程便被称作“[服务发现](https://en.wikipedia.org/wiki/Service_discovery)”（Service Discovery）。
+类库封装被大规模使用，令计算机实现了通过位于不同模块的方法调用来组装复用指令序列，打开了软件达到更大规模的一扇大门。无论是编译期链接的 C、C++语言，抑或是运行期链接的 Java 语言，都要通过[链接器](<https://en.wikipedia.org/wiki/Linker_(computing)>)（Linker）将代码里的[符号引用](https://en.wikipedia.org/wiki/Debug_symbol)转换为模块入口或进程内存地址的直接引用。而服务化的普及，令软件系统得以通过分布于网络中不同机器的互相协作来复用功能，这是软件发展规模的第二次飞跃，此时，如何确定目标方法的确切位置，便是与编译链接有着等同意义的研究课题，解决该问题的过程便被称作“[服务发现](https://en.wikipedia.org/wiki/Service_discovery)”（Service Discovery）。
 
 ## 服务发现的意义
 
