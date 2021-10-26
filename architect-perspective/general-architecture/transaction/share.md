@@ -18,6 +18,6 @@ graph LR
 
 之所以强调理论可行，是因为该方案是与实际生产系统中的压力方向相悖的，一个服务集群里数据库才是压力最大而又最不容易伸缩拓展的重灾区，所以现实中只有类似[ProxySQL](https://www.proxysql.com/)、[MaxScale](https://mariadb.com/kb/en/maxscale/)这样用于对多个数据库实例做负载均衡的数据库代理（其实用 ProxySQL 代理单个数据库，再启用 Connection Multiplexing，已经接近于前面所提及的交易服务器方案了），而几乎没有反过来代理一个数据库为多个应用提供事务协调的交易服务代理。这也是说它更有可能是个伪需求的原因，如果你有充足理由让多个微服务去共享数据库，就必须找到更加站得住脚的理由来向团队解释拆分微服务的目的是什么才行。
 
-在日常开发中，上述方案还存在一类更为常见的变种形式：使用消息队列服务器的来代替交易服务器，用户、商家、仓库的服务操作业务时，通过消息将所有对数据库的改动传送到消息队列服务器，通过消息的消费者来统一处理，实现由本地事务保障的持久化操作。这被称作“[单个数据库的消息驱动更新](https://www.infoworld.com/article/2077963/distributed-transactions-in-spring--with-and-without-xa.html)”（Message-Driven Update of a Single Database）。
+在日常开发中，上述方案还存在一类更为常见的变种形式：使用消息队列服务器来代替交易服务器。用户、商家、仓库的服务操作业务时，通过消息将所有对数据库的改动传送到消息队列服务器，通过消息的消费者来统一处理，实现由本地事务保障的持久化操作。这被称作“[单个数据库的消息驱动更新](https://www.infoworld.com/article/2077963/distributed-transactions-in-spring--with-and-without-xa.html)”（Message-Driven Update of a Single Database）。
 
 “共享事务”的提法和这里所列的两种处理方式在实际应用中并不值得提倡，鲜有采用这种方式的成功案例，能够查询到的资料几乎都发源于十余年前 Spring 的核心开发者[Dave Syer](https://spring.io/team/dsyer)撰写的文章《[Distributed Transactions in Spring, with and without XA](https://www.infoworld.com/article/2077963/distributed-transactions-in-spring--with-and-without-xa.html)》。笔者把共享事务列为本章四种事务类型之一只是为了叙述逻辑的完备，尽管拆分微服务后仍然共享数据库的情况在现实中并不少见，但笔者个人不赞同将共享事务作为一种常规的解决方案来考量。
