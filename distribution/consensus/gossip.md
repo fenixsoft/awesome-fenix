@@ -10,7 +10,7 @@ Trying to squash a rumor is like trying to unring a bell.
 
 :::
 
-Paxos、Raft、ZAB 等分布式算法经常会被称作是“强一致性”的分布式共识协议，其实这样的描述扣细节概念的话是很别扭的，会有语病嫌疑，但我们都明白它的意思其实是在说“尽管系统内部节点可以存在不一致的状态，但从系统外部看来，不一致的情况并不会被观察到，所以整体上看系统是强一致性的”。与它们相对的，还有另一类被冠以“最终一致性”的分布式共识协议，这表明系统中不一致的状态有可能会在一定时间内被外部直接观察到。一种典型且极为常见的最终一致的分布式系统就是[DNS 系统](/architect-perspective/general-architecture/diversion-system/dns-lookup.html)，在各节点缓存的 TTL 到期之前，都有可能与真实的域名翻译结果存在不一致。在本节中，笔者将介绍在比特币网络和许多重要分布式框架中都有应用的另一种具有代表性的“最终一致性”的分布式共识协议：Gossip 协议。
+Paxos、Raft、ZAB 等分布式算法经常会被称作是“强一致性”的分布式共识协议，其实这样的描述抠细节概念的话是很别扭的，会有语病嫌疑，但我们都明白它的意思其实是在说“尽管系统内部节点可以存在不一致的状态，但从系统外部看来，不一致的情况并不会被观察到，所以整体上看系统是强一致性的”。与它们相对的，还有另一类被冠以“最终一致性”的分布式共识协议，这表明系统中不一致的状态有可能会在一定时间内被外部直接观察到。一种典型且极为常见的最终一致的分布式系统就是[DNS 系统](/architect-perspective/general-architecture/diversion-system/dns-lookup.html)，在各节点缓存的 TTL 到期之前，都有可能与真实的域名翻译结果存在不一致。在本节中，笔者将介绍在比特币网络和许多重要分布式框架中都有应用的另一种具有代表性的“最终一致性”的分布式共识协议：Gossip 协议。
 
 Gossip 最早由[施乐公司](https://en.wikipedia.org/wiki/Xerox)（Xerox，现在可能很多人不了解施乐了，或只把施乐当一家复印产品公司看待，这家公司是计算机许多关键技术的鼻祖，图形界面的发明者、以太网的发明者、激光打印机的发明者、MVC 架构的提出者、RPC 的提出者、BMP 格式的提出者……） Palo Alto 研究中心在论文《[Epidemic Algorithms for Replicated Database Maintenance](http://bitsavers.trailing-edge.com/pdf/xerox/parc/techReports/CSL-89-1_Epidemic_Algorithms_for_Replicated_Database_Maintenance.pdf)》中提出的一种用于分布式数据库在多节点间复制同步数据的算法。从论文题目中可以看出，最初它是被称作“流行病算法”（Epidemic Algorithm）的，只是不太雅观，今天 Gossip 这个名字已经用得更为普遍了，除此以外，它还有“流言算法”、“八卦算法”、“瘟疫算法”等别名，这些名字都是很形象化的描述，反应了 Gossip 的特点：要同步的信息如同流言一般传播、病毒一般扩散。
 
