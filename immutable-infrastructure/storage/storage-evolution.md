@@ -146,7 +146,7 @@ Kubernetes 对 PersistentVolumeClaim 与 PersistentVolume 撮合的结果是产�
 
 对于中小规模的 Kubernetes 集群，PersistentVolume 已经能够满足有状态应用的存储需求，PersistentVolume 依靠人工介入来分配空间的设计算是简单直观，却算不上是先进，一旦应用规模增大，PersistentVolume 很难被自动化的问题就会突显出来。这是由于 Pod 创建过程中去挂载某个 Volume，要求该 Volume 必须是真实存在的，否则 Pod 启动可能依赖的数据（如一些配置、数据、外部资源等）都将无从读取。Kubernetes 有能力随着流量压力和硬件资源状况，自动扩缩 Pod 的数量，但是当 Kubernetes 自动扩展出一个新的 Pod 后，并没有办法让 Pod 去自动挂载一个还未被分配资源的 PersistentVolume。想解决这个问题，要么允许多个不同的 Pod 都共用相同的 PersistentVolumeClaim，这种方案确实只靠 PersistentVolume 就能解决，却损失了隔离性，难以通用；要么就要求每个 Pod 用到的 PersistentVolume 都是已经被预先建立并分配好的，这种方案靠管理员提前手工分配好大量的存储也可以实现，却损失了自动化能力。
 
-无论哪种情况，都难以符合 Kubernetes 工业级编排系统的产品定位，对于大型集群，面对成百上千，来自成千上万的 Pod，靠管理员手工分配存储肯定是捉襟见肘疲于应付的。在 2017 年 Kubernetes 发布 1.6 版本后，终于提供了今天被称为动态存储分配（Dynamic Provisioning）的解决方案，让系统管理员摆脱了人工分配的 PersistentVolume 的窘境，与之相对，人们把此前的分配方式称为静态存储分配（Static Provisioning）。
+无论哪种情况，都难以符合 Kubernetes 工业级编排系统的产品定位，对于大型集群，面对成百上千，乃至成千上万的 Pod，靠管理员手工分配存储肯定是捉襟见肘疲于应付的。在 2017 年 Kubernetes 发布 1.6 版本后，终于提供了今天被称为动态存储分配（Dynamic Provisioning）的解决方案，让系统管理员摆脱了人工分配的 PersistentVolume 的窘境，与之相对，人们把此前的分配方式称为静态存储分配（Static Provisioning）。
 
 所谓的动态存储分配方案，是指在用户声明存储能力的需求时，不是期望通过 Kubernetes 撮合来获得一个管理员人工预置的 PersistentVolume，而是由特定的资源分配器（Provisioner）自动地在存储资源池或者云存储系统中分配符合用户存储需要的 PersistentVolume，然后挂载到 Pod 中使用，完成这项工作的资源被命名为 StorageClass，它的具体工作过程如下：
 
