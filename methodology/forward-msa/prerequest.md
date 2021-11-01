@@ -4,7 +4,7 @@
 
 Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure.
 
-系统的架构趋同于系统设计团队的沟通结构。
+系统的架构趋同于组织的沟通结构。
 
 :::right
 
