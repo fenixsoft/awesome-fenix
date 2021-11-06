@@ -14,7 +14,7 @@
 
 针对“路由”这个基础职能，服务网关主要考量的是能够支持路由的“网络协议层次”和“性能与可用性”两方面的因素。网络协议层次是指[负载均衡](/architect-perspective/general-architecture/diversion-system/load-balancing.html)中介绍过的四层流量转发与七层流量代理，仅从技术实现角度来看，对于路由这项工作，负载均衡器与服务网关在实现上是没有什么差别的，很多服务网关本身就是基于老牌的负载均衡器来实现的，譬如基于 Nginx、HAProxy 开发的 Ingress Controller，基于 Netty 开发的 Zuul 2.0 等；但从目的角度看，负载均衡器与服务网关会有一些区别，具体在于前者是为了根据均衡算法对流量进行平均地路由，后者是为了根据流量中的某种特征进行正确地路由。网关必须能够识别流量中的特征，这意味着网关能够支持的网络通信协议的层次将会直接限制后端服务节点能够选择的服务通信方式。如果服务集群只提供像 Etcd 这样直接基于 TCP 的访问的服务，那只部署四层网关便可满足，网关以 IP 报文中源地址、目标地址为特征进行路由；如果服务集群要提供 HTTP 服务的话，那就必须部署一个七层网关，网关根据 HTTP 报文中的 URL、Header 等信息为特征进行路由；如果服务集群还要提供更上层的 WebSocket、SOAP 等服务，那就必须要求网关同样能够支持这些上层协议，才能从中提取到特征。
 
-举个例子，以下是一段[基于 SpringCloud 实现的 Fenix's Bootstore](/exploration/projects/microservice_arch_springcloud.html)中用到的 Netflix Zuul 网关的配置，Zuul 是 HTTP 网关，`/restful/accounts/**`和`/restful/pay/**`是 HTTP 中 URL 的特征，而配置中的`serviceId`就是路由的目标服务。
+举个例子，以下是一段[基于 SpringCloud 实现的 Fenix's Bookstore](/exploration/projects/microservice_arch_springcloud.html)中用到的 Netflix Zuul 网关的配置，Zuul 是 HTTP 网关，`/restful/accounts/**`和`/restful/pay/**`是 HTTP 中 URL 的特征，而配置中的`serviceId`就是路由的目标服务。
 
 ```yaml
   routes:
