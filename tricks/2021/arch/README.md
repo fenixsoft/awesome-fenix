@@ -22,18 +22,6 @@ As long as there were no machines, programming was no problem at all; when we ha
 
 将软件从整体划分成若干个局部，人类能够以群体配合来共同开发软件，使得人与计算机又和谐共处了十余年。不过，机器的算力膨胀仍然在持续，人类群体的沟通协作能力却终有极限。人毕竟不是可复制的程序，每个人都有自己的理解与认知，如何让各个模块能准确地协同工作成了一场灾难，这就是第二次软件危机的根源。《[人月神话](https://en.wikipedia.org/wiki/The_Mythical_Man-Month)》中有一个几乎每位程序员都听过的案例：IBM 公司为开发的 OS/360 系统投入成本达到了美国的“曼哈顿”原子弹计划的 25%，共有 4000 多个模块，约 100 万条指令，超过 5000 人年，耗资数亿美元，即使如此，结果还是延期交付，在交付使用后的系统中仍发现大量的缺陷。
 
-:::quote An Introduction to Software Architecture
-
-As the size of software systems increases, the algorithms and data structures of the computation no longer constitute the major design problems. When systems are constructed from many components, the organization of the overall system-the software architecture-presents a new set of design problems.
-
-随着软件系统规模的增加，计算相关的算法和数据结构不再构成主要的设计问题；当系统由许多部分组成时，整个系统的组织，也就是所说的“软件架构”，导致了一系列新的设计问题。
-
-:::right
-
-——David Garlan and Mary Shaw, [An Introduction to Software Architecture](https://userweb.cs.txstate.edu/~rp31/papers/intro_softarch.pdf), 1994
-
-:::
-
 渡过第二次软件危机的过程中，面向对象编程逐步取代了面向过程的结构化编程，成为主流的程序设计思想，这次思想转变宣告“追求最符合人类思维的视角来抽象问题”取代了“追求最符合机器运行特征的算法与数据结构”成为软件架构的最高优先级，并一直持续沿用至今。这次危机还直接导致软件工程学的诞生， 如何以系统性的、规范化的、可定量的方法去高质量地开发和维护软件成为一门独立的科学。
 
 ## 云与分布式渐成为主流
