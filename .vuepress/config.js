@@ -421,6 +421,7 @@ module.exports = {
               '/tricks/2021/openjdk-for-dummies/',
               '/tricks/2021/geekbang.md',
               '/tricks/2021/fenix-cli/',
+              '/tricks/2021/arch/',
             ]
           },
         ]

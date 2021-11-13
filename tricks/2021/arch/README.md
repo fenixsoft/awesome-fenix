@@ -1,4 +1,4 @@
-# 从软件的历史看架构的未来
+# ArchSummit2021主题演讲：从软件的历史看架构的未来
 
 1972 年，[Edsger Dijkstra](https://en.wikipedia.org/wiki/Edsger_W._Dijkstra) 在为图灵奖颁授典礼所写的[感言文章](https://www.cs.utexas.edu/users/EWD/transcriptions/EWD03xx/EWD340.html)中说到：“在没有计算机的时候，也就没有编程问题；当我们有了简单的计算机，编程只是个小问题；而现在我们有了算力规模庞大的计算机，那编程就成为了一个同样巨大的问题了”。半个世纪前，Dijkstra 已经敏锐洞见了机器算力的提升是编程方法发展的直接牵引，每当人类掌握了更强的算力，便按耐不住想去解决一些以前甚至都不敢去设想的新问题，由此引发软件设计模式的重大变革。
 
