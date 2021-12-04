@@ -43,7 +43,7 @@
      在开始调试之前，你最好至少进行过一次编译，生成了二进制的可运行程序，否则将会在首次运行时自动进行全量编译。
 
    - 调试自己的 Java 代码。
-     笔者在`/playgrounds`中预置了一个 Helloworld Class 供测试之用，倘若你跟踪 HotSpot 的目的是想解决学习工作中预见的真实问题，那可以把你自己的 Class 或者 Jar 文件映射到容器中进行调试，譬如：
+     笔者在`/playgrounds`中预置了一个 Helloworld Class 供测试之用，倘若你跟踪 HotSpot 的目的是想解决学习工作中遇见的真实问题，那可以把你自己的 Class 或者 Jar 文件映射到容器中进行调试，譬如：
      ```bash
      docker run -it --rm -p 8887:8887 -v JAVA-APP-PATH:/home/projector-user/playgrounds icyfenix/openjdk-clion:latest
      ```

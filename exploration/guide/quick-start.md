@@ -42,7 +42,7 @@
 
 **这部分面向于基础设施运维人员、技术平台的开发者。**
 
-“不可变基础设施”这个概念由来已久。2012 年 Martin Fowler 设想的“[凤凰服务器](https://martinfowler.com/bliki/PhoenixServer.html)”与 2013 年 Chad Fowler 正式提出的“[不可变基础设施](http://chadfowler.com/2013/06/23/immutable-deployments.html)”，都阐明了基础设施不变性所能带来的益处。在[云原生基金会](https://en.wikipedia.org/wiki/Cloud_Native_Computing_Foundation)（Cloud Native Computing Foundation，CNCF）所定义的“云原生”概念中，“不可变基础设施”提升到了与微服务平级的重要程度，此时它的内涵已不再局限于方便运维、程序升级和部署的手段，而是升华为向应用代码隐藏分布式架构复杂度、让分布式架构得以成为一种可普遍推广的普适架构风格的必要前提。在[云原生时代、后微服务时代](/architecture/architect-history/post-microservices.html)中，软件与硬件之间的界线已经彻底模糊，无论是基础设施的运维人员，抑或是技术平台的开发人员，都有必要深入理解基础设施不变性的目的、原理与实现途径。
+“不可变基础设施”这个概念由来已久。2012 年 Martin Fowler 设想的“[凤凰服务器](https://martinfowler.com/bliki/PhoenixServer.html)”与 2013 年 Chad Fowler 正式提出的“[不可变基础设施](http://chadfowler.com/2013/06/23/immutable-deployments.html)”，都阐明了基础设施不变性所能带来的益处。在[云原生基金会](https://en.wikipedia.org/wiki/Cloud_Native_Computing_Foundation)（Cloud Native Computing Foundation，CNCF）所定义的“云原生”概念中，“不可变基础设施”提升到了与微服务平级的重要程度，此时它的内涵已不再局限于方便运维、程序升级和部署的手段，而是升华为向应用代码隐藏分布式架构复杂度、让分布式架构得以成为一种可普遍推广的普适架构风格的必要前提。在[云原生时代、后微服务时代](/architecture/architect-history/post-microservices.html)中，软件与硬件之间的界线已经彻底模糊，无论是基础设施的运维人员，抑或技术平台的开发人员，都有必要深入理解基础设施不变性的目的、原理与实现途径。
 
 ## 第五部分 技术方法论 <words chapter='/methodology'/>
 
