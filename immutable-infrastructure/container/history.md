@@ -6,7 +6,7 @@
 
 容器的起点可以追溯到 1979 年[Version 7 UNIX](https://en.wikipedia.org/wiki/Version_7_Unix)系统中提供的`chroot`命令，这个命令是英文单词“Change Root”的缩写，功能是当某个进程经过`chroot`操作之后，它的根目录就会被锁定在命令参数所指定的位置，以后它或者它的子进程将不能再访问和操作该目录之外的其他文件。
 
-1991 年，世界上第一个监控黑客行动的蜜罐程序就是使用`chroot`来实现的，那个参数指定的根目录当时被作者被戏称为“Chroot 监狱”（Chroot Jail），黑客突破`chroot`限制的方法就称为 Jailbreak。后来，FreeBSD 4.0 系统重新实现了`chroot`命令，用它作为系统中进程沙箱隔离的基础，并将其命名为[FreeBSD jail](https://en.wikipedia.org/wiki/FreeBSD_jail)，再后来，苹果公司又以 FreeBSD 为基础研发出了举世闻名的 iOS 操作系统，此时，黑客们就将绕过 iOS 沙箱机制以 root 权限任意安装程序的方法称为“[越狱](https://en.wikipedia.org/wiki/IOS_jailbreaking)”（Jailbreak），这些故事都是题外话了。
+1991 年，世界上第一个监控黑客行动的蜜罐程序就是使用`chroot`来实现的，那个参数指定的根目录当时被作者戏称为“Chroot 监狱”（Chroot Jail），黑客突破`chroot`限制的方法就称为 Jailbreak。后来，FreeBSD 4.0 系统重新实现了`chroot`命令，用它作为系统中进程沙箱隔离的基础，并将其命名为[FreeBSD jail](https://en.wikipedia.org/wiki/FreeBSD_jail)，再后来，苹果公司又以 FreeBSD 为基础研发出了举世闻名的 iOS 操作系统，此时，黑客们就将绕过 iOS 沙箱机制以 root 权限任意安装程序的方法称为“[越狱](https://en.wikipedia.org/wiki/IOS_jailbreaking)”（Jailbreak），这些故事都是题外话了。
 
 2000 年，Linux Kernel 2.3.41 版内核引入了`pivot_root`技术来实现文件隔离，`pivot_root`直接切换了[根文件系统](https://en.wikipedia.org/wiki/Filesystem_Hierarchy_Standard)（rootfs），有效地避免了`chroot`命令可能出现的安全性漏洞。本文后续提到的容器技术，如 LXC、Docker 等也都是优先使用`pivot_root`来实现根文件系统切换的。
 
@@ -34,10 +34,10 @@ Linux 的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia
 | PID                                    | 隔离进程编号，无法看到其他名称空间中的 PID，意味着无法对其他进程产生影响                                                                              | 2.6.24                                 |
 | Network                                | 隔离网络资源，如网卡、网络栈、IP 地址、端口，等等                                                                                                     | 2.6.29                                 |
 | User                                   | 隔离用户和用户组                                                                                                                                      | 3.8                                    |
-| Cgroup                                 | 隔离`cgourps`信息，进程有自己的`cgroups`的根目录视图（在/proc/self/cgroup 不会看到整个系统的信息）。`cgroups`的话题很重要，稍后笔者会安排一整节来介绍 | 4.6                                    |
+| Cgroup                                 | 隔离`cgroups`信息，进程有自己的`cgroups`的根目录视图（在/proc/self/cgroup 不会看到整个系统的信息）。`cgroups`的话题很重要，稍后笔者会安排一整节来介绍 | 4.6                                    |
 | Time                                   | 隔离系统时间，2020 年 3 月最新的 5.6 内核开始支持进程独立设置系统时间                                                                                 | 5.6                                    |
 
-如今，对文件、进程、用户、网络等各类信息的访问，都被囊括在 Linux 的名称空间中，即使一些今天仍有没被隔离的访问（譬如[syslog](https://en.wikipedia.org/wiki/Syslog)就还没被隔离，容器内可以看到容器外其他进程产生的内核 syslog），日后也可以随内核版本的更新纳入到这套框架之内，现在距离完美的隔离性就只差最后一步了：资源的隔离。
+如今，对文件、进程、用户、网络等各类信息的访问，都被囊括在 Linux 的名称空间中，即使今天仍有一些没被隔离的访问（譬如[syslog](https://en.wikipedia.org/wiki/Syslog)就还没被隔离，容器内可以看到容器外其他进程产生的内核 syslog），日后也可以随内核版本的更新纳入到这套框架之内，现在距离完美的隔离性就只差最后一步了：资源的隔离。
 
 ## 隔离资源：cgroups
 
