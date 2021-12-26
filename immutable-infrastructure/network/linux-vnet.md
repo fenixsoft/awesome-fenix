@@ -42,7 +42,7 @@ Linux 目前提供的八种名称空间里，网络名称空间无疑是隔离�
 
 Netfilter 允许在同一个钩子处注册多个回调函数，因此向钩子注册回调函数时必须提供明确的优先级，以便触发时能按照优先级从高到低进行激活。由于回调函数会存在多个，看起来就像挂在同一个钩子上的一串链条，因此钩子触发的回调函数集合就被称为“回调链”（Chained Callbacks），这个名字导致了后续基于 Netfilter 设计的 Xtables 系工具，如稍后介绍的 iptables 均有使用到“链”（Chain）的概念。虽然现在看来 Netfilter 只是一些简单的事件回调机制而已，然而这样一套简单的设计，却成为了整座 Linux 网络大厦的核心基石，Linux 系统提供的许多网络能力，如数据包过滤、封包处理（设置标志位、修改 TTL 等）、地址伪装、网络地址转换、透明代理、访问控制、基于协议类型的连接跟踪，带宽限速，等等，都是在 Netfilter 基础之上实现的。
 
-以 Netfilter 为基础的应用有很多，其中使用最广泛的毫无疑问要数 Xtables 系列工具，譬如[iptables](https://en.wikipedia.org/wiki/Iptables)、ebtables、arptables、ip6tables 等等。这里面至少 iptables 应该是用过 Linux 系统的开发人员都或多或少会使用过，它常被称为是 Linux 系统“自带的防火墙”，然而 iptables 实际能做的事情已远远超出防火墙的范畴，严谨地讲，比较贴切的定位应是能够代替 Netfilter 多数常规功能的 IP 包过滤工具。iptables 的设计意图是因为 Netfilter 的钩子回调虽然很强大，但毕竟要通过程序编码才够能使用，并不适合系统管理员用来日常运维，而它的价值便是以配置去实现原本用 Netfilter 编码才能做到的事情。iptables 先把用户常用的管理意图总结成具体的行为预先准备好，然后在满足条件时自动激活行为。以下列出了部分 iptables 预置的行为：
+以 Netfilter 为基础的应用有很多，其中使用最广泛的毫无疑问要数 Xtables 系列工具，譬如[iptables](https://en.wikipedia.org/wiki/Iptables)、ebtables、arptables、ip6tables 等等。这里面至少 iptables 应该是用过 Linux 系统的开发人员都或多或少会使用过，它常被称为是 Linux 系统“自带的防火墙”，然而 iptables 实际能做的事情已远远超出防火墙的范畴，严谨地讲，比较贴切的定位应是能够代替 Netfilter 多数常规功能的 IP 包过滤工具。iptables 的设计意图是因为 Netfilter 的钩子回调虽然很强大，但毕竟要通过程序编码才能够使用，并不适合系统管理员用来日常运维，而它的价值便是以配置去实现原本用 Netfilter 编码才能做到的事情。iptables 先把用户常用的管理意图总结成具体的行为预先准备好，然后在满足条件时自动激活行为。以下列出了部分 iptables 预置的行为：
 
 - DROP：直接将数据包丢弃。
 - REJECT：给客户端返回 Connection Refused 或 Destination Unreachable 报文。
@@ -271,4 +271,4 @@ aeb4f8df39b1        none                                    null                
 
 - **容器模式**，创建容器后使用`--network=container:容器名称`指定。容器模式下，新创建的容器将会加入指定的容器的网络名称空间，共享一切的网络资源，但其他资源，如文件、PID 等默认仍然是隔离的。两个容器间可以直接使用回环地址（localhost）通信，端口号等网络资源不能有冲突。
 - **MACVLAN 模式**：使用`docker network create -d macvlan`创建，此网络允许为容器指定一个副本网卡，容器通过副本网卡的 MAC 地址来使用宿主机上的物理设备，在追求通信性能的场合，这种网络是最好的选择。Docker 的 MACVLAN 只支持 Bridge 通信模式，因此在功能表现上与桥接模式相类似。
-- **Overlay 模式**：使用`docker network create -d overlay`创建，Docker 说的 Overlay 网络实际上就是特指 VXLAN，这种网络模式主要用于 Docker Swarm 服务之间进行通信。然而由于 Docker Swarm 败于 Kubernetes，并未成为主流，所有这种网络模式实际很少使用。
+- **Overlay 模式**：使用`docker network create -d overlay`创建，Docker 说的 Overlay 网络实际上就是特指 VXLAN，这种网络模式主要用于 Docker Swarm 服务之间进行通信。然而由于 Docker Swarm 败于 Kubernetes，并未成为主流，所以这种网络模式实际很少使用。
