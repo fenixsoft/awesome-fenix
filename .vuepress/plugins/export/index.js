@@ -3,6 +3,7 @@ const PDFMerge = require('easy-pdf-merge')
 const {join} = require('path')
 const {dev} = require('vuepress')
 const {fs, logger, chalk} = require('@vuepress/shared-utils')
+const {execSync} = require("child_process");
 const {red, yellow, gray} = chalk
 
 // Keep silent before running custom command.
@@ -97,7 +98,6 @@ async function generatePDF(ctx, port, host) {
     const browser = await puppeteer.launch()
     const browserPage = await browser.newPage()
 
-
     for (let i = 0; i < exportPages.length; i++) {
         let {
             location,
@@ -165,6 +165,14 @@ async function generatePDF(ctx, port, host) {
         })
     }
     logger.success(`Export ${yellow(outputFile)} file!`)
+
+
+    // 为PDF生成TOC目录
+    // 这部分依赖Python与pdf.tocgen (pip install -U pdf.tocgen)
+    var opts = { cwd: pdfDir }
+    execSync("python generate_pdf_with_toc.py", opts)
+    execSync("pdftocio the-fenix-project.pdf < toc.txt", opts)
+    logger.success(`Adding TOC to PDF ${yellow(outputFile)} file!`)
 
     await browser.close()
     fs.removeSync(tempDir)

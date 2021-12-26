@@ -1,1 +1,0 @@
-# 生成PDF耗时较长，请在必要时候执行npm run export来更新

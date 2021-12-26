@@ -4,7 +4,8 @@ module.exports = {
   head: [
     ['link', {rel: 'shortcut icon', type: "image/x-icon", href: `/favicon.ico`}]
   ],
-  host: '0.0.0.0',
+  host: 'localhost',
+  // host: '0.0.0.0',
   port: 8080,
   dest: '.vuepress/dist',
   plugins: [
