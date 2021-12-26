@@ -34,7 +34,7 @@
   - [腾讯云最有价值技术专家（TVP）](https://cloud.tencent.com/tvp/132)
   - [华为云最有价值技术专家（MVP）](https://developer.huaweicloud.com/mvp/member)
   - [IBM DeveloperWorks 撰稿人]()、[InfoQ.CN 专栏撰稿人](https://www.infoq.cn/profile/CD59DD20F93F11/publish)
-  - [极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[华章 25 周年公益课程讲师](https://xie.infoq.cn/article/36ec9efa0697377af0d043b1e)、[QCon/ArchSummit 全球软件开发大会明星讲师](https://qcon.infoq.cn/2020/shenzhen/)
+  - [极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[华章 25 周年公益课程讲师](https://xie.infoq.cn/article/36ec9efa0697377af0d043b1e)、[QCon全球软件开发大会明星讲师](https://qcon.infoq.cn/2020/shenzhen/)、[ArchSummit全球架构师峰会主题演讲嘉宾](https://archsummit.infoq.cn/2021/shenzhen/presentation/4104)
 
 <br/>
 

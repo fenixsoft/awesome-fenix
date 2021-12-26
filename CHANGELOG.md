@@ -4,9 +4,15 @@ permalink: /changelog
 
 # 更新日志
 
+### 2021年12月25日
+
+- 提供带目录版本的PDF：[下载地址](https://raw.githubusercontent.com/fenixsoft/awesome-fenix/gh-pages/pdf/the-fenix-project.pdf)
+  - PDF目录生成的脚本由 [jerrylususu](https://github.com/jerrylususu) 提供，具体使用方式 [参见此处](https://github.com/fenixsoft/awesome-fenix/issues/286)。十分感谢。
+  - 由于免费执行配额限制，9月份已停掉了流水线中生成PDF的部分，PDF每季度更新一次新版，如需生成最新的PDF可克隆后在本地进行。
+
 ### 2021年11月12日
 
-- 更新一篇务虚文章，ArchSummit2021主题演讲：《[从软件的历史看架构的未来](/tricks/2021/arch)》
+- ArchSummit2021主题演讲：[从软件的历史看架构的未来](/tricks/2021/arch)
 
 ### 2021年9月8日
 

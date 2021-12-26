@@ -91,6 +91,9 @@ async function generatePDF(ctx, port, host) {
         }
     })
 
+    fs.writeFileSync(pdfDir + "/sidebar.json", JSON.stringify(sidebar));
+    fs.writeFileSync(pdfDir + "/exportPages.json", JSON.stringify(exportPages));
+
     const browser = await puppeteer.launch()
     const browserPage = await browser.newPage()
 
