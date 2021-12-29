@@ -43,7 +43,7 @@ Kubernetes 开源的初期（Kubernetes 1.5 提出 CRI 规范之前），在容�
 
 :::quote 额外知识：kubenet
 
-[kubenet](https://kubernetes.io/docs/admin/network-plugins/#kubenet)是 kubelet 内置的一个非常的简单的网络，采用网桥来解决 Pod 间通信。kubenet 会自动创建一个名为 cbr0 的网桥，当有新的 Pod 启动时，会由 kubenet 自动将其接入 cbr0 网桥中，再将控制权交还给 kubelet，完成后续的 Pod 创建流程。kubenet 采用 Host-Local 的 IP 地址管理方式，具体来说是根据当前服务器对应的 Node 资源上的`PodCIDR`字段所设的网段来分配 IP 地址。当有新的 Pod 启动时，会由本地节点的 IP 段中分配一个空闲的 IP 给 Pod 使用。
+[kubenet](https://kubernetes.io/docs/admin/network-plugins/#kubenet)是 kubelet 内置的一个非常简单的网络，采用网桥来解决 Pod 间通信。kubenet 会自动创建一个名为 cbr0 的网桥，当有新的 Pod 启动时，会由 kubenet 自动将其接入 cbr0 网桥中，再将控制权交还给 kubelet，完成后续的 Pod 创建流程。kubenet 采用 Host-Local 的 IP 地址管理方式，具体来说是根据当前服务器对应的 Node 资源上的`PodCIDR`字段所设的网段来分配 IP 地址。当有新的 Pod 启动时，会由本地节点的 IP 段中分配一个空闲的 IP 给 Pod 使用。
 
 :::
 
