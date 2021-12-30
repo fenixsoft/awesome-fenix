@@ -13,7 +13,7 @@ permalink: /resume
 
 <center style="line-height: 24px; color: #666; font-size: 14px; word-break: keep-all;">
 <a href="icyfenix@gmail.com">icyfenix@gmail.com</a> | 1983年 | 广东省（深圳、广州、珠海、东莞）<br/>
-企业级应用、开发平台、云原生基础设施、互联网应用、架构设setup-kubeadm.html计、技术布道<br/>
+企业级应用、开发平台、云原生基础设施、互联网应用、架构设计、技术布道<br/>
 <a href="https://icyfenix.cn" target="_blank">https://icyfenix.cn</a> | <a href="https://github.com/fenixsoft" target="_blank">https://github.com/fenixsoft</a>
 </center>
 
@@ -45,13 +45,13 @@ permalink: /resume
 
 ### 计算机作家
 
-- 有优秀的归纳总结和文字写作能力，十年间出版了 8 部技术专著，撰写过 2 部开源文档，口碑和销量均得到业内认可，其中四本书在豆瓣上获得了 9.0 分或以上的评价。
-  - 2021 年 《[凤凰架构：构建可靠的大型软件系统](https://icyfenix.cn/introduction/about-book.html)》（2021 年 6 月出版）
+- 有优秀的归纳总结和文字写作能力，十年间出版了 8 部技术专著，撰写过 2 部开源文档，口碑和销量均得到业内认可，其中五本书在豆瓣上获得了 9.0 分或以上的评价。
+  - 2021 年 《[凤凰架构：构建可靠的大型软件系统](https://icyfenix.cn/introduction/about-book.html)》（评分 9.1）
   - 2020 年 《[软件架构探索：The Fenix Project](https://icyfenix.cn/)》 （开源文档）
   - 2019 年 《[深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第三版）](https://book.douban.com/subject/34907497/)》（评分 9.5）
   - 2018 年 《[智慧的疆界：从图灵机到人工智能](https://book.douban.com/subject/30379536/)》（评分 9.1）
   - 2016 年 《[深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第二版）](https://book.douban.com/subject/24722612/)》（评分 9.0）
-  - 2015 年 《[Java 虚拟机规范 （Java SE 8 中文版）](https://book.douban.com/subject/26418340/)》（评分 8.0）
+  - 2015 年 《[Java 虚拟机规范 （Java SE 8 中文版）](https://book.douban.com/subject/26418340/)》（评分 8.2）
   - 2014 年 《[Java 虚拟机规范 （Java SE 7 中文版）](https://book.douban.com/subject/25792515/)》（评分 9.0）
   - 2013 年 《[深入理解 OSGi：Equinox 原理、应用与最佳实践](https://book.douban.com/subject/21324330/)》（评分 7.7）
   - 2011 年 《[深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第一版）](https://book.douban.com/subject/6522893/)》（评分 8.6）
@@ -61,7 +61,8 @@ permalink: /resume
 
 - 有优秀的演讲和表达能力，开发布道师、开源技术的积极倡导者、技术专栏撰稿人，善于沟通，乐于分享；作为组织者或主讲人，参与过多场线上直播、线下的 Workshop、Meetup、技术大会。
   - IBM DeveloperWorks 撰稿人、[InfoQ.CN 专栏撰稿人](https://www.infoq.cn/profile/CD59DD20F93F11/publish)
-  - [极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[华章 25 周年公益课程讲师](https://xie.infoq.cn/article/36ec9efa0697377af0d043b1e)、[QCon 全球开发者大会明星讲师](https://qcon.infoq.cn/2020/shenzhen/)
+  - [极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[华章 25 周年公益课程讲师](https://xie.infoq.cn/article/36ec9efa0697377af0d043b1e)
+  - [QCon 全球开发者大会明星讲师](https://qcon.infoq.cn/2020/shenzhen/)、[ArchSummit全球架构师峰会主题演讲嘉宾](https://archsummit.infoq.cn/2021/shenzhen/presentation/4104)
 
 ## 工作经历
 
@@ -69,7 +70,7 @@ permalink: /resume
 
 <p style="display:block; height: 24px; line-height: 24px; color: #666; font-size: 14px;">
 <span style="float:right">2021年7月  至今</span>
-<span style="float:left">质量与流程IT - 首席架构师（21级）</span>
+<span style="float:left">质量与流程IT - 首席SaaS软件教练（21级）</span>
 </p>
 <p style="clear: both;">
 华为技术有限公司是全球领先的信息与通信技术（ICT）解决方案供应商，2020年排名《财富》世界500强第49位。华为的产品和解决方案已经应用于全球170多个国家，服务全球运营商50强中的45家及全球1/3的人口。
