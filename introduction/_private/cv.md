@@ -12,7 +12,7 @@ permalink: /resume
 <center style="margin-top: 0"><h1>周志明 Felix</h1></center>
 
 <center style="line-height: 24px; color: #666; font-size: 14px; word-break: keep-all;">
-<a href="icyfenix@gmail.com">icyfenix@gmail.com</a> | 1983年 | 广东省（深圳、广州、珠海、东莞）<br/>
+<a href="icyfenix@gmail.com">icyfenix@gmail.com</a> | 1983 年 | 广东省（深圳、广州、珠海、东莞）<br/>
 企业级应用、开发平台、云原生基础设施、互联网应用、架构设计、技术布道<br/>
 <a href="https://icyfenix.cn" target="_blank">https://icyfenix.cn</a> | <a href="https://github.com/fenixsoft" target="_blank">https://github.com/fenixsoft</a>
 </center>
@@ -62,28 +62,28 @@ permalink: /resume
 - 有优秀的演讲和表达能力，开发布道师、开源技术的积极倡导者、技术专栏撰稿人，善于沟通，乐于分享；作为组织者或主讲人，参与过多场线上直播、线下的 Workshop、Meetup、技术大会。
   - IBM DeveloperWorks 撰稿人、[InfoQ.CN 专栏撰稿人](https://www.infoq.cn/profile/CD59DD20F93F11/publish)
   - [极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[华章 25 周年公益课程讲师](https://xie.infoq.cn/article/36ec9efa0697377af0d043b1e)
-  - [QCon 全球开发者大会明星讲师](https://qcon.infoq.cn/2020/shenzhen/)、[ArchSummit全球架构师峰会主题演讲嘉宾](https://archsummit.infoq.cn/2021/shenzhen/presentation/4104)
+  - [QCon 全球开发者大会明星讲师](https://qcon.infoq.cn/2020/shenzhen/)、[ArchSummit 全球架构师峰会主题演讲嘉宾](https://archsummit.infoq.cn/2021/shenzhen/presentation/4104)
 
 ## 工作经历
 
 ### 华为技术限公司
 
 <p style="display:block; height: 24px; line-height: 24px; color: #666; font-size: 14px;">
-<span style="float:right">2021年7月  至今</span>
-<span style="float:left">质量与流程IT - 首席SaaS软件教练（21级）</span>
+<span style="float:right">2021 年 7 月  至今</span>
+<span style="float:left">质量与流程 IT - 首席 SaaS 软件教练（21 级）</span>
 </p>
 <p style="clear: both;">
-华为技术有限公司是全球领先的信息与通信技术（ICT）解决方案供应商，2020年排名《财富》世界500强第49位。华为的产品和解决方案已经应用于全球170多个国家，服务全球运营商50强中的45家及全球1/3的人口。
+华为技术有限公司是全球领先的信息与通信技术（ICT）解决方案供应商，2020 年排名《财富》世界 500 强第 49 位。华为的产品和解决方案已经应用于全球 170 多个国家，服务全球运营商 50 强中的 45 家及全球 1/3 的人口。
 </p>
 
 ### 远光软件股份有限公司
 
 <p style="display:block; height: 24px; line-height: 24px; color: #666; font-size: 14px;">
-<span style="float:right">2006年1月-2021年7月</span>
+<span style="float:right">2006 年 1 月 - 2021 年 7 月</span>
 <span style="float:left">副总经理，研究院院长（汇报对象为公司总裁）</span>
 </p>
 <p style="clear: both;">
-远光软件是国务院国资委控股的信息技术服务提供商，2006年于深交所上市（SZ:002063），规模约5000人，主营业务为面向大型集团企业的管理信息系统。<br/>我毕业进入公司后，曾担任过程序员、开发经理、研发部部门经理、设计部部门经理、平台部部门经理，现担任企业级产品线技术副总，兼任公司研究院院长。曾参与过多个国家级大型央企的信息化项目，负责研发过程中的管理和技术工作，并直接参与核心模块的开发和关键问题的解决。这些项目已累计为公司创造了逾百亿元收入，占全司历年总营收的75%以上，令集团企业信息化业务成为公司的核心业务。企业快速发展的同时，自身也在研发团队管理和技术研究面积累了丰富的实践经验。
+远光软件是国务院国资委控股的信息技术服务提供商，2006 年于深交所上市（SZ:002063），规模约 5000 人，主营业务为面向大型集团企业的管理信息系统。<br/>我毕业进入公司后，曾担任过程序员、开发经理、研发部部门经理、设计部部门经理、平台部部门经理，现担任企业级产品线技术副总，兼任公司研究院院长。曾参与过多个国家级大型央企的信息化项目，负责研发过程中的管理和技术工作，并直接参与核心模块的开发和关键问题的解决。这些项目已累计为公司创造了逾百亿元收入，占全司历年总营收的 75% 以上，令集团企业信息化业务成为公司的核心业务。企业快速发展的同时，自身也在研发团队管理和技术研究面积累了丰富的实践经验。
 </p>
 
 ## 教育经历
