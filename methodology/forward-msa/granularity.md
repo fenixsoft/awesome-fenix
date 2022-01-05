@@ -20,7 +20,7 @@
 
 - 从性能角度看，一次进程内的方法调用（仅计算调用，与方法具体内容无关），耗时在零（按方法完全内联的场景来计算）到数百个[时钟周期](https://en.wikipedia.org/wiki/Cycles_per_instruction)（按最慢的虚方法调用无内联缓存要查虚表的场景来计算）之间；一次跨服务的方法调用里，网络传输、参数序列化和结果反序列化都是不可避免的，耗时要达到毫秒级别，你可以算一下这两者有多少个数量级的差距。[远程服务调用](/architect-perspective/general-architecture/api-style/rpc.html)里已经解释了“透明的分布式通信”是不存在的，因此，服务粒度大小必须考虑到消耗在网络上的时间与方法本身执行时间的比例，避免设计得的过于琐碎，客户端不得不多次调用服务才能完成一项业务操作，譬如，将字符串处理这样的功能设计为一个微服务便是不合适的，这点要求微服务从功能设计上看应该是完备的。
 
-- 从数据一致性角度看，每个微服务都有自己独立的数据源，如果多个微服务要协同工作，我们可以采用[很多办法](/architect-perspective/general-architecture/transaction/distributed.html)来保证它们处理数据的最终一致性，但如果某些数据必须要求保证强一致性的话，那它们本身就应当聚合在同一个微服务中，而不是强行启用[XA 事务](/architect-perspective/general-architecture/transaction/global.html)来实现，因为在参与协作的微服务越多，XA 事务的可用性就越差，这点要求微服务从数据一致性上看应该是[内聚](<https://en.wikipedia.org/wiki/Cohesion_(computer_science)>)（Cohesion）的。
+- 从数据一致性角度看，每个微服务都有自己独立的数据源，如果多个微服务要协同工作，我们可以采用[很多办法](/architect-perspective/general-architecture/transaction/distributed.html)来保证它们处理数据的最终一致性，但如果某些数据必须要求保证强一致性的话，那它们本身就应当聚合在同一个微服务中，而不是强行启用[XA 事务](/architect-perspective/general-architecture/transaction/global.html)来实现，因为参与协作的微服务越多，XA 事务的可用性就越差，这点要求微服务从数据一致性上看应该是[内聚](<https://en.wikipedia.org/wiki/Cohesion_(computer_science)>)（Cohesion）的。
 - 从服务可用性角度看，服务之间是松散耦合的依赖关系，微服务架构中无法也不应该假设被调用的服务具有绝对的可用性，服务可能因为网络分区、软件重启升级、硬件故障等任何原因发生中断。如果两个微服务都必须依赖对方可用才能正常工作，那就应当将其合并到同一个微服务中（注意这里说的是“彼此依赖对方才能工作”，单向的依赖是必定存在的），这条要求微服务从依赖关系上看应该是独立的。
 
 综合以上，我们可以得出第一个结论：**微服务粒度的下界是它至少应满足独立——能够独立发布、独立部署、独立运行与独立测试，内聚——强相关的功能与数据在同一个服务中处理，完备——一个服务包含至少一项业务实体与对应的完整操作。**

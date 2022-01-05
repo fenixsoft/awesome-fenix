@@ -2,14 +2,14 @@
 
 服务网格目前仍然处于技术浪潮的早期，但其价值已被业界所普遍认可，几乎所有希望能够影响云原生发展方向的企业都已参与进来。从最早 2016 年的[Linkerd](https://linkerd.io/)和[Envoy](https://www.envoyproxy.io/)，到 2017 年 Google、IBM 和 Lyft 共同发布的 Istio，再到后来 CNCF 将 Buoyant 的[Conduit](https://conduit.io/)改名为[Linkerd2](https://linkerd.io/2/overview/)再度参与 Istio 竞争。2018 年后，服务网格的话语权争夺战已全面升级至由云计算巨头直接主导，Google 将 Istio 搬上 Google Cloud Platform，推出了 Istio 的公有云托管版本 Google Cloud Service Mesh，亚马逊推出了用于 AWS 的 App Mesh、微软推出了 Azure 完全托管版本的 Service Fabric Mesh，发布了自家的控制平面[Open Service Mesh](https://openservicemesh.io/) ，国内的阿里巴巴也推出了基于 Istio 的修改版[SOFAMesh](https://github.com/sofastack/sofa-mesh)，并开源了自己研发的[MOSN](https://mosn.io/)代理，可以说，云计算的所有玩家都正在布局服务网格生态。
 
-市场繁荣的同时也带来了碎片化的问题，一个技术领域能够形成能被业界普遍承认的规范标准，是这个领域从分头研究、各自开拓的萌芽状态，走向工业化生产应用的成熟状态的重要标志，标准的诞生可以说是每一项技术普及之路中都必须经历的“成人礼”。前面我们曾接触过容器运行时领域的 CRI 规范、容器网络领域的 CNI 规范、容器存储领域的 CSI 规范，尽管服务网格诞生至今仅有数年时间，但作为微服务、云原生的前沿热点，它也正在酝酿自己的标准规范，既本节的主角：[服务网格接口](https://smi-spec.io/)（Service Mesh Interface，SMI）与[通用数据平面 API](https://github.com/cncf/udpa)（Universal Data Plane API，UDPA），它们两者的关系如下图所示。
+市场繁荣的同时也带来了碎片化的问题，一个技术领域形成能被业界普遍承认的规范标准，是这个领域从分头研究、各自开拓的萌芽状态，走向工业化生产应用的成熟状态的重要标志，标准的诞生可以说是每一项技术普及之路中都必须经历的“成人礼”。前面我们曾接触过容器运行时领域的 CRI 规范、容器网络领域的 CNI 规范、容器存储领域的 CSI 规范，尽管服务网格诞生至今仅有数年时间，但作为微服务、云原生的前沿热点，它也正在酝酿自己的标准规范，既本节的主角：[服务网格接口](https://smi-spec.io/)（Service Mesh Interface，SMI）与[通用数据平面 API](https://github.com/cncf/udpa)（Universal Data Plane API，UDPA），它们两者的关系如下图所示。
 
 :::center
 ![](./images/eco.png)
 图 15-10 SMI 规范与 UDPA 规范
 :::
 
-服务网格的实质上是数据平面产品与控制平面产品的集合，所以在规范制订方面，很自然地也分成了两类：SMI 规范提供了外部环境（实际上就是 Kubernetes）与控制平面交互的标准，使得 Kubernetes 及在其之上的应用能够无缝地切换各种服务网格产品。UDPA 规范则提供了控制平面与数据平面交互的标准，使得服务网格产品能够灵活地搭配不同的边车代理，针对不同场景的需求，发挥各款边车代理的功能或者性能优势。这两个规范并没有重叠，它们的关系与在容器运行时中介绍到的 CRI 和 OCI 规范之间的关系颇有些相似。
+服务网格实质上是数据平面产品与控制平面产品的集合，所以在规范制订方面，很自然地也分成了两类：SMI 规范提供了外部环境（实际上就是 Kubernetes）与控制平面交互的标准，使得 Kubernetes 及在其之上的应用能够无缝地切换各种服务网格产品。UDPA 规范则提供了控制平面与数据平面交互的标准，使得服务网格产品能够灵活地搭配不同的边车代理，针对不同场景的需求，发挥各款边车代理的功能或者性能优势。这两个规范并没有重叠，它们的关系与在容器运行时中介绍到的 CRI 和 OCI 规范之间的关系颇有些相似。
 
 ## 服务网格接口
 
@@ -37,11 +37,11 @@ SMI 与 Kubernetes 是彻底绑定的，规范的落地执行完全依靠在 Kub
 
 这些四种 API 目前暂时均是 Alpha 版本，意味着它们还未成熟，随时可能发生变动。从目前版本来看，至少与 Istio 的私有 API 相比，SMI 没有看到明显优势，不过考虑 SMI 还处于项目早期阶段，不够强大也情有可原，希望未来 SMI 可以成长为一个足够坚实可用的技术规范，这有助于避免数据平面出现一家独大的情况，有利于竞争与发展。
 
-## 通用数据面 API
+## 通用数据平面 API
 
 同样是 2019 年 5 月，CNCF 创立了一个名为“通用数据平面 API 工作组”（Universal Data Plane API Working Group，UDAP-WG）的组织，工作目标是制定类似于软件定义网络中 OpenFlow 协议的数据平面交互标准。工作组的名字被敲定的那一刻，就已经决定了所产出的标准名字必定叫“通用数据平面 API”（Universal Data Plane API，UDPA）。
 
-如果不纠结于是否足够标准、是否由足够权威组织来制定的话，上一节介绍数据平面时提到的 Envoy xDS 协议族其实就已经完全满足了控制平面与数据平面交互的需要。事实上，Envoy 正是 UDPA-WG 工作组的主要成员，在 2019 年 11 月的 EnvoyCon 大会上，Envoy 的核心开发者、UDPA 的负责人之一，来自 Google 公司的 Harvey Tuch 做了一场以“[The Universal Dataplane API：Envoy’s Next Generation APIs](https://envoycon2019.sched.com/event/UxwL/the-universal-dataplane-api-udpa-envoys-next-generation-apis-harvey-tuch-google)”为题的演讲，详细而清晰地说明了 xDS 与 UDAP 之间的关系：UDAP 的研发就是基于 xDS 的经验为基础的，在未来 xDS 将逐渐向 UDPA 靠拢，最终将基于 UDPA 来实现。
+如果不纠结于是否足够标准、是否由足够权威的组织来制定的话，上一节介绍数据平面时提到的 Envoy xDS 协议族其实就已经完全满足了控制平面与数据平面交互的需要。事实上，Envoy 正是 UDPA-WG 工作组的主要成员，在 2019 年 11 月的 EnvoyCon 大会上，Envoy 的核心开发者、UDPA 的负责人之一，来自 Google 公司的 Harvey Tuch 做了一场以“[The Universal Dataplane API：Envoy’s Next Generation APIs](https://envoycon2019.sched.com/event/UxwL/the-universal-dataplane-api-udpa-envoys-next-generation-apis-harvey-tuch-google)”为题的演讲，详细而清晰地说明了 xDS 与 UDAP 之间的关系：UDAP 的研发就是基于 xDS 的经验为基础的，在未来 xDS 将逐渐向 UDPA 靠拢，最终将基于 UDPA 来实现。
 
 :::center
 ![](./images/udpa.png)
@@ -58,9 +58,9 @@ SMI 与 Kubernetes 是彻底绑定的，规范的落地执行完全依靠在 Kub
 
 - **Linkerd**：2016 年 1 月发布的[Linkerd](https://github.com/linkerd/linkerd)是服务网格的鼻祖，使用 Scala 语言开发的 Linkerd-proxy 也就成为了业界第一款正式的边车代理。一年后的 2017 年 1 月，Linkerd 成功进入 CNCF，成为云原生基金会的孵化项目，但此时的 Linkerd 其实已经显露出了明显的颓势：由于 Linkerd-proxy 运行需要 Java 虚拟机的支持，在启动时间、预热、内存消耗等方面，相比起晚它半年发布的挑战者 Envoy 均处于全面劣势，因而很快 Linkerd 就被 Istio 与 Envoy 的组合所击败，结束了它短暂的统治期。
 - **Envoy**：2016 年 9 月开源的[Envoy](https://github.com/envoyproxy/envoy)是目前边车代理产品中市场占有率最高的一款，已经在很多个企业的生产环境里经受过大量检验。Envoy 最初由 Lyft 公司开发，后来 Lyft 与 Google 和 IBM 三方达成合作协议，Envoy 就成了 Istio 的默认数据平面。Envoy 使用 C++语言实现，比起 Linkerd 在资源消耗方面有了明显的改善。此外，由于采用了公开的 xDS 协议进行控制，Envoy 并不只为 Istio 所私有，这个特性让 Envoy 被很多其他的管理平面选用，为它夺得市场占有率桂冠做出了重要贡献。2017 年 9 月，Envoy 加入 CNCF，成为 CNCF 继 Linkerd 之后的第二个数据平面项目。
-- **nginMesh**：2017 年 9 月，在 NGINX Conf 2017 大会上，Nginx 官方公布了基于著名服务器产品 Nginx 实现的边车代理[nginMesh](https://github.com/nginxinc/nginmesh)。nginMesh 使用 C 语言开发（有部分模块用了 Golang 和 Rust），是 Nginx 从网络通信踏入程序通信的一次重要尝试。Nginx 在网络通信和流量转发方面拥有其他厂商难以匹敌的成熟经验，本该成为数据平面的有力竞争者才对。然而结果却是 Nginix 在这方面投入资源有限，方向摇摆，让 nginMesh 的发展一直都不温不火，到了 2020 年，nginMesh 终于宣告失败，项目转入“非活跃”（No Longer Under Active）状态。
+- **nginMesh**：2017 年 9 月，在 NGINX Conf 2017 大会上，Nginx 官方公布了基于著名服务器产品 Nginx 实现的边车代理[nginMesh](https://github.com/nginxinc/nginmesh)。nginMesh 使用 C 语言开发（有部分模块用了 Golang 和 Rust），是 Nginx 从网络通信踏入程序通信的一次重要尝试。Nginx 在网络通信和流量转发方面拥有其他厂商难以匹敌的成熟经验，本该成为数据平面的有力竞争者才对。然而结果却是 Nginx 在这方面投入资源有限，方向摇摆，让 nginMesh 的发展一直都不温不火，到了 2020 年，nginMesh 终于宣告失败，项目转入“非活跃”（No Longer Under Active）状态。
 - **Conduit/Linkerd 2**：2017 年 12 月，在 KubeCon 大会上，Buoyant 公司发布了 Conduit 的 0.1 版本，这是 Linkerd-proxy 被 Envoy 击败后，Buoyant 公司使用 Rust 语言重新开发的第二代的服务网格产品，最初是以 Conduit 命名，在 Conduit 加入 CNCF 后不久，宣布与原有的 Linkerd 项目合并，被重新命名为[Linkerd 2](https://github.com/linkerd/linkerd2)（这样就只算一个项目了）。使用 Rust 重写后，[Linkerd2-proxy](https://github.com/linkerd/linkerd2-proxy)的性能与资源消耗方面都已不输 Envoy，但它的定位通常是作为 Linkerd 2 的专有数据平面，成功与否很大程度上取决于 Linkerd 2 的发展如何。
-- **MOSN**：2018 年 6 月，来自蚂蚁金服的[MOSN](https://github.com/mosn/mosn)宣布开源，MOSN 是 SOFAStack 中的一部分，使用 Golang 语言实现，在阿里巴巴及蚂蚁金服中经受住了大规模的应用考验。由于 MOSN 是技术阿里生态的一部分，对于使用了 Dubbo 框架，或者 SOFABolt 这样的 RPC 协议的微服务应用，MOSN 往往能够提供些额外的便捷性。2019 年 12 月，MOSN 也加入了[CNCF Landscape](https://landscape.cncf.io/)。
+- **MOSN**：2018 年 6 月，来自蚂蚁金服的[MOSN](https://github.com/mosn/mosn)宣布开源，MOSN 是 SOFAStack 中的一部分，使用 Golang 语言实现，在阿里巴巴及蚂蚁金服中经受住了大规模的应用考验。由于 MOSN 是阿里技术生态的一部分，对于使用了 Dubbo 框架，或者 SOFABolt 这样的 RPC 协议的微服务应用，MOSN 往往能够提供些额外的便捷性。2019 年 12 月，MOSN 也加入了[CNCF Landscape](https://landscape.cncf.io/)。
 
 以上介绍的是知名度和使用率最高的一部分数据平面，笔者在选择时也考虑了不同程序语言实现的代表性，其他的未提及的数据平面还有[HAProxy Connect](https://github.com/haproxytech/haproxy-consul-connect)、[Traefik](https://github.com/traefik/traefik)、[ServiceComb Mesher](https://github.com/apache/servicecomb-mesher)等等，就不再逐一介绍了。除了数据平面，服务网格中另外一条争夺激烈的战线是控制平面产品，主要有包括有以下产品。
 
