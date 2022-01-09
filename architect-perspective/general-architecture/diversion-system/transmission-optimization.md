@@ -49,7 +49,7 @@
 
 由此可见，一旦在技术根基上出现问题，依赖使用者通过各种 Tricks 去解决，无论如何都难以摆脱“两害相权取其轻”的权衡困境，否则这就不是 Tricks 而是会成为一种标准的设计模式了。
 
-在另一方面，HTTP 的设计者们并不是没有尝试过在协议层面去解决连接成本过高的问题，即使是 HTTP 协议的最初版本（指 HTTP/1.0，忽略非正式的 HTTP/0.9 版本）就已经支持了（连接复用技术在 HTTP/1.0 中并不是默认开启的，是在 HTTP/1.1 中变为默认开启）连接复用技术，即今天大家所熟知的[持久连接](https://en.wikipedia.org/wiki/HTTP_persistent_connection)（Persistent Connection），也称为连接[Keep-Alive 机制](https://en.wikipedia.org/wiki/Keepalive)。持久连接的原理是让客户端对同一个域名长期持有一个或多个不会用完即断的 TCP 连接。典型做法是在客户端维护一个 FIFO 队列，每次取完数据（如何在不断开连接下判断取完数据将会放到稍后[传输压缩](/architect-perspective/general-architecture/diversion-system/transmission-optimization.html#传输压缩)部分去讨论）之后一段时间内不自动断开连接，以便获取下一个资源时直接复用，避免创建 TCP 连接的成本。
+在另一方面，HTTP 的设计者们并不是没有尝试过在协议层面去解决连接成本过高的问题，即使是 HTTP 协议的最初版本（指 HTTP/1.0，忽略非正式的 HTTP/0.9 版本）就已经支持了连接复用技术（连接复用技术在 HTTP/1.0 中并不是默认开启的，是在 HTTP/1.1 中变为默认开启），即今天大家所熟知的[持久连接](https://en.wikipedia.org/wiki/HTTP_persistent_connection)（Persistent Connection），也称为连接[Keep-Alive 机制](https://en.wikipedia.org/wiki/Keepalive)。持久连接的原理是让客户端对同一个域名长期持有一个或多个不会用完即断的 TCP 连接。典型做法是在客户端维护一个 FIFO 队列，每次取完数据（如何在不断开连接下判断取完数据将会放到稍后[传输压缩](/architect-perspective/general-architecture/diversion-system/transmission-optimization.html#传输压缩)部分去讨论）之后一段时间内不自动断开连接，以便获取下一个资源时直接复用，避免创建 TCP 连接的成本。
 
 但是，连接复用技术依然是不完美的，最明显的副作用是“[队首阻塞](https://en.wikipedia.org/wiki/Head-of-line_blocking)”（Head-of-Line Blocking）问题。请设想以下场景：浏览器有 10 个资源需要从服务器中获取，此时它将 10 个资源放入队列，入列顺序只能按照浏览器遇见这些资源的先后顺序来决定的。但如果这 10 个资源中的第 1 个就让服务器陷入长时间运算状态会怎样呢？当它的请求被发送到服务端之后，服务端开始计算，而运算结果出来之前 TCP 连接中并没有任何数据返回，此时后面 9 个资源都必须阻塞等待。因为服务端虽然可以并行处理另外 9 个请求（譬如第 1 个是复杂运算请求，消耗 CPU 资源，第 2 个是数据库访问，消耗数据库资源，第 3 个是访问某张图片，消耗磁盘 I/O 资源，这就很适合并行），但问题是处理结果无法及时返回客户端，服务端不能哪个请求先完成就返回哪个，更不可能将所有要返回的资源混杂到一起交叉传输，原因是只使用一个 TCP 连接来传输多个资源的话，如果顺序乱了，客户端就很难区分哪个数据包归属哪个资源了。
 
