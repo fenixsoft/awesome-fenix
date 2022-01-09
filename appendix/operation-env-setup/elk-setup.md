@@ -66,7 +66,7 @@ $ kubectl -n elastic-system logs -f statefulset.apps/elastic-operator
 
 ## 部署 Elasticsearch 集群
 
-有 ECK Operator 的帮助，你可以直接使用类型为`Elasticsearch`的自定义资源来部署 Elasticsearch 集群，以下命令部署一套节点单个数为 1，版本为 7.9.2 的 Elasticsearch 集群：
+有 ECK Operator 的帮助，你可以直接使用类型为`Elasticsearch`的自定义资源来部署 Elasticsearch 集群，以下命令部署一套节点个数为 1，版本为 7.9.2 的 Elasticsearch 集群：
 
 ```bash
 $ cat <<EOF | kubectl apply -f -

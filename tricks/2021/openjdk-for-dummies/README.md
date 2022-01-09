@@ -19,7 +19,7 @@
    :::center
    ![](./images/reg.png)
    :::
-   CLion 并没有像 IDEA 那样提供免费的社区版，所以这步买了 JetBrains 产品同学的填账号，没有买的就选择"Evaluate for free"试用 30 天。JetBrains IDE[允许](https://github.com/JetBrains/projector-docker#license)以 Projector 方式封装为 Docker 镜像去使用，但 IDE 本身是收费的，JetBrains 对学生、开源作者都有免费授权，产品也极为优秀，希望你能支持正版。
+   CLion 并没有像 IDEA 那样提供免费的社区版，所以这步买了 JetBrains 产品的同学填账号，没有买的就选择"Evaluate for free"试用 30 天。JetBrains IDE[允许](https://github.com/JetBrains/projector-docker#license)以 Projector 方式封装为 Docker 镜像去使用，但 IDE 本身是收费的，JetBrains 对学生、开源作者都有免费授权，产品也极为优秀，希望你能支持正版。
 
 3. 进入主界面，选择 Open，笔者在 HOME 目录下放了一份 JDK15 源码，此源码在镜像编译时已自动生成了 Slow Debug 配置项，并生成好了对应的[Compilation Database](https://hg.openjdk.java.net/jdk/jdk/raw-file/tip/doc/ide.html)和 CLion 的工程配置，因此你可以直接在 IDE 中导入这个工程。
    :::center

@@ -46,7 +46,7 @@ Fenix-CLI是一款交互式的云原生运行环境客户端，目标是取代Do
      ![](./assets/8.gif)
    - 查看各资源间关系<br/>`x-lens`指令用于通过Pod查询并显示相关资源之间的所有者关系。该指令基于pod-lens插件实现：[https://github.com/sunny0826/kubectl-pod-lens](https://github.com/sunny0826/kubectl-pod-lens)
      ![](./assets/9.gif)
-   - 快速访问服务<br/>`x-open`用于根据服务暴露的端口，自动建立端口转发，并打开客户端中已安装的浏览器，直接该服务。该指令基于open-svc插件实现：[https://github.com/superbrothers/kubectl-open-svc-plugin](https://github.com/superbrothers/kubectl-open-svc-plugin)
+   - 快速访问服务<br/>`x-open`用于根据服务暴露的端口，自动建立端口转发，并打开客户端中已安装的浏览器，直接访问该服务。该指令基于open-svc插件实现：[https://github.com/superbrothers/kubectl-open-svc-plugin](https://github.com/superbrothers/kubectl-open-svc-plugin)
    - 查看集群服务状态<br/>`x-status`用于查看当前Kubernetes集群中哪些资源运行正常、哪些存在问题，简化了反复多次`kubectl get`的麻烦。该指令基于status插件实现：[https://github.com/bergerx/kubectl-status](https://github.com/bergerx/kubectl-status)
      ![](./assets/10.gif)
    - ……
@@ -88,7 +88,7 @@ Fenix-CLI后续版本主要特性规划如下：
 
 - 建议：
   - 如对Fenix-CLI本身的功能有问题或者建议，欢迎在此Repository中提出Issues。
-  - 如对Fenix-CLI所使用的Krew Plugin有问题或者建议，可在介绍中以列出这些Plugin的原作者，到作者的Repository中提出。
+  - 如对Fenix-CLI所使用的Krew Plugin有问题或者建议，可在介绍里列出的这些Plugin的原Repository中提出。
 - 贡献：
   - 欢迎pull request、feature request，欢迎任何形式的协作。
 - 致谢：
