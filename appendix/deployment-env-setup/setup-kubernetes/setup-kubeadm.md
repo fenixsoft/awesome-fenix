@@ -1,6 +1,6 @@
 # 使用 Kubeadm 部署
 
-尽管使用 Rancher 或者 KubeSphere 这样更高层次的管理工具，可以更“傻瓜式”地部署和管理 Kubernetes 集群，但 kubeadm 作为官方提供的用于快速安装 Kbuernetes 的命令行工具，仍然是一项应该掌握的基础技能。kubeadm 随着新版的 Kubernetes 同步更新，时效性也会比其他更高层次的管理工具来的更好。现在 kuberadm 无论是部署单控制平面（Single Control Plane，单 Master 节点）集群还是高可用（High Availability，多 Master 节点）集群，都已经有了很优秀的易用性，手工部署 Kubernetes 集群已经不是什么太复杂、困难的事情了。本文以 Debian 系的 Linux 为例，介绍通过 kuberadm 部署集群的全过程。
+尽管使用 Rancher 或者 KubeSphere 这样更高层次的管理工具，可以更“傻瓜式”地部署和管理 Kubernetes 集群，但 kubeadm 作为官方提供的用于快速安装 Kubernetes 的命令行工具，仍然是一项应该掌握的基础技能。kubeadm 随着新版的 Kubernetes 同步更新，时效性也会比其他更高层次的管理工具来的更好。现在 kubeadm 无论是部署单控制平面（Single Control Plane，单 Master 节点）集群还是高可用（High Availability，多 Master 节点）集群，都已经有了很优秀的易用性，手工部署 Kubernetes 集群已经不是什么太复杂、困难的事情了。本文以 Debian 系的 Linux 为例，介绍通过 kubeadm 部署集群的全过程。
 
 ::: tip 注意事项
 
