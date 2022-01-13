@@ -14,7 +14,7 @@
 :::center
 ![](./images/coresystem.png)
 图 1-2 微内核架构示意<br/>
-图片来自 O'Reilly 的开放文档《[Software Architecture Patterns](https://www.oreilly.com/programming/free/files/software-architecture-patterns.pdf)》
+图片来自 O'Reilly 的开放文档《[Software Architecture Patterns](https://www.oreilly.com/content/software-architecture-patterns/)》
 :::
 
 - [事件驱动架构](https://en.wikipedia.org/wiki/Event-driven_architecture)（Event-Driven Architecture）：为了能让子系统互相通信，一种可行的方案是在子系统之间建立一套事件队列管道（Event Queues），来自系统外部的消息将以事件的形式发送至管道中，各个子系统从管道里获取自己感兴趣、能够处理的事件消息，也可以为事件新增或者修改其中的附加信息，甚至可以自己发布一些新的事件到管道队列中去，如此，每一个消息的处理者都是独立的，高度解耦的，但又能与其他处理者（如果存在该消息处理者的话）通过事件管道进行互动，如图 1-3 所示。
@@ -22,7 +22,7 @@
 :::center
 ![](./images/eventbus.png)
 图 1-3 事件驱动架构示意<br/>
-图片来自 O'Reilly 的开放文档《[Software Architecture Patterns](https://www.oreilly.com/programming/free/files/software-architecture-patterns.pdf)》
+图片来自 O'Reilly 的开放文档《[Software Architecture Patterns](https://www.oreilly.com/content/software-architecture-patterns/)》
 :::
 
 当系统演化至事件驱动架构时，[原始分布式时代](/architecture/architect-history/primitive-distribution.html)结尾中提到的第二条通往更大规模软件的路径，即仍在并行发展的远程服务调用也迎来了 SOAP 协议的诞生（详见[远程服务调用](/architect-perspective/general-architecture/api-style/rpc.html)一文），此时“面向服务的架构”（Service Oriented Architecture，SOA）已经有了它登上软件架构舞台所需要的全部前置条件。
