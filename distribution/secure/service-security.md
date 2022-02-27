@@ -120,7 +120,7 @@ public class RSA256PublicJWTAccessToken extends JWTAccessToken {
 }
 ```
 
-如果 JWT 令牌合法，Spring Security 的过滤器就会放行调用请求，并从令牌中提取出 Principals，放到自己的安全上下文中（即`SecurityContextHolder.getContext()`）。开发实际项目时，你可以根据需要自行决定 Principals 的具体形式，既可以像 Istio 中那样直接从令牌中取出来，以字符串形式原样存放，节省一些数据库或者缓存的查询开销；也可以统一做些额外的转换处理，以方便后续业务使用，譬如将 Principals 转换自动为系统中用户对象。Fenix's Bookstore 转换操作是在 JWT 令牌的父类`JWTAccessToken`中完成的。可见尽管由应用自己来做请求验证会有一定的代码量和侵入性，但同时自由度确实也会更高一些。
+如果 JWT 令牌合法，Spring Security 的过滤器就会放行调用请求，并从令牌中提取出 Principals，放到自己的安全上下文中（即`SecurityContextHolder.getContext()`）。开发实际项目时，你可以根据需要自行决定 Principals 的具体形式，既可以像 Istio 中那样直接从令牌中取出来，以字符串形式原样存放，节省一些数据库或者缓存的查询开销；也可以统一做些额外的转换处理，以方便后续业务使用，譬如将 Principals 自动转换为系统中用户对象。Fenix's Bookstore 转换操作是在 JWT 令牌的父类`JWTAccessToken`中完成的。可见尽管由应用自己来做请求验证会有一定的代码量和侵入性，但同时自由度确实也会更高一些。
 
 为方便不同版本实现之间的对比，在 Istio 版本中保留了 Spring Security 自动从令牌转换 Principals 为用户对象的逻辑，因此必须在 YAML 中包含`forwardOriginalToken: true`的配置，告诉 Istio 验证完 JWT 令牌后不要丢弃掉请求中的 Authorization Header，原样转发给后面的服务处理。
 
