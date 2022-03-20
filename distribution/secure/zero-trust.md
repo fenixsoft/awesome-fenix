@@ -8,7 +8,7 @@
 
 ## 零信任安全模型的特征
 
-零信任安全的中心思想是不应当以某种固有特征来自动信任任何流量，除非明确得到了能代表请求来源（不一定是人，更可能是另一台服务）的身份凭证，否则一律不会有默认的信任关系。在 2019 年，Google 发表了一篇在安全与研发领域里都备受关注的论文《[BeyondProd: A New Approach to Cloud-Native Security](https://cloud.google.com/security/beyondprod)》（BeyondCorp 和 BeyondProd 是谷歌最新一代安全框架的名字，从 2014 年起已连续发表了 6 篇关于 BeyondCorp 和 BeyondProd 的论文），此文中详细列举了传统的基于边界的网络安全模型与云原生时代下基于零信任网络的安全模型之间的差异，并描述了要完成边界安全模型到零信任安全模型的迁移所要实现的具体需求点，笔者将其翻译转述为如表 9-1 所示内容。
+零信任安全的中心思想是不应当以某种固有特征来自动信任任何流量，除非明确得到了能代表请求来源（不一定是人，更可能是另一个服务）的身份凭证，否则一律不会有默认的信任关系。在 2019 年，Google 发表了一篇在安全与研发领域里都备受关注的论文《[BeyondProd: A New Approach to Cloud-Native Security](https://cloud.google.com/security/beyondprod)》（BeyondCorp 和 BeyondProd 是谷歌最新一代安全框架的名字，从 2014 年起已连续发表了 6 篇关于 BeyondCorp 和 BeyondProd 的论文），此文中详细列举了传统的基于边界的网络安全模型与云原生时代下基于零信任网络的安全模型之间的差异，并描述了要完成边界安全模型到零信任安全模型的迁移所要实现的具体需求点，笔者将其翻译转述为如表 9-1 所示内容。
 
 :::center
 
