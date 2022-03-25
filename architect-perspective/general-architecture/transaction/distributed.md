@@ -115,7 +115,7 @@ sequenceDiagram
 
 ## TCC 事务
 
-TCC 是另一种常见的分布式事务机制，它是“Try-Confirm-Cancel”三个单词的缩写，是由数据库专家 Pat Helland 在 2007 年撰写的论文《[Life beyond Distributed Transactions: An Apostate’s Opinion](https://www-db.cs.wisc.edu/cidr/cidr2007/papers/cidr07p15.pdf)》中提出。
+TCC 是另一种常见的分布式事务机制，它是“Try-Confirm-Cancel”三个单词的缩写，是由数据库专家 Pat Helland 在 2007 年撰写的论文《[Life beyond Distributed Transactions: An Apostate’s Opinion](https://database.cs.wisc.edu/cidr/cidr2007/papers/cidr07p15.pdf)》中提出。
 
 前面介绍的可靠消息队列虽然能保证最终的结果是相对可靠的，过程也足够简单（相对于 TCC 来说），但整个过程完全没有任何隔离性可言，有一些业务中隔离性是无关紧要的，但有一些业务中缺乏隔离性就会带来许多麻烦。譬如在本章的场景事例中，缺乏隔离性会带来的一个显而易见的问题便是“超售”：完全有可能两个客户在短时间内都成功购买了同一件商品，而且他们各自购买的数量都不超过目前的库存，但他们购买的数量之和却超过了库存。如果这件事情处于刚性事务，且隔离级别足够的情况下是可以完全避免的，譬如，以上场景就需要“可重复读”（Repeatable Read）的隔离级别，以保证后面提交的事务会因为无法获得锁而导致失败，但用可靠消息队列就无法保证这一点，这部分属于数据库本地事务方面的知识，可以参考前面的讲解。如果业务需要隔离，那架构师通常就应该重点考虑 TCC 方案，该方案天生适合用于需要强隔离性的分布式事务中。
 
