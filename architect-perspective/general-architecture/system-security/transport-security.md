@@ -142,7 +142,7 @@ PKI 中采用的证书格式是[X.509 标准格式](https://en.wikipedia.org/wik
 - 1994 年，网景（Netscape）公司开发了 SSL 协议（Secure Sockets Layer）的 1.0 版，这是构建传输安全层的起源，但是 SSL 1.0 从未正式对外发布过。
 - 1995 年，Netscape 把 SSL 升级到 2.0 版，正式对外发布，但是刚刚发布不久就被发现有严重漏洞，所以并未大规模使用。
 - 1996 年，修补好漏洞的 SSL 3.0 对外发布，这个版本得到了广泛的应用，很快成为 Web 网络安全层的事实标准。
-- 1999 年，互联网标准化组织接替 Netscape，将 SSL 改名 TLS（Transport Layer Security）后形成了传输安全层的国际标准。第一个正式的版本是[RFC 2246](https://tools.ietf.org/html/rfc2246)定义的 TLS 1.0，该版 TLS 的生命周期极长，直至笔者写下这段文字的 2020 年 3 月，主流浏览器（Chrome、Firefox、IE、Safari）才刚刚宣布同时停止 TLS 1.0/1.1 的支持。而讽刺的是，由于停止后许多政府网站被无法被浏览，此时又正值新冠病毒（COVID-19）爆发期，Firefox 紧急[发布公告](https://www.mozilla.org/en-US/firefox/74.0/releasenotes/)宣布撤回该改动，TLS 1.0 的生命还在顽强延续。
+- 1999 年，互联网标准化组织接替 Netscape，将 SSL 改名 TLS（Transport Layer Security）后形成了传输安全层的国际标准。第一个正式的版本是[RFC 2246](https://tools.ietf.org/html/rfc2246)定义的 TLS 1.0，该版 TLS 的生命周期极长，直至笔者写下这段文字的 2020 年 3 月，主流浏览器（Chrome、Firefox、IE、Safari）才刚刚宣布同时停止 TLS 1.0/1.1 的支持。而讽刺的是，由于停止后许多政府网站无法被浏览，此时又正值新冠病毒（COVID-19）爆发期，Firefox 紧急[发布公告](https://www.mozilla.org/en-US/firefox/74.0/releasenotes/)宣布撤回该改动，TLS 1.0 的生命还在顽强延续。
 - 2006 年，TLS 的第一个升级版 1.1 发布（[RFC 4346](https://tools.ietf.org/html/rfc4346)），但却沦为了被遗忘的孩子，很少人使用 TLS 1.1，甚至到了 TLS 1.1 从来没有已知的协议漏洞被提出的程度。
 - 2008 年，TLS 1.1 发布 2 年之后，TLS 1.2 标准发布（[RFC 5246](https://tools.ietf.org/html/rfc5246)），迄今超过 90%的互联网 HTTPS 流量是由 TLS 1.2 所支持的，现在仍在使用的浏览器几乎都完美支持了该协议。
 - 2018 年，最新的 TLS 1.3（[RFC 8446](https://tools.ietf.org/html/rfc8446)）发布，比起前面版本相对温和的升级，TLS 1.3 做了出了一些激烈的改动，修改了从 1.0 起一直没有大变化的两轮四次（2-RTT）握手，首次连接仅需一轮（1-RTT）握手即可完成，在有连接复用支持时，甚至将 TLS 1.2 原本的 1-RTT 下降到了 0-RTT，显著提升了访问速度。
