@@ -14,7 +14,7 @@
 
 本章笔者并不打算介绍具体某一种服务发现工具的具体功能与操作，而是会去分析服务发现的通用的共性设计，探讨对比时下服务发现最常见的不同形式。这里要讨论的第一个问题是“服务发现”具体是指进行过什么操作？这其实包含三个必须的过程。
 
-- **服务的注册**（Service Registration）：当服务启动的时候，它应该通过某些形式（如调用 API、产生事件消息、在 ZooKeeper/Etcd 的指定位置记录、存入数据库，等等）将自己的坐标信息通知到服务注册中心，这个过程可能由应用程序本身来完成，称为自注册模式，譬如 Spring Cloud 的@EnableEurekaClient 注解；也可能有容器编排框架或第三方注册工具来完成，称为第三方注册模式，譬如 Kubernetes 和 Registrator。
+- **服务的注册**（Service Registration）：当服务启动的时候，它应该通过某些形式（如调用 API、产生事件消息、在 ZooKeeper/Etcd 的指定位置记录、存入数据库，等等）将自己的坐标信息通知到服务注册中心，这个过程可能由应用程序本身来完成，称为自注册模式，譬如 Spring Cloud 的@EnableEurekaClient 注解；也可能由容器编排框架或第三方注册工具来完成，称为第三方注册模式，譬如 Kubernetes 和 Registrator。
 - **服务的维护**（Service Maintaining）：尽管服务发现框架通常都有提供下线机制，但并没有什么办法保证每次服务都能[优雅地下线](https://whatis.techtarget.com/definition/graceful-shutdown-and-hard-shutdown)（Graceful Shutdown）而不是由于宕机、断网等原因突然失联。所以服务发现框架必须要自己去保证所维护的服务列表的正确性，以避免告知消费者服务的坐标后，得到的服务却不能使用的尴尬情况。现在的服务发现框架，往往都能支持多种协议（HTTP、TCP 等）、多种方式（长连接、心跳、探针、进程状态等）去监控服务是否健康存活，将不健康的服务自动从服务注册表中剔除。
 - **服务的发现**（Service Discovery）：这里的发现是特指狭义上消费者从服务发现框架中，把一个符号（譬如 Eureka 中的 ServiceID、Nacos 中的服务名、或者通用的 FQDN）转换为服务实际坐标的过程，这个过程现在一般是通过 HTTP API 请求或者通过 DNS Lookup 操作来完成，也还有一些相对少用的方式，譬如 Kubernetes 也支持注入环境变量来做服务发现。
 
