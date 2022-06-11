@@ -12,7 +12,7 @@
 <hr style="height: 1px;  top: -14px; position: relative;" />
 
 - 程序员<br/>
-  兼职一些管理与研究工作的程序员，工作中主要从事大型企业级软件的架构与研发；业余里对计算机科学相关的多个领域都有持续跟进。
+  华为企业应用总工程师，兼职一些管理与研究工作的程序员，工作中主要从事大型企业级软件的架构与研发；业余里对计算机科学相关的多个领域都有持续跟进。
 
 - 研究员<br/>理学博士，曾担任远光软件研究院院长，澳门科大-远光人工智能联合实验室主任，研究方向为机器学习自动化特征选择。
 
@@ -20,7 +20,7 @@
   - 2021 年 《[凤凰架构：构建可靠的大型分布式系统](https://icyfenix.cn/introduction/about-book.html)》（豆瓣 9.2）
   - 2020 年 《[软件架构探索：The Fenix Project](https://icyfenix.cn/)》 （开源文档）
   - 2019 年 《[深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第三版）](https://book.douban.com/subject/34907497/)》（豆瓣 9.5）
-  - 2018 年 《[智慧的疆界：从图灵机到人工智能](https://book.douban.com/subject/30379536/)》（豆瓣 9.1）
+  - 2018 年 《[智慧的疆界：从图灵机到人工智能](https://book.douban.com/subject/30379536/)》（豆瓣 9.4）
   - 2016 年 《[深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第二版）](https://book.douban.com/subject/24722612/)》（豆瓣 9.0）
   - 2015 年 《[Java 虚拟机规范（Java SE 8 中文版）](https://book.douban.com/subject/26418340/)》（官方授权翻译，豆瓣 8.4）
   - 2014 年 《[Java 虚拟机规范（Java SE 7 中文版）](https://book.douban.com/subject/25792515/)》（官方授权翻译，豆瓣 9.0）
