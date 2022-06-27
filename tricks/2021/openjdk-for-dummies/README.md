@@ -98,7 +98,7 @@
 
 ## 其他
 
-- 如果打算使用此镜像用作实际工作环境，建议采用 JetBrains 专门提供的 PWA 外壳（[Projector Luancher](https://github.com/JetBrains/projector-client/releases)）来代替 Chrome、Safari 浏览器。否则在浏览器中写代码总会遇到一些冲突问题，譬如查找代码`Ctrl+F`却弹出了浏览器的搜索框等。
+- 如果打算使用此镜像用作实际工作环境，建议采用 JetBrains 专门提供的 PWA 外壳（[Projector Launcher](https://github.com/JetBrains/projector-client/releases)）来代替 Chrome、Safari 浏览器。否则在浏览器中写代码总会遇到一些冲突问题，譬如查找代码`Ctrl+F`却弹出了浏览器的搜索框等。
 - 如果你打算以 iPad 作为编码客户端，那服务器就不能使用 SSL（仅能用 HTTP，不能用 HTTPS），因为 iPad 不支持[Self-Signed](https://en.wikipedia.org/wiki/Self-signed_certificate) WebSockets。
 - 如果响应好的话，后续笔者可能会再做一些别的复杂环境，譬如 Kubernetes（应该会是 K3S）配 GoLand 之类的源码 IDE 镜像。
 - 镜像压缩后有 2.08 GB，Keep Patient。
