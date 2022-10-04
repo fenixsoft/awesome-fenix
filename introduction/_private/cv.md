@@ -46,11 +46,11 @@ permalink: /resume
 ### 计算机作家
 
 - 有优秀的归纳总结和文字写作能力，十年间出版了 8 部技术专著，撰写过 2 部开源文档，口碑和销量均得到业内认可，其中五本书在豆瓣上获得了 9.0 分或以上的评价。
-  - 2021 年 《[凤凰架构：构建可靠的大型软件系统](https://icyfenix.cn/introduction/about-book.html)》（评分 9.1）
+  - 2021 年 《[凤凰架构：构建可靠的大型软件系统](https://icyfenix.cn/introduction/about-book.html)》（评分 9.4）
   - 2020 年 《[软件架构探索：The Fenix Project](https://icyfenix.cn/)》 （开源文档）
   - 2019 年 《[深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第三版）](https://book.douban.com/subject/34907497/)》（评分 9.5）
-  - 2018 年 《[智慧的疆界：从图灵机到人工智能](https://book.douban.com/subject/30379536/)》（评分 9.1）
-  - 2016 年 《[深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第二版）](https://book.douban.com/subject/24722612/)》（评分 9.0）
+  - 2018 年 《[智慧的疆界：从图灵机到人工智能](https://book.douban.com/subject/30379536/)》（评分 9.4）
+  - 2016 年 《[深入理解 Java 虚拟机：JVM 高级特性与最佳实践（第二版）](https://book.douban.com/subject/24722612/)》（评分 9.1）
   - 2015 年 《[Java 虚拟机规范 （Java SE 8 中文版）](https://book.douban.com/subject/26418340/)》（评分 8.2）
   - 2014 年 《[Java 虚拟机规范 （Java SE 7 中文版）](https://book.douban.com/subject/25792515/)》（评分 9.0）
   - 2013 年 《[深入理解 OSGi：Equinox 原理、应用与最佳实践](https://book.douban.com/subject/21324330/)》（评分 7.7）
@@ -70,10 +70,10 @@ permalink: /resume
 
 <p style="display:block; height: 24px; line-height: 24px; color: #666; font-size: 14px;">
 <span style="float:right">2021 年 7 月  至今</span>
-<span style="float:left">质量与流程 IT - 首席 SaaS 软件教练（21 级）</span>
+<span style="float:left">质量与流程 IT - 企业应用总工办 - 总工程师</span>
 </p>
 <p style="clear: both;">
-华为技术有限公司是全球领先的信息与通信技术（ICT）解决方案供应商，2020 年排名《财富》世界 500 强第 49 位。华为的产品和解决方案已经应用于全球 170 多个国家，服务全球运营商 50 强中的 45 家及全球 1/3 的人口。
+华为技术有限公司是全球领先的信息与通信技术（ICT）解决方案供应商，2020 年排名《财富》世界 500 强第 49 位。华为的产品和解决方案已经应用于全球 170 多个国家，服务全球运营商 50 强中的 45 家及全球 1/3 的人口。<br/>我进入公司后，担任企业应用总工程师、企业应用教研室主任，负责华为大型企业级软件的架构与研发。作为高级专家，参与了 MetaERP 从零到一的构建过程；作为总体组组长，主导了 MetaCRM 项目从立项到研发、落地的全过程。
 </p>
 
 ### 远光软件股份有限公司
