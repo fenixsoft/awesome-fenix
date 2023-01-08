@@ -1,6 +1,8 @@
 module.exports = {
-  title: '凤凰架构',
-  description: '构建可靠的大型分布式系统',
+  title: 'icyfenix的博士学习记录',
+  //腾讯云来电要求title与备案名称完全一直 = =#
+  //title: '凤凰架构',
+  //description: '构建可靠的大型分布式系统',
   head: [
     ['link', {rel: 'shortcut icon', type: "image/x-icon", href: `/favicon.ico`}]
   ],
