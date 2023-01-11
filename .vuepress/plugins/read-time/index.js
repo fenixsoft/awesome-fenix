@@ -87,7 +87,7 @@ module.exports = (options = {}) => ({
             }
 
             // 由于README.md会显示在GitHub上，设置frontmatter不好看，改为这里进行
-            frontmatter.title = "icyfenix的博士学习记录"
+            frontmatter.title = "凤凰架构：构建可靠的大型分布式系统"
             frontmatter.comment = false
             frontmatter.pageClass = "index-page-class"
         }
