@@ -35,7 +35,7 @@
   - [华为云最有价值技术专家（MVP）](https://developer.huaweicloud.com/mvp/member)
   - [IBM DeveloperWorks 撰稿人]()、[InfoQ.CN 专栏撰稿人](https://www.infoq.cn/profile/CD59DD20F93F11/publish)
   - [Java 核心技术大会会议主席](https://ke.segmentfault.com/course/1650000041954414)、[极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[华章 25 周年公益课程讲师](https://xie.infoq.cn/article/36ec9efa0697377af0d043b1e)
-  - [QCon全球软件开发大会主题明星讲师](https://qcon.infoq.cn/2020/shenzhen/)、[ArchSummit全球架构师峰会主题演讲嘉宾](https://archsummit.infoq.cn/2021/shenzhen/presentation/4104)、[HuaweiConnect华为全连接大会专题讲师](https://www.huawei.com/cn/events/huaweiconnect/agenda?type=%E4%B8%93%E9%A2%98%E6%BC%94%E8%AE%B2)
+  - [QCon 全球软件开发大会主题明星讲师](https://qcon.infoq.cn/2020/shenzhen/)、[ArchSummit 全球架构师峰会主题演讲嘉宾](https://archsummit.infoq.cn/2021/shenzhen/presentation/4104)、[HuaweiConnect 华为全连接大会专题讲师](https://www.huawei.com/cn/events/huaweiconnect/agenda?type=%E4%B8%93%E9%A2%98%E6%BC%94%E8%AE%B2)
 
 <br/>
 
