@@ -12,9 +12,10 @@
 <hr style="height: 1px;  top: -14px; position: relative;" />
 
 - 程序员<br/>
-  华为企业应用总师，兼职一些管理与研究工作的程序员，工作中主要从事大型企业级软件的架构与研发；业余里对计算机科学相关的多个领域都有持续跟进。
+  华为七级专家，兼职一些管理与研究工作的程序员。主要从事大型企业级软件的架构与研发工作，参与过 MetaERP、MetaCRM 等重要变革项目，分别担任首席技术规划与总架构师。业余里对计算机科学相关的多个领域都有持续跟进。
 
-- 研究员<br/>理学博士，曾担任远光软件研究院院长，澳门科大-远光人工智能联合实验室主任，研究方向为机器学习自动化特征选择。
+- 研究员<br/>
+  理学博士，华为企业应用教研室主任。曾任远光软件研究院院长，澳门科大-远光人工智能联合实验室主任，研究方向为机器学习自动化特征选择。
 
 - 计算机技术作家<br/>出版过八部计算机技术书籍，撰写过两部开源文档，口碑和销量均得到业内认可。其中五本书在[豆瓣](https://www.douban.com/)上获得了 9.0 分及以上的评价，“深入理解 Java 虚拟机”系列重印超过 45 次，销量逾 40 万册。
   - 2021 年 《[凤凰架构：构建可靠的大型分布式系统](https://icyfenix.cn/introduction/about-book.html)》（豆瓣 9.4）
@@ -34,7 +35,7 @@
   - [腾讯云最有价值技术专家（TVP）](https://cloud.tencent.com/tvp/132)
   - [华为云最有价值技术专家（MVP）](https://developer.huaweicloud.com/mvp/member)
   - [IBM DeveloperWorks 撰稿人]()、[InfoQ.CN 专栏撰稿人](https://www.infoq.cn/profile/CD59DD20F93F11/publish)
-  - [Java 核心技术大会会议主席](https://ke.segmentfault.com/course/1650000041954414)、[极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[华章 25 周年公益课程讲师](https://xie.infoq.cn/article/36ec9efa0697377af0d043b1e)
+  - [Java 核心技术大会会议主席](https://ke.segmentfault.com/course/1650000041954414)、[极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[华章课程讲师](https://xie.infoq.cn/article/36ec9efa0697377af0d043b1e)
   - [QCon 全球软件开发大会主题明星讲师](https://qcon.infoq.cn/2020/shenzhen/)、[ArchSummit 全球架构师峰会主题演讲嘉宾](https://archsummit.infoq.cn/2021/shenzhen/presentation/4104)、[HuaweiConnect 华为全连接大会专题讲师](https://www.huawei.com/cn/events/huaweiconnect/agenda?type=%E4%B8%93%E9%A2%98%E6%BC%94%E8%AE%B2)
 
 <br/>
@@ -47,9 +48,3 @@
 <slide><img src="./images/icyfenix4.jpg" /></slide>
 </swiper>
 :::
-
-:::tip 招聘&内推
-  对大型软件架构、云原生、实时大数据、企业级软件研发感兴趣的同学，欢迎投简历至：felix.zhouzhiming[at]huawei[dot]com。<br/>
-  团队气氛、水平都很好，对标范围华为18-22级，正编非OD。
-:::
-
