@@ -23,6 +23,7 @@
   "devDependencies": {
     "@vuepress/plugin-back-to-top": "^1.4.0",
     "@vuepress/plugin-google-analytics": "^1.4.0",
+    "pdf-lib": "^1.17.1",
     "easy-pdf-merge": "^0.2.0",
     "github-buttons": "^2.13.0",
     "markdown-it-abbr": "^1.0.4",

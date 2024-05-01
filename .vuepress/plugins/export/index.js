@@ -2,8 +2,9 @@ const puppeteer = require('puppeteer')
 const PDFMerge = require('easy-pdf-merge')
 const {join} = require('path')
 const {dev} = require('vuepress')
-const {fs, logger, chalk} = require('@vuepress/shared-utils')
+const {PDFDocument} = require('pdf-lib');
 const {execSync} = require("child_process");
+const {fs, logger, chalk} = require('@vuepress/shared-utils')
 const {red, yellow, gray} = chalk
 
 // Keep silent before running custom command.
@@ -52,7 +53,15 @@ async function generatePDF(ctx, port, host) {
     const pdfDir = vuepressDir + '/dist/pdf'
     const sidebar = ctx.siteConfig.themeConfig.sidebar
     const res = [findPage(pages, '/')]
+    const pdfTOCIndent = '    ';
     flatten(sidebar, res)
+
+    function removePathSuffix(url) {
+        url = url.toLowerCase();
+        url = url.replace(/\.md$/, "");
+        url = url.replace(/\.html$/, "");
+        return url.replace(/\/$/, "");
+    }
 
     function flatten(items, res) {
         for (let i = 0, l = items.length; i < l; i++) {
@@ -92,12 +101,15 @@ async function generatePDF(ctx, port, host) {
         }
     })
 
-    fs.writeFileSync(pdfDir + "/sidebar.json", JSON.stringify(sidebar));
-    fs.writeFileSync(pdfDir + "/exportPages.json", JSON.stringify(exportPages));
+    const browser = await puppeteer.launch({headless: true,
+      args: ['--no-sandbox', '--disable-setuid-sandbox',
+             '--single-process', '--no-zygote', '--disable-dev-shm-usage']
+    });
+    const browserPage = await browser.newPage();
+    logger.info("Exporting pages...");
 
-    const browser = await puppeteer.launch()
-    const browserPage = await browser.newPage()
-
+    let PDFPageCount = 1;
+    const exportPageInfoMap = {};
     for (let i = 0; i < exportPages.length; i++) {
         let {
             location,
@@ -128,7 +140,7 @@ async function generatePDF(ctx, port, host) {
             title = "凤凰架构"
         }
 
-        await browserPage.pdf({
+        const buffer = await browserPage.pdf({
             path: pagePath,
             format: 'A4',
             displayHeaderFooter: (url !== "/"),
@@ -136,15 +148,63 @@ async function generatePDF(ctx, port, host) {
             footerTemplate: "<span></span>",
             margin: {left: '0mm', top: '20mm', right: '0mm', bottom: '15mm'}
         })
-
+        const pdfDoc = await PDFDocument.load(buffer);
+        const pdfCurrCount = pdfDoc.getPages().length;
+        exportPageInfoMap[removePathSuffix(url)] = {'title': title, 'page': PDFPageCount};
+        PDFPageCount += pdfCurrCount;
         logger.success(
-            `Generated ${yellow(title)} ${gray(`${url}`)}`
+            `Generated ${yellow(title)} via ${gray(url)}`
         )
     }
 
+    let PDFTOC = '';
+    function gen_toc_line(title, url, level) {
+        const pageInfo = exportPageInfoMap[removePathSuffix(url)];
+        if (!title ) {
+            title = pageInfo['title'];
+        }
+        return `${pdfTOCIndent.repeat(level)}"${title}" ${pageInfo['page'].toString()}\n`
+    }
+
+    function get_first_children_path(items) {
+        if (items.length > 0) {
+            if (items[0].path) {
+              return items[0].path;
+            } else if (items[0].children instanceof Array) {
+                return get_first_children_path(items[0].children);
+            } else {
+              return items[0];
+            }
+        } else {
+            return null;
+        }
+    }
+
+    function flatten_toc(items, res, level) {
+        for (let i = 0, l = items.length; i < l; i++) {
+            if (items[i].children instanceof Array) {
+                let itemPath = items[i].path;
+                if (!itemPath) {
+                    itemPath = get_first_children_path(items[i].children || []);
+                }
+                PDFTOC += gen_toc_line(items[i].title, itemPath, level);
+                flatten_toc(items[i].children || [], res, level+1);
+            } else if (items[i].path) {
+                PDFTOC += gen_toc_line(items[i].title, items[i].path, level);
+            } else {
+                PDFTOC += gen_toc_line(null, items[i], level);
+            }
+        }
+    }
+    flatten_toc(sidebar, res, 0)
+    fs.writeFileSync(pdfDir + "/toc.txt", PDFTOC);
+
+    // Merge PDF files
     const files = exportPages.map(({path}) => path)
-    const outputFilename = 'the-fenix-project'
-    const outputFile = `${pdfDir}/${outputFilename}.pdf`
+    const outputBasename = 'the-fenix-project'
+    const outputTOCBasename = `${outputBasename}_toc`
+    const outputFile = `${pdfDir}/${outputBasename}.pdf`
+    const outputTOCFile = `${pdfDir}/${outputTOCBasename}.pdf`
 
     // 文件太多超过了命令行最大长度，改为10个一组多次合并
     for (let i = 0; i < files.length; i += 10) {
@@ -164,15 +224,19 @@ async function generatePDF(ctx, port, host) {
             })
         })
     }
-    logger.success(`Export ${yellow(outputFile)} file!`)
 
+    logger.success(`Exported ${yellow(outputFile)} file!`);
 
-    // 为PDF生成TOC目录
-    // 这部分依赖Python与pdf.tocgen (pip install -U pdf.tocgen)
+    logger.info(`Generating new PDF file with TOC...`);
     var opts = { cwd: pdfDir }
-    execSync("python generate_pdf_with_toc.py", opts)
-    execSync("pdftocio the-fenix-project.pdf < toc.txt", opts)
-    logger.success(`Adding TOC to PDF ${yellow(outputFile)} file!`)
+    try {
+      execSync(`pdftocio -o ${outputTOCBasename}.pdf ${outputBasename}.pdf < toc.txt`, opts)
+    } catch (error) {
+      logger.error(`Failed append TOC: ${error.message}`);
+      logger.error(`Python lib 'pdf.tocgen' is required for this, please execute:`);
+      logger.error(`'pip install -U pdf.tocgen' to install`);
+    }
+    logger.success(`Generated ${yellow(outputTOCFile)} file!`);
 
     await browser.close()
     fs.removeSync(tempDir)
