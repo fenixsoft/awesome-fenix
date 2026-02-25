@@ -1,13 +1,13 @@
 module.exports = {
   // title: 'icyfenix的博士学习记录',
-  // 腾讯云来电要求title与备案名称完全一直 = =#
+  // 腾讯云来电要求title与备案名称完全一致 = =#
   title: '凤凰架构',
   description: '构建可靠的大型分布式系统',
   head: [
     ['link', {rel: 'shortcut icon', type: "image/x-icon", href: `/favicon.ico`}]
   ],
-  host: 'localhost',
-  // host: '0.0.0.0',
+  // host: 'localhost',
+  host: '0.0.0.0',
   port: 8080,
   dest: '.vuepress/dist',
   plugins: [
