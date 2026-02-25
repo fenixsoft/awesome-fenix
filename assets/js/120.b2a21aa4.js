@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[120],{701:function(t,n,s){"use strict";s.r(n);var e=s(14),i=Object(e.a)({},(function(){var t=this._self._c;return t("ContentSlotsDistributor",{attrs:{"slot-key":this.$parent.slotKey}},[t("h1",{attrs:{id:"基于knative的无服务架构"}},[this._v("基于Knative的无服务架构")])])}),[],!1,null,null,null);n.default=i.exports}}]);

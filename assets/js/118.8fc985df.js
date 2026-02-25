@@ -1,0 +1,1 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([[118],{699:function(t,s,n){"use strict";n.r(s);var e=n(14),o=Object(e.a)({},(function(){var t=this._self._c;return t("ContentSlotsDistributor",{attrs:{"slot-key":this.$parent.slotKey}},[t("h1",{attrs:{id:"基于j2ee的单体架构"}},[this._v("基于J2EE的单体架构")])])}),[],!1,null,null,null);s.default=o.exports}}]);
