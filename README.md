@@ -37,6 +37,7 @@
 <img src="https://raw.githubusercontent.com/fenixsoft/awesome-fenix/master/.vuepress/public/images/sshot-index.png" >
 </p>
 
+- [Gitstar](https://dev.gitstar.ai?utm_medium=github_readme&utm_source=awesome_list&utm_campaign=fenixsoft_awesome-fenix) - Follow developers on GitHub and see what repos they star. Like a social feed for repo discovery.
 ## 如何使用？
 
 根据“使用”的所指含义的不同，笔者列举以下几种情况：
