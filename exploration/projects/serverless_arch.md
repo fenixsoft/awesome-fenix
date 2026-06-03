@@ -78,7 +78,7 @@ Serverless 架构的 Fenix's Bookstore 基于[亚马逊 AWS Lambda](https://amaz
   Serverless: Removing old service artifacts from S3...
   ```
 
-  访问输出结果中的地址（譬如上面显示的https://cc1oj8hirl.execute-api.us-east-1.amazonaws.com/dev/）即可浏览结果。<br/>需要注意，由于 Serverless 对响应速度的要求本来就较高，所以不建议再采用 HSQLDB 数据库作来运行程序了，每次冷启动都重置一次数据库本身也并不合理。代码中有提供 MySQL 的 Schema，建议采用 AWS RDB MySQL/MariaDB 作为数据库来运行。
+  访问输出结果中的地址（譬如上面显示的https://cc1oj8hirl.execute-api.us-east-1.amazonaws.com/dev/）即可浏览结果。<br/>需要注意，由于 Serverless 对响应速度的要求本来就较高，所以不建议再采用 HSQLDB 数据库作为运行程序了，每次冷启动都重置一次数据库本身也并不合理。代码中有提供 MySQL 的 Schema，建议采用 AWS RDB MySQL/MariaDB 作为数据库来运行。
 
 ## 协议
 
