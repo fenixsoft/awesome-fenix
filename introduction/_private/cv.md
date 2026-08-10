@@ -12,7 +12,7 @@ permalink: /resume
 <center style="margin-top: 0"><h1>周志明 Felix</h1></center>
 
 <center style="line-height: 24px; color: #666; font-size: 14px; word-break: keep-all;">
-<a href="icyfenix@gmail.com">icyfenix@gmail.com</a> | 1983 年<br/>
+<a href="icyfenix@gmail.com">icyfenix@gmail.com</a> | 1983 年 | 18826210400<br/>
 企业数智化、AI、云原生基础设施、架构设计与技术团队管理、研究与影响力构建<br/>
 <a href="https://icyfenix.cn" target="_blank">https://icyfenix.cn</a> | <a href="https://ai.icyfenix.cn" target="_blank">https://ai.icyfenix.cn</a> | <a href="https://github.com/fenixsoft" target="_blank">https://github.com/fenixsoft</a>
 </center>
