@@ -12,7 +12,7 @@ permalink: /resume
 <center style="margin-top: 0"><h1>周志明 Felix</h1></center>
 
 <center style="line-height: 24px; color: #666; font-size: 14px; word-break: keep-all;">
-<a href="icyfenix@gmail.com">icyfenix@gmail.com</a> | 1983 年 | 18826210400<br/>
+1983 年 | 微信号:icyfenix | <a href="icyfenix@gmail.com">icyfenix@gmail.com</a><br/>
 企业数智化、AI、云原生基础设施、架构设计与技术团队管理、研究与影响力构建<br/>
 <a href="https://icyfenix.cn" target="_blank">https://icyfenix.cn</a> | <a href="https://ai.icyfenix.cn" target="_blank">https://ai.icyfenix.cn</a> | <a href="https://github.com/fenixsoft" target="_blank">https://github.com/fenixsoft</a>
 </center>
@@ -40,13 +40,13 @@ permalink: /resume
 ### 研究员
 
 - 机器学习方向博士，华为企业应用教研室主任，曾任远光软件研究院院长，澳科大-远光人工智能联合实验室主任。负责主持下一代新技术的探索和创新工作，同时负责公司与高校、科研院所合作项目的管理，拓展并维护国内外高校及学术团体的合作关系。
-  - [澳门科技大学](https://www.must.edu.mo/) Ph.D 学位，研究方向为机器学习自动化特征选择。发表 SCI、EI、核心期刊论文 9 篇，其中 SCI 一作 2 篇，并有国家发明专利 11 项。
+  - [澳门科技大学](https://www.must.edu.mo/) 博士学位，研究方向为机器学习自动化特征选择。发表 SCI、EI、核心期刊论文 9 篇，其中 SCI 一作 2 篇，并有国家发明专利 11 项。
   - [澳门科大-远光人工智能联合实验室](https://www.must.edu.mo/cn/fi/labs/research/ygsoft)主任，主持并完成粤港澳大湾区合作专项、产业核心和关键技术攻关项目以及央企科技项目共 13 项，参与国家 863 课题 1 项，2020 年获[广东省科技厅 100 万元科研经费资助](http://gdstc.gd.gov.cn/zwgk_n/tzgg/content/post_3094436.html)。
   - 负责外部技术资源整合，与清华大学、南方科技大学、西安交通大学、澳门科技大学等多所高校建有校企联合项目或联合实验室。
 
 ### 计算机作家
 
-- 有优秀的归纳总结和文字写作能力，十年间出版了九部技术专著，撰写过两部开源文档，口碑和销量均得到业内认可，其中六本书在豆瓣上获得了 9.0 分或以上的评价。
+- 优秀的归纳总结和文字写作能力，十五年间出版了九部技术专著，撰写过两部开源文档，口碑和销量均得到业内认可，其中六本书在豆瓣上获得了 9.0 分或以上的评价。
   - 2026 年 《[设计机器学习应用系统](https://ai.icyfenix.cn)》（进行中）
   - 2025 年 《[智慧的疆界：从图灵机到人工智能（第二版）](https://book.douban.com/subject/37357392/)》（豆瓣 9.1）
   - 2021 年 《[凤凰架构：构建可靠的大型软件系统](https://icyfenix.cn/introduction/about-book.html)》（评分 9.4）
@@ -61,7 +61,7 @@ permalink: /resume
 
 ### 开发布道师
 
-- 有优秀的演讲和表达能力，开发布道师、开源技术的积极倡导者、技术专栏撰稿人，善于沟通，乐于分享；作为组织者或主讲人，参与过多场线上直播、线下的 Workshop、Meetup、技术大会。
+- 优秀的演讲和表达能力，开发布道师、开源技术的积极倡导者、技术专栏撰稿人，善于沟通，乐于分享；作为组织者或主讲人，参与过多场线上直播、线下的 Workshop、Meetup、技术大会。
   - [QCon 全球软件开发大会主题明星讲师](https://qcon.infoq.cn/2020/shenzhen/)、[ArchSummit 全球架构师峰会主题演讲嘉宾](https://archsummit.infoq.cn/2021/shenzhen/presentation/4104)、[HuaweiConnect 华为全连接大会专题讲师](https://www.huawei.com/cn/events/huaweiconnect/agenda?type=%E4%B8%93%E9%A2%98%E6%BC%94%E8%AE%B2)
   - [Java 核心技术大会会议主席](https://ke.segmentfault.com/course/1650000041954414)、[极客时间布道师](https://time.geekbang.org/opencourse/intro/100064201)、[华章课程讲师](https://xie.infoq.cn/article/36ec9efa0697377af0d043b1e)
   - [IBM DeveloperWorks 撰稿人]()、[InfoQ.CN 专栏撰稿人](https://www.infoq.cn/profile/CD59DD20F93F11/publish)
@@ -89,7 +89,7 @@ permalink: /resume
 </p>
 <p style="clear: both;">
 远光软件是国家电网旗下七家上市企业之一（SZ:002063），国务院国资委为公司实际控制人，规模约 5000 名员工，主营业务为面向大型集团企业的管理信息系统。<br/>
-我毕业进入公司后，曾担任过程序员、开发经理、研发部部门经理、设计部部门经理、平台部部门经理，产品线技术副总，兼任公司研究院院长。曾参与过多个国家级大型央企的信息化项目，负责研发过程中的管理和技术工作，并直接参与核心模块的开发和关键问题的解决。这些项目已累计为公司创造了逾百亿元收入，占全司历年总营收的 75% 以上，令集团企业信息化业务成为公司的核心业务。企业快速发展的同时，自身也在研发团队管理和技术研究方面积累了丰富的实践经验。
+毕业进入公司后，曾担任过程序员、开发经理、研发部部门经理、设计部部门经理、平台部部门经理，产品线技术副总，兼任公司研究院院长。曾参与过多个国家级大型央企的信息化项目，负责研发过程中的管理和技术工作，并直接参与核心模块的开发和关键问题的解决。这些项目已累计为公司创造了逾百亿元收入，占全司历年总营收的 75% 以上，令集团企业信息化业务成为公司的核心业务。企业快速发展的同时，自身也在研发团队管理和技术研究方面积累了丰富的实践经验。
 </p>
 
 ## 教育经历
@@ -106,4 +106,6 @@ permalink: /resume
 <slide><img src="../images/icyfenix2.jpg" /></slide>
 <slide><img src="../images/icyfenix4.jpg" /></slide>
 </swiper>
+
+<img src="https://visitor-badge.laobi.icu/badge?page_id=icyfenix/resume" alt="visitors">
 :::
