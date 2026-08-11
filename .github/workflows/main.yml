@@ -42,4 +42,3 @@ jobs:
         env:
           CDN_ID: ${{ secrets.CDN_ID }}
           CDN_KEY: ${{ secrets.CDN_KEY }}
-        continue-on-error: true
