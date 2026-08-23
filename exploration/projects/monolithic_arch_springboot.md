@@ -32,7 +32,7 @@
   ```bash
   $ docker run -d -p 8080:8080 --name bookstore icyfenix/bookstore:monolithic -e PROFILES=mysql
   ```
-  此时你需要通过 Docker link、Docker Compose 或者直接在主机的 Host 文件中提供一个名为`mysql_lan`的 DNS 映射，使程序能顺利链接到数据库，关于数据库的更多配置，可参考源码中的[application-mysql.yml](https://github.com/fenixsoft/monolithic_arch_springboot/blob/70f435911b0e0753d7e4cee27cd96304dbef786d/src/main/resources/application-mysql.yml)。
+  此时你需要通过 Docker link、Docker Compose 或者直接在主机的 Host 文件中提供一个名为`mysql_lan`的 DNS 映射，使程序能顺利连接到数据库，关于数据库的更多配置，可参考源码中的[application-mysql.yml](https://github.com/fenixsoft/monolithic_arch_springboot/blob/70f435911b0e0753d7e4cee27cd96304dbef786d/src/main/resources/application-mysql.yml)。
 - 通过 Git 上的源码，以 Maven 运行：
 
   ```bash
