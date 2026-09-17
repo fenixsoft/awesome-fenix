@@ -16,7 +16,7 @@
 
 2002 年，Linux Kernel 2.4.19 版内核引入了一种全新的隔离机制：[Linux 名称空间](https://en.wikipedia.org/wiki/Linux_namespaces)（Linux Namespaces）。名称空间的概念在很多现代的高级程序语言中都存在，用于避免不同开发者提供的 API 相互冲突，相信作为一名开发人员的你肯定不陌生。
 
-Linux 的名称空间是一种由内核直接提供的全局资源封装，是内核针对进程设计的访问隔离机制。进程在一个独立的 Linux 名称空间中朝系统看去，会觉得自己仿佛就是这方天地的主人，拥有这台 Linux 主机上的一切资源，不仅文件系统是独立的，还有着独立的 PID 编号（譬如拥有自己的 0 号进程，即系统初始化的进程）、UID/GID 编号（譬如拥有自己独立的 root 用户）、网络（譬如完全独立的 IP 地址、网络栈、防火墙等设置），等等，此时进程的心情简直不能再好了。
+Linux 的名称空间是一种由内核直接提供的全局资源封装，是内核针对进程设计的访问隔离机制。进程在一个独立的 Linux 名称空间中朝系统看去，会觉得自己仿佛就是这方天地的主人，拥有这台 Linux 主机上的一切资源，不仅文件系统是独立的，还有着独立的 PID 编号（譬如拥有自己的 1 号进程，即系统初始化进程）、UID/GID 编号（譬如拥有自己独立的 root 用户）、网络（譬如完全独立的 IP 地址、网络栈、防火墙等设置），等等，此时进程的心情简直不能再好了。
 
 Linux 的名称空间是受“[贝尔实验室九号项目](https://en.wikipedia.org/wiki/Plan_9_from_Bell_Labs)”（一个分布式操作系统，“九号”项目并非代号，操作系统的名字就叫“Plan 9 from Bell Labs”，充满了赛博朋克风格）的启发而设计的，最初的目的依然只是为了隔离文件系统，而非为了什么容器化的实现。这点从 2002 年发布时只提供了 Mount 名称空间，并且其构造参数为“CLONE_NEWNS”（即 Clone New Namespace 的缩写）而非“CLONE_NEWMOUNT”便能看出一些端倪。后来，要求系统隔离其他访问操作的呼声愈发强烈，从 2006 年起，内核陆续添加了 UTS、IPC 等名称空间隔离，直到目前最新的 Linux Kernel 5.6 版内核为止，Linux 名称空间支持以下八种资源的隔离（内核的官网[Kernel.org](https://www.kernel.org/)上仍然只列出了[前六种](https://www.kernel.org/doc/html/latest/admin-guide/namespaces/compatibility-list.html)，从 Linux 的 Man 命令能查到[全部八种](https://man7.org/linux/man-pages/man7/namespaces.7.html)）。
 
