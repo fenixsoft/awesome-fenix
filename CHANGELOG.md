@@ -173,7 +173,7 @@ permalink: /changelog
 
 ### 2020 年 6 月 18 日
 
-- [GraalVM](/tricks/graalvm/)增加了视频 PPT 讲解：[GraalVM——云原生时代的 Java](/tricks/graalvm/video)。<br/>正在与某知识服务商合作，未来本文档的主要内容会提供成音频稿。并且仍然会以公开课的性质免费提供。
+- [GraalVM](/tricks/2020/graalvm/)增加了视频 PPT 讲解：[GraalVM——云原生时代的 Java](/tricks/2020/graalvm/video)。<br/>正在与某知识服务商合作，未来本文档的主要内容会提供成音频稿。并且仍然会以公开课的性质免费提供。
 - 更新了[服务架构演进史](/architecture/architect-history/)，大概增加了 40%的内容。
 
 ### 2020 年 6 月 13 日
@@ -186,7 +186,7 @@ permalink: /changelog
 
 ### 2020 年 5 月 15 日
 
-- 完成“[服务发现](/distribution/service-discovery)”章节。
+- 完成“[服务发现](/distribution/connect/service-discovery.html)”章节。
 
 ### 2020 年 5 月 9 日
 

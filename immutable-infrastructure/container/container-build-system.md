@@ -93,7 +93,7 @@ Pod 是隔离与调度的基本单位，也是我们接触的第一种 Kubernete
 
 :::quote 额外知识：Kubernates 的资源对象与控制器
 
-目前，Kubernetes 已内置支持相当多的资源对象，并且还可以使用[CRD](/immutable-infrastructure/extension/crd.html)（Custom Resource Definition）来自定义扩充，你可以使用`kubectl api-resources`来查看它们。笔者根据用途分类列举了以下常见的资源：
+目前，Kubernetes 已内置支持相当多的资源对象，并且还可以使用[CRD](https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/)（Custom Resource Definition）来自定义扩充，你可以使用`kubectl api-resources`来查看它们。笔者根据用途分类列举了以下常见的资源：
 
 - 用于描述如何创建、销毁、更新、扩缩 Pod，包括：Autoscaling（HPA）、CronJob、DaemonSet、Deployment、Job、Pod、ReplicaSet、StatefulSet
 - 用于配置信息的设置与更新，包括：ConfigMap、Secret
