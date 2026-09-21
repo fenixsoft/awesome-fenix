@@ -26,7 +26,7 @@ Java 与云原生的矛盾，来源于 Java 诞生之初，植入到它基因之
 
 另一方面，在微服务的背景下，提倡服务围绕业务能力而非技术来构建应用，不再追求实现上的一致，一个系统由不同语言，不同技术框架所实现的服务来组成是完全合理的；服务化拆分后，很可能单个微服务不再需要再面对数十、数百 GB 乃至 TB 的内存；有了高可用的服务集群，也无须追求单个服务要 7×24 小时不可间断地运行，它们随时可以中断和更新。同时，微服务又对应用的容器化亲和性，譬如镜像体积、内存消耗、启动速度，以及达到最高性能的时间等方面提出了新的要求，在这两年的网红概念 Serverless 也进一步增加这些因素的考虑权重，而这些却正好都是 Java 的弱项：哪怕再小的 Java 程序也要带着完整的虚拟机和标准类库，使得镜像拉取和容器创建效率降低，进而使整个容器生命周期拉长。基于 Java 虚拟机的执行机制，使得任何 Java 的程序都会有固定的基础内存开销，以及固定的启动时间，而且 Java 生态中广泛采用的依赖注入进一步将启动时间拉长，使得容器的冷启动时间很难缩短。
 
-软件工业中已经出现过不止一起因 Java 这些弱点而导致失败的案例，如 JRuby 编写的[Logstash](https://www.elastic.co/cn/logstash)，原本是同时承担部署在节点上的收集端（Shipper）和专门转换处理的服务端（Master）的职责，后来因为资源占用的原因，被[Elstaic.co](https://www.elastic.co/)用 Golang 的[Filebeat](https://www.elastic.co/cn/beats/filebeat)代替了 Shipper 部分的职能；又如 Scala 语言编写的边车代理[Linkerd](https://github.com/linkerd/linkerd)，作为服务网格概念的提出者，却最终被[Envoy](https://www.envoyproxy.io/)所取代，其主要弱点之一也是由于 Java 虚拟机的资源消耗所带来的劣势。
+软件工业中已经出现过不止一起因 Java 这些弱点而导致失败的案例，如 JRuby 编写的[Logstash](https://www.elastic.co/cn/logstash)，原本是同时承担部署在节点上的收集端（Shipper）和专门转换处理的服务端（Master）的职责，后来因为资源占用的原因，被[Elastic.co](https://www.elastic.co/)用 Golang 的[Filebeat](https://www.elastic.co/cn/beats/filebeat)代替了 Shipper 部分的职能；又如 Scala 语言编写的边车代理[Linkerd](https://github.com/linkerd/linkerd)，作为服务网格概念的提出者，却最终被[Envoy](https://www.envoyproxy.io/)所取代，其主要弱点之一也是由于 Java 虚拟机的资源消耗所带来的劣势。
 
 虽然在云原生时代依然有很多适合 Java 发挥的领域，但是具备弹性与韧性，随时可以中断重启的微型服务的确已经形成了一股潮流，在逐步蚕食大型系统的领地。正是由于潮流趋势的改变，新一代的语言与技术尤其重视轻量化和快速响应能力，大多又重新回归到了原生语言（Native Language，如 Golang、Rust）之上。
 
