@@ -17,3 +17,4 @@ yarn-error.log*
 temp
 软件架构探索：The Fenix Project.pdf
 .history/
+.playwright-cli/

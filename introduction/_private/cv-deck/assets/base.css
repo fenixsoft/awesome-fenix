@@ -1,0 +1,257 @@
+/* html-ppt :: base.css — reset + shared tokens + layout primitives */
+/* Default tokens. Themes in assets/themes/*.css override the :root block. */
+:root {
+  --bg: #ffffff;
+  --bg-soft: #f7f7f8;
+  --surface: #ffffff;
+  --surface-2: #f2f2f4;
+  --border: rgba(0,0,0,.08);
+  --border-strong: rgba(0,0,0,.16);
+  --text-1: #111216;
+  --text-2: #55596a;
+  --text-3: #8a8f9e;
+  --accent: #3b6cff;
+  /* Text drawn on top of an --accent fill. Every theme in assets/themes/
+   * and every full-deck style.css overrides this with whichever of white /
+   * near-black clears WCAG AA against its own accent — a hardcoded ink
+   * cannot, because accents here range from #ffffff to #000000.
+   * This default is black rather than white on purpose: against the default
+   * --accent #3b6cff, white measures 4.40:1 and black 4.77:1, so only black
+   * clears AA for normal text. Reached by any deck that links no theme. */
+  --accent-ink: #000000;
+  --accent-2: #7a5cff;
+  --accent-3: #ff5c8a;
+  --good: #1aaf6c;
+  --warn: #f5a524;
+  --bad:  #e0445a;
+  --grad: linear-gradient(135deg,#3b6cff,#7a5cff 55%,#ff5c8a);
+  --grad-soft: linear-gradient(135deg,#eef2ff,#f5ecff 55%,#ffeef5);
+  --radius: 18px;
+  --radius-sm: 12px;
+  --radius-lg: 26px;
+  --shadow: 0 10px 30px rgba(18,24,40,.08), 0 2px 6px rgba(18,24,40,.04);
+  --shadow-lg: 0 24px 60px rgba(18,24,40,.14), 0 6px 16px rgba(18,24,40,.06);
+  --font-sans: 'Inter','Noto Sans SC',-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif;
+  --font-serif: 'Playfair Display','Noto Serif SC',Georgia,serif;
+  --font-mono: 'JetBrains Mono','IBM Plex Mono',SFMono-Regular,Menlo,monospace;
+  --font-display: var(--font-sans);
+  --letter-tight: -.03em;
+  --letter-normal: -.01em;
+  --ease: cubic-bezier(.4,0,.2,1);
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--text-1);
+  font-family:var(--font-sans);font-weight:400;line-height:1.6;
+  -webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;
+  letter-spacing:var(--letter-normal)}
+
+/* Viewport host: centres the fixed-size design canvas and letterboxes the rest.
+   Every px in a slide therefore means the same thing in the browser, in the
+   presenter preview, in the overview thumbnail and in a headless render. */
+body{width:100vw;height:100vh;overflow:hidden;
+  display:flex;align-items:center;justify-content:center}
+img,svg,video{max-width:100%;display:block}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+code,kbd,pre,samp{font-family:var(--font-mono)}
+
+/* ================= SLIDE SYSTEM ================= */
+/* ================= DESIGN CANVAS =================
+   Slides are authored against a FIXED 1920x1080 canvas and scaled to fit the
+   viewport by runtime.js (--deck-scale). Before this, .deck was 100vw/100vh
+   while type and spacing stayed in absolute px, so a 1512x850 laptop window
+   and a 1920x1080 render produced visibly different pages (issue #20).
+
+   Escape hatches:
+     <body data-fit="fluid">      -> old behaviour, canvas follows the viewport
+     <div class="deck" data-w=".." data-h="..">  -> custom canvas (e.g. 1080x1440 for 3:4)
+*/
+.deck{position:relative;flex:none;
+  width:var(--deck-w,1920px);height:var(--deck-h,1080px);
+  overflow:hidden;background:var(--bg);
+  transform:scale(var(--deck-scale,1));transform-origin:center center}
+
+/* Opt out: fluid canvas, exactly what the deck did before. */
+body[data-fit="fluid"]{display:block}
+body[data-fit="fluid"] .deck{width:100vw;height:100vh;transform:none}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;justify-content:center;
+  padding:72px 96px;
+  box-sizing:border-box;
+  opacity:0;pointer-events:none;
+  transition:opacity .5s var(--ease), transform .5s var(--ease);
+  transform:translateX(30px);
+  overflow:hidden;
+}
+.slide.is-active{opacity:1;pointer-events:auto;transform:translateX(0);z-index:2}
+.slide.is-prev{transform:translateX(-30px)}
+
+/* single-page standalone (used when a layout file is opened directly) */
+body.single .slide{position:relative;width:100%;height:100%;opacity:1;transform:none;pointer-events:auto}
+body[data-fit="fluid"].single .slide{width:100vw;height:100vh}
+
+/* ================= TYPOGRAPHY ================= */
+.eyebrow{font-size:13px;font-weight:500;letter-spacing:.16em;text-transform:uppercase;color:var(--text-3)}
+.kicker{font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.08em;text-transform:uppercase}
+h1.title,.h1{font-family:var(--font-display);font-size:72px;line-height:1.05;font-weight:800;letter-spacing:var(--letter-tight);margin:0 0 18px;color:var(--text-1)}
+h2.title,.h2{font-family:var(--font-display);font-size:54px;line-height:1.1;font-weight:700;letter-spacing:var(--letter-tight);margin:0 0 14px}
+h3,.h3{font-size:32px;line-height:1.2;font-weight:600;letter-spacing:var(--letter-normal);margin:0 0 10px}
+h4,.h4{font-size:22px;line-height:1.3;font-weight:600;margin:0 0 8px}
+.lede{font-size:22px;line-height:1.55;color:var(--text-2);font-weight:300;max-width:62ch}
+.dim{color:var(--text-2)}
+.dim2{color:var(--text-3)}
+.mono{font-family:var(--font-mono)}
+.serif{font-family:var(--font-serif)}
+.gradient-text{background:var(--grad);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent}
+
+/* ================= LAYOUT PRIMITIVES ================= */
+.stack>*+*{margin-top:14px}
+.row{display:flex;gap:24px;align-items:center}
+.row.wrap{flex-wrap:wrap}
+.grid{display:grid;gap:24px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+.center{display:flex;align-items:center;justify-content:center;text-align:center}
+.fill{flex:1}
+.sp-t{padding-top:24px}.sp-b{padding-bottom:24px}
+.mt-s{margin-top:8px}.mt-m{margin-top:18px}.mt-l{margin-top:32px}
+.mb-s{margin-bottom:8px}.mb-m{margin-bottom:18px}.mb-l{margin-bottom:32px}
+
+/* ================= CARDS ================= */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:26px 28px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card-soft{background:var(--surface-2);border:1px solid var(--border)}
+.card-outline{background:transparent;border:1.5px solid var(--border-strong);box-shadow:none}
+.card-accent{background:var(--surface);border-top:3px solid var(--accent)}
+.card-hover{transition:transform .3s var(--ease),box-shadow .3s var(--ease)}
+.card-hover:hover{transform:translateY(-4px);box-shadow:var(--shadow-lg)}
+
+.pill{display:inline-block;padding:4px 12px;border-radius:999px;font-size:12px;font-weight:500;
+  background:var(--surface-2);color:var(--text-2);border:1px solid var(--border)}
+.pill-accent{background:color-mix(in srgb,var(--accent) 12%,transparent);color:var(--accent);border-color:color-mix(in srgb,var(--accent) 28%,transparent)}
+
+/* ================= BARS / DIVIDERS ================= */
+.divider{height:1px;background:var(--border);width:100%}
+.divider-accent{height:3px;width:72px;background:var(--accent);border-radius:2px}
+
+/* ================= IMAGES (issue #17) =================
+ * Framing primitives shared by every image-* layout. The frame owns the
+ * aspect ratio and the crop; the <img> just fills it. That's what lets you
+ * swap in a photo of any shape without touching the layout.
+ *   <figure class="img-frame"><img src="…" alt=""></figure>
+ *   .img-frame.contain  -> letterbox instead of crop (screenshots, diagrams,
+ *                          logos — anything where cropping loses information)
+ *   --img-ratio         -> aspect ratio of the frame (default 16/10)
+ *   --img-pos           -> object-position, e.g. "top" to protect a headline
+ */
+.img-frame{position:relative;margin:0;overflow:hidden;
+  border-radius:var(--radius);box-shadow:var(--shadow);background:var(--surface-2);
+  aspect-ratio:var(--img-ratio,16/10)}
+.img-frame > img{width:100%;height:100%;object-fit:cover;object-position:var(--img-pos,center)}
+.img-frame.contain{background:var(--bg-soft);box-shadow:none;border:1px solid var(--border)}
+.img-frame.contain > img{object-fit:contain}
+.img-frame.fill{height:100%;aspect-ratio:auto}
+.img-scrim{position:absolute;inset:0;
+  background:linear-gradient(180deg,transparent 42%,rgba(8,10,20,.72))}
+.img-cap{margin:10px 2px 0;font-size:14px;line-height:1.5;color:var(--text-3)}
+.img-tag{position:absolute;top:14px;left:14px;padding:5px 12px;border-radius:999px;
+  background:rgba(10,12,20,.55);color:#fff;font-size:12px;letter-spacing:.06em;
+  text-transform:uppercase;backdrop-filter:blur(6px)}
+
+/* ================= CHROME (header/footer/progress) ================= */
+.deck-header{position:absolute;top:24px;left:40px;right:40px;display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--text-3);letter-spacing:.12em;text-transform:uppercase;z-index:10;pointer-events:none}
+.deck-footer{position:absolute;bottom:24px;left:40px;right:40px;display:flex;align-items:center;justify-content:space-between;
+  font-size:12px;color:var(--text-3);z-index:10;pointer-events:none}
+.slide-number::before{content:attr(data-current)}
+.slide-number::after{content:" / " attr(data-total)}
+.progress-bar{position:fixed;left:0;right:0;bottom:0;height:3px;background:transparent;z-index:20}
+.progress-bar > span{display:block;height:100%;width:0;background:var(--accent);transition:width .3s var(--ease)}
+
+/* ---- custom logo (issue #11) ----
+ * One logo per deck, drawn over the slide area. Two ways in, same CSS:
+ *   1. hand-author it  -> <img class="deck-logo" data-pos="bottom-right" src="…">
+ *   2. declare it once -> <body data-logo="…" data-logo-position="bottom-right">
+ * (1) needs no JS at all; (2) is created by runtime.js. It lives inside .deck
+ * so it scales with the deck. On an exported PDF it is painted per page by the
+ * @media print block below, not by this element — see the note there. */
+.deck-logo{position:absolute;z-index:11;pointer-events:none;
+  height:var(--logo-size,44px);width:auto;max-width:30%;object-fit:contain;
+  opacity:var(--logo-opacity,.9)}
+.deck-logo[data-pos="top-left"]     {top:var(--logo-inset-y,28px);left:var(--logo-inset-x,40px)}
+.deck-logo[data-pos="top-right"]    {top:var(--logo-inset-y,28px);right:var(--logo-inset-x,40px)}
+.deck-logo[data-pos="bottom-left"]  {bottom:var(--logo-inset-y,28px);left:var(--logo-inset-x,40px)}
+.deck-logo[data-pos="bottom-right"] {bottom:var(--logo-inset-y,28px);right:var(--logo-inset-x,40px)}
+.deck-logo:not([data-pos])          {top:28px;right:40px}
+
+/* ================= PRESENTER / OVERVIEW ================= */
+/* Keep this list in sync with NOTE_SEL in assets/runtime.js — the runtime
+ * reads speaker notes from all of these, so all of them must be hidden
+ * from the audience. */
+.notes,.speaker-notes{display:none!important}
+.notes-overlay{position:fixed;inset:auto 0 0 0;max-height:42vh;background:rgba(20,22,30,.95);color:#e8ebf4;
+  padding:20px 32px;font-size:16px;line-height:1.6;border-top:1px solid rgba(255,255,255,.1);transform:translateY(100%);
+  transition:transform .3s var(--ease);z-index:40;overflow:auto;font-family:var(--font-sans)}
+.notes-overlay.open{transform:translateY(0)}
+.overview{position:fixed;inset:0;background:rgba(10,12,18,.92);backdrop-filter:blur(12px);z-index:50;
+  display:none;padding:40px;overflow:auto}
+.overview.open{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;align-content:start}
+.overview .thumb{background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  aspect-ratio:16/9;overflow:hidden;cursor:pointer;position:relative;color:var(--text-1);padding:16px;
+  font-size:11px;transition:transform .2s var(--ease)}
+.overview .thumb:hover{transform:scale(1.04)}
+.overview .thumb .n{position:absolute;top:8px;left:10px;font-weight:700;font-size:14px;color:var(--text-3)}
+.overview .thumb .t{position:absolute;bottom:10px;left:14px;right:14px;font-weight:600;color:var(--text-1)}
+
+/* ================= PRESENTER VIEW ================= */
+/* Presenter view opens in a separate popup window (S key).
+ * All presenter styles are self-contained in the popup HTML generated by runtime.js.
+ * The audience window (this file) is NOT affected — it stays as normal deck view.
+ * Only the .notes class below is needed to hide speaker notes from audience. */
+
+/* ================= UTILITY ================= */
+.hidden{display:none!important}
+.nowrap{white-space:nowrap}
+.tr{text-align:right}.tc{text-align:center}.tl{text-align:left}
+.uppercase{text-transform:uppercase;letter-spacing:.12em}
+
+/* ================= PRINT ================= */
+@media print{
+  /* Every declaration here is !important on purpose. A template stylesheet
+   * scopes its rules as `.tpl-name .slide`, which is specificity (0,2,0) and
+   * beats a bare `.slide` at (0,1,0) — so without !important a template
+   * silently keeps its screen layout in print. That is how dir-key-nav-minimal
+   * (position:absolute) printed 8 slides onto 1 page and xhs-post printed 9
+   * onto 2: only the opacity/transform declarations on this rule carried
+   * !important, and the ones that decide pagination did not. */
+  body{display:block!important;width:auto!important;height:auto!important;overflow:visible!important}
+  .deck{transform:none!important;width:100%!important;height:auto!important;
+        min-height:0!important;display:block!important}
+  .slide{position:relative!important;inset:auto!important;
+         opacity:1!important;transform:none!important;
+         page-break-after:always;break-after:page;
+         width:100%!important;height:100vh!important;max-height:100vh!important}
+  .slide:last-child{page-break-after:auto;break-after:auto}
+  .deck-header,.deck-footer,.progress-bar,.notes-overlay,.overview{display:none!important}
+
+  /* Logo in print. The .deck-logo element is position:absolute inside .deck,
+   * and print collapses .deck to height:auto with every slide stacked — so the
+   * element can only anchor ONCE against the whole document and lands on a
+   * single page (or none). Hide it and paint the logo per slide instead: in
+   * print one .slide is exactly one page. runtime.js mirrors the image URL and
+   * placement onto .deck (--logo-print / data-logo-print), so this only kicks
+   * in when the runtime is present; a JS-less deck keeps the element. */
+  .deck[data-logo-print] > .deck-logo{display:none!important}
+  .deck[data-logo-print] .slide:not([data-no-logo])::after{
+    content:"";position:absolute;z-index:11;pointer-events:none;
+    width:30%;height:var(--logo-size,44px);
+    background-image:var(--logo-print);background-repeat:no-repeat;
+    background-size:contain;opacity:var(--logo-opacity,.9)}
+  .deck[data-logo-print="top-left"]     .slide:not([data-no-logo])::after{top:var(--logo-inset-y,28px);left:var(--logo-inset-x,40px);background-position:left top}
+  .deck[data-logo-print="top-right"]    .slide:not([data-no-logo])::after{top:var(--logo-inset-y,28px);right:var(--logo-inset-x,40px);background-position:right top}
+  .deck[data-logo-print="bottom-left"]  .slide:not([data-no-logo])::after{bottom:var(--logo-inset-y,28px);left:var(--logo-inset-x,40px);background-position:left bottom}
+  .deck[data-logo-print="bottom-right"] .slide:not([data-no-logo])::after{bottom:var(--logo-inset-y,28px);right:var(--logo-inset-x,40px);background-position:right bottom}
+}
