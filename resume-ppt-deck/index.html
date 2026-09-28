@@ -55,6 +55,15 @@ a.book-web:hover{box-shadow:var(--shadow-lg)}
 .mvp-logo{height:26px;max-width:72px;margin:0 auto 9px;display:block;fill:var(--text-1)}
 /* ---- 第9页图片左下角标注 ---- */
 .img-tag-bl{top:auto;bottom:12px;left:12px;letter-spacing:.02em;max-width:calc(100% - 24px)}
+/* ---- 右上角全屏按钮 ---- */
+#fs-btn{position:fixed;top:12px;right:12px;z-index:60;width:36px;height:36px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;padding:0;cursor:pointer;
+  border:1px solid var(--border);background:color-mix(in srgb,var(--surface) 80%,transparent);
+  color:var(--text-2);backdrop-filter:blur(6px);opacity:.5;transition:opacity .2s,color .2s,border-color .2s}
+#fs-btn:hover{opacity:1;color:var(--accent);border-color:var(--accent)}
+#fs-btn .ic-exit{display:none}
+#fs-btn.is-fs .ic-enter{display:none}
+#fs-btn.is-fs .ic-exit{display:block}
 /* ---- MetaCRM 组织结构图（按原图用 HTML 重建，随主题变色）---- */
 .org-chart{margin:0;position:relative;box-sizing:border-box;aspect-ratio:16/9;width:100%;
   align-self:center;background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius);
@@ -397,5 +406,34 @@ a.book-web:hover{box-shadow:var(--shadow-lg)}
   </section>
 
 </div>
+<button id="fs-btn" type="button" title="全屏（F / 点击）" aria-label="全屏">
+  <svg class="ic-enter" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M15 4h5v5M20 15v5h-5M9 20H4v-5"/></svg>
+  <svg class="ic-exit" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4v5H4M20 9h-5V4M15 20v-5h5M4 15h5v5"/></svg>
+</button>
 <script src="assets/runtime.js"></script>
+<script>
+(function () {
+  var btn = document.getElementById('fs-btn');
+  var doc = document, root = doc.documentElement;
+  function isFs() {
+    return !!(doc.fullscreenElement || doc.webkitFullscreenElement);
+  }
+  function toggle() {
+    if (isFs()) {
+      (doc.exitFullscreen || doc.webkitExitFullscreen).call(doc);
+    } else {
+      var req = root.requestFullscreen || root.webkitRequestFullscreen;
+      if (req) req.call(root);
+    }
+  }
+  function sync() {
+    var fs = isFs();
+    btn.classList.toggle('is-fs', fs);
+    btn.title = fs ? '退出全屏（Esc / 点击）' : '全屏（F / 点击）';
+  }
+  btn.addEventListener('click', toggle);
+  doc.addEventListener('fullscreenchange', sync);
+  doc.addEventListener('webkitfullscreenchange', sync);
+})();
+</script>
 </body></html>
