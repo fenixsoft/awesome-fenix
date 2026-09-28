@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="corporate-clean">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>周志明 · 个人简介</title>
+<link rel="stylesheet" href="assets/fonts.css">
+<link rel="stylesheet" href="assets/base.css">
+<link rel="stylesheet" id="theme-link" href="assets/themes/corporate-clean.css">
+<link rel="stylesheet" href="assets/animations/animations.css">
+<style>
+/* ---- 图文分栏（源自 image-text-split 布局）---- */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:18px;flex:1;min-height:0}
+.split.flip > .col-img{order:2}
+.split > div{display:flex;flex-direction:column;justify-content:center;min-height:0}
+/* ---- 项目档案行 ---- */
+.meta-row{display:flex;gap:14px;margin-top:16px;font-size:15px;line-height:1.55}
+.meta-row .k{flex:0 0 64px;color:var(--text-3);font-weight:600;font-size:13px;padding-top:2px}
+.meta-row .v{color:var(--text-2)}
+/* ---- 迷你统计 ---- */
+.stat-row{display:flex;gap:40px;margin-top:24px}
+.stat-num{font-size:30px;font-weight:800;color:var(--text-1);line-height:1.1;font-variant-numeric:tabular-nums}
+.stat-num .u{font-size:16px;font-weight:600;color:var(--text-2)}
+.stat-cap{font-size:12px;color:var(--text-3);margin-top:4px}
+/* ---- 书架（计算机作家）---- */
+.shelf{display:grid;grid-template-columns:repeat(6,1fr);gap:22px 20px;margin-top:26px}
+.book{min-width:0;display:flex;flex-direction:column}
+.bcover{position:relative;border-radius:8px;overflow:hidden;box-shadow:var(--shadow);
+  height:min(24vh,252px);aspect-ratio:7/10;max-width:100%;background:var(--surface-2)}
+.bcover img{width:100%;height:100%;object-fit:contain;display:block}
+.b-year{font-size:12px;color:var(--text-3);margin-top:9px;font-weight:600;font-variant-numeric:tabular-nums}
+.b-title{font-size:13px;line-height:1.4;color:var(--text-1);margin-top:3px}
+.b-title a{color:inherit;text-decoration:none}
+.b-title a:hover{color:var(--accent)}
+.b-rate{position:absolute;top:7px;right:7px;border-radius:999px;font-size:11px;font-weight:700;
+  padding:2px 8px;background:color-mix(in srgb,var(--text-1) 78%,transparent);color:var(--bg,#fff)}
+.b-rate.hot{background:var(--accent);color:var(--accent-ink)}
+.book-web{height:min(24vh,252px);aspect-ratio:7/10;max-width:100%;box-sizing:border-box;
+  border:1.5px dashed color-mix(in srgb,var(--accent) 50%,transparent);border-radius:8px;
+  background:var(--surface);display:flex;flex-direction:column;overflow:hidden}
+.book-web img{flex:1;min-height:0;width:100%;object-fit:contain;background:var(--bg-soft)}
+.book-web span{font-size:11px;color:var(--text-3);text-align:center;padding:6px 8px;border-top:1px solid var(--border);white-space:nowrap}
+/* ---- 书封/项目卡点击跳转 ---- */
+.blink{display:block;text-decoration:none;color:inherit}
+a.bcover{cursor:pointer}
+a.bcover:hover{box-shadow:var(--shadow-lg)}
+a.book-web{display:flex;text-decoration:none;color:inherit;cursor:pointer}
+a.book-web:hover{box-shadow:var(--shadow-lg)}
+/* ---- 大会列表（业界影响力）---- */
+.talk{display:flex;align-items:baseline;gap:12px;padding:8px 0;border-bottom:1px solid var(--border)}
+.talk:last-child{border-bottom:0}
+.talk .t-role{flex:0 0 118px;font-size:12px;font-weight:700;color:var(--accent)}
+.talk .t-name{font-size:15px;color:var(--text-1);font-weight:500}
+.talk .t-note{font-size:12px;color:var(--text-3);margin-left:auto;white-space:nowrap}
+.mvp-card{padding:14px 12px;text-align:center}
+.mvp-logo{height:26px;max-width:72px;margin:0 auto 9px;display:block;fill:var(--text-1)}
+/* ---- 第9页图片左下角标注 ---- */
+.img-tag-bl{top:auto;bottom:12px;left:12px;letter-spacing:.02em;max-width:calc(100% - 24px)}
+/* ---- MetaCRM 组织结构图（按原图用 HTML 重建，随主题变色）---- */
+.org-chart{margin:0;position:relative;box-sizing:border-box;aspect-ratio:16/9;width:100%;
+  align-self:center;background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:36px 16px 14px;display:flex;flex-direction:column;justify-content:space-between;gap:10px;overflow:hidden}
+.oc-tag{position:absolute;top:12px;left:14px;font-size:11px;font-weight:600;letter-spacing:.02em;
+  color:var(--text-2);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:2px 10px}
+.oc-cap{text-align:center;font-size:12px;font-weight:700;color:var(--text-1);letter-spacing:.08em}
+.oc-band{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 11px 12px;display:flex;flex-direction:column;gap:7px}
+.oc-chips{display:flex;flex-wrap:wrap;gap:6px}
+.oc-chips span{flex:1 1 auto;text-align:center;background:var(--surface);border:1px solid var(--border);
+  border-radius:6px;padding:6px 8px;font-size:12px;line-height:1.3;color:var(--text-2);white-space:nowrap}
+.oc-mid{background:var(--surface);border:2px solid var(--accent);border-radius:8px;padding:13px 12px 15px;display:flex;flex-direction:column;gap:9px}
+.oc-subcap{font-size:12px;font-weight:700;color:var(--accent);margin-bottom:6px}
+.oc-sub{background:var(--surface-2);border-radius:6px;padding:8px}
+.oc-sub .oc-chips span{font-weight:600;color:var(--text-1)}
+.oc-dark span{background:color-mix(in srgb,var(--text-1) 14%,var(--surface-2));border-color:transparent;color:var(--text-1)}
+.oc-bar{text-align:center;background:color-mix(in srgb,var(--text-1) 14%,var(--surface-2));
+  border-radius:6px;padding:10px;font-size:12px;font-weight:700;color:var(--text-1);letter-spacing:.14em}
+/* ---- IPD-IT 分层流程架构图（HTML 重建，随主题变色）---- */
+.ipd-chart{margin:0;position:relative;box-sizing:border-box;aspect-ratio:16/9;width:100%;
+  align-self:center;background:var(--bg-soft);border:1px solid var(--border);border-radius:var(--radius);
+  box-shadow:var(--shadow);padding:42px 14px 12px;display:flex;flex-direction:column;justify-content:space-between;gap:8px;overflow:hidden}
+.ipd-sp{font-size:11px;font-weight:700;color:var(--accent);letter-spacing:.1em}
+.ipd-layer{display:flex;gap:8px;align-items:stretch}
+.ipd-label{flex:0 0 62px;display:flex;align-items:center;justify-content:center;text-align:center;
+  font-size:12px;font-weight:700;color:var(--accent);line-height:1.4}
+.ipd-box{flex:1;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.ipd-head span{font-size:10.5px;padding:4px 5px;background:var(--surface-2);border-color:transparent;color:var(--text-3)}
+.ipd-main{display:flex;gap:7px;align-items:stretch;flex:1}
+.ipd-pre{display:flex;flex-direction:column;gap:7px;flex:0 0 78px}
+.ipd-pre span{flex:1;display:flex;align-items:center;justify-content:center;background:var(--surface-2);border-radius:6px;font-size:11px;color:var(--text-1);font-weight:600;text-align:center}
+.ipd-bars{flex:1;display:flex;flex-direction:column;gap:7px}
+.ipd-bars span{flex:1;display:flex;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--border);border-radius:6px;font-size:11.5px;color:var(--text-1)}
+.ipd-lc{flex:0 0 34px;display:flex;align-items:center;justify-content:center;background:var(--surface-2);border-radius:6px;writing-mode:vertical-rl;font-size:11px;letter-spacing:.25em;color:var(--text-1);font-weight:600}
+.ipd-layer .oc-chips span{font-size:11.5px;padding:7px 8px}
+/* ---- 职责条目（IPD-IT）---- */
+.duty{margin:2px 0 0;padding-left:16px}
+.duty li{margin:5px 0}
+</style>
+</head>
+<body data-themes="corporate-clean,pitch-deck-vc,swiss-grid,minimal-white,editorial-serif,academic-paper,nord,blueprint,tokyo-night,catppuccin-mocha" data-theme-base="assets/themes/">
+<div class="deck">
+
+  <!-- 1. 个人介绍 -->
+  <section class="slide" data-title="个人介绍">
+    <div class="split">
+      <div class="col-text">
+        <div class="anim-stagger-list">
+          <p class="kicker">个人介绍 · Profile</p>
+          <h1 class="h1 anim-fade-up" data-anim="fade-up" style="font-size:64px">周志明<span class="gradient-text">.</span></h1>
+          <p class="lede" style="font-size:20px">机器学习方向博士、华为企业应用教研室主任、<br>华为 22 级专家、任职 7 级专家、计算机技术作家</p>
+          <div class="row wrap mt-m" style="gap:10px">
+            <span class="pill">企业数智化变革</span>
+            <span class="pill">产品管理与研发效能</span>
+            <span class="pill">云原生基础设施</span>
+            <span class="pill">架构与团队管理</span>
+            <span class="pill">研究与影响力构建</span>
+          </div>
+        </div>
+      </div>
+      <div class="col-img anim-fade-right" data-anim="fade-right">
+        <figure class="img-frame" style="--img-ratio:40/51;--img-pos:top;height:min(77vh,700px);width:auto;max-width:100%;align-self:center">
+          <img src="img/icyfenix3.jpg" alt="周志明">
+        </figure>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">icyfenix.cn</span><span class="slide-number" data-current="1" data-total="9"></span></div>
+    <div class="notes">开场：一句话定位 —— 机器学习方向博士、华为企业应用教研室主任、华为 22 级专家、任职 7 级专家、计算机技术作家。五个长期深耕的方向：企业数智化变革、产品管理与研发效能、云原生基础设施、架构与团队管理、研究与影响力构建。</div>
+  </section>
+
+  <!-- 2. Subtitle：项目经历 -->
+  <section class="slide tc center" data-title="项目经历">
+    <div style="max-width:780px;margin:0 auto">
+      <p class="kicker anim-fade-down" data-anim="fade-down">Section · 01</p>
+      <h1 class="h1 anim-rise-in" data-anim="rise-in" style="font-size:104px"><span class="gradient-text">项目经历</span></h1>
+      <div class="divider-accent" style="margin:24px auto"></div>
+      <p class="lede" style="margin:0 auto">MetaERP · MetaCRM · IPD-IT 流程优化</p>
+    </div>
+    <div class="deck-footer"><span class="dim2">项目经历</span><span class="slide-number" data-current="2" data-total="9"></span></div>
+    <div class="notes">过渡页：接下来依次介绍三段代表性项目经历 —— MetaERP、MetaCRM、IPD-IT 流程优化。</div>
+  </section>
+
+  <!-- 3. MetaERP 项目 -->
+  <section class="slide" data-title="MetaERP 项目">
+    <div class="split flip">
+      <div class="col-img anim-fade-right" data-anim="fade-right">
+        <figure class="img-frame" style="--img-ratio:16/10;width:100%;height:auto">
+          <img src="img/metaerp.jpg" alt="MetaERP 庆功现场">
+          <span class="img-tag">华为 MetaERP</span>
+        </figure>
+      </div>
+      <div class="col-text">
+        <p class="kicker">项目经历 · 01 · MetaERP</p>
+        <h2 class="h2" style="font-size:37px">MetaERP：国内首个适配国际化<br>集团业务的大型 ERP 系统</h2>
+        <p class="lede" style="font-size:16px">2019 年，面对外部环境的压力和自身业务挑战，华为决定启动对旧有 ERP 系统替换，并开启研发自主可控的 MetaERP 系统。作为华为有史以来牵涉面最广、复杂性最高的项目，三年来，华为投入数千人，联合产业伙伴和生态伙伴攻坚克难，研发出面向未来的超大规模云原生的 MetaERP，并成功完成对旧有 ERP 系统的替换。</p>
+        <div class="stat-row">
+          <div><div class="stat-num">7.58<span class="u"> 亿美元</span></div><div class="stat-cap">总投资</div></div>
+          <div><div class="stat-num">5000<span class="u"> 名</span></div><div class="stat-cap">开发与业务人员</div></div>
+          <div><div class="stat-num">3<span class="u"> 年</span></div><div class="stat-cap">完成建设</div></div>
+          <div><div class="stat-num">5<span class="u"> 年</span></div><div class="stat-cap">完成全球替换</div></div>
+        </div>
+        <div class="meta-row"><span class="k">角色</span><span class="v"><strong>总工程师</strong></span></div>
+        <div class="meta-row"><span class="k">职责</span><span class="v">技术规划 · 总体架构设计 · 技术团队管理 · 研发效能</span></div>
+        <div class="meta-row"><span class="k">技术</span><span class="v">华为云 CCE · 元戎 Serverless · GaussDB · MetaDSL 扩展 · MetaOQL 元数据引擎</span></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">项目经历</span><span class="slide-number" data-current="3" data-total="9"></span></div>
+    <div class="notes">重点讲三件事：规模（7.58 亿美元、5000 人、3+5 年）、架构差异化（超大规模云原生 vs 传统单体 ERP）、个人角色（总工程师，负责技术规划与总体架构）。</div>
+  </section>
+
+  <!-- 4. MetaCRM 项目 -->
+  <section class="slide" data-title="MetaCRM 项目">
+    <div class="split flip">
+      <div class="col-img anim-fade-right" data-anim="fade-right">
+        <figure class="org-chart" role="img" aria-label="华为集团职能平台与多产业组织结构示意图">
+          <span class="oc-tag">华为 · 多产业并立</span>
+          <div class="oc-bar">区域组织</div>
+          <div class="oc-mid">
+            <div class="oc-sub">
+              <div class="oc-subcap">ICT 基础设施业务</div>
+              <div class="oc-chips"><span>运营商业务</span><span>企业业务</span><span>ICT 基础设施产业</span></div>
+            </div>
+            <div class="oc-chips oc-dark"><span>终端业务</span><span>华为云计算</span><span>数字能源</span><span>智能汽车解决方案业务</span><span>海思</span></div>
+          </div>
+          <div class="oc-band">
+            <div class="oc-cap">集团职能平台</div>
+            <div class="oc-chips"><span>人力资源</span><span>财经</span><span>战略</span><span>企业发展</span><span>质量与流程 IT</span><span>网络安全与隐私保护</span></div>
+            <div class="oc-chips"><span>干部管理</span><span>公共及政府事务</span><span>法务</span><span>内部审计</span><span>道德遵从</span></div>
+            <div class="oc-chips"><span>2012 实验室</span><span>供应体系</span><span>后勤服务</span></div>
+          </div>
+        </figure>
+      </div>
+      <div class="col-text">
+        <p class="kicker">项目经历 · 02 · MetaCRM</p>
+        <h2 class="h2" style="font-size:37px">MetaCRM：一套公共能力支撑<br>多产业快速发展的探索</h2>
+        <p class="lede" style="font-size:16px">解决华为多产业在一套公共能力、公共平台下相互协同的试验局项目。各个产业既有各自的流程与业务能力层面上的差异，也有着大量共性。过去各产业独立建设、独立发展，通过 MetaCRM 项目，尝试在首先营销服域上将共性能力下放，把能力平台做强。既满足数据同源，管理统一，也能够支撑多个产业快速发展。</p>
+        <div class="meta-row"><span class="k">角色</span><span class="v"><strong>总工程师 / 总体组组长</strong></span></div>
+        <div class="meta-row"><span class="k">职责</span><span class="v">技术之外，代表总体组与各产业的 PO、BCO 对接</span></div>
+        <div class="meta-row"><span class="k">技术</span><span class="v">元数据多租户扩展 · EBC/PBC 能力组装架构</span></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">项目经历</span><span class="slide-number" data-current="4" data-total="9"></span></div>
+    <div class="notes">右图是华为组织结构示意：各产业（ICT 基础设施、终端、云计算、数字能源、智能汽车、海思）并立，共享集团职能平台与区域组织 —— 这正是"一套公共能力支撑多产业"的背景。强调"试验局"定位：先在营销服域验证共性能力下沉。</div>
+  </section>
+
+  <!-- 5. IPD-IT 流程变革项目 -->
+  <section class="slide" data-title="IPD-IT 流程变革">
+    <div class="split flip">
+      <div class="col-img anim-fade-right" data-anim="fade-right">
+        <figure class="ipd-chart" role="img" aria-label="IPD 产品实现分层流程架构示意图">
+          <span class="oc-tag">IPD · 产品实现分层流程架构</span>
+          <div class="ipd-sp">SP/BP ↓</div>
+          <div class="ipd-layer">
+            <div class="ipd-label">主业务<br>流程</div>
+            <div class="ipd-box">
+              <div class="oc-chips ipd-head"><span>任务书开发</span><span>概念</span><span>计划</span><span>开发</span><span>验证</span><span>发布</span><span>生命周期</span></div>
+              <div class="ipd-main">
+                <div class="ipd-pre"><span>立标开发</span><span>Charter 开发</span></div>
+                <div class="ipd-bars"><span>解决方案开发</span><span>产品 / 平台开发</span><span>解决方案 · 产品合作开发</span><span>服务产品开发</span></div>
+                <div class="ipd-lc">生命周期管理</div>
+              </div>
+            </div>
+          </div>
+          <div class="ipd-layer">
+            <div class="ipd-label">功能领域<br>支撑流程</div>
+            <div class="ipd-box"><div class="oc-chips"><span>营销计划</span><span>研发</span><span>供应链 / 制造导入</span><span>研发采购</span><span>服务导入</span><span>财经导入</span></div></div>
+          </div>
+          <div class="ipd-layer">
+            <div class="ipd-label">基础<br>支撑流程</div>
+            <div class="ipd-box">
+              <div class="oc-chips"><span>需求管理</span><span>市场管理</span><span>定价</span><span>成本管理</span><span>技术管理制度</span></div>
+              <div class="oc-chips"><span>产品战略管理</span><span>配置管理</span><span>质量管理制度</span><span>项目及组合管理</span><span>合作管理</span></div>
+            </div>
+          </div>
+        </figure>
+      </div>
+      <div class="col-text">
+        <p class="kicker">项目经历 · 03 · IPD-IT 流程变革</p>
+        <h2 class="h2" style="font-size:37px">IPD-IT：传统 IT 研发流程<br>在 AI 时代的转型变革</h2>
+        <p class="lede" style="font-size:16px">推动华为传统的 IT 研发模式向 AI 转型，主导搭建以智能化为基础的研发体系，探索在 AI 场景下，企业产品的设计、实现、评估等过程的变革，并将技术创新转化为落地成果，最终固化为企业的价值流和使能流。以此为目标，通过平台技术、任职资格、赋能计划等手段，牵引企业 IT 研发人员向 AI 方向转型。</p>
+        <div class="meta-row"><span class="k">角色</span><span class="v"><strong>架构设计 COE Leader / 系统设计 BCO</strong></span></div>
+        <div class="meta-row"><span class="k">职责</span><span class="v">
+          <ul class="duty">
+            <li>作为系统设计能力负责人，深度参与了华为 IPD-IT 流程建设项目，牵引 IPD 流程向智能化转型。</li>
+            <li>作为华为 IT 软件开发专业方向最高级别的专家（任职 7 级）和任职资格组长，推动 AI 对软件架构设计、开发实现等方面的效能改进，制定 AI 技术赋能企业研发的策略。</li>
+          </ul>
+        </span></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">项目经历</span><span class="slide-number" data-current="5" data-total="9"></span></div>
+    <div class="notes">右图是 IPD 产品实现的分层流程架构：主业务流程（概念→计划→开发→验证→发布）、功能领域支撑流程、基础支撑流程三层。讲两点：一是把 AI 变革固化进这套流程体系（价值流/使能流），二是以任职 7 级专家和任职资格组长身份，通过平台技术、任职资格、赋能计划牵引 IT 研发人员转型。</div>
+  </section>
+
+  <!-- 6. Subtitle：个人总结 -->
+  <section class="slide tc center" data-title="个人总结">
+    <div style="max-width:780px;margin:0 auto">
+      <p class="kicker anim-fade-down" data-anim="fade-down">Section · 02</p>
+      <h1 class="h1 anim-rise-in" data-anim="rise-in" style="font-size:104px"><span class="gradient-text">个人总结</span></h1>
+      <div class="divider-accent" style="margin:24px auto"></div>
+      <p class="lede" style="margin:0 auto">技术写作 · 业界影响力 · 研究与产学研</p>
+    </div>
+    <div class="deck-footer"><span class="dim2">个人总结</span><span class="slide-number" data-current="6" data-total="9"></span></div>
+    <div class="notes">过渡页：项目经历之外，再从技术写作、业界影响力与学术研究三个方面做一个总结。</div>
+  </section>
+
+  <!-- 7. 业界影响力 -->
+  <section class="slide" data-title="业界影响力">
+    <p class="kicker">业界影响力 · Influence</p>
+    <h2 class="h2" style="font-size:42px">国内三大云厂商最具价值技术专家、技术布道师</h2>
+    <div class="split" style="grid-template-columns:1.05fr 1fr;gap:44px;margin-top:8px;flex:0 0 auto">
+      <div class="col-text">
+        <div class="grid g3" style="gap:14px">
+          <div class="card card-soft mvp-card"><svg class="mvp-logo" viewBox="0 0 24 24" role="img" aria-label="阿里巴巴"><path d="M3.996 4.517h5.291L8.01 6.324 4.153 7.506a1.668 1.668 0 0 0-1.165 1.601v5.786a1.668 1.668 0 0 0 1.165 1.6l3.857 1.183 1.277 1.807H3.996A3.996 3.996 0 0 1 0 15.487V8.513a3.996 3.996 0 0 1 3.996-3.996m16.008 0h-5.291l1.277 1.807 3.857 1.182c.715.227 1.17.889 1.165 1.601v5.786a1.668 1.668 0 0 1-1.165 1.6l-3.857 1.183-1.277 1.807h5.291A3.996 3.996 0 0 0 24 15.487V8.513a3.996 3.996 0 0 0-3.996-3.996m-4.007 8.345H8.002v-1.804h7.995Z"/></svg><h4 style="margin:0;font-size:16px">阿里云 <span style="color:var(--accent)">MVP</span></h4><p class="dim2" style="font-size:12px;margin:4px 0 0">最有价值技术专家</p></div>
+          <div class="card card-soft mvp-card"><svg class="mvp-logo" viewBox="0 0 24 24" role="img" aria-label="腾讯"><path d="M21.395 15.035a40 40 0 0 0-.803-2.264l-1.079-2.695c.001-.032.014-.562.014-.836C19.526 4.632 17.351 0 12 0S4.474 4.632 4.474 9.241c0 .274.013.804.014.836l-1.08 2.695a39 39 0 0 0-.802 2.264c-1.021 3.283-.69 4.643-.438 4.673.54.065 2.103-2.472 2.103-2.472 0 1.469.756 3.387 2.394 4.771-.612.188-1.363.479-1.845.835-.434.32-.379.646-.301.778.343.578 5.883.369 7.482.189 1.6.18 7.14.389 7.483-.189.078-.132.132-.458-.301-.778-.483-.356-1.233-.646-1.846-.836 1.637-1.384 2.393-3.302 2.393-4.771 0 0 1.563 2.537 2.103 2.472.251-.03.581-1.39-.438-4.673"/></svg><h4 style="margin:0;font-size:16px">腾讯云 <span style="color:var(--accent)">TVP</span></h4><p class="dim2" style="font-size:12px;margin:4px 0 0">最有价值技术专家</p></div>
+          <div class="card card-soft mvp-card"><svg class="mvp-logo" viewBox="0 0 24 24" role="img" aria-label="华为"><path d="M3.67 6.14S1.82 7.91 1.72 9.78v.35c.08 1.51 1.22 2.4 1.22 2.4 1.83 1.79 6.26 4.04 7.3 4.55 0 0 .06.03.1-.01l.02-.04v-.04C7.52 10.8 3.67 6.14 3.67 6.14zM9.65 18.6c-.02-.08-.1-.08-.1-.08l-7.38.26c.8 1.43 2.15 2.53 3.56 2.2.96-.25 3.16-1.78 3.88-2.3.06-.05.04-.09.04-.09zm.08-.78C6.49 15.63.21 12.28.21 12.28c-.15.46-.2.9-.21 1.3v.07c0 1.07.4 1.82.4 1.82.8 1.69 2.34 2.2 2.34 2.2.7.3 1.4.31 1.4.31.12.02 4.4 0 5.54 0 .05 0 .08-.05.08-.05v-.06c0-.03-.03-.05-.03-.05zM9.06 3.19a3.42 3.42 0 00-2.57 3.15v.41c.03.6.16 1.05.16 1.05.66 2.9 3.86 7.65 4.55 8.65.05.05.1.03.1.03a.1.1 0 00.06-.1c1.06-10.6-1.11-13.42-1.11-13.42-.32.02-1.19.23-1.19.23zm8.299 2.27s-.49-1.8-2.44-2.28c0 0-.57-.14-1.17-.22 0 0-2.18 2.81-1.12 13.43.01.07.06.08.06.08.07.03.1-.03.1-.03.72-1.03 3.9-5.76 4.55-8.64 0 0 .36-1.4.02-2.34zm-2.92 13.07s-.07 0-.09.05c0 0-.01.07.03.1.7.51 2.85 2 3.88 2.3 0 0 .16.05.43.06h.14c.69-.02 1.9-.37 3-2.26l-7.4-.25zm7.83-8.41c.14-2.06-1.94-3.97-1.94-3.98 0 0-3.85 4.66-6.67 10.8 0 0-.03.08.02.13l.04.01h.06c1.06-.53 5.46-2.77 7.28-4.54 0 0 1.15-.93 1.21-2.42zm1.52 2.14s-6.28 3.37-9.52 5.55c0 0-.05.04-.03.11 0 0 .03.06.07.06 1.16 0 5.56 0 5.67-.02 0 0 .57-.02 1.27-.29 0 0 1.56-.5 2.37-2.27 0 0 .73-1.45.17-3.14z"/></svg><h4 style="margin:0;font-size:16px">华为云 <span style="color:var(--accent)">MVP</span></h4><p class="dim2" style="font-size:12px;margin:4px 0 0">最有价值技术专家</p></div>
+        </div>
+        <div class="mt-m">
+          <div class="talk"><span class="t-role">主题明星讲师</span><span class="t-name">QCon 全球软件开发大会</span></div>
+          <div class="talk"><span class="t-role">主题演讲嘉宾</span><span class="t-name">ArchSummit 全球架构师峰会</span></div>
+          <div class="talk"><span class="t-role">专题讲师</span><span class="t-name">HuaweiConnect 华为全连接大会</span></div>
+          <div class="talk"><span class="t-role">会议主席</span><span class="t-name">Java 核心技术大会</span></div>
+          <div class="talk"><span class="t-role">撰稿人</span><span class="t-name">IBM DeveloperWorks 撰稿人</span></div>
+          <div class="talk"><span class="t-role">撰稿人</span><span class="t-name">InfoQ.CN 专栏撰稿人</span></div>
+          <div class="talk"><span class="t-role">布道师</span><span class="t-name">极客时间布道师</span></div>
+          <div class="talk"><span class="t-role">课程讲师</span><span class="t-name">华章 20 周年课程讲师</span></div>
+        </div>
+      </div>
+      <div class="col-img anim-fade-right" data-anim="fade-right" style="gap:16px">
+        <figure class="img-frame" style="--img-ratio:3/2;height:min(26vh,270px);width:100%">
+          <img src="img/influence-1.jpg" alt="ArchSummit 演讲现场">
+          <span class="img-tag">ArchSummit · 主题演讲</span>
+        </figure>
+        <figure class="img-frame" style="--img-ratio:3/2;height:min(26vh,270px);width:100%">
+          <img src="img/influence-2.jpg" alt="QCon 会场">
+          <span class="img-tag">QCon · 全球软件开发大会</span>
+        </figure>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">业界影响力</span><span class="slide-number" data-current="7" data-total="9"></span></div>
+    <div class="notes">同时获得阿里云 MVP、腾讯云 TVP、华为云 MVP 三大厂商最具价值专家认证；演讲经历覆盖 QCon、ArchSummit、华为全连接大会并担任 Java 核心技术大会主席；布道经历包括 IBM DeveloperWorks、InfoQ.CN 撰稿，极客时间布道师与华章 20 周年课程讲师。照片为 ArchSummit 与 QCon 演讲现场。</div>
+  </section>
+
+  <!-- 8. 计算机作家 -->
+  <section class="slide" data-title="计算机作家">
+    <p class="kicker">技术写作 · Author</p>
+    <h2 class="h2" style="font-size:42px">计算机作家：十五年 · 九部专著</h2>
+    <p class="lede" style="font-size:18px;margin-top:4px;white-space:nowrap">优秀的归纳总结与文字写作能力，六部作品豆瓣评分 9.0 及以上，两部开源文档业内流传。</p>
+    <div class="shelf anim-stagger-list" data-anim-target>
+      <div class="book">
+        <a class="book-web blink" href="https://ai.icyfenix.cn" target="_blank"><img src="img/dmla-sshot.png" alt="设计机器学习应用系统站点"><span>撰写中 · ai.icyfenix.cn</span></a>
+        <div class="b-year">2026 · 进行中</div>
+        <div class="b-title"><a href="https://ai.icyfenix.cn" target="_blank">设计机器学习应用系统</a></div>
+      </div>
+      <div class="book">
+        <a class="bcover blink" href="https://book.douban.com/subject/37357392/" target="_blank"><img src="img/zhihui2.jpg" alt="智慧的疆界（第二版）封面"><span class="b-rate hot">9.1</span></a>
+        <div class="b-year">2025</div>
+        <div class="b-title"><a href="https://book.douban.com/subject/37357392/" target="_blank">智慧的疆界：从图灵机到人工智能（第二版）</a></div>
+      </div>
+      <div class="book">
+        <a class="bcover blink" href="https://icyfenix.cn/introduction/about-book.html" target="_blank"><img src="img/fenix-arch.png" alt="凤凰架构封面"><span class="b-rate hot">9.4</span></a>
+        <div class="b-year">2021</div>
+        <div class="b-title"><a href="https://icyfenix.cn/introduction/about-book.html" target="_blank">凤凰架构：构建可靠的大型软件系统</a></div>
+      </div>
+      <div class="book">
+        <a class="book-web blink" href="https://icyfenix.cn/" target="_blank"><img src="img/fenix-sshot.png" alt="软件架构探索站点"><span>开源文档 · icyfenix.cn</span></a>
+        <div class="b-year">2020 · 开源文档</div>
+        <div class="b-title"><a href="https://icyfenix.cn/" target="_blank">软件架构探索：The Fenix Project</a></div>
+      </div>
+      <div class="book">
+        <a class="bcover blink" href="https://book.douban.com/subject/34907497/" target="_blank"><img src="img/jvm3.jpg" alt="深入理解Java虚拟机（第三版）封面"><span class="b-rate hot">9.5</span></a>
+        <div class="b-year">2019</div>
+        <div class="b-title"><a href="https://book.douban.com/subject/34907497/" target="_blank">深入理解 Java 虚拟机（第三版）</a></div>
+      </div>
+      <div class="book">
+        <a class="bcover blink" href="https://book.douban.com/subject/30379536/" target="_blank"><img src="img/zhihui1.jpg" alt="智慧的疆界封面"><span class="b-rate hot">9.4</span></a>
+        <div class="b-year">2018</div>
+        <div class="b-title"><a href="https://book.douban.com/subject/30379536/" target="_blank">智慧的疆界：从图灵机到人工智能</a></div>
+      </div>
+      <div class="book">
+        <a class="bcover blink" href="https://book.douban.com/subject/24722612/" target="_blank"><img src="img/jvm2.jpg" alt="深入理解Java虚拟机（第二版）封面"><span class="b-rate hot">9.1</span></a>
+        <div class="b-year">2016</div>
+        <div class="b-title"><a href="https://book.douban.com/subject/24722612/" target="_blank">深入理解 Java 虚拟机（第二版）</a></div>
+      </div>
+      <div class="book">
+        <a class="bcover blink" href="https://book.douban.com/subject/26418340/" target="_blank"><img src="img/jvmspec8.jpg" alt="Java虚拟机规范 SE8 封面"><span class="b-rate">8.2</span></a>
+        <div class="b-year">2015</div>
+        <div class="b-title"><a href="https://book.douban.com/subject/26418340/" target="_blank">Java 虚拟机规范（Java SE 8 中文版）</a></div>
+      </div>
+      <div class="book">
+        <a class="bcover blink" href="https://book.douban.com/subject/25792515/" target="_blank"><img src="img/jvmspec7.jpg" alt="Java虚拟机规范 SE7 封面"><span class="b-rate hot">9.0</span></a>
+        <div class="b-year">2014</div>
+        <div class="b-title"><a href="https://book.douban.com/subject/25792515/" target="_blank">Java 虚拟机规范（Java SE 7 中文版）</a></div>
+      </div>
+      <div class="book">
+        <a class="bcover blink" href="https://book.douban.com/subject/21324330/" target="_blank"><img src="img/osgi.jpg" alt="深入理解OSGi封面"><span class="b-rate">7.7</span></a>
+        <div class="b-year">2013</div>
+        <div class="b-title"><a href="https://book.douban.com/subject/21324330/" target="_blank">深入理解 OSGi：Equinox 原理、应用与最佳实践</a></div>
+      </div>
+      <div class="book">
+        <a class="bcover blink" href="https://book.douban.com/subject/6522893/" target="_blank"><img src="img/jvm1.jpg" alt="深入理解Java虚拟机（第一版）封面"><span class="b-rate">8.6</span></a>
+        <div class="b-year">2011</div>
+        <div class="b-title"><a href="https://book.douban.com/subject/6522893/" target="_blank">深入理解 Java 虚拟机（第一版）</a></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">技术写作</span><span class="slide-number" data-current="8" data-total="9"></span></div>
+    <div class="notes">书架按时间倒序：从 2011 年 JVM 第一版到 2026 年进行中的机器学习新书。重点提《深入理解 Java 虚拟机》三代 9 分以上、凤凰架构开源文档与图书的双线影响力。</div>
+  </section>
+
+  <!-- 9. 创新研究与高校合作 -->
+  <section class="slide" data-title="创新研究与高校合作">
+    <div class="split flip">
+      <div class="col-img anim-fade-right" data-anim="fade-right" style="gap:14px">
+        <figure class="img-frame" style="--img-ratio:3/2;--img-pos:top;height:min(26vh,270px);width:100%">
+          <img src="img/research.jpg" alt="校企交流合影">
+          <span class="img-tag img-tag-bl">华为监事会主席 / CIO 陶景文与清华大学、南科大教授交流</span>
+        </figure>
+        <figure class="img-frame" style="--img-ratio:3/2;height:min(26vh,270px);width:100%">
+          <img src="img/research-2.jpg" alt="华为园区交流合影">
+          <span class="img-tag img-tag-bl">南科大商学院创院院长黄伟教授到华为交流</span>
+        </figure>
+      </div>
+      <div class="col-text">
+        <p class="kicker">研究与产学研 · Research</p>
+        <h2 class="h2" style="font-size:44px">创新研究与高校合作</h2>
+        <p class="lede" style="font-size:16px">博士，攻读博士期间，曾在徐宗本院士（西交大）、刘良院士（澳科大）的项目团队中工作，研究方向机器学习 - 自动化特征选择。</p>
+        <p class="lede" style="font-size:16px;margin:6px 0 18px">负责下一代新技术的探索与创新，以及公司与高校、科研院所合作项目的管理，拓展并维护国内外高校及学术团体的合作关系。</p>
+        <div class="meta-row"><span class="k">现任</span><span class="v"><strong>华为企业应用教研室主任</strong></span></div>
+        <div class="meta-row"><span class="k">曾任</span><span class="v">远光软件研究院院长 · 澳科大-远光人工智能联合实验室主任</span></div>
+        <div class="meta-row"><span class="k">成果</span><span class="v">
+          <ul class="duty" style="font-size:14px">
+            <li>与清华大学、南方科技大学、西安交通大学、澳门科技大学等多所高校建有校企联合项目或联合实验室</li>
+            <li>发表 SCI、EI、核心期刊论文 9 篇，其中 SCI 一作 2 篇，并有国家发明专利 11 项</li>
+            <li>主持并完成粤港澳大湾区合作专项、产业核心和关键技术攻关项目以及央企科技项目共 13 项，参与国家 863 课题 1 项，曾获广东省科技厅百万科研经费资助</li>
+          </ul>
+        </span></div>
+      </div>
+    </div>
+    <div class="deck-footer"><span class="dim2">研究与产学研</span><span class="slide-number" data-current="9" data-total="9"></span></div>
+    <div class="notes">收尾回到学术身份：博士期间在徐宗本院士（西交大）、刘良院士（澳科大）团队研究机器学习-自动化特征选择；学术成果四件事——多所高校联合实验室/项目、9 篇论文 + 11 项专利、主持 13 项纵向/央企项目 + 863 课题、广东省科技厅百万经费资助。产学研资源可以反哺工程团队。</div>
+  </section>
+
+</div>
+<script src="assets/runtime.js"></script>
+</body></html>
